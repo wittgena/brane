@@ -10,8 +10,8 @@ from phase.bind.resolver import find_current_self, resolve_path
 from watcher.plane.emitter import get_emitter
 from arch.contract.exp.atomic import parse_iso
 from arch.contract.registry.static import static_registry
-from gov.gateway.check.lineage import LineageManager
-from gov.gateway.check.iso import (
+from gov.gateway.policy.check.lineage import LineageManager
+from gov.gateway.policy.check.iso import (
     SystemVersion, RibosValidator, NEXUS_OUTPUT_SCHEMA,
     receive_adapter, transcribe, self_check
 )
