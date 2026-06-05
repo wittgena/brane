@@ -7,7 +7,7 @@ import shutil
 import tarfile
 from pathlib import Path
 from typing import Optional
-from hub.comm.broker import RedisBroker, SporeManifest
+from nexus.hub.comm.broker import RedisBroker, SporeManifest
 from meta.xor.residue.drop import DeadDropper
 
 log = logging.getLogger("node_agent")

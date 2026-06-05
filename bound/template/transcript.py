@@ -1,13 +1,11 @@
 # bound.template.transcript
-## @lineage: hub.model.template.transcript
-## @lineage: gov.hub.gene.transcript
 import asyncio
 import logging
 import inspect
 from typing import Any, Dict, List, Optional
 from pathlib import Path
 from arch.proto.phase.flow import ProtoFlow, FlowState, Transduction, Align
-from watcher.plane.emitter import get_logger
+from watcher.plane.emitter import get_emitter
 from dataclasses import dataclass, field
 from phase.bind.resolver import find_current_self, resolve_path
 from arch.contract.registry.unified import registry, contract
@@ -16,7 +14,7 @@ from phase.hub.ator.bootstrap import bootstrap
 from phase.runtime.node import NodeRuntime
 
 SPEC_ROOT = resolve_path("spec")
-log = logging.getLogger("spec.transcript")
+log = get_emitter("template.transcript")
 
 XPHI = {
     "entry": "transcriptor",

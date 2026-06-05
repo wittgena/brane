@@ -1,20 +1,4 @@
 # hub.sphere.validator.resonance
-## @lineage: sphere.validator.resonance
-## @lineage: debugger.sphere.validator.resonance
-## @lineage: debug.sphere.validator.resonance
-## @lineage: bound.sphere.validator.resonance
-## @lineage: gov.sphere.validator.resonance
-## @lineage: iso.sphere.validator.resonance
-## @lineage: iso.validator.resonance
-## @lineage: iso.domain.validator.resonance
-## @lineage: topos.validator.resonance
-## @lineage: xor.validator.resonance
-## @lineage: xyz.xor.validator.resonance
-## @lineage: watcher.validator.resonance
-## @lineage: phase.watcher.validator.resonance
-## @lineage: meta.watcher.validator.resonance
-## @lineage: topos.bound.resonator.validator
-## @lineage: phase.reflect.resonator.validator
 import asyncio
 import inspect
 from pathlib import Path

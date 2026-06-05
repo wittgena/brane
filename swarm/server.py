@@ -6,12 +6,13 @@ import logging
 import sys
 from pathlib import Path
 import tyro
+from watcher.plane.emitter import get_emitter
 
-log = logging.getLogger("node.learner")
+log = get_emitter("swarm.server")
 
 try:
-    from meta.xor.grpo import GRPO
-    from bound.gov.scope.module.meta import Module
+    from meta.xor.opt.grpo import GRPO
+    from nexus.bound.gov.scope.module.meta import Module
     from meta.ops.evaluator.evaluate import Evaluate
     HAS_GRPO = True
 except ImportError:

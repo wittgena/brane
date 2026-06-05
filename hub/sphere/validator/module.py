@@ -20,7 +20,7 @@ from watcher.plane.emitter import get_emitter
 from arch.contract.registry.unified import cli_contract
 from arch.xor.block.parser.md import MdAstParser
 from arch.xor.block.extractor import BlockExtractor
-from hub.sphere.validator.promql import MarkdownConfigExtractor, PromQLValidator, LoopTopologyValidator
+from nexus.hub.sphere.validator.promql import MarkdownConfigExtractor, PromQLValidator, LoopTopologyValidator
 
 log = get_emitter("validator.module")
 

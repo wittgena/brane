@@ -13,8 +13,8 @@ import yaml
 from pathlib import Path
 from kubernetes import client, config
 from watcher.plane.emitter import get_emitter
-from swarm.kube.deploy import OCIArtifactManager
-from swarm.kube.transcript import TranscriptEngine, Projector
+from nexus.swarm.kube.deploy import OCIArtifactManager
+from nexus.swarm.kube.transcript import TranscriptEngine, Projector
 
 log = get_emitter("kube.operator")
 

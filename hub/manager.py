@@ -9,11 +9,11 @@ from watcher.plane.emitter import get_emitter
 from arch.contract.exp.promise import future
 from arch.contract.exp.atomic import sha256_file
 from meta.xor.opt.optuna import OptunaOptimizer
-from hub.gene.capsule import CapsuleBuilder, CapsuleContext 
-from hub.gene.mutator import SwarmMutator
-from hub.gene.sharder import DataSharder
-from hub.gene.tracker import TribunalValidator, LineageTracker
-from hub.comm.broker import RedisBroker, SporeManifest
+from nexus.hub.gene.capsule import CapsuleBuilder, CapsuleContext 
+from nexus.hub.gene.mutator import SwarmMutator
+from nexus.hub.gene.sharder import DataSharder
+from nexus.hub.gene.tracker import TribunalValidator, LineageTracker
+from nexus.hub.comm.broker import RedisBroker, SporeManifest
 from meta.xor.residue.drop import DeadDropper
 from phase.bind.resolver import resolve_path
 

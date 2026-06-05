@@ -17,7 +17,7 @@ from phase.dynamics.loop.carrier import LoopCarrier
 from phase.dynamics.executor import DynamicsExecutor
 from arch.topos.edge.treg import FrameRegistry, TregEdge, PhaseState
 from arch.topos.edge.trajectory import SignatureBound, TrajectoryXor
-from hub.sphere.validator.contract import ContractValidator
+from nexus.hub.sphere.validator.contract import ContractValidator
 from arch.contract.proposer import execute_proposer
 
 class SphereOrganizer:

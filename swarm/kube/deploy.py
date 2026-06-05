@@ -17,8 +17,8 @@ from pathlib import Path
 from typing import Optional
 from watcher.plane.emitter import get_emitter
 from phase.bind.resolver import find_current_self, resolve_path
-from swarm.kube.transcript import TranscriptEngine, Projector
-from hub.sphere.validator.compose import FlowValidator, SelfExtractor
+from nexus.swarm.kube.transcript import TranscriptEngine, Projector
+from nexus.hub.sphere.validator.compose import FlowValidator, SelfExtractor
 
 log = get_emitter("kube.deploy")
 

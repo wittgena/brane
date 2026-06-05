@@ -10,8 +10,8 @@ from watcher.plane.emitter import get_emitter
 from phase.bind.resolver import resolve_path
 from arch.topic.logic.transformer import LogicTransformer
 from arch.proto.context.signature import ProtoSignature
-from meta.debug.task.template import GraphSchema, MetaModel, NodeData
-from meta.debug.task.optimizer import TaskOptimizer
+from nexus.hub.task.template import GraphSchema, MetaModel, NodeData
+from nexus.hub.task.optimizer import TaskOptimizer
 
 MODEL_ROOT = resolve_path("model")
 log = get_emitter("exchange.dynamics")

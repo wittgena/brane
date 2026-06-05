@@ -12,7 +12,7 @@ import time
 from dataclasses import dataclass
 from typing import Dict
 from watcher.plane.emitter import get_emitter
-from hub.sphere.observer.snapshot import MetricsSnapshot, CloudEnv
+from nexus.hub.sphere.observer.snapshot import MetricsSnapshot, CloudEnv
 
 log = get_emitter("cloud.projector")
 

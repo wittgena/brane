@@ -1,13 +1,10 @@
 # swarm.eval.infer
-## @lineage: hub.nexus.flow.eval.infer
-## @lineage: meta.xor.infer
-## @lineage: xor.opt.infer
 import logging
 import random
 import numpy as np
 from meta.ops.evaluator.evaluate import Evaluate
 from meta.ops.predictor.cot import ChainOfThought
-from meta.xor.prompter.fewshot.bootstrap import BootstrapFewShot
+from meta.xor.opt.prompter.fewshot.bootstrap import BootstrapFewShot
 from arch.xor.manifold.sign.signature import Signature
 from arch.xor.manifold.sign.field import InputField, OutputField
 from watcher.plane.emitter import get_emitter

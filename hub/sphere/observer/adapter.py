@@ -23,8 +23,8 @@ from arch.contract.interface import (
     IEventBus,
     PsiEvent
 )
-from hub.sphere.observer.snapshot import MetricsSnapshot
-from hub.sphere.observer.projector import CloudProjector
+from nexus.hub.sphere.observer.snapshot import MetricsSnapshot
+from nexus.hub.sphere.observer.projector import CloudProjector
 from watcher.plane.emitter import get_emitter
 
 class EventAdapter:
