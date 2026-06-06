@@ -13,7 +13,7 @@ from arch.proto.phase.flow import PhaseFlow, FlowState, Transduction
 from arch.contract.registry.unified import contract, registry
 from arch.contract.discovery import discover_modules
 from phase.runtime.node import NodeRuntime
-from phase.hub.ator.runtime import AtorRuntime
+from phase.ator.runtime import AtorRuntime
 from phase.bind.resolver import find_current_self, resolve_path
 
 log = get_logger("ator.folding")

@@ -1,11 +1,4 @@
 # swarm.trace.project.bounder
-## @lineage: bound.trace.project.bounder
-## @lineage: debugger.project.bounder
-## @lineage: debug.project.bounder
-## @lineage: gov.project.bounder
-## @lineage: gov.draft.project.bounder
-## @lineage: arch.proto.task.bounder
-## @lineage: arch.task.bounder
 import os
 import sys
 import json
@@ -15,8 +8,8 @@ from pathlib import Path
 from typing import Dict, Any, Optional, List, Union
 from watcher.plane.emitter import get_logger
 from phase.bind.resolver import resolve_path, get_invoker
-from arch.proto.graph import EntryNode, RenderingData, _extract_rel_attr, EntryTemplate
-from arch.proto.resonance import ResonanceGraph, ResonanceNode
+from arch.proto.schema.graph import EntryNode, RenderingData, _extract_rel_attr, EntryTemplate
+from arch.proto.schema.resonance import ResonanceGraph, ResonanceNode
 from arch.topos.bind.manifold import ModelBinder
 from arch.contract.registry.unified import cli_contract
 from phase.runtime.cli.executor import dispatch_cli, execute_cli_task, CliTaskAdapter, parse_local

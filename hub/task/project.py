@@ -1,4 +1,5 @@
-# meta.debug.task.project
+# hub.task.project
+## @lineage: meta.debug.task.project
 ## @lineage: agent.manager.task.project
 import json
 import sys
@@ -10,7 +11,7 @@ from watcher.plane.emitter import get_emitter
 from phase.bind.resolver import resolve_path
 from arch.topic.logic.transformer import LogicTransformer
 from arch.proto.context.signature import ProtoSignature
-from nexus.hub.task.template import GraphSchema, MetaModel, NodeData
+from arch.proto.schema.graph import GraphSchema, MetaModel, NodeData
 from nexus.hub.task.optimizer import TaskOptimizer, TaskTopologyTranscription, DependencyConflictEvaluation
 
 CODE_ROOT = resolve_path("code")

@@ -1,4 +1,5 @@
-# meta.debug.task.optimizer
+# hub.task.optimizer
+## @lineage: meta.debug.task.optimizer
 ## @lineage: agent.manager.task.optimizer
 import asyncio
 from typing import List, Any, Type, Optional
@@ -6,7 +7,7 @@ from arch.proto.context.signature import ProtoSignature, In, Out
 from gov.scope.thch import ThCh, _compile_to_sign
 from gov.scope.manager import managed_scope
 from watcher.plane.emitter import get_logger
-from nexus.hub.task.template import GraphSchema
+from arch.proto.schema.graph import GraphSchema
 from nexus.hub.task.parser import TaskParser
 from gov.frame.rule.fitter import RuleFitter
 

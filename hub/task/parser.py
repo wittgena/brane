@@ -1,6 +1,7 @@
-# meta.debug.task.parser
+# hub.task.parser
+## @lineage: meta.debug.task.parser
 from typing import List, Any
-from nexus.hub.task.template import GraphSchema
+from arch.proto.schema.graph import GraphSchema
 from meta.xor.adapter.exam.example import Example
 from watcher.plane.emitter import get_logger
 

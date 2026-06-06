@@ -4,18 +4,17 @@ import json
 import asyncio
 import inspect
 from typing import Any
-from watcher.plane.emitter import get_logger
 from arch.proto.phase.flow import PhaseFlow, FlowState, Transduction, Resonance, Judgment, Align
 from arch.contract.registry.unified import contract
 from arch.contract.discovery import discover_modules
-from phase.bind.resolver import find_current_self
 from phase.runtime.node import NodeRuntime
-from phase.hub.ator.runtime import AtorRuntime
-from phase.hub.ator.bootstrap import bootstrap 
+from phase.ator.runtime import AtorRuntime
+from phase.ator.bootstrap import bootstrap 
 from phase.bind.client.engine.local import LLMEngine
-from phase.bind.resolver import resolve_path
+from phase.bind.resolver import resolve_path, find_current_self
+from watcher.plane.emitter import get_emitter
 
-log = get_logger("ator.genai")
+log = get_emitter("ator.genai")
 
 @contract.ator("trans.genai")
 class TransGenai(Transduction):
