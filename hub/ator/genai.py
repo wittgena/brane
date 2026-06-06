@@ -5,7 +5,7 @@ import asyncio
 import inspect
 from typing import Any
 from watcher.plane.emitter import get_logger
-from arch.proto.phase.flow import ProtoFlow, FlowState, Transduction, Resonance, Judgment, Align
+from arch.proto.phase.flow import PhaseFlow, FlowState, Transduction, Resonance, Judgment, Align
 from arch.contract.registry.unified import contract
 from arch.contract.discovery import discover_modules
 from phase.bind.resolver import find_current_self
@@ -23,7 +23,7 @@ class TransGenai(Transduction):
         super().__init__(*args, **kwargs)
         self.llm_client = LLMEngine()
 
-    def _project(self, flow: ProtoFlow, ator_node: Any) -> dict:
+    def _project(self, flow: PhaseFlow, ator_node: Any) -> dict:
         log.info(f"  [Projection] Opening state for LLM inference: {ator_node.role}")
         payload = flow.payload
         
@@ -60,7 +60,7 @@ async def main():
             "requirement": "User profile update API with rate limiting",
             "security_level": "High"
         }
-        initial_ctx = FlowState(ProtoFlow(payload=initial_payload, aspect="init"), state={})
+        initial_ctx = FlowState(PhaseFlow(payload=initial_payload, aspect="init"), state={})
         log.info(f"Submitting task to entry node [{entry_id}]...")
         
         await base_node.psi_queue.put((entry_id, initial_ctx))

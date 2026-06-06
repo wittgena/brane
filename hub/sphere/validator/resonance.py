@@ -3,7 +3,7 @@ import asyncio
 import inspect
 from pathlib import Path
 from typing import Any, Dict
-from arch.proto.phase.flow import ProtoFlow, FlowState, Transduction, Resonance, Judgment, Align
+from arch.proto.phase.flow import PhaseFlow, FlowState, Transduction, Resonance, Judgment, Align
 from arch.contract.registry.unified import contract
 from watcher.plane.emitter import get_logger
 

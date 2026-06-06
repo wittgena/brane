@@ -1,15 +1,11 @@
 # bound.context.closer
-## @lineage: debug.context.closer
-## @lineage: gov.exam.context.closer
-## @lineage: bound.watcher.context.closer
-## @lineage: bound.watcher.cont.closer
 import sys
 from pathlib import Path
 from arch.proto.context.signature import ProtoSignature, In, Out
 from gov.scope.manager import managed_scope
 from gov.scope.thch import ThCh
-from gov.medium.tool.terminal.executor import TerminalExecutor
-from gov.medium.tool.terminal.definition import TerminalAction
+from gov.sandbox.executor.terminal.executor import TerminalExecutor
+from gov.sandbox.executor.terminal.definition import TerminalAction
 from watcher.plane.emitter import get_logger
 
 log = get_logger("context.closer")

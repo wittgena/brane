@@ -6,7 +6,7 @@
 import httpx
 import re
 from typing import Any, Dict
-from arch.proto.phase.flow import ProtoFlow, Transduction
+from arch.proto.phase.flow import PhaseFlow, Transduction
 from arch.contract.registry.unified import contract
 from watcher.plane.emitter import get_logger
 
@@ -34,7 +34,7 @@ class HttpBaseTransductor(Transduction):
 @contract.ator("http.post.transfer")
 class HttpPostTransfer(HttpBaseTransductor):
     """@flow: 대상 시스템에 자극(Ψ)을 주입하여 상태 전이를 유도"""
-    def _project(self, flow: ProtoFlow, ator_node: Any) -> dict:
+    def _project(self, flow: PhaseFlow, ator_node: Any) -> dict:
         context = ator_node.spec.get("context", {})
         instruction = context.get("instruction", "POST /")
         payload = flow.payload
@@ -83,7 +83,7 @@ class HttpPostTransfer(HttpBaseTransductor):
 @contract.ator("http.get.transfer")
 class HttpGetTransfer(HttpBaseTransductor):
     """@flow: 대상 시스템의 변화된 상태(Φ′)를 관측"""
-    def _project(self, flow: ProtoFlow, ator_node: Any) -> dict:
+    def _project(self, flow: PhaseFlow, ator_node: Any) -> dict:
         context = ator_node.spec.get("context", {})
         instruction = context.get("instruction", "GET /")
         payload = flow.payload

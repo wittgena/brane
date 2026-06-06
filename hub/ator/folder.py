@@ -9,7 +9,7 @@ import inspect
 import ast
 from typing import Any, Dict, List, Tuple
 from watcher.plane.emitter import get_logger
-from arch.proto.phase.flow import ProtoFlow, FlowState, Transduction
+from arch.proto.phase.flow import PhaseFlow, FlowState, Transduction
 from arch.contract.registry.unified import contract, registry
 from arch.contract.discovery import discover_modules
 from phase.runtime.node import NodeRuntime
@@ -34,7 +34,7 @@ class FoldingAtor(Transduction):
     def bind(self, manifold: Any):
         self.manifold = manifold
 
-    def transduce(self, flow: ProtoFlow, ator_node: Any) -> ProtoFlow:
+    def transduce(self, flow: PhaseFlow, ator_node: Any) -> PhaseFlow:
         topology = flow.payload
         runtime_nodes = {}
         for node_id, config in topology.items():

@@ -4,13 +4,13 @@ import logging
 import inspect
 from typing import Any, Dict, List, Optional
 from pathlib import Path
-from arch.proto.phase.flow import ProtoFlow, FlowState, Transduction, Align
+from arch.proto.phase.flow import PhaseFlow, FlowState, Transduction, Align
 from watcher.plane.emitter import get_emitter
 from dataclasses import dataclass, field
 from phase.bind.resolver import find_current_self, resolve_path
 from arch.contract.registry.unified import registry, contract
-from phase.hub.ator.runtime import AtorRuntime
-from phase.hub.ator.bootstrap import bootstrap
+from phase.ator.runtime import AtorRuntime
+from phase.ator.bootstrap import bootstrap
 from phase.runtime.node import NodeRuntime
 
 SPEC_ROOT = resolve_path("spec")
@@ -130,7 +130,7 @@ class MetaTranscriptor:
 
 @contract.ator("ator.generator")
 class AtorGenerator(Transduction):
-    def transduce(self, flow: ProtoFlow, ator_node: Any) -> ProtoFlow:
+    def transduce(self, flow: PhaseFlow, ator_node: Any) -> PhaseFlow:
         log.info(f"  [Generator] Initiating Meta-Transcription Process...")
         
         target_file = flow.payload.get("target_file", "./dummy_source.py")
@@ -154,7 +154,7 @@ class AtorGenerator(Transduction):
         log.info("  [Transcriptor] Transcription successful. Handing over to Aligner.")
         
         # 터미널이나 파일로 출력하기 위해 Payload에 탑재
-        return ProtoFlow(
+        return PhaseFlow(
             payload={"code": output_code},
             aspect="transcribed",
             id=flow.id
@@ -173,7 +173,7 @@ async def main():
             "requirement": "Extract and generate Ators",
             "target_file": TARGET_SCRIPT
         }
-        initial_ctx = FlowState(ProtoFlow(payload=initial_payload, aspect="init"), state={})
+        initial_ctx = FlowState(PhaseFlow(payload=initial_payload, aspect="init"), state={})
         
         log.info(f"Submitting target script to Meta-Transcriptor entry node [{entry_id}]...")
         

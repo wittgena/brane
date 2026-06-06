@@ -1,12 +1,7 @@
 # bound.context.judger
-## @lineage: debug.context.judger
-## @lineage: gov.exam.context.judger
-## @lineage: bound.watcher.context.judger
-## @lineage: bound.watcher.cont.judger
-## @lineage: bound.reflect.cont.judger
 from typing import List, Dict, Any
 from arch.contract.registry.unified import contract
-from arch.proto.phase.flow import ProtoFlow
+from arch.proto.phase.flow import PhaseFlow
 from watcher.plane.emitter import get_logger
 from gov.scope.manager import managed_scope
 from phase.bind.folding import folding
@@ -31,7 +26,7 @@ class ExtractResidue(ProtoSignature):
 class FoldboxJudger:
     """@ex.surface: 위상에 의해 호출되며, 물리 스코프를 열어 Attractor 탐색 루프를 수행"""
     
-    async def execute(self, flow: ProtoFlow) -> ProtoFlow:
+    async def execute(self, flow: PhaseFlow) -> PhaseFlow:
         initial_input = flow.payload.get("instruction", "Genesis Signal")
         model_name = flow.payload.get("model", "local-gemma-3")
         core_judger = PureJudger()
@@ -40,7 +35,7 @@ class FoldboxJudger:
             with folding(self, re_entry_limit=3) as protected_self:
                 final_state = await protected_self._seek_attractor(core_judger, initial_input)
                 
-        return ProtoFlow(
+        return PhaseFlow(
             payload={
                 "status": "success", 
                 "projection": final_state, 
