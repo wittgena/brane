@@ -22,7 +22,7 @@ from typing import (
 
 from litellm.router_utils.batch_utils import InMemoryFile
 
-from channel.config.resolver import config
+from bound.config.resolver import config
 from anchor.model.types.llms.openai import ChatCompletionImageObject, ChatCompletionImageUrlObject
 from anchor.model.types.llms.openai import (
     AllMessageValues,
@@ -56,7 +56,7 @@ DEFAULT_ASSISTANT_CONTINUE_MESSAGE = ChatCompletionAssistantMessage(
 )
 
 if TYPE_CHECKING:
-    from bound.plane import Logging as LoggingClass
+    from bound.plane.delegator import Logging as LoggingClass
 
 
 def handle_any_messages_to_chat_completion_str_messages_conversion(
@@ -1305,7 +1305,7 @@ def filter_value_from_dict(dictionary: dict, key: str, depth: int = 0) -> Any:
 
     Goes through the nested dict and removes the key if it exists
     """
-    from gov.gate.constants import DEFAULT_MAX_RECURSE_DEPTH
+    from anchor.base.constants import DEFAULT_MAX_RECURSE_DEPTH
 
     if depth > DEFAULT_MAX_RECURSE_DEPTH:
         return dictionary

@@ -4,8 +4,8 @@
 import json
 from typing import Any, Dict, List, Union
 from jsonschema import ValidationError, validate
-from gov.gate.constants import DEFAULT_MAX_RECURSE_DEPTH
-from gov.gate.exceptions import JSONSchemaValidationError
+from anchor.base.constants import DEFAULT_MAX_RECURSE_DEPTH
+from anchor.base.exceptions import JSONSchemaValidationError
 
 def normalize_json_schema_types(
     schema: Union[Dict[str, Any], List[Any], Any],

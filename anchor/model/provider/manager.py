@@ -53,8 +53,8 @@ from litellm.llms.gemini.vector_stores.transformation import GeminiVectorStoreCo
 from litellm.llms.s3_vectors.vector_stores.transformation import S3VectorsVectorStoreConfig
 from litellm.llms.openai.vector_store_files.transformation import OpenAIVectorStoreFilesConfig
 
-from channel.config.resolver import config
-from gov.gate.constants import DEFAULT_MAX_LRU_CACHE_SIZE
+from bound.config.resolver import config
+from anchor.base.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from anchor.model.types.provider import LlmProviders
 from anchor.base.utils import BaseLLMModelInfo
 from anchor.model.types.utils import LlmProvidersSet, ProviderSpecificModelInfo

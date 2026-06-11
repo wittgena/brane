@@ -13,7 +13,7 @@ from litellm.llms.azure.exception_mapping import AzureOpenAIExceptionMapping
 
 from channel.litellm.secret_redaction import redact_string
 from anchor.model.types.provider import LlmProviders
-from gov.gate.exceptions import (
+from anchor.base.exceptions import (
     APIConnectionError,
     APIError,
     AuthenticationError,

@@ -28,7 +28,7 @@ LiteLLMLoggingObj = Any
 from channel.litellm.core_helpers import process_response_headers
 
 from anchor.model.types.provider import LlmProviders
-from channel.config.resolver import config
+from bound.config.resolver import config
 from anchor.model.llms.custom.http_handler import (
     AsyncHTTPHandler,
     HTTPHandler,

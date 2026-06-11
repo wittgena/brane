@@ -26,8 +26,8 @@ from anchor.model.llms.custom.mock_transport import MockOpenAITransport
 if TYPE_CHECKING:
     from aiohttp import ClientSession
 
-from channel.config.resolver import config
-from gov.gate.exceptions import BaseLLMException
+from bound.config.resolver import config
+from anchor.base.exceptions import BaseLLMException
 from anchor.model.llms.custom.http_handler import (
     _DEFAULT_TTL_FOR_HTTPX_CLIENTS,
     AsyncHTTPHandler,

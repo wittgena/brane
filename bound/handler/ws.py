@@ -28,7 +28,7 @@ LiteLLMLoggingObj = Any
 
 from channel.litellm.secret_redaction import redact_string
 from anchor.base.responses.transformation import BaseResponsesAPIConfig
-from gov.gate.constants import REALTIME_WEBSOCKET_MAX_MESSAGE_SIZE_BYTES
+from anchor.base.constants import REALTIME_WEBSOCKET_MAX_MESSAGE_SIZE_BYTES
 from bound.handler.response.streaming_iterator import ResponsesWebSocketStreaming, ManagedResponsesWebSocketHandler
 from anchor.model.types.router import GenericLiteLLMParams
 from anchor.model.llms.custom.http_handler import get_shared_realtime_ssl_context

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 import openai
 from openai import AsyncOpenAI, OpenAI
 from pydantic import BaseModel
-from gov.gate.constants import DEFAULT_MAX_RETRIES
+from anchor.base.constants import DEFAULT_MAX_RETRIES
 from anchor.model.types.utils import EmbeddingResponse
 from channel.litellm.response.convert import convert_to_model_response_object
 from anchor.model.llms.openai.common_utils import BaseOpenAILLM, OpenAIError

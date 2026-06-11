@@ -14,7 +14,7 @@ from typing import Callable, Optional, Union
 
 import httpx
 
-from gov.gate.constants import (
+from anchor.base.constants import (
     COMPLETION_HTTP_FALLBACK_SECONDS,
     DEFAULT_REQUEST_TIMEOUT_SECONDS,
 )

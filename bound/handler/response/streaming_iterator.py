@@ -12,12 +12,12 @@ from typing import Any, Dict, List, Literal, Optional
 import httpx
 from openai._streaming import SSEDecoder
 
-from channel.config.resolver import config
+from bound.config.resolver import config
 from bound.handler.response.utils import ResponsesAPIRequestUtils
 
 from anchor.base.responses.transformation import BaseResponsesAPIConfig
 from anchor.model.types.llms import openai as openai_types
-from gov.gate.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
+from anchor.base.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
 from channel.litellm.asyncify import run_async_function
 from channel.litellm.core_helpers import process_response_headers
 from channel.litellm.thread_pool_executor import executor

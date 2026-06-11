@@ -17,9 +17,9 @@ from typing import (
 )
 import tiktoken
 
-from channel.config.resolver import config
+from bound.config.resolver import config
 from channel.litellm.template.common import extract_search_results_text
-from gov.gate.constants import (
+from anchor.base.constants import (
     DEFAULT_IMAGE_HEIGHT,
     DEFAULT_IMAGE_TOKEN_COUNT,
     DEFAULT_IMAGE_WIDTH,

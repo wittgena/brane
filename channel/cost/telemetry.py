@@ -7,13 +7,13 @@ import traceback
 import warnings
 from collections.abc import Callable
 from typing import Any, ClassVar
-from gov.gate._uuid import uuid4
+from arch.proto.phase.gate import uuid4
 from channel.cost.calc import completion_cost as litellm_completion_cost
 from channel.switch.params import ResponseAPIUsage, ResponsesAPIResponse
 from channel.switch.params import ModelResponse
 from anchor.model.types.utils import CostPerToken, Usage
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
-from meta.watcher.tracker.conv.metrics import Metrics
+from bound.plane.metrics import Metrics
 from watcher.plane.emitter import get_emitter, _flow_context
 
 emitter = get_emitter(__name__, phase="llm_generation", boundary="llm_scope")

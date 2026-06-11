@@ -65,10 +65,10 @@ from typing import (
 import litellm.litellm_core_utils
 from litellm.caching.in_memory_cache import InMemoryCache
 from litellm.llms.base_llm.base_utils import BaseLLMModelInfo, type_to_response_format_param
-from channel.config.resolver import config
+from bound.config.resolver import config
 from bound.token.counter import get_modified_max_tokens
 from bound.retry import completion_with_retries, acompletion_with_retries
-from gov.gate.constants import (
+from anchor.base.constants import (
     DEFAULT_CHAT_COMPLETION_PARAM_VALUES,
     DEFAULT_EMBEDDING_PARAM_VALUES,
     DEFAULT_MAX_LRU_CACHE_SIZE,
@@ -76,7 +76,7 @@ from gov.gate.constants import (
     MINIMUM_PROMPT_CACHE_TOKEN_COUNT,
     OPENAI_EMBEDDING_PARAMS,
 )
-from gov.gate.exceptions import ContextWindowExceededError
+from anchor.base.exceptions import ContextWindowExceededError
 from anchor.model.types.llms.openai import AllMessageValues, ChatCompletionToolParam, ChatCompletionToolParamFunctionChunk, OpenAIWebSearchOptions
 from anchor.model.types.utils import (
     CallTypes,
@@ -220,7 +220,7 @@ from litellm.caching.caching import (
     RedisSemanticCache,
     S3Cache,
 )
-from gov.gate.exceptions import (
+from anchor.base.exceptions import (
     APIConnectionError,
     APIError,
     AuthenticationError,
@@ -238,7 +238,7 @@ from gov.gate.exceptions import (
     UnsupportedParamsError,
     MockException
 )
-from gov.gate.io.secret.manager import get_secret
+from anchor.secret.manager import get_secret
 from watcher.plane.emitter import get_emitter
 
 CustomLogger = Any
@@ -367,7 +367,7 @@ def get_optional_params_transcription(
     drop_params: Optional[bool] = None,
     **kwargs,
 ):
-    from gov.gate.constants import OPENAI_TRANSCRIPTION_PARAMS
+    from anchor.base.constants import OPENAI_TRANSCRIPTION_PARAMS
 
     # retrieve all parameters passed to the function
     passed_params = locals()
@@ -3410,7 +3410,7 @@ def strip_reasoning_summary_aliases_from_optional_params(
 
 
 def get_non_default_transcription_params(kwargs: dict) -> dict:
-    from gov.gate.constants import OPENAI_TRANSCRIPTION_PARAMS
+    from anchor.base.constants import OPENAI_TRANSCRIPTION_PARAMS
 
     default_params = OPENAI_TRANSCRIPTION_PARAMS + all_litellm_params
     non_default_params = {k: v for k, v in kwargs.items() if k not in default_params}
@@ -3418,7 +3418,7 @@ def get_non_default_transcription_params(kwargs: dict) -> dict:
 
 def return_raw_request(endpoint: CallTypes, kwargs: dict) -> RawRequestTypedDict:
     from datetime import datetime
-    from bound.plane import Logging
+    from bound.plane.delegator import Logging
 
     litellm_logging_obj = Logging(
         model="gpt-3.5-turbo",

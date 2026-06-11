@@ -24,7 +24,7 @@ from channel.switch.params import ModelResponse
 
 from anchor.base.utils import map_developer_role_to_system_role, type_to_response_format_param
 
-from gov.gate.constants import DEFAULT_MAX_TOKENS, RESPONSE_FORMAT_TOOL_NAME
+from anchor.base.constants import DEFAULT_MAX_TOKENS, RESPONSE_FORMAT_TOOL_NAME
 from anchor.model.llms.custom.http_handler import AsyncHTTPHandler, HTTPHandler
 from anchor.model.types.llms.openai import (
     AllMessageValues,

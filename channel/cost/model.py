@@ -8,7 +8,7 @@ from typing import Union, cast
 import litellm
 from anchor.model.provider.parser import get_model_cost_map
 from anchor.model.types.provider import LlmProviders
-from channel.config.resolver import config
+from bound.config.resolver import config
 from anchor.model.provider.gate import _update_dictionary, _invalidate_model_cost_lowercase_map
 from anchor.model.info import get_model_info
 from watcher.plane.emitter import get_emitter

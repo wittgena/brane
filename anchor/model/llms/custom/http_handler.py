@@ -28,10 +28,10 @@ from aiohttp import ClientSession, TCPConnector
 from httpx import USE_CLIENT_DEFAULT, AsyncHTTPTransport, HTTPTransport
 from httpx._types import RequestFiles
 from watcher.plane.emitter import get_emitter
-from channel.config.resolver import config
-from gov.gate.exceptions import Timeout
+from bound.config.resolver import config
+from anchor.base.exceptions import Timeout
 
-from gov.gate.constants import (
+from anchor.base.constants import (
     _DEFAULT_TTL_FOR_HTTPX_CLIENTS,
     AIOHTTP_CONNECTOR_LIMIT,
     AIOHTTP_CONNECTOR_LIMIT_PER_HOST,

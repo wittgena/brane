@@ -18,7 +18,7 @@ from anchor.model.types.llms.openai import (
 from anchor.model.types.responses.main import DeleteResponseResult
 from anchor.model.types.router import GenericLiteLLMParams
 from anchor.model.types.provider import LlmProviders
-from gov.gate.exceptions import BaseLLMException
+from anchor.base.exceptions import BaseLLMException
 
 class BaseResponsesAPIConfig(ABC):
     def __init__(self):

@@ -13,11 +13,11 @@ if TYPE_CHECKING:
 import openai
 from openai import AsyncOpenAI, OpenAI
 from pydantic import BaseModel
-from channel.config.resolver import config
+from bound.config.resolver import config
 from anchor.model.types.provider import LlmProviders
-from gov.gate.constants import DEFAULT_MAX_RETRIES
+from anchor.base.constants import DEFAULT_MAX_RETRIES
 from anchor.base.chat.transformation import BaseConfig
-from gov.gate.exceptions import BaseLLMException
+from anchor.base.exceptions import BaseLLMException
 from anchor.model.types.utils import EmbeddingResponse
 from channel.switch.params import ModelResponse, ModelResponseStream
 from channel.litellm.response.convert import convert_to_model_response_object

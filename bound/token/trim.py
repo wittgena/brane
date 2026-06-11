@@ -8,7 +8,7 @@ import os
 import copy
 from typing import Any, Dict, List, Optional, Union
 from bound.token.counter import token_counter
-from gov.gate.constants import (
+from anchor.base.constants import (
     DEFAULT_CHAT_COMPLETION_PARAM_VALUES,
     DEFAULT_EMBEDDING_PARAM_VALUES,
     DEFAULT_MAX_LRU_CACHE_SIZE,

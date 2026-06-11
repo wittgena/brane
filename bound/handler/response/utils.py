@@ -26,7 +26,7 @@ from litellm.proxy._experimental.mcp_server.auth.user_api_key_auth_mcp import MC
 from litellm.utils import PreProcessNonDefaultParams
 
 from anchor.base.responses.transformation import BaseResponsesAPIConfig
-from channel.config.resolver import config
+from bound.config.resolver import config
 from anchor.model.types.llms.openai import (
     ResponseAPIUsage,
     ResponsesAPIOptionalRequestParams,

@@ -5,10 +5,10 @@
 import re
 from typing import Optional, Tuple, Dict, Callable
 from urllib.parse import urlparse
-from channel.config.resolver import config
-from gov.gate.constants import REPLICATE_MODEL_NAME_WITH_ID_LENGTH
+from bound.config.resolver import config
+from anchor.base.constants import REPLICATE_MODEL_NAME_WITH_ID_LENGTH
 from anchor.model.types.router import LiteLLM_Params
-from gov.gate.io.secret.manager import get_secret_str, get_secret 
+from anchor.secret.manager import get_secret_str, get_secret 
 from watcher.plane.emitter import get_emitter
 from anchor.model.provider.logic import (
     _matches_claude_model_pattern,

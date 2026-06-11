@@ -14,7 +14,7 @@ caller automatically applies to all of them.
 """
 import json
 from typing import Any, Dict, Optional
-from gov.gate.constants import STREAM_SSE_DONE_STRING
+from anchor.base.constants import STREAM_SSE_DONE_STRING
 
 _MAX_CONTENT_INDEX = 1024
 

@@ -4,7 +4,7 @@
 ## @lineage: gate.llms.provider.logic
 import re
 from typing import Optional, Tuple
-from channel.config.resolver import config
+from bound.config.resolver import config
 
 _CLAUDE_PATTERN = re.compile(r"^claude-[a-z]+-\d+-\d+(?:-\d{8})?$", re.IGNORECASE)
 

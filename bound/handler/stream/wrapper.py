@@ -28,9 +28,9 @@ import httpx
 from pydantic import BaseModel
 
 from bound.handler.stream.chunk.builder import stream_chunk_builder
-from channel.config.resolver import config
+from bound.config.resolver import config
 
-from gov.gate._uuid import uuid
+from arch.proto.phase.gate import uuid
 from channel.litellm.template.common import is_function_call
 from channel.litellm.model_response_utils import is_model_response_stream_empty
 from channel.litellm.thread_pool_executor import executor
@@ -45,7 +45,7 @@ from anchor.model.types.utils import (
     StreamingChoices,
     Usage,
 )
-from gov.gate.exceptions import OpenAIError
+from anchor.base.exceptions import OpenAIError
 from channel.litellm.core_helpers import map_finish_reason, process_response_headers
 from channel.litellm.exception_mapping_utils import exception_type
 from channel.litellm.response.get_api_base import get_api_base
@@ -217,7 +217,7 @@ class CustomStreamWrapper:
 
     def _check_max_streaming_duration(self) -> None:
         """Raise litellm.Timeout if the stream has exceeded LITELLM_MAX_STREAMING_DURATION_SECONDS."""
-        from gov.gate.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
+        from anchor.base.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
 
         if LITELLM_MAX_STREAMING_DURATION_SECONDS is None:
             return
@@ -2310,7 +2310,7 @@ class CustomStreamWrapper:
         429 (rate-limit) is explicitly exempted from the 4xx filter because
         it is transient and the Router should switch to another model group.
         """
-        from gov.gate.exceptions import MidStreamFallbackError
+        from anchor.base.exceptions import MidStreamFallbackError
 
         # Map to OpenAI exception format
         if isinstance(e, OpenAIError):

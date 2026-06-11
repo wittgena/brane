@@ -43,7 +43,7 @@ from bound.handler.stream.wrapper import CustomStreamWrapper
 from bound.client import client
 from channel.litellm.exception_mapping_utils import exception_type
 from channel.litellm.dd_tracing import tracer
-from bound.plane import Logging as LiteLLMLoggingObj
+from bound.plane.delegator import Logging as LiteLLMLoggingObj
 from anchor.model.types.utils import (
     CustomPricingLiteLLMParams,
     ModelResponseStream,
@@ -54,7 +54,7 @@ from anchor.model.provider.gate import should_run_mock_completion
 from channel.litellm.fallback_utils import async_completion_with_fallbacks
 from anchor.model.types.llms.anthropic import AnthropicThinkingParam
 from anchor.model.types.llms.openai import ChatCompletionAudioParam, ChatCompletionModality, ChatCompletionPredictionContentParam, OpenAIWebSearchOptions
-from gov.gate.exceptions import Timeout
+from anchor.base.exceptions import Timeout
 from anchor.model.provider.resolver import get_llm_provider
 from channel.switch.params import ModelResponse
 from watcher.plane.emitter import get_emitter

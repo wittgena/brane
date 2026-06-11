@@ -10,7 +10,7 @@
 import inspect
 from typing import Any
 from weakref import WeakKeyDictionary
-from gov.gate.constants import (
+from anchor.base.constants import (
     COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY,
 )
 

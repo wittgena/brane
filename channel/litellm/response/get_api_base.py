@@ -4,7 +4,7 @@
 ## @lineage: gate.litellm.llm_response_utils.get_api_base
 ## @lineage: gate.litellm_core_utils.llm_response_utils.get_api_base
 from typing import Optional, Union
-from channel.config.resolver import config
+from bound.config.resolver import config
 from anchor.model.provider.resolver import get_llm_provider
 from anchor.model.types.router import LiteLLM_Params
 from watcher.plane.emitter import get_emitter

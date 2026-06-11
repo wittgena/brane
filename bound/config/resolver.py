@@ -1,4 +1,5 @@
-# channel.config.resolver
+# bound.config.resolver
+## @lineage: channel.config.resolver
 ## @lineage: channel.bound.config.resolver
 ## @lineage: gate.bound.config.resolver
 ## @lineage: gate.config.resolver

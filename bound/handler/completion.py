@@ -11,7 +11,7 @@ from bound.handler.stream.wrapper import CustomStreamWrapper
 from anchor.model.provider.manager import ProviderConfigManager
 from anchor.model.types.provider import LlmProviders
 from channel.switch.params import ModelResponse
-from channel.config.resolver import config
+from bound.config.resolver import config
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("completion.handler")

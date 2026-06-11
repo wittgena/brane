@@ -65,7 +65,7 @@ import channel.litellm.json_validation_rule
 
 from bound.handler.stream.chunk.builder import stream_chunk_builder
 from bound.token.counter import get_modified_max_tokens
-from gov.gate._uuid import uuid
+from arch.proto.phase.gate import uuid
 from channel.litellm.credential_accessor import CredentialAccessor
 from anchor.model.types.llms.openai import (
     AllMessageValues,
@@ -84,7 +84,7 @@ from anchor.model.provider.resolver import get_llm_provider
 from channel.litellm.response.metadata import update_response_metadata
 from channel.litellm.rules import Rules
 from channel.litellm.thread_pool_executor import executor
-from gov.gate.exceptions import (
+from anchor.base.exceptions import (
     APIConnectionError,
     APIError,
     AuthenticationError,

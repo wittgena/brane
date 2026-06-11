@@ -5,7 +5,7 @@ from collections import defaultdict
 from contextlib import contextmanager
 from typing import Any, Generator
 from pydantic import BaseModel
-from frame.scope.dsp import settings
+from anchor.base.dsp import settings
 
 class UsageTracker:
     def __init__(self):

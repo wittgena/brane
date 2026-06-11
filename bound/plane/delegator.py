@@ -1,9 +1,10 @@
-# bound.plane
+# bound.plane.delegator
+## @lineage: bound.plane
 ## @lineage: channel.bound.plane
 from typing import Any, Dict, List, Optional, Tuple, Union
 from anchor.model.types.utils import LiteLLMLoggingBaseClass
 from channel.cost.telemetry import Telemetry
-from meta.watcher.tracker.conv.metrics import Metrics
+from bound.plane.metrics import Metrics
 from watcher.plane.emitter import get_emitter
 
 ## 외부 로거 및 상태 관리용 전역 변수 (ImportError 방어용 Dummy)
