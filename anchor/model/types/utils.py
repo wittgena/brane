@@ -45,7 +45,7 @@ EventHookType = Any
 from gov.gate._uuid import uuid
 from anchor.model.types.llms.base import BaseLiteLLMOpenAIResponseObject, LiteLLMPydanticObjectBase
 from anchor.model.types.mcp import MCPServerCostInfo
-from channel.bound.litellm.core_helpers import map_finish_reason
+from channel.litellm.core_helpers import map_finish_reason
 from anchor.model.types.agents import LiteLLMSendMessageResponse
 from anchor.model.types.llms.anthropic_messages.anthropic_response import AnthropicMessagesResponse
 from anchor.model.types.llms.base import HiddenParams

@@ -8,7 +8,7 @@ import asyncio
 import json
 from pathlib import Path
 from typing import List, Optional, Dict, Any
-from gov.scope.workflow.router import Workflow, step, Event, StartEvent, StopEvent, router_rules, ErrorEvent
+from frame.scope.workflow.router import Workflow, step, Event, StartEvent, StopEvent, router_rules, ErrorEvent
 from arch.xor.store import ResidueStore, ResidueSnapshot
 from meta.xor.adapter.exam.example import Example
 from watcher.kernel.xphi.flow.xearch import Xor

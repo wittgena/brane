@@ -1,7 +1,7 @@
 # channel.switch.chat.adapter
 ## @lineage: channel.chat.adapter
 from typing import AsyncGenerator, Protocol, Any
-from channel.bound.acompletion import acompletion
+from bound.acompletion import acompletion
 from channel.switch.params import ModelResponse
 
 class SimpleMessage(dict):

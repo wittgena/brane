@@ -5,12 +5,12 @@
 from typing import Optional
 from functools import lru_cache, wraps
 
-from llms.base.utils import BaseLLMModelInfo, type_to_response_format_param
+from anchor.base.utils import BaseLLMModelInfo, type_to_response_format_param
 from gov.gate.constants import DEFAULT_MAX_LRU_CACHE_SIZE
-from channel.bound.config.resolver import config
-from channel.provider.manager import get_provider_info
+from channel.config.resolver import config
+from anchor.model.provider.manager import get_provider_info
 from anchor.model.types.utils import ModelInfo
-from channel.bound.gate import _get_model_info_helper
+from anchor.model.provider.gate import _get_model_info_helper
 
 def get_model_info(
     model: str,
