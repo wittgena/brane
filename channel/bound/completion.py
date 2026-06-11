@@ -23,24 +23,24 @@ from litellm.litellm_core_utils.prompt_templates.factory import map_system_messa
 from litellm.llms.anthropic.chat import AnthropicChatCompletion
 from litellm.llms.openai.completion.handler import OpenAITextCompletion
 
-from channel.gate import get_non_default_completion_params, get_optional_params
+from channel.bound.gate import get_non_default_completion_params, get_optional_params
 from channel.switch.params import Choices, Message, ModelResponse, Usage, ModelResponseStream
 from channel.bound.client import client
 from channel.bound.plane import Logging as LiteLLMLoggingObj
 from channel.bound.config.resolver import config
 from channel.bound.handler.completion import CompletionHandler
-from channel.bound.handler.stream.wrapper import CustomStreamWrapper
+from channel.bound.stream.wrapper import CustomStreamWrapper
 
 from channel.bound.litellm.template.common import add_system_prompt_to_messages
-from gate.io.secret.manager import get_secret_bool, get_secret_str
+from gov.gate.io.secret.manager import get_secret_bool, get_secret_str
 from channel.bound.litellm.exception_mapping_utils import exception_type
 from channel.bound.litellm.get_litellm_params import get_litellm_params
 from anchor.model.support import supports_httpx_timeout
-from gate.exceptions import LiteLLMUnknownProvider
+from gov.gate.exceptions import LiteLLMUnknownProvider
 from channel.bound.litellm.completion_timeout import CompletionTimeout
 from channel.bound.litellm.dd_tracing import tracer
-from anchor.model.provider.manager import ProviderConfigManager
-from anchor.model.provider.resolver import get_llm_provider
+from channel.provider.manager import ProviderConfigManager
+from channel.provider.resolver import get_llm_provider
 from anchor.model.validate import (
     validate_and_fix_openai_messages,
     validate_and_fix_openai_tools,
@@ -48,7 +48,7 @@ from anchor.model.validate import (
     validate_chat_completion_tool_choice,
     validate_openai_optional_params
 )
-from channel.llms.openai.completion import OpenAIChatCompletion
+from llms.openai.completion import OpenAIChatCompletion
 from anchor.model.types.llms.anthropic import AnthropicThinkingParam
 from anchor.model.types.llms.openai import (
     ChatCompletionAudioParam,

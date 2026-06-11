@@ -3,10 +3,10 @@
 ## @lineage: gate.support
 ## @lineage: blm.support
 from typing import Optional, Literal, List, Dict
-from anchor.model.provider.resolver import get_llm_provider
+from channel.provider.resolver import get_llm_provider
 from channel.gov.cost.model import model_cost
-from channel.gate import _get_model_info_helper
-from anchor.model.provider.manager import get_provider_info
+from channel.bound.gate import _get_model_info_helper
+from channel.provider.manager import get_provider_info
 from channel.bound.litellm.get_supported_openai_params import get_supported_openai_params
 
 from watcher.plane.emitter import get_emitter

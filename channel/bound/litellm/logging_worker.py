@@ -9,7 +9,7 @@ import logging
 from typing import Coroutine, Optional
 import atexit
 from typing_extensions import TypedDict
-from gate.constants import (
+from gov.gate.constants import (
     LOGGING_WORKER_CONCURRENCY,
     LOGGING_WORKER_MAX_QUEUE_SIZE,
     LOGGING_WORKER_MAX_TIME_PER_COROUTINE,

@@ -13,7 +13,7 @@ caller automatically applies to all of them.
 """
 import json
 from typing import Any, Dict, Optional
-from gate.constants import STREAM_SSE_DONE_STRING
+from gov.gate.constants import STREAM_SSE_DONE_STRING
 
 _MAX_CONTENT_INDEX = 1024
 
@@ -27,7 +27,7 @@ def parse_sse_json_chunk(chunk: str) -> Optional[Dict[str, Any]]:
     consistent across all callers.
     """
     # Import locally to avoid a circular import with the streaming handler.
-    from channel.bound.handler.stream.wrapper import CustomStreamWrapper
+    from channel.bound.stream.wrapper import CustomStreamWrapper
 
     stripped_chunk = (
         CustomStreamWrapper._strip_sse_data_from_chunk(chunk.strip()) or ""

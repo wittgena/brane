@@ -1,21 +1,19 @@
 # channel.gov.cost.telemetry
-## @lineage: channel.cost.telemetry
-## @lineage: channel.bound.cost.telemetry
 import json
 import os
 import time
 import traceback
-import uuid
 import warnings
 from collections.abc import Callable
 from typing import Any, ClassVar
+from gov.gate._uuid import uuid4
 from channel.gov.cost.calc import completion_cost as litellm_completion_cost
 from channel.switch.params import ResponseAPIUsage, ResponsesAPIResponse
 from channel.switch.params import ModelResponse
 from anchor.model.types.utils import CostPerToken, Usage
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
 from meta.watcher.tracker.conv.metrics import Metrics
-from watcher.plane.emitter import get_emitter
+from watcher.plane.emitter import get_emitter, _flow_context
 
 emitter = get_emitter(__name__, phase="llm_generation", boundary="llm_scope")
 
@@ -24,54 +22,29 @@ class Telemetry(BaseModel):
     Handles latency, token/cost accounting, and optional logging.
     All runtime state (like start times) lives in private attrs.
     """
-
-    # --- Config fields ---
     model_name: str = Field(default="unknown", description="Name of the LLM model")
     log_enabled: bool = Field(default=False, description="Whether to log completions")
-    log_dir: str | None = Field(
-        default=None, description="Directory to write logs if enabled"
-    )
-    input_cost_per_token: float | None = Field(
-        default=None, ge=0, description="Custom Input cost per token (USD)"
-    )
-    output_cost_per_token: float | None = Field(
-        default=None, ge=0, description="Custom Output cost per token (USD)"
-    )
-
+    log_dir: str | None = Field(default=None, description="Directory to write logs if enabled")
+    input_cost_per_token: float | None = Field(default=None, ge=0, description="Custom Input cost per token (USD)")
+    output_cost_per_token: float | None = Field(default=None, ge=0, description="Custom Output cost per token (USD)")
     metrics: Metrics = Field(..., description="Metrics collector instance")
 
-    # --- Runtime fields (not serialized) ---
+    ## Runtime fields (not serialized)
     _req_start: float = PrivateAttr(default=0.0)
     _req_ctx: dict[str, Any] = PrivateAttr(default_factory=dict)
     _last_latency: float = PrivateAttr(default=0.0)
-    _log_completions_callback: Callable[[str, str], None] | None = PrivateAttr(
-        default=None
-    )
+    _log_completions_callback: Callable[[str, str], None] | None = PrivateAttr(default=None)
     _stats_update_callback: Callable[[], None] | None = PrivateAttr(default=None)
 
-    model_config: ClassVar[ConfigDict] = ConfigDict(
-        extra="forbid", arbitrary_types_allowed=True
-    )
+    model_config: ClassVar[ConfigDict] = ConfigDict(extra="forbid", arbitrary_types_allowed=True)
 
-    # ---------- Lifecycle ----------
-    def set_log_completions_callback(
-        self, callback: Callable[[str, str], None] | None
-    ) -> None:
-        """Set a callback function for logging instead of writing to file.
-
-        Args:
-            callback: A function that takes (filename, log_data) and handles the log.
-                     Used for streaming logs in remote execution contexts.
-        """
+    ## Lifecycle
+    def set_log_completions_callback(self, callback: Callable[[str, str], None] | None) -> None:
+        """Set a callback function for logging instead of writing to file."""
         self._log_completions_callback = callback
 
     def set_stats_update_callback(self, callback: Callable[[], None] | None) -> None:
-        """Set a callback function to be notified when stats are updated.
-
-        Args:
-            callback: A function called whenever metrics are updated.
-                     Used for streaming stats updates in remote execution contexts.
-        """
+        """Set a callback function to be notified when stats are updated."""
         self._stats_update_callback = callback
 
     def on_request(self, telemetry_ctx: dict | None) -> None:
@@ -88,13 +61,19 @@ class Telemetry(BaseModel):
           - records latency, tokens, cost into Metrics
           - optionally writes a JSON log file
         """
+        ## 내부 서브-콜(Internal Sub-call)로 인한 이중 과금/중복 측정 방지
+        ctx = _flow_context.get()
+        if ctx.get("is_internal_call"):
+            emitter.debug("Skipping telemetry for internal sub-call (is_internal_call=True).")
+            return self.metrics.deep_copy()
+
         ## latency
         self._last_latency = time.time() - (self._req_start or time.time())
         response_id = resp.id
         self.metrics.add_response_latency(self._last_latency, response_id)
 
         cost = self._compute_cost(resp)
-        # Intentionally skip logging zero-cost (0.0) responses; only record positive cost
+        ## Intentionally skip logging zero-cost (0.0) responses; only record positive cost
         if cost:
             self.metrics.add_cost(cost)
 
@@ -104,10 +83,6 @@ class Telemetry(BaseModel):
             self._record_usage(
                 usage, response_id, self._req_ctx.get("context_window", 0)
             )
-
-        ## optional logging
-        # if self.log_enabled:
-        #     self.log_llm_call(resp, cost, raw_resp=raw_resp)
 
         ## notify about stats update
         if self._stats_update_callback is not None:
@@ -142,8 +117,14 @@ class Telemetry(BaseModel):
         return self.metrics.deep_copy()
 
     def on_error(self, _err: BaseException) -> None:
-        # Best-effort logging for failed requests (so we can debug malformed
-        # request payloads, e.g. orphaned Responses reasoning items).
+        ## 내부 호출 실패 시 불필요한 에러 덤프 건너뛰기
+        ctx = _flow_context.get()
+        if ctx.get("is_internal_call"):
+            emitter.debug("Internal sub-call failed. Skipping telemetry error log.")
+            return
+
+        ## Best-effort logging for failed requests (so we can debug malformed
+        ## request payloads, e.g. orphaned Responses reasoning items).
         self._last_latency = time.time() - (self._req_start or time.time())
 
         if not self.log_enabled:
@@ -155,7 +136,7 @@ class Telemetry(BaseModel):
             filename = (
                 f"{self.model_name.replace('/', '__')}-"
                 f"{time.time():.3f}-"
-                f"{uuid.uuid4().hex[:4]}-error.json"
+                f"{uuid4().hex[:4]}-error.json"
             )
 
             data = self._req_ctx.copy()
@@ -172,7 +153,6 @@ class Telemetry(BaseModel):
             data["cost"] = 0.0
 
             log_data = json.dumps(data, default=_safe_json, ensure_ascii=False)
-
             if self._log_completions_callback:
                 self._log_completions_callback(filename, log_data)
             elif self.log_dir:
@@ -184,12 +164,7 @@ class Telemetry(BaseModel):
             warnings.warn(f"Telemetry error logging failed: {e}")
         return
 
-    # ---------- Helpers ----------
     def _has_meaningful_usage(self, usage: Usage | ResponseAPIUsage | None) -> bool:
-        """Check if usage has meaningful (non-zero) token counts.
-
-        Supports both Chat Completions Usage and Responses API Usage shapes.
-        """
         if usage is None:
             return False
         try:
@@ -209,20 +184,6 @@ class Telemetry(BaseModel):
     def _record_usage(
         self, usage: Usage | ResponseAPIUsage, response_id: str, context_window: int
     ) -> None:
-        """
-        Record token usage, supporting both Chat Completions Usage and
-        Responses API Usage.
-
-        Chat shape:
-          - prompt_tokens, completion_tokens
-          - prompt_tokens_details.cached_tokens
-          - completion_tokens_details.reasoning_tokens
-          - _cache_creation_input_tokens for cache_write
-        Responses shape:
-          - input_tokens, output_tokens
-          - input_tokens_details.cached_tokens
-          - output_tokens_details.reasoning_tokens
-        """
         prompt_tokens = int(
             getattr(usage, "prompt_tokens", None)
             or getattr(usage, "input_tokens", 0)
@@ -241,7 +202,7 @@ class Telemetry(BaseModel):
         if p_details is not None:
             cache_read = int(getattr(p_details, "cached_tokens", 0) or 0)
 
-        # Kimi-K2-thinking populate usage.cached_tokens field
+        ## populate usage.cached_tokens field
         if not cache_read and hasattr(usage, "cached_tokens"):
             cache_read = int(getattr(usage, "cached_tokens", 0) or 0)
 
@@ -252,7 +213,7 @@ class Telemetry(BaseModel):
         if c_details is not None:
             reasoning_tokens = int(getattr(c_details, "reasoning_tokens", 0) or 0)
 
-        # Chat-specific: litellm may set a hidden cache write field
+        ## Chat-specific - may set a hidden cache write field
         cache_write = int(getattr(usage, "_cache_creation_input_tokens", 0) or 0)
         self.metrics.add_token_usage(
             prompt_tokens=prompt_tokens,
@@ -288,8 +249,7 @@ class Telemetry(BaseModel):
         except Exception as e:
             emitter.debug(f"Failed to get cost from LiteLLM headers: {e}")
 
-        # move on to litellm cost calculator
-        # Handle model name properly - if it doesn't contain "/", use as-is
+        ## move on to cost calculator
         if "/" in self.model_name:
             provider, bare = self.model_name.split("/", 1)
             extra_kwargs["model"] = bare
@@ -297,9 +257,7 @@ class Telemetry(BaseModel):
         else:
             extra_kwargs["model"] = self.model_name
         try:
-            return float(
-                litellm_completion_cost(completion_response=resp, **extra_kwargs)
-            )
+            return float(litellm_completion_cost(completion_response=resp, **extra_kwargs))
         except Exception as e:
             warnings.warn(f"Cost calculation failed: {e}")
             return None
@@ -315,23 +273,18 @@ class Telemetry(BaseModel):
         if not self.log_dir and not self._log_completions_callback:
             return
         try:
-            # Prepare filename and log data
             filename = (
                 f"{self.model_name.replace('/', '__')}-"
                 f"{time.time():.3f}-"
-                f"{uuid.uuid4().hex[:4]}.json"
+                f"{uuid4().hex[:4]}.json"
             )
 
             data = self._req_ctx.copy()
-            data["response"] = (
-                resp  # ModelResponse | ResponsesAPIResponse;
-                # serialized via _safe_json
-            )
+            data["response"] = resp
             data["cost"] = float(cost or 0.0)
             data["timestamp"] = time.time()
             data["latency_sec"] = self._last_latency
 
-            # Usage summary (prompt, completion, reasoning tokens) for quick inspection
             try:
                 usage = getattr(resp, "usage", None)
                 if usage:
@@ -369,16 +322,11 @@ class Telemetry(BaseModel):
                         "cache_read_tokens": cache_read_tokens,
                     }
             except Exception:
-                # Best-effort only; don't fail logging
                 pass
 
-            # Raw response *before* nonfncall -> call conversion
             if raw_resp:
-                data["raw_response"] = (
-                    raw_resp  # ModelResponse | ResponsesAPIResponse;
-                    # serialized via _safe_json
-                )
-            # Pop duplicated tools to avoid logging twice
+                data["raw_response"] = raw_resp
+            
             if (
                 "tools" in data
                 and isinstance(data.get("kwargs"), dict)
@@ -388,11 +336,9 @@ class Telemetry(BaseModel):
 
             log_data = json.dumps(data, default=_safe_json, ensure_ascii=False)
 
-            # Use callback if set (for remote execution), otherwise write to file
             if self._log_completions_callback:
                 self._log_completions_callback(filename, log_data)
             elif self.log_dir:
-                # Create log directory if it doesn't exist
                 os.makedirs(self.log_dir, exist_ok=True)
                 if not os.access(self.log_dir, os.W_OK):
                     raise PermissionError(f"log_dir is not writable: {self.log_dir}")
@@ -407,12 +353,9 @@ def _safe_json(obj: Any) -> Any:
     if isinstance(obj, ModelResponse) or isinstance(obj, ResponsesAPIResponse):
         return obj.model_dump(mode="json", exclude_none=True)
 
-    # Any Pydantic BaseModel (e.g., ToolDefinition, ChatCompletionToolParam, etc.)
     if isinstance(obj, BaseModel):
-        # Use Pydantic's serializer which respects field exclusions (e.g., executors)
         return obj.model_dump(mode="json", exclude_none=True)
 
-    # Fallbacks for other non-serializable objects used elsewhere in the log payload
     try:
         return obj.__dict__
     except Exception:

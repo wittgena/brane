@@ -14,7 +14,7 @@ import os
 from importlib.resources import files
 from typing import Dict, List, Optional
 import httpx
-from gate.constants import (
+from gov.gate.constants import (
     MODEL_COST_MAP_MAX_SHRINK_RATIO,
     MODEL_COST_MAP_MIN_MODEL_COUNT,
 )

@@ -16,10 +16,10 @@ from channel.gov.models import (
 )
 from arch.proto.event.pubsub import PubSub, Subscriber
 from arch.proto.event.next import ToposId
-from gate.llm.driver import Driver
+from gov.gate.llm.driver import Driver
 from agent.disc.base import AgentBase
 from agent.loop.event.base import Event
-from gate.call.tool.message import Message
+from gov.gate.call.tool.message import Message
 from watcher.plane.emitter import get_logger
 from agent.loop.conv.local import LocalConversation
 from meta.ops.observer.security.secret.registry import SecretValue
@@ -31,7 +31,7 @@ from collections.abc import Sequence
 from agent.loop.event.llm.action import ActionEvent
 from agent.loop.event.llm.message import MessageEvent
 from agent.loop.event.base import Event
-from gate.call.tool.message import content_to_str
+from gov.gate.call.tool.message import content_to_str
 from meta.xor.manifold.medium.finish import FinishAction, FinishTool
 from agent.loop.event.llm.observation import AgentErrorEvent
 from agent.loop.event.conv.state import ConversationStateUpdateEvent
@@ -312,7 +312,7 @@ class EventService:
         """Check if event's message content matches body filter (case-insensitive)."""
         # Import here to avoid circular imports
         from agent.loop.event.llm.message import MessageEvent
-        from gate.call.tool.message import content_to_str
+        from gov.gate.call.tool.message import content_to_str
 
         # Only check MessageEvent instances for body content
         if not isinstance(event, MessageEvent):

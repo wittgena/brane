@@ -8,10 +8,10 @@ from httpx import Response
 from pydantic import BaseModel
 from functools import lru_cache
 
-from channel.gate import _get_model_info_helper
+from channel.bound.gate import _get_model_info_helper
 
 from channel.gov.cost.model import model_cost
-from gate.constants import (
+from gov.gate.constants import (
     DEFAULT_MAX_LRU_CACHE_SIZE,
     DEFAULT_REPLICATE_GPU_PRICE_PER_SECOND,
 )
@@ -28,10 +28,10 @@ from channel.gov.cost.utils import (
     get_billable_input_tokens,
     select_cost_metric_for_model,
 )
-from anchor.model.provider.resolver import get_llm_provider
-from channel.llms.anthropic.cost_calculation import cost_per_token as anthropic_cost_per_token
-from channel.llms.gemini.cost_calculator import cost_per_token as gemini_cost_per_token
-from channel.llms.openai.cost_calculation import cost_per_token as openai_cost_per_token
+from channel.provider.resolver import get_llm_provider
+from llms.anthropic.cost_calculation import cost_per_token as anthropic_cost_per_token
+from llms.gemini.cost_calculator import cost_per_token as gemini_cost_per_token
+from llms.openai.cost_calculation import cost_per_token as openai_cost_per_token
 from anchor.model.types.llms.openai import (
     HttpxBinaryResponseContent,
     OpenAIModerationResponse,

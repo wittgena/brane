@@ -19,7 +19,7 @@ from channel.gov.models import (
 )
 from arch.proto.event.pubsub import PubSub, Subscriber
 from watcher.plane.emitter import get_logger
-from gate.call.command import sanitized_env
+from gov.gate.call.command import sanitized_env
 from arch.proto.event.next import ToposId
 
 logger = get_logger(__name__)

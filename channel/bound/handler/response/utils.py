@@ -24,7 +24,7 @@ from starlette.datastructures import Headers
 from litellm.proxy._experimental.mcp_server.auth.user_api_key_auth_mcp import MCPRequestHandler
 from litellm.utils import PreProcessNonDefaultParams
 
-from channel.llms.base.responses.transformation import BaseResponsesAPIConfig
+from llms.base.responses.transformation import BaseResponsesAPIConfig
 from channel.bound.config.resolver import config
 from anchor.model.types.llms.openai import (
     ResponseAPIUsage,
@@ -166,7 +166,7 @@ class ResponsesAPIRequestUtils:
         Returns:
             ResponsesAPIOptionalRequestParams instance with only the valid parameters
         """
-        from channel.gate import PreProcessNonDefaultParams
+        from channel.bound.gate import PreProcessNonDefaultParams
 
         valid_keys = get_type_hints(ResponsesAPIOptionalRequestParams).keys()
         custom_llm_provider = params.pop("custom_llm_provider", None)
@@ -917,7 +917,7 @@ class ResponsesAPIRequestUtils:
             ResponseText object with the converted format, or None if conversion fails
         """
         if text_format is not None and text is None:
-            from channel.llms.base.utils import type_to_response_format_param
+            from llms.base.utils import type_to_response_format_param
 
             # Convert Pydantic model to response format
             response_format = type_to_response_format_param(text_format)

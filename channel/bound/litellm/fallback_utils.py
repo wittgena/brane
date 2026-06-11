@@ -5,7 +5,7 @@
 ## @lineage: blm.bound.core.fallback_utils
 ## @lineage: blm.core.fallback_utils
 ## @lineage: blm.litellm_core_utils.fallback_utils
-from gate._uuid import uuid
+from gov.gate._uuid import uuid
 from typing import Optional
 import litellm
 from channel.bound.litellm.core_helpers import safe_deep_copy, filter_internal_params

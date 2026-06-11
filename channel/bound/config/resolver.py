@@ -40,6 +40,27 @@ class ConfigResolver:
 
         # 값을 찾지 못한 경우 안전하게 None 반환
         return None
+    
+    def __setattr__(self, name: str, value: Any):
+        """
+        config.telemetry = False 와 같이 할당할 때 실행되는 매직 메서드.
+        Gate 시스템에 저장함과 동시에, 과도기적으로 litellm에도 값을 동기화합니다.
+        """
+        ## 내부 변수 초기화 허용
+        if name == "_local_overrides":
+            super().__setattr__(name, value)
+            return
+
+        ## Gate 인메모리 오버라이드 갱신
+        self._local_overrides[name] = value
+
+        ## [점진적 마이그레이션 영역] litellm 상태 강제 동기화 (Write-through)
+        try:
+            import litellm
+            setattr(litellm, name, value)
+            # log.debug(f"[Migration] litellm.{name} = {value} 동기화 완료")
+        except ImportError:
+            pass
 
 # 싱글톤 객체로 내보냄
 config = ConfigResolver()

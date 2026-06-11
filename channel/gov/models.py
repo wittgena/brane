@@ -6,10 +6,10 @@ from datetime import datetime
 from enum import Enum
 from typing import Any
 from pydantic import BaseModel, Field, field_validator
-from gate.llm.driver import Driver
+from gov.gate.llm.driver import Driver
 from agent.llm.actor import Agent
 from meta.watcher.tracker.conv.stats import ConversationStats
-from gate.io.resource.req.request import (  # re-export for backward compat
+from gov.gate.io.resource.req.request import (  # re-export for backward compat
     ACPEnabledAgent as ACPEnabledAgent,
     SendMessageRequest as SendMessageRequest,
     StartACPConversationRequest as StartACPConversationRequest,
@@ -17,11 +17,11 @@ from gate.io.resource.req.request import (  # re-export for backward compat
 )
 from meta.ops.observer.security.secret.registry import SecretRegistry
 from agent.loop.conv.status import ConversationExecutionStatus
-from gate.call.types import ConversationTags
+from gov.gate.call.types import ConversationTags
 from agent.loop.event.base import Event
 from meta.ops.observer.security.secret.source import SecretSource
 from agent.manager.workspace.base import BaseWorkspace
-from gate.call.tool.message import (  # re-export
+from gov.gate.call.tool.message import (  # re-export
     ImageContent as ImageContent,
     TextContent as TextContent,
 )

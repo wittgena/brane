@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Literal, Optional, Tuple, Union, get_type_hi
 import httpx
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 from typing_extensions import Required, TypedDict
-from gate._uuid import uuid
+from gov.gate._uuid import uuid
 from anchor.model.types.completion import CompletionRequest
 from anchor.model.types.embedding import EmbeddingRequest
 from anchor.model.types.llms.openai import OpenAIFileObject

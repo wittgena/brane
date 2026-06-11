@@ -2,7 +2,7 @@
 ## @lineage: channel.litellm.get_litellm_params
 ## @lineage: gate.litellm.get_litellm_params
 from typing import Optional
-from channel.llms.openai.data_residency import infer_openai_data_residency
+from llms.openai.data_residency import infer_openai_data_residency
 
 _OPTIONAL_KWARGS_KEYS = frozenset(
     {

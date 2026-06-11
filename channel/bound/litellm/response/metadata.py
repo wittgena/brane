@@ -5,7 +5,7 @@
 ## @lineage: gate.litellm_core_utils.llm_response_utils.response_metadata
 import datetime
 from typing import Any, Optional, Union
-from gate.constants import LITELLM_DETAILED_TIMING
+from gov.gate.constants import LITELLM_DETAILED_TIMING
 from channel.bound.litellm.core_helpers import process_response_headers
 from channel.bound.litellm.response.get_api_base import get_api_base
 

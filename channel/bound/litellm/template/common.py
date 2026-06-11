@@ -1305,7 +1305,7 @@ def filter_value_from_dict(dictionary: dict, key: str, depth: int = 0) -> Any:
 
     Goes through the nested dict and removes the key if it exists
     """
-    from gate.constants import DEFAULT_MAX_RECURSE_DEPTH
+    from gov.gate.constants import DEFAULT_MAX_RECURSE_DEPTH
 
     if depth > DEFAULT_MAX_RECURSE_DEPTH:
         return dictionary

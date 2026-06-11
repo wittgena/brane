@@ -7,7 +7,7 @@ from functools import lru_cache, wraps
 from typing import Dict, List, Optional, Type
 from tokenizers import Tokenizer
 from anchor.model.types.utils import CustomHuggingfaceTokenizer, SelectTokenizerResponse
-from gate.constants import DEFAULT_MAX_LRU_CACHE_SIZE
+from gov.gate.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("blm.tokenizer")

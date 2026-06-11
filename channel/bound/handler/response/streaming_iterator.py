@@ -14,9 +14,9 @@ from openai._streaming import SSEDecoder
 from channel.bound.config.resolver import config
 from channel.bound.handler.response.utils import ResponsesAPIRequestUtils
 
-from channel.llms.base.responses.transformation import BaseResponsesAPIConfig
+from llms.base.responses.transformation import BaseResponsesAPIConfig
 from anchor.model.types.llms import openai as openai_types
-from gate.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
+from gov.gate.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
 from channel.bound.litellm.asyncify import run_async_function
 from channel.bound.litellm.core_helpers import process_response_headers
 from channel.bound.litellm.thread_pool_executor import executor
@@ -1608,7 +1608,7 @@ class ManagedResponsesWebSocketHandler:
         if not model:
             return None
         try:
-            from anchor.model.provider.resolver import get_llm_provider
+            from channel.provider.resolver import get_llm_provider
             _, provider, _, _ = get_llm_provider(model=model)
             return provider
         except Exception:

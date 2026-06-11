@@ -19,7 +19,7 @@ from typing import (
 )
 import httpx
 from aiohttp import ClientSession
-from channel.llms.base.responses.transformation import BaseResponsesAPIConfig
+from llms.base.responses.transformation import BaseResponsesAPIConfig
 
 # from gate.litellm.voider import Logging as LiteLLMLoggingObj
 LiteLLMLoggingObj = Any
@@ -28,7 +28,7 @@ from channel.bound.litellm.core_helpers import process_response_headers
 
 from anchor.model.types.provider import LlmProviders
 from channel.bound.config.resolver import config
-from channel.llms.custom.http_handler import (
+from llms.custom.http_handler import (
     AsyncHTTPHandler,
     HTTPHandler,
     _get_httpx_client,

@@ -42,7 +42,7 @@ from typing_extensions import Required, TypedDict
 
 EventHookType = Any
 
-from gate._uuid import uuid
+from gov.gate._uuid import uuid
 from anchor.model.types.llms.base import BaseLiteLLMOpenAIResponseObject, LiteLLMPydanticObjectBase
 from anchor.model.types.mcp import MCPServerCostInfo
 from channel.bound.litellm.core_helpers import map_finish_reason

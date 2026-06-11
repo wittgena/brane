@@ -11,7 +11,7 @@ from typing import Any, Union
 
 from pydantic import BaseModel
 
-from gate.constants import DEFAULT_MAX_RECURSE_DEPTH
+from gov.gate.constants import DEFAULT_MAX_RECURSE_DEPTH
 
 
 def strip_null_bytes(value: str) -> str:

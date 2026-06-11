@@ -4,10 +4,10 @@ import json
 from dataclasses import dataclass, field
 from typing import Any, Dict, Optional, Tuple, Union
 import httpx
-from channel.llms.base.chat.transformation import BaseConfig
-from channel.llms.custom.http_handler import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
-from channel.bound.handler.stream.wrapper import CustomStreamWrapper
-from anchor.model.provider.manager import ProviderConfigManager
+from llms.base.chat.transformation import BaseConfig
+from llms.custom.http_handler import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
+from channel.bound.stream.wrapper import CustomStreamWrapper
+from channel.provider.manager import ProviderConfigManager
 from anchor.model.types.provider import LlmProviders
 from channel.switch.params import ModelResponse
 from channel.bound.config.resolver import config
@@ -271,7 +271,7 @@ class CompletionHandler:
             error_text = getattr(error_response, "text", error_text)
 
         if provider_config is None:
-            from channel.llms.base.chat.transformation import BaseLLMException
+            from llms.base.chat.transformation import BaseLLMException
             log.error(f"[ErrorHandler] Provider config 없음. BaseLLMException 발생: {error_text}")
             raise BaseLLMException(status_code=status_code, message=error_text, headers=error_headers)
 

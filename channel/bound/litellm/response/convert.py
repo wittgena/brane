@@ -8,7 +8,7 @@ import traceback
 from typing import Dict, Iterable, List, Literal, Optional, Tuple, Union, cast
 from channel.bound.litellm.template.common import _extract_reasoning_content
 from anchor.model.types.llms.databricks import DatabricksTool
-from gate.constants import RESPONSE_FORMAT_TOOL_NAME
+from gov.gate.constants import RESPONSE_FORMAT_TOOL_NAME
 from anchor.model.types.llms.openai import (
     ChatCompletionThinkingBlock,
     ImageURLListItem,
@@ -42,7 +42,7 @@ from channel.switch.params import (
     Delta
 )
 from anchor.model.types.utils import Logprobs as TextCompletionLogprobs
-from gate.exceptions import APIError
+from gov.gate.exceptions import APIError
 from channel.bound.litellm.response.header import get_response_headers
 from watcher.plane.emitter import get_emitter 
 

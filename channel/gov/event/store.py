@@ -26,16 +26,16 @@ from arch.proto.event.pubsub import Subscriber
 from gov.bridge.router.etc.info import update_last_execution_time
 from arch.proto.event.next import safe_rmtree, utc_now
 
-from gate.llm.driver import Driver
+from gov.gate.llm.driver import Driver
 from agent.llm.actor import Agent
 from agent.loop.event.base import Event
-from gate.call.tool.message import Message
+from gov.gate.call.tool.message import Message
 
 from agent.loop.conv.state import (
     ConversationExecutionStatus,
     ConversationState,
 )
-from gate.io.resource.req.title import (
+from gov.gate.io.resource.req.title import (
     extract_message_text,
     generate_title_from_message,
 )

@@ -38,7 +38,7 @@ import tiktoken
 from pydantic import BaseModel
 from typing_extensions import overload
 
-from channel.bound.handler.stream.wrapper import CustomStreamWrapper
+from channel.bound.stream.wrapper import CustomStreamWrapper
 from channel.bound.client import client
 from channel.bound.litellm.exception_mapping_utils import exception_type
 from channel.bound.litellm.dd_tracing import tracer
@@ -49,12 +49,12 @@ from anchor.model.types.utils import (
     RawRequestTypedDict,
     StreamingChoices,
 )
-from channel.gate import should_run_mock_completion
+from channel.bound.gate import should_run_mock_completion
 from channel.bound.litellm.fallback_utils import async_completion_with_fallbacks
 from anchor.model.types.llms.anthropic import AnthropicThinkingParam
 from anchor.model.types.llms.openai import ChatCompletionAudioParam, ChatCompletionModality, ChatCompletionPredictionContentParam, OpenAIWebSearchOptions
-from gate.exceptions import Timeout
-from anchor.model.provider.resolver import get_llm_provider
+from gov.gate.exceptions import Timeout
+from channel.provider.resolver import get_llm_provider
 from channel.switch.params import ModelResponse
 from watcher.plane.emitter import get_emitter
 

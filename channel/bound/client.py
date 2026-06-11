@@ -50,6 +50,7 @@ from httpx import Proxy
 from httpx._utils import get_environment_proxies
 from openai.lib import _parsing
 
+from litellm.litellm_core_utils.logging_worker import GLOBAL_LOGGING_WORKER
 import litellm
 import litellm.litellm_core_utils
 from litellm.main import completion_with_retries, acompletion_with_retries
@@ -60,9 +61,10 @@ from litellm.litellm_core_utils.cached_imports import get_coroutine_checker, get
 from litellm.utils import _get_cached_llm_caching_handler
 
 import channel.bound.litellm.json_validation_rule
-from gate._internal_context import is_internal_call
+
+from channel.bound.stream.chunk.builder import stream_chunk_builder
 from channel.bound.token.counter import get_modified_max_tokens
-from gate._uuid import uuid
+from gov.gate._uuid import uuid
 from channel.bound.litellm.credential_accessor import CredentialAccessor
 from anchor.model.types.llms.openai import (
     AllMessageValues,
@@ -76,12 +78,12 @@ from anchor.model.types.llms.openai import (
 )
 from anchor.model.types.utils import FileTypes
 from anchor.model.types.utils import CallTypes, Embedding, EmbeddingResponse, LlmProviders, LLMResponseTypes, ModelResponse
-from channel.llms.base.utils import type_to_response_format_param
-from anchor.model.provider.resolver import get_llm_provider
+from llms.base.utils import type_to_response_format_param
+from channel.provider.resolver import get_llm_provider
 from channel.bound.litellm.response.metadata import update_response_metadata
 from channel.bound.litellm.rules import Rules
 from channel.bound.litellm.thread_pool_executor import executor
-from gate.exceptions import (
+from gov.gate.exceptions import (
     APIConnectionError,
     APIError,
     AuthenticationError,
@@ -246,7 +248,6 @@ async def _client_async_logging_helper(
     is_completion_with_fallbacks: bool,
 ):
     if (is_completion_with_fallbacks is False):
-        from litellm.litellm_core_utils.logging_worker import GLOBAL_LOGGING_WORKER
         GLOBAL_LOGGING_WORKER.ensure_initialized_and_enqueue(
             async_coroutine=logging_obj.async_success_handler(
                 result=result, start_time=start_time, end_time=end_time
@@ -437,7 +438,7 @@ def client(original_function):
             if _is_streaming_request(kwargs=kwargs, call_type=call_type):
                 if kwargs.get("complete_response") is True:
                     chunks = list(result)
-                    return litellm.stream_chunk_builder(chunks, messages=kwargs.get("messages", None))
+                    return stream_chunk_builder(chunks, messages=kwargs.get("messages", None))
                 return result
 
             if kwargs.get("acompletion") or kwargs.get("aembedding") or asyncio.iscoroutine(result):
@@ -495,7 +496,7 @@ def client(original_function):
             if _is_streaming_request(kwargs=kwargs, call_type=call_type):
                 if kwargs.get("complete_response") is True:
                     chunks = [chunk async for chunk in result] if hasattr(result, '__aiter__') else list(result)
-                    return litellm.stream_chunk_builder(chunks, messages=kwargs.get("messages", None))
+                    return stream_chunk_builder(chunks, messages=kwargs.get("messages", None))
                 return result
 
             if call_type == CallTypes.arealtime.value:
