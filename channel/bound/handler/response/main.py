@@ -31,10 +31,10 @@ from channel.bound.handler.ws import ResponseWebsocketHandler
 from channel.bound.config.resolver import config
 
 from gate._uuid import uuid
-from channel.litellm.template.common import update_responses_input_with_model_file_ids, update_responses_tools_with_model_file_ids
+from channel.bound.litellm.template.common import update_responses_input_with_model_file_ids, update_responses_tools_with_model_file_ids
 from channel.llms.base.responses.transformation import BaseResponsesAPIConfig
-from gate.model.provider.resolver import get_llm_provider
-from gate.model.types.llms.openai import (
+from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.types.llms.openai import (
     AllMessageValues,
     PromptObject,
     Reasoning,
@@ -46,14 +46,14 @@ from gate.model.types.llms.openai import (
     ToolParam,
 )
 from gate.constants import request_timeout
-from channel.litellm.asyncify import run_async_function
-from channel.litellm.get_litellm_params import get_litellm_params
+from channel.bound.litellm.asyncify import run_async_function
+from channel.bound.litellm.get_litellm_params import get_litellm_params
 from channel.llms.openai.data_residency import infer_openai_data_residency
-from gate.model.types.responses.main import *
-from gate.secret.manager import get_secret_str
-from gate.model.types.router import GenericLiteLLMParams
-from gate.model.provider.manager import ProviderConfigManager
-from gate.model.types.llms.openai import ResponseText
+from anchor.model.types.responses.main import *
+from gate.io.secret.manager import get_secret_str
+from anchor.model.types.router import GenericLiteLLMParams
+from anchor.model.provider.manager import ProviderConfigManager
+from anchor.model.types.llms.openai import ResponseText
 
 from watcher.plane.emitter import get_emitter
 

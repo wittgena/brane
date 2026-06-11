@@ -46,9 +46,9 @@ from gate.constants import (
     HTTP_HANDLER_CONNECT_TIMEOUT_SECONDS,
 )
 
-from gate.model.types.llms.custom_http import VerifyTypes, httpxSpecialProvider
+from anchor.model.types.llms.custom_http import VerifyTypes, httpxSpecialProvider
 if TYPE_CHECKING:
-    from gate.model.types.provider import LlmProviders
+    from anchor.model.types.provider import LlmProviders
     from channel.llms.custom.aiohttp_transport import LiteLLMAiohttpTransport
 else:
     LlmProviders = Any

@@ -40,21 +40,21 @@ from typing_extensions import overload
 
 from channel.bound.handler.stream.wrapper import CustomStreamWrapper
 from channel.bound.client import client
-from channel.litellm.exception_mapping_utils import exception_type
-from channel.litellm.dd_tracing import tracer
+from channel.bound.litellm.exception_mapping_utils import exception_type
+from channel.bound.litellm.dd_tracing import tracer
 from channel.bound.plane import Logging as LiteLLMLoggingObj
-from gate.model.types.utils import (
+from anchor.model.types.utils import (
     CustomPricingLiteLLMParams,
     ModelResponseStream,
     RawRequestTypedDict,
     StreamingChoices,
 )
 from channel.gate import should_run_mock_completion
-from channel.litellm.fallback_utils import async_completion_with_fallbacks
-from gate.model.types.llms.anthropic import AnthropicThinkingParam
-from gate.model.types.llms.openai import ChatCompletionAudioParam, ChatCompletionModality, ChatCompletionPredictionContentParam, OpenAIWebSearchOptions
+from channel.bound.litellm.fallback_utils import async_completion_with_fallbacks
+from anchor.model.types.llms.anthropic import AnthropicThinkingParam
+from anchor.model.types.llms.openai import ChatCompletionAudioParam, ChatCompletionModality, ChatCompletionPredictionContentParam, OpenAIWebSearchOptions
 from gate.exceptions import Timeout
-from gate.model.provider.resolver import get_llm_provider
+from anchor.model.provider.resolver import get_llm_provider
 from channel.switch.params import ModelResponse
 from watcher.plane.emitter import get_emitter
 

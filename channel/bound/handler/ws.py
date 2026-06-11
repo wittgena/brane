@@ -25,11 +25,11 @@ from websockets.asyncio.client import ClientConnection
 # from gate.litellm.voider import Logging as LiteLLMLoggingObj
 LiteLLMLoggingObj = Any
 
-from channel.litellm.secret_redaction import redact_string
+from channel.bound.litellm.secret_redaction import redact_string
 from channel.llms.base.responses.transformation import BaseResponsesAPIConfig
 from gate.constants import REALTIME_WEBSOCKET_MAX_MESSAGE_SIZE_BYTES
 from channel.bound.handler.response.streaming_iterator import ResponsesWebSocketStreaming, ManagedResponsesWebSocketHandler
-from gate.model.types.router import GenericLiteLLMParams
+from anchor.model.types.router import GenericLiteLLMParams
 from channel.llms.custom.http_handler import get_shared_realtime_ssl_context
 
 from watcher.plane.emitter import get_emitter

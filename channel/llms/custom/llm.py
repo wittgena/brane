@@ -13,8 +13,8 @@ from typing import (
 
 import httpx
 from channel.llms.custom.http_handler import AsyncHTTPHandler, HTTPHandler
-from gate.model.types.utils import GenericStreamingChunk
-from gate.model.types.utils import EmbeddingResponse, ImageResponse, ModelResponse
+from anchor.model.types.utils import GenericStreamingChunk
+from anchor.model.types.utils import EmbeddingResponse, ImageResponse, ModelResponse
 from channel.llms.base.action import BaseLLM
 from channel.bound.handler.stream.wrapper import CustomStreamWrapper
 

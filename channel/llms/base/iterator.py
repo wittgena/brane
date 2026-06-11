@@ -5,7 +5,7 @@
 import json
 from abc import abstractmethod
 from typing import List, Optional, Union, cast
-from gate.model.types.utils import GenericStreamingChunk
+from anchor.model.types.utils import GenericStreamingChunk
 from channel.bound.handler.stream.wrapper import CustomStreamWrapper
 from channel.switch.params import Choices, Delta, ModelResponse, ModelResponseStream, StreamingChoices
 

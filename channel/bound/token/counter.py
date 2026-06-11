@@ -17,7 +17,7 @@ from typing import (
 import tiktoken
 
 from channel.bound.config.resolver import config
-from channel.litellm.template.common import extract_search_results_text
+from channel.bound.litellm.template.common import extract_search_results_text
 from gate.constants import (
     DEFAULT_IMAGE_HEIGHT,
     DEFAULT_IMAGE_TOKEN_COUNT,
@@ -28,20 +28,20 @@ from gate.constants import (
     MAX_TILE_HEIGHT,
     MAX_TILE_WIDTH,
 )
-from channel.litellm.default_encoding import encoding as default_encoding
+from channel.bound.litellm.default_encoding import encoding as default_encoding
 from channel.llms.custom.http_handler import _get_httpx_client
-from channel.litellm.url_utils import safe_get
-from gate.model.types.llms.anthropic import (
+from channel.bound.litellm.url_utils import safe_get
+from anchor.model.types.llms.anthropic import (
     AnthropicMessagesToolResultParam,
     AnthropicMessagesToolUseParam,
 )
-from gate.model.types.llms.openai import (
+from anchor.model.types.llms.openai import (
     AllMessageValues,
     ChatCompletionNamedToolChoiceParam,
     ChatCompletionToolParam,
     OpenAIMessageContent,
 )
-from gate.model.types.utils import SelectTokenizerResponse
+from anchor.model.types.utils import SelectTokenizerResponse
 
 from channel.switch.params import Message
 from watcher.plane.emitter import get_emitter

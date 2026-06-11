@@ -10,8 +10,8 @@ import openai
 from openai import AsyncOpenAI, OpenAI
 from pydantic import BaseModel
 from gate.constants import DEFAULT_MAX_RETRIES
-from gate.model.types.utils import EmbeddingResponse
-from channel.litellm.response.convert import convert_to_model_response_object
+from anchor.model.types.utils import EmbeddingResponse
+from channel.bound.litellm.response.convert import convert_to_model_response_object
 from channel.llms.openai.common_utils import BaseOpenAILLM, OpenAIError
 from watcher.plane.emitter import get_emitter
 

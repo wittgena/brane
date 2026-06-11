@@ -29,14 +29,14 @@ from channel.bound.handler.chunk.builder import stream_chunk_builder
 from channel.bound.config.resolver import config
 
 from gate._uuid import uuid
-from channel.litellm.template.common import is_function_call
-from channel.litellm.model_response_utils import is_model_response_stream_empty
-from channel.litellm.thread_pool_executor import executor
-from gate.model.types.llms.openai import OpenAIChatCompletionChunk
-from gate.model.types.router import GenericLiteLLMParams
-from gate.model.types.utils import Delta
-from gate.model.types.utils import GenericStreamingChunk as GChunk
-from gate.model.types.utils import (
+from channel.bound.litellm.template.common import is_function_call
+from channel.bound.litellm.model_response_utils import is_model_response_stream_empty
+from channel.bound.litellm.thread_pool_executor import executor
+from anchor.model.types.llms.openai import OpenAIChatCompletionChunk
+from anchor.model.types.router import GenericLiteLLMParams
+from anchor.model.types.utils import Delta
+from anchor.model.types.utils import GenericStreamingChunk as GChunk
+from anchor.model.types.utils import (
     LlmProviders,
     ModelResponse,
     ModelResponseStream,
@@ -44,10 +44,10 @@ from gate.model.types.utils import (
     Usage,
 )
 from gate.exceptions import OpenAIError
-from channel.litellm.core_helpers import map_finish_reason, process_response_headers
-from channel.litellm.exception_mapping_utils import exception_type
-from channel.litellm.response.get_api_base import get_api_base
-from channel.litellm.rules import Rules
+from channel.bound.litellm.core_helpers import map_finish_reason, process_response_headers
+from channel.bound.litellm.exception_mapping_utils import exception_type
+from channel.bound.litellm.response.get_api_base import get_api_base
+from channel.bound.litellm.rules import Rules
 from watcher.plane.emitter import get_emitter
 
 # from gate.litellm.voider import Logging as LiteLLMLoggingObject 
@@ -969,7 +969,7 @@ class CustomStreamWrapper:
         model_response: ModelResponseStream,
         response_obj: Dict[str, Any],
     ):
-        from channel.litellm.core_helpers import (
+        from channel.bound.litellm.core_helpers import (
             preserve_upstream_non_openai_attributes,
         )
 
@@ -1149,7 +1149,7 @@ class CustomStreamWrapper:
         try:
             # return this for all models
             completion_obj: Dict[str, Any] = {"content": ""}
-            from gate.model.types.utils import GenericStreamingChunk as GChunk
+            from anchor.model.types.utils import GenericStreamingChunk as GChunk
 
             if (
                 isinstance(chunk, ModelResponseStream)
@@ -1673,7 +1673,7 @@ class CustomStreamWrapper:
         """
         try:
             import litellm
-            from gate.model.types.utils import CallTypes
+            from anchor.model.types.utils import CallTypes
             if self._post_streaming_hooks is None:
                 self._post_streaming_hooks = []
 
@@ -2442,7 +2442,7 @@ def generic_chunk_has_all_required_fields(chunk: dict) -> bool:
 def convert_generic_chunk_to_model_response_stream(
     chunk: GChunk,
 ) -> ModelResponseStream:
-    from gate.model.types.utils import Delta
+    from anchor.model.types.utils import Delta
 
     model_response_stream = ModelResponseStream(
         id=str(uuid.uuid4()),

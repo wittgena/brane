@@ -26,14 +26,14 @@ from litellm.utils import PreProcessNonDefaultParams
 
 from channel.llms.base.responses.transformation import BaseResponsesAPIConfig
 from channel.bound.config.resolver import config
-from gate.model.types.llms.openai import (
+from anchor.model.types.llms.openai import (
     ResponseAPIUsage,
     ResponsesAPIOptionalRequestParams,
     ResponsesAPIResponse,
     ResponseText,
 )
-from gate.model.types.responses.main import DecodedResponseId
-from gate.model.types.utils import (
+from anchor.model.types.responses.main import DecodedResponseId
+from anchor.model.types.utils import (
     CompletionTokensDetailsWrapper,
     PromptTokensDetailsWrapper,
     SpecialEnums,

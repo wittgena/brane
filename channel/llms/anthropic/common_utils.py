@@ -5,17 +5,17 @@ from typing import Any, Dict, List, Optional, Union
 import httpx
 from channel.llms.base.utils import BaseLLMModelInfo, BaseTokenCounter
 from gate.exceptions import BaseLLMException, AuthenticationError
-from gate.model.types.llms.anthropic import (
+from anchor.model.types.llms.anthropic import (
     ANTHROPIC_HOSTED_TOOLS,
     ANTHROPIC_OAUTH_BETA_HEADER,
     ANTHROPIC_OAUTH_TOKEN_PREFIX,
     AllAnthropicToolsValues,
     AnthropicMcpServerTool,
 )
-from channel.cost.model import model_cost
-from gate.model.types.llms.openai import AllMessageValues, ChatCompletionFileObject
+from channel.gov.cost.model import model_cost
+from anchor.model.types.llms.openai import AllMessageValues, ChatCompletionFileObject
 from channel.llms.custom.http_handler import HTTPHandler
-from gate.secret.manager import get_secret_str
+from gate.io.secret.manager import get_secret_str
 
 def get_file_ids_from_messages(messages: List[AllMessageValues]) -> List[str]:
     file_ids = []
@@ -427,7 +427,7 @@ class AnthropicModelInfo(BaseLLMModelInfo):
         Returns:
             List of beta header strings
         """
-        from gate.model.types.llms.anthropic import ANTHROPIC_EFFORT_BETA_HEADER
+        from anchor.model.types.llms.anthropic import ANTHROPIC_EFFORT_BETA_HEADER
 
         betas = []
 
@@ -490,13 +490,13 @@ class AnthropicModelInfo(BaseLLMModelInfo):
             betas.add("mcp-client-2025-04-04")
         # Tool search, programmatic tool calling, and input_examples all use the same beta header
         if tool_search_used or programmatic_tool_calling_used or input_examples_used:
-            from gate.model.types.llms.anthropic import ANTHROPIC_TOOL_SEARCH_BETA_HEADER
+            from anchor.model.types.llms.anthropic import ANTHROPIC_TOOL_SEARCH_BETA_HEADER
 
             betas.add(ANTHROPIC_TOOL_SEARCH_BETA_HEADER)
 
         # Effort parameter uses a separate beta header
         if effort_used:
-            from gate.model.types.llms.anthropic import ANTHROPIC_EFFORT_BETA_HEADER
+            from anchor.model.types.llms.anthropic import ANTHROPIC_EFFORT_BETA_HEADER
 
             betas.add(ANTHROPIC_EFFORT_BETA_HEADER)
 
@@ -530,7 +530,7 @@ class AnthropicModelInfo(BaseLLMModelInfo):
         if is_vertex_request is True:
             # Vertex AI requires web search beta header for web search to work
             if web_search_tool_used:
-                from gate.model.types.llms.anthropic import ANTHROPIC_BETA_HEADER_VALUES
+                from anchor.model.types.llms.anthropic import ANTHROPIC_BETA_HEADER_VALUES
                 headers["anthropic-beta"] = (
                     ANTHROPIC_BETA_HEADER_VALUES.WEB_SEARCH_2025_03_05.value
                 )

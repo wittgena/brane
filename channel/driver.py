@@ -4,12 +4,12 @@ import warnings
 from typing import TYPE_CHECKING, Any, Sequence, cast, Final
 from channel.bound.completion import completion as litellm_completion
 from channel.bound.handler.response.main import responses as litellm_responses
-from agent.call.exceptions.types import LLMNoResponseError
-from channel.llm.response import LLMResponse
+from gate.call.exceptions.types import LLMNoResponseError
+from gate.llm.response import LLMResponse
 from channel.switch.params import Delta, ModelResponseStream, StreamingChoices
 from channel.switch.params import ModelResponse
 from channel.switch.params import ChatCompletionToolParam
-from agent.call.tool.message import Message
+from gate.call.tool.message import Message
 from agent.manager.option.chat import select_chat_options
 from gate.exceptions import (
     APIConnectionError,
@@ -20,9 +20,9 @@ from gate.exceptions import (
 )
 from meta.watcher.tracker.conv.metrics import MetricsSnapshot
 if TYPE_CHECKING:
-    from channel.llm.driver import Driver
-    from agent.call.types import TokenCallbackType
-    from agent.call.tool.redef import ToolDefinition
+    from gate.llm.driver import Driver
+    from gate.call.types import TokenCallbackType
+    from gate.call.tool.redef import ToolDefinition
 
 LLM_RETRY_EXCEPTIONS: Final[tuple[type[Exception], ...]] = (
     APIConnectionError,

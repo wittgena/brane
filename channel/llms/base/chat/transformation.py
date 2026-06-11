@@ -25,7 +25,7 @@ from channel.llms.base.utils import map_developer_role_to_system_role, type_to_r
 
 from gate.constants import DEFAULT_MAX_TOKENS, RESPONSE_FORMAT_TOOL_NAME
 from channel.llms.custom.http_handler import AsyncHTTPHandler, HTTPHandler
-from gate.model.types.llms.openai import (
+from anchor.model.types.llms.openai import (
     AllMessageValues,
     ChatCompletionToolChoiceFunctionParam,
     ChatCompletionToolChoiceObjectParam,

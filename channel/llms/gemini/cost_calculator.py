@@ -11,7 +11,7 @@ Handles the context caching for Gemini API.
 from typing import TYPE_CHECKING, Optional, Tuple
 
 if TYPE_CHECKING:
-    from gate.model.types.utils import ModelInfo, Usage
+    from anchor.model.types.utils import ModelInfo, Usage
 
 
 def cost_per_token(
@@ -22,7 +22,7 @@ def cost_per_token(
 
     Follows the same logic as Anthropic's cost per token calculation.
     """
-    from channel.cost.utils import generic_cost_per_token
+    from channel.gov.cost.utils import generic_cost_per_token
 
     return generic_cost_per_token(
         model=model,
@@ -45,7 +45,7 @@ def cost_per_web_search_request(usage: "Usage", model_info: "ModelInfo") -> floa
     ``model_info`` when available, falling back to $0.035 for models not
     yet updated in the pricing JSON.
     """
-    from gate.model.types.utils import PromptTokensDetailsWrapper
+    from anchor.model.types.utils import PromptTokensDetailsWrapper
 
     _DEFAULT_COST = 35e-3
     search_costs = model_info.get("search_context_cost_per_query") or {}

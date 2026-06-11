@@ -6,8 +6,8 @@ import time
 from typing_extensions import TypedDict
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union, cast
 
-from gate.model.types.llms.openai import ChatCompletionAssistantContentValue, ChatCompletionAudioDelta
-from gate.model.types.utils import (
+from anchor.model.types.llms.openai import ChatCompletionAssistantContentValue, ChatCompletionAudioDelta
+from anchor.model.types.utils import (
     ChatCompletionAudioResponse,
     ChatCompletionMessageToolCall,
     Choices,
@@ -23,7 +23,7 @@ from gate.model.types.utils import (
     CompletionTokensDetails, 
 )
 
-from gate.model.types.llms.openai import ChatCompletionRedactedThinkingBlock, ChatCompletionThinkingBlock
+from anchor.model.types.llms.openai import ChatCompletionRedactedThinkingBlock, ChatCompletionThinkingBlock
 from channel.bound.token.counter import token_counter
 from watcher.plane.emitter import get_emitter 
 

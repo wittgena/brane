@@ -8,9 +8,9 @@ Helper util for handling openai-specific cost calculation
 """
 
 from typing import Any, Literal, Mapping, Optional, Tuple
-from channel.cost.utils import generic_cost_per_token
-from gate.model.types.utils import CallTypes, ModelInfo, Usage
-from gate.model.info import get_model_info
+from channel.gov.cost.utils import generic_cost_per_token
+from anchor.model.types.utils import CallTypes, ModelInfo, Usage
+from anchor.model.info import get_model_info
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("cost.calculation")

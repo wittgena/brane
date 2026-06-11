@@ -13,14 +13,14 @@ import openai
 from openai import AsyncOpenAI, OpenAI
 from pydantic import BaseModel
 from channel.bound.config.resolver import config
-from gate.model.types.provider import LlmProviders
+from anchor.model.types.provider import LlmProviders
 from gate.constants import DEFAULT_MAX_RETRIES
 from channel.llms.base.chat.transformation import BaseConfig
 from gate.exceptions import BaseLLMException
-from gate.model.types.utils import EmbeddingResponse
+from anchor.model.types.utils import EmbeddingResponse
 from channel.switch.params import ModelResponse, ModelResponseStream
-from channel.litellm.response.convert import convert_to_model_response_object
-from gate.model.provider.manager import ProviderConfigManager
+from channel.bound.litellm.response.convert import convert_to_model_response_object
+from anchor.model.provider.manager import ProviderConfigManager
 from channel.bound.handler.stream.wrapper import CustomStreamWrapper
 from channel.llms.base.action import BaseLLM
 from channel.llms.openai.common_utils import (

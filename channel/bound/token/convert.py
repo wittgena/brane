@@ -20,7 +20,7 @@ from typing import (
     get_args,
 )
 from pydantic import BaseModel
-from gate.model.types.llms.openai import AllMessageValues
+from anchor.model.types.llms.openai import AllMessageValues
 
 def convert_list_message_to_dict(messages: List):
     new_messages = []

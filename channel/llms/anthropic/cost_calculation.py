@@ -9,7 +9,7 @@ Helper util for handling anthropic-specific cost calculation
 
 from typing import TYPE_CHECKING, Optional, Tuple
 
-from channel.cost.utils import (
+from channel.gov.cost.utils import (
     _get_token_base_cost,
     _parse_prompt_tokens_details,
     calculate_cache_writing_cost,
@@ -17,7 +17,7 @@ from channel.cost.utils import (
 )
 
 if TYPE_CHECKING:
-    from gate.model.types.utils import ModelInfo, Usage
+    from anchor.model.types.utils import ModelInfo, Usage
 import litellm
 
 
@@ -108,7 +108,7 @@ def get_cost_for_anthropic_web_search(
     """
     Get the cost of using a web search tool for Anthropic.
     """
-    from gate.model.types.utils import SearchContextCostPerQuery
+    from anchor.model.types.utils import SearchContextCostPerQuery
 
     ## Check if web search requests are in the usage object
     if model_info is None:

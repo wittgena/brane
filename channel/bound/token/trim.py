@@ -21,7 +21,7 @@ from gate.constants import (
     OPENAI_EMBEDDING_PARAMS,
     TOOL_CHOICE_OBJECT_TOKEN_COUNT,
 )
-from channel.cost.model import model_cost
+from channel.gov.cost.model import model_cost
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("blm.trim")

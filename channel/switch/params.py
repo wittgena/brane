@@ -38,14 +38,14 @@ if USE_LITELLM_STRICT_TYPES:
 
 if not USE_LITELLM_STRICT_TYPES:
     try:
-        from gate.model.types.responses.main import GenericResponseOutputItem
-        from gate.model.types.rerank import RerankResponse
-        from gate.model.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
-        from gate.model.types.llms.openai import ChatCompletionToolParam
-        from gate.model.types.llms.openai import OutputFunctionToolCall
-        from gate.model.types.llms.openai import ResponsesAPIResponse
-        from gate.model.types.llms.openai import ChatCompletionToolParamFunctionChunk
-        from gate.model.types.completion import (
+        from anchor.model.types.responses.main import GenericResponseOutputItem
+        from anchor.model.types.rerank import RerankResponse
+        from anchor.model.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
+        from anchor.model.types.llms.openai import ChatCompletionToolParam
+        from anchor.model.types.llms.openai import OutputFunctionToolCall
+        from anchor.model.types.llms.openai import ResponsesAPIResponse
+        from anchor.model.types.llms.openai import ChatCompletionToolParamFunctionChunk
+        from anchor.model.types.completion import (
             ChatCompletionMessageParam,
             ChatCompletionSystemMessageParam,
             ChatCompletionUserMessageParam,
@@ -58,7 +58,7 @@ if not USE_LITELLM_STRICT_TYPES:
         from litellm.types.utils import TextChoices, TextCompletionResponse, TranscriptionResponse
         from litellm.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
         from litellm.types.utils import ChatCompletionMessageToolCall
-        from gate.model.types.utils import Usage
+        from anchor.model.types.utils import Usage
     except ImportError as e:
         raise ImportError(f"Failed to load fallback types from internal blm.types modules. Error: {e}")
 

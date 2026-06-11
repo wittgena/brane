@@ -6,7 +6,7 @@ import httpx
 import litellm
 if TYPE_CHECKING:
     from channel.bound.handler.stream.wrapper import CustomStreamWrapper
-    from gate.model.types.utils import ModelResponse, TextCompletionResponse
+    from anchor.model.types.utils import ModelResponse, TextCompletionResponse
 
 class BaseLLM:
     _client_session: Optional[httpx.Client] = None

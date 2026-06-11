@@ -30,8 +30,8 @@ import tiktoken
 if TYPE_CHECKING:
     from channel.bound.plane import Logging as LiteLLMLoggingObj
 
-from channel.litellm.template.common import get_content_from_model_response
-from gate.model.types.utils import TextChoices, TextCompletionResponse
+from channel.bound.litellm.template.common import get_content_from_model_response
+from anchor.model.types.utils import TextChoices, TextCompletionResponse
 from gate.exceptions import APIError
 
 from channel.bound.config.resolver import config

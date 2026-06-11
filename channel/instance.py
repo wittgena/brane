@@ -11,13 +11,13 @@ from asyncer import syncify
 from gate.exceptions import ContextWindowExceededError as LitellmContextWindowExceededError
 from channel.bound.handler.chunk.builder import stream_chunk_builder
 from channel.bound.acompletion import acompletion
-from gate.model.support import supports_function_calling, supports_reasoning, supports_response_schema, get_supported_openai_params
-from channel.resource.cache import request_cache
+from anchor.model.support import supports_function_calling, supports_reasoning, supports_response_schema, get_supported_openai_params
+from gate.io.resource.cache import request_cache
 from meta.xor.adapter.provider.openai import OpenAIProvider
 from meta.xor.adapter.provider.base import Provider, ReinforceJob, TrainingJob
 from meta.xor.adapter.dsp.finetune import TrainDataFormat
 from gov.scope.dsp import settings
-from agent.call.stream.callback import BaseCallback
+from gate.call.stream.callback import BaseCallback
 from meta.xor.adapter.dsp.exceptions import ContextWindowExceededError
 from meta.xor.adapter.lm.base import BaseLM
 from watcher.plane.emitter import get_emitter

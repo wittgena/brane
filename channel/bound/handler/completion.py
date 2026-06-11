@@ -7,8 +7,8 @@ import httpx
 from channel.llms.base.chat.transformation import BaseConfig
 from channel.llms.custom.http_handler import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
 from channel.bound.handler.stream.wrapper import CustomStreamWrapper
-from gate.model.provider.manager import ProviderConfigManager
-from gate.model.types.provider import LlmProviders
+from anchor.model.provider.manager import ProviderConfigManager
+from anchor.model.types.provider import LlmProviders
 from channel.switch.params import ModelResponse
 from channel.bound.config.resolver import config
 from watcher.plane.emitter import get_emitter

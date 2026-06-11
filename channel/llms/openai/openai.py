@@ -32,16 +32,16 @@ from typing_extensions import overload
 from channel.bound.plane import Logging as LiteLLMLoggingObj
 
 from channel.bound.config.resolver import config
-from gate.model.types.provider import LlmProviders
+from anchor.model.types.provider import LlmProviders
 from gate.constants import DEFAULT_MAX_RETRIES
-from gate.model.types.file import FileContentStreamingResult
+from anchor.model.types.file import FileContentStreamingResult
 from channel.llms.base.iterator import BaseModelResponseIterator
 from channel.llms.base.chat.transformation import BaseConfig
 from gate.exceptions import BaseLLMException
-from gate.model.types.utils import EmbeddingResponse, ImageResponse, LiteLLMBatch
-from channel.litellm.response.convert import convert_to_model_response_object
+from anchor.model.types.utils import EmbeddingResponse, ImageResponse, LiteLLMBatch
+from channel.bound.litellm.response.convert import convert_to_model_response_object
 from channel.bound.handler.stream.wrapper import CustomStreamWrapper
-from gate.model.types.llms.openai import *
+from anchor.model.types.llms.openai import *
 from channel.llms.base.action import BaseLLM
 from channel.llms.openai.common_utils import (
     BaseOpenAILLM,

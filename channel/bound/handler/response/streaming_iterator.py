@@ -15,15 +15,15 @@ from channel.bound.config.resolver import config
 from channel.bound.handler.response.utils import ResponsesAPIRequestUtils
 
 from channel.llms.base.responses.transformation import BaseResponsesAPIConfig
-from gate.model.types.llms import openai as openai_types
+from anchor.model.types.llms import openai as openai_types
 from gate.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
-from channel.litellm.asyncify import run_async_function
-from channel.litellm.core_helpers import process_response_headers
-from channel.litellm.thread_pool_executor import executor
-from channel.litellm.response.get_api_base import get_api_base
-from channel.litellm.response.metadata import update_response_metadata
-from gate.model.types.llms.openai import ResponsesAPIStreamEvents
-from gate.model.types.utils import CallTypes
+from channel.bound.litellm.asyncify import run_async_function
+from channel.bound.litellm.core_helpers import process_response_headers
+from channel.bound.litellm.thread_pool_executor import executor
+from channel.bound.litellm.response.get_api_base import get_api_base
+from channel.bound.litellm.response.metadata import update_response_metadata
+from anchor.model.types.llms.openai import ResponsesAPIStreamEvents
+from anchor.model.types.utils import CallTypes
 
 from watcher.plane.emitter import get_emitter
 
@@ -33,7 +33,7 @@ LiteLLMLoggingObj = Any
 
 @lru_cache(maxsize=1)
 def _get_openai_response_types():
-    from gate.model.types.llms import openai as openai_types
+    from anchor.model.types.llms import openai as openai_types
     return openai_types
 
 def _log_background_task_failure(task: "asyncio.Task[Any]", *, task_name: str) -> None:
@@ -1608,7 +1608,7 @@ class ManagedResponsesWebSocketHandler:
         if not model:
             return None
         try:
-            from gate.model.provider.resolver import get_llm_provider
+            from anchor.model.provider.resolver import get_llm_provider
             _, provider, _, _ = get_llm_provider(model=model)
             return provider
         except Exception:

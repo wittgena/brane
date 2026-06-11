@@ -31,17 +31,17 @@ from channel.bound.config.resolver import config
 from channel.bound.handler.completion import CompletionHandler
 from channel.bound.handler.stream.wrapper import CustomStreamWrapper
 
-from channel.litellm.template.common import add_system_prompt_to_messages
-from gate.secret.manager import get_secret_bool, get_secret_str
-from channel.litellm.exception_mapping_utils import exception_type
-from channel.litellm.get_litellm_params import get_litellm_params
-from gate.model.support import supports_httpx_timeout
+from channel.bound.litellm.template.common import add_system_prompt_to_messages
+from gate.io.secret.manager import get_secret_bool, get_secret_str
+from channel.bound.litellm.exception_mapping_utils import exception_type
+from channel.bound.litellm.get_litellm_params import get_litellm_params
+from anchor.model.support import supports_httpx_timeout
 from gate.exceptions import LiteLLMUnknownProvider
-from channel.litellm.completion_timeout import CompletionTimeout
-from channel.litellm.dd_tracing import tracer
-from gate.model.provider.manager import ProviderConfigManager
-from gate.model.provider.resolver import get_llm_provider
-from gate.model.validate import (
+from channel.bound.litellm.completion_timeout import CompletionTimeout
+from channel.bound.litellm.dd_tracing import tracer
+from anchor.model.provider.manager import ProviderConfigManager
+from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.validate import (
     validate_and_fix_openai_messages,
     validate_and_fix_openai_tools,
     validate_and_fix_thinking_param,
@@ -49,14 +49,14 @@ from gate.model.validate import (
     validate_openai_optional_params
 )
 from channel.llms.openai.completion import OpenAIChatCompletion
-from gate.model.types.llms.anthropic import AnthropicThinkingParam
-from gate.model.types.llms.openai import (
+from anchor.model.types.llms.anthropic import AnthropicThinkingParam
+from anchor.model.types.llms.openai import (
     ChatCompletionAudioParam,
     ChatCompletionModality,
     ChatCompletionPredictionContentParam,
     OpenAIWebSearchOptions,
 )
-from gate.model.types.provider import LlmProviders
+from anchor.model.types.provider import LlmProviders
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("bound.completion")

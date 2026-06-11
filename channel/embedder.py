@@ -3,7 +3,7 @@ from typing import Any, Callable
 import numpy as np
 from channel.bound.config.resolver import config
 from channel.bound.embedding import embedding, aembedding
-from channel.resource.cache import request_cache
+from gate.io.resource.cache import request_cache
 
 class Embedder:
     def __init__(self, model: str | Callable, batch_size: int = 200, caching: bool = True, **kwargs: dict[str, Any]):

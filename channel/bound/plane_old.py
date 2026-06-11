@@ -41,7 +41,7 @@ from litellm.litellm_core_utils.specialty_caches.dynamic_logging_cache import Dy
 if TYPE_CHECKING:
     from litellm.llms.base_llm.passthrough.transformation import BasePassthroughConfig
 
-from gate.model.types.utils import (
+from anchor.model.types.utils import (
     CallTypes,
     CostResponseTypes,
     CustomPricingLiteLLMParams,
@@ -78,7 +78,7 @@ from gate.constants import (
     SENTRY_DENYLIST,
     SENTRY_PII_DENYLIST,
 )
-from gate.model.types.llms.openai import (
+from anchor.model.types.llms.openai import (
     AllMessageValues,
     Batch,
     FineTuningJob,
@@ -92,7 +92,7 @@ from gate.model.types.llms.openai import (
     ResponsesAPIResponse,
 )
 from channel.gate import _get_base_model_from_metadata
-from channel.litellm.exception_mapping_utils import _get_response_headers
+from channel.bound.litellm.exception_mapping_utils import _get_response_headers
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("voider")

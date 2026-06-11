@@ -78,8 +78,8 @@ from gate.constants import (
     OPENAI_EMBEDDING_PARAMS,
 )
 from gate.exceptions import ContextWindowExceededError
-from gate.model.types.llms.openai import AllMessageValues, ChatCompletionToolParam, ChatCompletionToolParamFunctionChunk, OpenAIWebSearchOptions
-from gate.model.types.utils import (
+from anchor.model.types.llms.openai import AllMessageValues, ChatCompletionToolParam, ChatCompletionToolParamFunctionChunk, OpenAIWebSearchOptions
+from anchor.model.types.utils import (
     CallTypes,
     # Choices,
     # Delta,
@@ -100,7 +100,7 @@ from gate.model.types.utils import (
     # Usage,
     all_litellm_params,
 )
-from gate.model.provider.manager import ProviderConfigManager, get_provider_info
+from anchor.model.provider.manager import ProviderConfigManager, get_provider_info
 from channel.switch.params import Choices, Delta, Message, ModelResponse, ModelResponseStream, Usage
 
 if TYPE_CHECKING:
@@ -121,8 +121,8 @@ if TYPE_CHECKING:
         ResponseMetadata,
     )
 
-    from gate.model.provider.logic import get_llm_provider
-    from channel.litellm.template.common import _parse_content_for_reasoning
+    from anchor.model.provider.logic import get_llm_provider
+    from channel.bound.litellm.template.common import _parse_content_for_reasoning
     from channel.bound.handler.stream.wrapper import CustomStreamWrapper
 
     from litellm.litellm_core_utils.redact_messages import (
@@ -140,7 +140,7 @@ if TYPE_CHECKING:
         get_litellm_logging_class,
         get_set_callbacks,
     )
-    from channel.litellm.core_helpers import (
+    from channel.bound.litellm.core_helpers import (
         get_litellm_metadata_from_kwargs,
         map_finish_reason,
         process_response_headers,
@@ -201,7 +201,7 @@ if TYPE_CHECKING:
         AnthropicThinkingParam,
     )
     from litellm.types.rerank import RerankResponse
-    from gate.model.types.llms.openai import (
+    from anchor.model.types.llms.openai import (
         ChatCompletionDeltaToolCallChunk,
         ChatCompletionToolCallChunk,
         ChatCompletionToolCallFunctionChunk,
@@ -239,7 +239,7 @@ from gate.exceptions import (
     UnsupportedParamsError,
     MockException
 )
-from gate.secret.manager import get_secret
+from gate.io.secret.manager import get_secret
 from watcher.plane.emitter import get_emitter
 
 CustomLogger = Any
