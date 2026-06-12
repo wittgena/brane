@@ -1,4 +1,5 @@
-# bound.embedding
+# anchor.action.embedding
+## @lineage: bound.embedding
 ## @lineage: channel.bound.embedding
 ## @lineage: gate.bound.embedding
 import asyncio
@@ -25,7 +26,7 @@ from litellm.llms.ollama.completion import handler as ollama
 from anchor.model.llms.custom.llm import CustomLLM
 from channel.litellm.get_litellm_params import get_litellm_params
 from bound.config.resolver import config
-from bound.client import client
+from bound.handler.client import client
 from channel.litellm.exception_mapping_utils import exception_type
 from anchor.base.exceptions import LiteLLMUnknownProvider
 from bound.plane.delegator import Logging as LiteLLMLoggingObj
@@ -37,7 +38,7 @@ from anchor.model.types.utils import (
 )
 from bound.handler.stream.wrapper import CustomStreamWrapper
 from anchor.model.provider.gate import get_optional_params_embeddings
-from anchor.secret.manager import get_secret, get_secret_str
+from channel.secret.manager import get_secret, get_secret_str
 from anchor.model.provider.resolver import get_llm_provider
 from bound.token.counter import token_counter
 from anchor.model.llms.openai.embedding import OpenAIEmbedding

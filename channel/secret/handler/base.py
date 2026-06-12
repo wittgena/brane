@@ -1,4 +1,5 @@
-# anchor.secret.base
+# channel.secret.handler.base
+## @lineage: anchor.secret.base
 ## @lineage: gov.gate.io.secret.base
 ## @lineage: gate.io.secret.base
 ## @lineage: gate.secret.base

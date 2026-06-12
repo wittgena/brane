@@ -1,4 +1,5 @@
-# bound.acompletion
+# anchor.action.acompletion
+## @lineage: bound.acompletion
 ## @lineage: channel.bound.acompletion
 ## @lineage: gate.bound.acompletion
 ## @lineage: blm.bound.acompletion
@@ -40,7 +41,7 @@ from pydantic import BaseModel
 from typing_extensions import overload
 
 from bound.handler.stream.wrapper import CustomStreamWrapper
-from bound.client import client
+from bound.handler.client import client
 from channel.litellm.exception_mapping_utils import exception_type
 from channel.litellm.dd_tracing import tracer
 from bound.plane.delegator import Logging as LiteLLMLoggingObj

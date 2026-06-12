@@ -67,7 +67,7 @@ from litellm.caching.in_memory_cache import InMemoryCache
 from litellm.llms.base_llm.base_utils import BaseLLMModelInfo, type_to_response_format_param
 from bound.config.resolver import config
 from bound.token.counter import get_modified_max_tokens
-from bound.retry import completion_with_retries, acompletion_with_retries
+from bound.handler.retry import completion_with_retries, acompletion_with_retries
 from anchor.base.constants import (
     DEFAULT_CHAT_COMPLETION_PARAM_VALUES,
     DEFAULT_EMBEDDING_PARAM_VALUES,
@@ -238,7 +238,7 @@ from anchor.base.exceptions import (
     UnsupportedParamsError,
     MockException
 )
-from anchor.secret.manager import get_secret
+from channel.secret.manager import get_secret
 from watcher.plane.emitter import get_emitter
 
 CustomLogger = Any

@@ -16,7 +16,7 @@ from anchor.model.types.utils import (
     Usage,
     DataResidency
 )
-from anchor.model.info import get_model_info
+from channel.cost.model.info import get_model_info
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("llm_cost_calc.utils")

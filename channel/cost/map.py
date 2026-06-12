@@ -1,4 +1,5 @@
-# channel.cost.model
+# channel.cost.map
+## @lineage: channel.cost.model
 ## @lineage: channel.gov.cost.model
 ## @lineage: channel.bound.cost.model
 ## @lineage: gate.bound.cost.model
@@ -10,7 +11,7 @@ from anchor.model.provider.parser import get_model_cost_map
 from anchor.model.types.provider import LlmProviders
 from bound.config.resolver import config
 from anchor.model.provider.gate import _update_dictionary, _invalidate_model_cost_lowercase_map
-from anchor.model.info import get_model_info
+from channel.cost.model.info import get_model_info
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("bound.cost.model")

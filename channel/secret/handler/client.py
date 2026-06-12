@@ -1,16 +1,14 @@
-# anchor.secret.handler
-## @lineage: gov.gate.io.secret.handler
-## @lineage: gate.io.secret.handler
-## @lineage: gate.secret.handler
+# channel.secret.handler.client
+## @lineage: anchor.secret.handler
 import base64
 import os
 from typing import Any, Optional
-from anchor.secret.base import BaseSecretManager
+from channel.secret.handler.base import BaseSecretManager
 from anchor.model.types.secret_managers.main import KeyManagementSystem
 from bound.config.resolver import config
 from watcher.plane.emitter import get_emitter
 
-log = get_emitter("secret.handler")
+log = get_emitter("secret.handler.client")
 
 def _is_base64(s):
     """Check if a string is valid base64."""
@@ -20,7 +18,7 @@ def _is_base64(s):
     except binascii.Error:
         return False
 
-def get_secret_from_manager(
+def get_secret_from_vendor(
     client: Any,
     key_manager: str,
     secret_name: str,

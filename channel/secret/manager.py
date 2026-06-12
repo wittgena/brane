@@ -1,21 +1,18 @@
-# anchor.secret.manager
-## @lineage: gov.gate.io.secret.manager
-## @lineage: gate.io.secret.manager
-## @lineage: gate.secret.manager
+# channel.secret.manager
+## @lineage: channel.secret.handler.manager
 import ast
 import os
 import time
 import traceback
 import httpx
 from typing import Optional, Union, Dict, Tuple
-from anchor.secret.handler import get_secret_from_manager
+from channel.secret.handler.client import get_secret_from_vendor
 from anchor.model.llms.custom.http_handler import HTTPHandler
 from bound.config.resolver import config
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("secret.manager")
 
-# 1. 자체 경량 TTL 캐시 (litellm.DualCache 대체)
 class OIDCTTLCache:
     def __init__(self):
         self._cache: Dict[str, Tuple[str, float]] = {}
@@ -32,8 +29,6 @@ class OIDCTTLCache:
     def set(self, key: str, value: str, ttl_seconds: int):
         self._cache[key] = (value, time.time() + ttl_seconds)
 
-
-# 2. 중심 구조: SecretManager 클래스
 class SecretManager:
     def __init__(self):
         self.oidc_cache = OIDCTTLCache()

@@ -1,4 +1,5 @@
-# bound.client
+# bound.handler.client
+## @lineage: bound.client
 ## @lineage: channel.bound.client
 ## @lineage: gate.bound.client
 ## @lineage: gate.bound.stream.client

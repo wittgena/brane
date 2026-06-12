@@ -1,4 +1,5 @@
-# bound.completion
+# anchor.action.completion
+## @lineage: bound.completion
 ## @lineage: channel.bound.completion
 ## @lineage: gate.bound.completion
 import asyncio
@@ -26,14 +27,14 @@ from litellm.llms.openai.completion.handler import OpenAITextCompletion
 
 from anchor.model.provider.gate import get_non_default_completion_params, get_optional_params
 from channel.switch.params import Choices, Message, ModelResponse, Usage, ModelResponseStream
-from bound.client import client
+from bound.handler.client import client
 from bound.plane.delegator import Logging as LiteLLMLoggingObj
 from bound.config.resolver import config
 from bound.handler.completion import CompletionHandler
 from bound.handler.stream.wrapper import CustomStreamWrapper
 
 from channel.litellm.template.common import add_system_prompt_to_messages
-from anchor.secret.manager import get_secret_bool, get_secret_str
+from channel.secret.manager import get_secret_bool, get_secret_str
 from channel.litellm.exception_mapping_utils import exception_type
 from channel.litellm.get_litellm_params import get_litellm_params
 from anchor.model.support import supports_httpx_timeout

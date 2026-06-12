@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 from bound.config.resolver import config
 from anchor.base.constants import REPLICATE_MODEL_NAME_WITH_ID_LENGTH
 from anchor.model.types.router import LiteLLM_Params
-from anchor.secret.manager import get_secret_str, get_secret 
+from channel.secret.manager import get_secret_str, get_secret 
 from watcher.plane.emitter import get_emitter
 from anchor.model.provider.logic import (
     _matches_claude_model_pattern,
@@ -162,7 +162,7 @@ class LLMProviderResolver:
         return model, custom_llm_provider, api_key, api_base
 
     def _resolve_special_cases(self, model: str, custom_llm_provider: Optional[str]) -> Tuple[str, Optional[str], bool]:
-        from channel.cost.model import get_provider_for_model
+        from channel.cost.map import get_provider_for_model
         ## Azure의 Cohere/Mistral 호스팅 모델 교정
         if model.startswith("azure/"):
             model_name = model.split("/", 1)[1]

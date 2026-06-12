@@ -10,7 +10,7 @@ from functools import lru_cache
 
 from anchor.model.provider.gate import _get_model_info_helper
 
-from channel.cost.model import model_cost
+from channel.cost.map import model_cost
 from anchor.base.constants import (
     DEFAULT_MAX_LRU_CACHE_SIZE,
     DEFAULT_REPLICATE_GPU_PRICE_PER_SECOND,

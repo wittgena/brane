@@ -1,4 +1,5 @@
-# anchor.model.info
+# channel.cost.model.info
+## @lineage: anchor.model.info
 ## @lineage: gate.model.info
 ## @lineage: gate.bound.model.info
 ## @lineage: gate.bound.mode.info

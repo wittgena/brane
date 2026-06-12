@@ -1,7 +1,5 @@
-# bound.retry
-## @lineage: channel.bound.retry
-## @lineage: gate.bound.retry
-## @lineage: blm.bound.retry
+# bound.handler.retry
+## @lineage: bound.retry
 from bound.handler.response.main import responses
 from bound.handler.response.main import aresponses
 from typing import Literal
