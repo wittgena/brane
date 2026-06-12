@@ -1,4 +1,5 @@
 # anchor.template.transcript
+## @lineage: anchor.workflow.template.transcript
 ## @lineage: bound.template.transcript
 import asyncio
 import logging

@@ -1,4 +1,5 @@
 # anchor.template.tensor
+## @lineage: anchor.workflow.template.tensor
 ## @lineage: bound.template.tensor
 ## @lineage: hub.model.template.tensor
 ## @lineage: phase.hub.template.tensor

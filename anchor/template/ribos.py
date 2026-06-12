@@ -1,4 +1,5 @@
 # anchor.template.ribos
+## @lineage: anchor.workflow.template.ribos
 ## @lineage: bound.template.ribos
 ## @lineage: hub.model.template.ribos
 ## @lineage: phase.hub.template.ribos
