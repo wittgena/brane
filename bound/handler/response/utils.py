@@ -27,14 +27,14 @@ from litellm.utils import PreProcessNonDefaultParams
 
 from anchor.base.responses.transformation import BaseResponsesAPIConfig
 from bound.config.resolver import config
-from anchor.model.types.llms.openai import (
+from channel.model.types.llms.openai import (
     ResponseAPIUsage,
     ResponsesAPIOptionalRequestParams,
     ResponsesAPIResponse,
     ResponseText,
 )
-from anchor.model.types.responses.main import DecodedResponseId
-from anchor.model.types.utils import (
+from channel.model.types.responses.main import DecodedResponseId
+from channel.model.types.utils import (
     CompletionTokensDetailsWrapper,
     PromptTokensDetailsWrapper,
     SpecialEnums,
@@ -167,7 +167,7 @@ class ResponsesAPIRequestUtils:
         Returns:
             ResponsesAPIOptionalRequestParams instance with only the valid parameters
         """
-        from anchor.model.provider.gate import PreProcessNonDefaultParams
+        from channel.model.provider.gate import PreProcessNonDefaultParams
 
         valid_keys = get_type_hints(ResponsesAPIOptionalRequestParams).keys()
         custom_llm_provider = params.pop("custom_llm_provider", None)

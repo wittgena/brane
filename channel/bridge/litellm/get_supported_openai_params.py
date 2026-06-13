@@ -6,10 +6,10 @@
 ## @lineage: gate.litellm_core_utils.get_supported_openai_params
 from typing import Literal, Optional
 from bound.config.resolver import config
-from anchor.model.provider.manager import ProviderConfigManager
-from anchor.model.provider.resolver import get_llm_provider
+from channel.model.provider.manager import ProviderConfigManager
+from channel.model.provider.resolver import get_llm_provider
 from anchor.base.exceptions import BadRequestError
-from anchor.model.types.utils import LlmProviders, LlmProvidersSet
+from channel.model.types.utils import LlmProviders, LlmProvidersSet
 
 def get_supported_openai_params(
     model: str,

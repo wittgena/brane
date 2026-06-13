@@ -14,7 +14,7 @@ import httpx
 from watcher.plane.emitter import get_emitter
 log = get_emitter("core.helpers")
 
-from anchor.model.types.llms.openai import AllMessageValues, OpenAIChatCompletionFinishReason
+from channel.model.types.llms.openai import AllMessageValues, OpenAIChatCompletionFinishReason
 if TYPE_CHECKING:
     from opentelemetry.trace import Span as _Span
     from anchor.router.switch.params import ModelResponseStream
@@ -247,7 +247,7 @@ def _get_parent_otel_span_from_kwargs(
 
 
 def process_response_headers(response_headers: Union[httpx.Headers, dict]) -> dict:
-    from anchor.model.types.utils import OPENAI_RESPONSE_HEADERS
+    from channel.model.types.utils import OPENAI_RESPONSE_HEADERS
 
     openai_headers = {}
     processed_headers = {}

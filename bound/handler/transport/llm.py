@@ -15,9 +15,9 @@ from typing import (
 
 import httpx
 from bound.handler.transport.http_handler import AsyncHTTPHandler, HTTPHandler
-from anchor.model.types.utils import GenericStreamingChunk
-from anchor.model.types.utils import EmbeddingResponse, ImageResponse, ModelResponse
-from anchor.action.base import BaseLLM
+from channel.model.types.utils import GenericStreamingChunk
+from channel.model.types.utils import EmbeddingResponse, ImageResponse, ModelResponse
+from anchor.router.action.base import BaseLLM
 from bound.handler.stream.wrapper import CustomStreamWrapper
 
 class CustomLLMError(Exception):  # use this for all your exceptions

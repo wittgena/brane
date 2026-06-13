@@ -13,7 +13,7 @@ from bound.handler.response.get_api_base import get_api_base
 # from gate.litellm.voider import Logging as LiteLLMLoggingObject
 LiteLLMLoggingObject = Any
 
-from anchor.model.types.utils import (
+from channel.model.types.utils import (
     EmbeddingResponse,
     HiddenParams,
     ModelResponse,

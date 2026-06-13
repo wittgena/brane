@@ -4,8 +4,8 @@
 from pathlib import Path
 from typing import TYPE_CHECKING, Dict, List, Optional
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 
 if TYPE_CHECKING:
     from bs4 import Tag

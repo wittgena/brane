@@ -7,8 +7,8 @@ import logging
 from importlib.util import find_spec
 from typing import Any, Generator, List
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 
 logger = logging.getLogger(__name__)
 

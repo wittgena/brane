@@ -25,8 +25,8 @@ from typing import (
 from litellm.router_utils.batch_utils import InMemoryFile
 
 from bound.config.resolver import config
-from anchor.model.types.llms.openai import ChatCompletionImageObject, ChatCompletionImageUrlObject
-from anchor.model.types.llms.openai import (
+from channel.model.types.llms.openai import ChatCompletionImageObject, ChatCompletionImageUrlObject
+from channel.model.types.llms.openai import (
     AllMessageValues,
     ChatCompletionAssistantMessage,
     ChatCompletionFileObject,
@@ -35,8 +35,8 @@ from anchor.model.types.llms.openai import (
     ChatCompletionUserMessage,
 )
 from anchor.router.switch.params import Choices, ModelResponse, StreamingChoices
-from anchor.model.types.utils import ExtractedFileData, FileTypes, SpecialEnums
-from anchor.model.types.llms.openai import (
+from channel.model.types.utils import ExtractedFileData, FileTypes, SpecialEnums
+from channel.model.types.llms.openai import (
     AllMessageValues,
     ChatCompletionAssistantMessage,
     ChatCompletionFileObject,
@@ -44,7 +44,7 @@ from anchor.model.types.llms.openai import (
     ChatCompletionToolParam,
     ChatCompletionUserMessage,
 )
-from anchor.model.types.llms.openai import ChatCompletionImageObject
+from channel.model.types.llms.openai import ChatCompletionImageObject
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("template.common")

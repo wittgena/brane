@@ -10,7 +10,7 @@ from scrapy.spiders import signals, Spider
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
-from bound.adapter.schema import Document
+from anchor.adapter.schema import Document
 
 
 def load_scrapy_settings(project_path: str) -> Dict:

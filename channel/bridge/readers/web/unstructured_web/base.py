@@ -4,8 +4,8 @@
 import logging
 from typing import List
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 
 logger = logging.getLogger(__file__)
 

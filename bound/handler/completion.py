@@ -8,8 +8,8 @@ import httpx
 from anchor.base.chat.transformation import BaseConfig
 from bound.handler.transport.http_handler import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
 from bound.handler.stream.wrapper import CustomStreamWrapper
-from anchor.model.provider.manager import ProviderConfigManager
-from anchor.model.types.provider import LlmProviders
+from channel.model.provider.manager import ProviderConfigManager
+from channel.model.types.provider import LlmProviders
 from anchor.router.switch.params import ModelResponse
 from bound.config.resolver import config
 from watcher.plane.emitter import get_emitter

@@ -4,7 +4,7 @@ import base64
 import os
 from typing import Any, Optional
 from channel.secret.handler.base import BaseSecretManager
-from anchor.model.types.secret_managers.main import KeyManagementSystem
+from channel.model.types.secret_managers.main import KeyManagementSystem
 from bound.config.resolver import config
 from watcher.plane.emitter import get_emitter
 

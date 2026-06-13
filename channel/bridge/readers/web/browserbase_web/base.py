@@ -3,8 +3,8 @@
 ## @lineage: channel.llama.readers.web.browserbase_web.base
 import logging
 from typing import Optional, Iterator, Sequence
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 
 
 logger = logging.getLogger(__name__)

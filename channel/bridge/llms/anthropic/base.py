@@ -2,7 +2,7 @@
 ## @lineage: bridge.llama.llms.anthropic.base
 import json
 import logging
-import bound.adapter.instrumentation as instrument
+import anchor.adapter.instrumentation as instrument
 from importlib.metadata import version as get_version
 from typing import (
     TYPE_CHECKING,
@@ -20,8 +20,8 @@ from typing import (
     Union,
     cast,
 )
-from bound.adapter.llms.utils import parse_partial_json
-from bound.adapter.base.llms.types import (
+from anchor.adapter.llms.utils import parse_partial_json
+from anchor.adapter.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseAsyncGen,
@@ -31,20 +31,20 @@ from bound.adapter.base.llms.types import (
     ContentBlock,
     ToolCallBlock,
 )
-from bound.adapter.base.llms.types import TextBlock as LITextBlock
-from bound.adapter.base.llms.types import CitationBlock as LICitationBlock
-from bound.adapter.base.llms.types import ThinkingBlock as LIThinkingBlock
-from bound.adapter.bridge.pydantic import Field, PrivateAttr
-from bound.adapter.callbacks import CallbackManager
-from bound.adapter.constants import DEFAULT_TEMPERATURE
-from bound.adapter.llms.callbacks import (
+from anchor.adapter.base.llms.types import TextBlock as LITextBlock
+from anchor.adapter.base.llms.types import CitationBlock as LICitationBlock
+from anchor.adapter.base.llms.types import ThinkingBlock as LIThinkingBlock
+from anchor.adapter.bridge.pydantic import Field, PrivateAttr
+from anchor.adapter.callbacks import CallbackManager
+from anchor.adapter.constants import DEFAULT_TEMPERATURE
+from anchor.adapter.llms.callbacks import (
     llm_chat_callback,
     llm_completion_callback,
 )
-from bound.adapter.llms.function_calling import FunctionCallingLLM, ToolSelection
-from bound.adapter.types import BaseOutputParser, PydanticProgramMode, Model
-from bound.adapter.prompts import PromptTemplate
-from bound.adapter.utils import Tokenizer
+from anchor.adapter.llms.function_calling import FunctionCallingLLM, ToolSelection
+from anchor.adapter.types import BaseOutputParser, PydanticProgramMode, Model
+from anchor.adapter.prompts import PromptTemplate
+from anchor.adapter.utils import Tokenizer
 from channel.bridge.llms.anthropic.utils import (
     ANTHROPIC_NO_TEMP_MODELS,
     anthropic_modelname_to_contextsize,
@@ -81,8 +81,8 @@ from anthropic.types import (
 )
 
 if TYPE_CHECKING:
-    from bound.adapter.tools.types import BaseTool
-    from bound.adapter.program.utils import FlexibleModel
+    from anchor.adapter.tools.types import BaseTool
+    from anchor.adapter.program.utils import FlexibleModel
 
 
 logger = logging.getLogger(__name__)

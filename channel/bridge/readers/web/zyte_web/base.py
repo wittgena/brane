@@ -9,8 +9,8 @@ from base64 import b64decode
 from typing import Any, Dict, List, Literal, Optional
 from pydantic import Field
 
-from bound.adapter.readers.base import BasePydanticReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BasePydanticReader
+from anchor.adapter.schema import Document
 
 logger = logging.getLogger(__name__)
 

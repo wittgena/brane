@@ -4,8 +4,8 @@
 from typing import List
 
 import requests
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 
 
 class MainContentExtractorReader(BaseReader):

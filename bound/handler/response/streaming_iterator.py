@@ -16,15 +16,15 @@ from bound.config.resolver import config
 from bound.handler.response.utils import ResponsesAPIRequestUtils
 
 from anchor.base.responses.transformation import BaseResponsesAPIConfig
-from anchor.model.types.llms import openai as openai_types
+from channel.model.types.llms import openai as openai_types
 from bound.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
 from channel.bridge.litellm.asyncify import run_async_function
 from channel.bridge.litellm.core_helpers import process_response_headers
 from channel.bridge.litellm.thread_pool_executor import executor
 from bound.handler.response.get_api_base import get_api_base
 from bound.handler.response.metadata import update_response_metadata
-from anchor.model.types.llms.openai import ResponsesAPIStreamEvents
-from anchor.model.types.utils import CallTypes
+from channel.model.types.llms.openai import ResponsesAPIStreamEvents
+from channel.model.types.utils import CallTypes
 
 from watcher.plane.emitter import get_emitter
 
@@ -34,7 +34,7 @@ LiteLLMLoggingObj = Any
 
 @lru_cache(maxsize=1)
 def _get_openai_response_types():
-    from anchor.model.types.llms import openai as openai_types
+    from channel.model.types.llms import openai as openai_types
     return openai_types
 
 def _log_background_task_failure(task: "asyncio.Task[Any]", *, task_name: str) -> None:
@@ -1609,7 +1609,7 @@ class ManagedResponsesWebSocketHandler:
         if not model:
             return None
         try:
-            from anchor.model.provider.resolver import get_llm_provider
+            from channel.model.provider.resolver import get_llm_provider
             _, provider, _, _ = get_llm_provider(model=model)
             return provider
         except Exception:

@@ -48,9 +48,9 @@ from bound.config.constants import (
     HTTP_HANDLER_CONNECT_TIMEOUT_SECONDS,
 )
 
-from anchor.model.types.llms.custom_http import VerifyTypes, httpxSpecialProvider
+from channel.model.types.llms.custom_http import VerifyTypes, httpxSpecialProvider
 if TYPE_CHECKING:
-    from anchor.model.types.provider import LlmProviders
+    from channel.model.types.provider import LlmProviders
     from bound.handler.transport.aiohttp_transport import LiteLLMAiohttpTransport
 else:
     LlmProviders = Any

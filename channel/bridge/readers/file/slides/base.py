@@ -17,9 +17,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 from fsspec import AbstractFileSystem
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
-from bound.adapter.base.llms.base import BaseLLM
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
+from anchor.adapter.base.llms.base import BaseLLM
 from channel.bridge.readers.file.slides.content_extractor import SlideContentExtractor
 
 logging.basicConfig(

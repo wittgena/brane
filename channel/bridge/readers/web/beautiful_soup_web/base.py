@@ -8,9 +8,9 @@ import uuid
 from typing import Any, Callable, Dict, List, Optional, Tuple
 from urllib.parse import urljoin
 
-from bound.adapter.bridge.pydantic import PrivateAttr
-from bound.adapter.readers.base import BasePydanticReader
-from bound.adapter.schema import Document
+from anchor.adapter.bridge.pydantic import PrivateAttr
+from anchor.adapter.readers.base import BasePydanticReader
+from anchor.adapter.schema import Document
 
 logger = logging.getLogger(__name__)
 

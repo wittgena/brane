@@ -25,8 +25,8 @@ from typing import (
 import httpx
 import tiktoken
 
-import bound.adapter.instrumentation as instrument
-from bound.adapter.base.llms.generic_utils import (
+import anchor.adapter.instrumentation as instrument
+from anchor.adapter.base.llms.generic_utils import (
     achat_to_completion_decorator,
     acompletion_to_chat_decorator,
     astream_chat_to_completion_decorator,
@@ -36,7 +36,7 @@ from bound.adapter.base.llms.generic_utils import (
     stream_chat_to_completion_decorator,
     stream_completion_to_chat_decorator,
 )
-from bound.adapter.base.llms.types import (
+from anchor.adapter.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseAsyncGen,
@@ -50,24 +50,24 @@ from bound.adapter.base.llms.types import (
     ToolCallBlock,
     TextBlock,
 )
-from bound.adapter.bridge.pydantic import (
+from anchor.adapter.bridge.pydantic import (
     Field,
     PrivateAttr,
 )
-from bound.adapter.callbacks import CallbackManager
-from bound.adapter.constants import (
+from anchor.adapter.callbacks import CallbackManager
+from anchor.adapter.constants import (
     DEFAULT_TEMPERATURE,
 )
-from bound.adapter.llms.callbacks import (
+from anchor.adapter.llms.callbacks import (
     llm_chat_callback,
     llm_completion_callback,
 )
-from bound.adapter.llms.function_calling import FunctionCallingLLM
-from bound.adapter.llms.llm import ToolSelection, Model
-from bound.adapter.llms.utils import parse_partial_json
-from bound.adapter.prompts import PromptTemplate
-from bound.adapter.program.utils import FlexibleModel
-from bound.adapter.types import BaseOutputParser, PydanticProgramMode
+from anchor.adapter.llms.function_calling import FunctionCallingLLM
+from anchor.adapter.llms.llm import ToolSelection, Model
+from anchor.adapter.llms.utils import parse_partial_json
+from anchor.adapter.prompts import PromptTemplate
+from anchor.adapter.program.utils import FlexibleModel
+from anchor.adapter.types import BaseOutputParser, PydanticProgramMode
 from channel.bridge.llms.openai.utils import (
     O1_MODELS,
     create_retry_decorator,
@@ -96,7 +96,7 @@ from openai.types.chat.chat_completion_chunk import (
 dispatcher = instrument.get_dispatcher(__name__)
 
 if TYPE_CHECKING:
-    from bound.adapter.tools.types import BaseTool
+    from anchor.adapter.tools.types import BaseTool
 
 DEFAULT_OPENAI_MODEL = "gpt-3.5-turbo"
 
@@ -1192,7 +1192,7 @@ class OpenAI(FunctionCallingLLM):
         Union[Model, List[Model], "FlexibleModel", List["FlexibleModel"]], None, None
     ]:
         if self._should_use_structure_outputs():
-            from bound.adapter.program.streaming_utils import (
+            from anchor.adapter.program.streaming_utils import (
                 process_streaming_content_incremental,
             )
 
@@ -1228,7 +1228,7 @@ class OpenAI(FunctionCallingLLM):
             ) -> AsyncGenerator[
                 Union[Model, List[Model], FlexibleModel, List[FlexibleModel]], None
             ]:
-                from bound.adapter.program.streaming_utils import (
+                from anchor.adapter.program.streaming_utils import (
                     process_streaming_content_incremental,
                 )
 

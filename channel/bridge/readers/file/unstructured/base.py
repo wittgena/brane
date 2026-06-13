@@ -15,8 +15,8 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document, NodeRelationship, TextNode
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document, NodeRelationship, TextNode
 
 try:
     from unstructured.documents.elements import Element

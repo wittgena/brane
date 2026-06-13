@@ -3,8 +3,8 @@
 ## @lineage: channel.llama.readers.web.knowledge_base.base
 from typing import Any, Dict, List, Optional
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 
 
 class KnowledgeBaseWebReader(BaseReader):

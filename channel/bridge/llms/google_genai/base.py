@@ -25,14 +25,14 @@ from typing import (
 )
 
 
-import bound.adapter.instrumentation as instrument
-from bound.adapter.base.llms.generic_utils import (
+import anchor.adapter.instrumentation as instrument
+from anchor.adapter.base.llms.generic_utils import (
     chat_to_completion_decorator,
     achat_to_completion_decorator,
     stream_chat_to_completion_decorator,
     astream_chat_to_completion_decorator,
 )
-from bound.adapter.base.llms.types import (
+from anchor.adapter.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseAsyncGen,
@@ -44,15 +44,15 @@ from bound.adapter.base.llms.types import (
     MessageRole,
     ToolCallBlock,
 )
-from bound.adapter.bridge.pydantic import BaseModel, Field, PrivateAttr
-from bound.adapter.callbacks import CallbackManager
-from bound.adapter.constants import DEFAULT_TEMPERATURE, DEFAULT_NUM_OUTPUTS
-from bound.adapter.llms.callbacks import llm_chat_callback, llm_completion_callback
-from bound.adapter.llms.function_calling import FunctionCallingLLM
-from bound.adapter.llms.llm import ToolSelection, Model
-from bound.adapter.prompts import PromptTemplate
-from bound.adapter.program.utils import FlexibleModel, create_flexible_model
-from bound.adapter.types import PydanticProgramMode
+from anchor.adapter.bridge.pydantic import BaseModel, Field, PrivateAttr
+from anchor.adapter.callbacks import CallbackManager
+from anchor.adapter.constants import DEFAULT_TEMPERATURE, DEFAULT_NUM_OUTPUTS
+from anchor.adapter.llms.callbacks import llm_chat_callback, llm_completion_callback
+from anchor.adapter.llms.function_calling import FunctionCallingLLM
+from anchor.adapter.llms.llm import ToolSelection, Model
+from anchor.adapter.prompts import PromptTemplate
+from anchor.adapter.program.utils import FlexibleModel, create_flexible_model
+from anchor.adapter.types import PydanticProgramMode
 from channel.bridge.llms.google_genai.utils import (
     chat_from_gemini_response,
     chat_message_to_gemini,
@@ -73,7 +73,7 @@ dispatcher = instrument.get_dispatcher(__name__)
 DEFAULT_MODEL = "gemini-3-flash-preview"
 
 if TYPE_CHECKING:
-    from bound.adapter.tools.types import BaseTool
+    from anchor.adapter.tools.types import BaseTool
 
 
 class VertexAIConfig(typing.TypedDict, total=False):

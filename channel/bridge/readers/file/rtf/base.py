@@ -6,8 +6,8 @@
 from pathlib import Path
 from typing import List, Union, Any, Dict, Optional
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 
 
 class RTFReader(BaseReader):

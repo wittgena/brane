@@ -6,8 +6,8 @@ from multiprocessing import Process, Queue
 
 from scrapy.spiders import Spider
 
-from bound.adapter.readers.base import BasePydanticReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BasePydanticReader
+from anchor.adapter.schema import Document
 
 from .utils import run_spider_process, load_scrapy_settings
 

@@ -6,8 +6,8 @@
 import httpx
 from typing import Optional, List
 
-from bound.adapter.readers.base import BasePydanticReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BasePydanticReader
+from anchor.adapter.schema import Document
 
 import logging
 

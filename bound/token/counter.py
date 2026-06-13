@@ -32,17 +32,17 @@ from bound.config.constants import (
 from channel.bridge.litellm.default_encoding import encoding as default_encoding
 from bound.handler.transport.http_handler import _get_httpx_client
 from channel.bridge.litellm.url_utils import safe_get
-from anchor.model.types.llms.anthropic import (
+from channel.model.types.llms.anthropic import (
     AnthropicMessagesToolResultParam,
     AnthropicMessagesToolUseParam,
 )
-from anchor.model.types.llms.openai import (
+from channel.model.types.llms.openai import (
     AllMessageValues,
     ChatCompletionNamedToolChoiceParam,
     ChatCompletionToolParam,
     OpenAIMessageContent,
 )
-from anchor.model.types.utils import SelectTokenizerResponse
+from channel.model.types.utils import SelectTokenizerResponse
 
 from anchor.router.switch.params import Message
 from watcher.plane.emitter import get_emitter

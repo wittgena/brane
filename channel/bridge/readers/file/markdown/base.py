@@ -12,8 +12,8 @@ import re
 from fsspec import AbstractFileSystem
 from fsspec.implementations.local import LocalFileSystem
 from typing import Any, Dict, List, Optional, Tuple
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 
 
 class MarkdownReader(BaseReader):

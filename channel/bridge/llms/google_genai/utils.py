@@ -25,8 +25,8 @@ import httpx
 from google.genai import _transformers, Client
 from google.genai import errors
 
-from bound.adapter.bridge.pydantic import BaseModel, ValidationError
-from bound.adapter.base.llms.types import (
+from anchor.adapter.bridge.pydantic import BaseModel, ValidationError
+from anchor.adapter.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ImageBlock,
@@ -38,7 +38,7 @@ from bound.adapter.base.llms.types import (
     ToolCallBlock,
     ContentBlock,
 )
-from bound.adapter.program.utils import _repair_incomplete_json
+from anchor.adapter.program.utils import _repair_incomplete_json
 from tenacity import (
     before_sleep_log,
     retry,
@@ -52,7 +52,7 @@ from tenacity import (
 from tenacity.stop import stop_base
 
 if TYPE_CHECKING:
-    from bound.adapter.tools.types import BaseTool
+    from anchor.adapter.tools.types import BaseTool
 
 logger = logging.getLogger(__name__)
 

@@ -16,7 +16,7 @@ from gov.gateway.call.converter import (
     convert_fnto_non,
     convert_to_fncall,
 )
-from anchor.model.info.features import get_features
+from channel.model.info.features import get_features
 
 class _HostSupports(Protocol):
     model: str

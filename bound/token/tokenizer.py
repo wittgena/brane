@@ -7,7 +7,7 @@
 from functools import lru_cache, wraps
 from typing import Dict, List, Optional, Type
 from tokenizers import Tokenizer
-from anchor.model.types.utils import CustomHuggingfaceTokenizer, SelectTokenizerResponse
+from channel.model.types.utils import CustomHuggingfaceTokenizer, SelectTokenizerResponse
 from bound.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from watcher.plane.emitter import get_emitter
 

@@ -33,7 +33,7 @@ if TYPE_CHECKING:
     from bound.plane.delegator import Logging as LiteLLMLoggingObj
 
 from anchor.rule.template.common import get_content_from_model_response
-from anchor.model.types.utils import TextChoices, TextCompletionResponse
+from channel.model.types.utils import TextChoices, TextCompletionResponse
 from anchor.base.exceptions import APIError
 
 from bound.config.resolver import config

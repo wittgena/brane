@@ -5,8 +5,8 @@ import httpx
 from typing import List
 
 from defusedxml.ElementTree import fromstring
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 from channel.bridge.readers.web.async_web.base import AsyncWebPageReader
 
 

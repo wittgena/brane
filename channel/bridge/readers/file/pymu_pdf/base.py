@@ -6,8 +6,8 @@
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 
 
 class PyMuPDFReader(BaseReader):

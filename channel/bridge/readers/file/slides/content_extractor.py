@@ -18,7 +18,7 @@ from tenacity import (
     stop_after_attempt,
     before_sleep_log,
 )
-from bound.adapter.base.llms.base import BaseLLM
+from anchor.adapter.base.llms.base import BaseLLM
 from channel.bridge.readers.file.slides.image_extractor import ImageExtractor
 
 logger = logging.getLogger(__name__)

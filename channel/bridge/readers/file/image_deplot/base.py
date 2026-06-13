@@ -4,8 +4,8 @@
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document, ImageDocument
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document, ImageDocument
 
 
 class ImageTabularChartReader(BaseReader):
@@ -61,7 +61,7 @@ class ImageTabularChartReader(BaseReader):
         self, file: Path, extra_info: Optional[Dict] = None
     ) -> List[Document]:
         """Parse file."""
-        from bound.adapter.img_utils import img_2_b64
+        from anchor.adapter.img_utils import img_2_b64
         from PIL import Image
 
         # load document image

@@ -6,8 +6,8 @@
 from typing import List, Any, Union
 import logging
 
-from bound.adapter.readers.base import BasePydanticReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BasePydanticReader
+from anchor.adapter.schema import Document
 
 logger = logging.getLogger(__name__)
 

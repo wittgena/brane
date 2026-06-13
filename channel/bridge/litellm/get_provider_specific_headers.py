@@ -10,7 +10,7 @@
 ## @lineage: gov.blm.litellm_core_utils.get_provider_specific_headers
 from typing import Dict, Optional
 
-from anchor.model.types.utils import ProviderSpecificHeader
+from channel.model.types.utils import ProviderSpecificHeader
 
 
 class ProviderSpecificHeaderUtils:

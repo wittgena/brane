@@ -30,7 +30,7 @@ GITHUB_API_BASE = "https://api.github.com/repos/run-llama/llama_index/contents"
 GITHUB_REPO_URL = "https://github.com/run-llama/llama_index.git"
 
 TARGET_REPO = "brane"
-ADAPTER_PATH = "bound.adapter"
+ADAPTER_PATH = "anchor.adapter"
 BRIDGE_DEST_PATH = "channel.bridge"
 
 class MutationRunner:

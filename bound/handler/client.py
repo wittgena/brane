@@ -68,7 +68,7 @@ from bound.handler.stream.chunk.builder import stream_chunk_builder
 from bound.token.counter import get_modified_max_tokens
 from arch.proto.phase.gate import uuid
 from channel.bridge.litellm.credential_accessor import CredentialAccessor
-from anchor.model.types.llms.openai import (
+from channel.model.types.llms.openai import (
     AllMessageValues,
     AllPromptValues,
     ChatCompletionAssistantToolCall,
@@ -78,10 +78,10 @@ from anchor.model.types.llms.openai import (
     OpenAITextCompletionUserMessage,
     OpenAIWebSearchOptions,
 )
-from anchor.model.types.utils import FileTypes
-from anchor.model.types.utils import CallTypes, Embedding, EmbeddingResponse, LlmProviders, LLMResponseTypes, ModelResponse
+from channel.model.types.utils import FileTypes
+from channel.model.types.utils import CallTypes, Embedding, EmbeddingResponse, LlmProviders, LLMResponseTypes, ModelResponse
 from anchor.base.utils import type_to_response_format_param
-from anchor.model.provider.resolver import get_llm_provider
+from channel.model.provider.resolver import get_llm_provider
 from bound.handler.response.metadata import update_response_metadata
 from channel.bridge.litellm.rules import Rules
 from channel.bridge.litellm.thread_pool_executor import executor

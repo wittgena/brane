@@ -9,8 +9,8 @@ import xml.etree.ElementTree as _XmlET  # for type annotations only
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 
 
 def _get_leaf_nodes_up_to_level(

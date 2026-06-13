@@ -4,8 +4,8 @@
 import uuid
 from typing import List
 
-from bound.adapter.readers.base import BasePydanticReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BasePydanticReader
+from anchor.adapter.schema import Document
 
 
 class TrafilaturaWebReader(BasePydanticReader):

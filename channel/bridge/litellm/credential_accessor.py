@@ -6,7 +6,7 @@
 ## @lineage: gate.litellm_core_utils.credential_accessor
 from typing import List
 import litellm
-from anchor.model.types.utils import CredentialItem
+from channel.model.types.utils import CredentialItem
 
 class CredentialAccessor:
     @staticmethod

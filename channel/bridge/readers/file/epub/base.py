@@ -12,8 +12,8 @@ from typing import Dict, List, Optional
 import logging
 from fsspec import AbstractFileSystem
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 
 logger = logging.getLogger(__name__)
 

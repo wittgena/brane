@@ -79,7 +79,7 @@ class ImageExtractor:
             )
 
         from PIL import Image
-        from bound.adapter.utils import infer_torch_device
+        from anchor.adapter.utils import infer_torch_device
 
         model = self.vision_models["model"]
         feature_extractor = self.vision_models["feature_extractor"]

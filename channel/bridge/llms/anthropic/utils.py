@@ -6,7 +6,7 @@ Utility functions for the Anthropic SDK LLM integration.
 
 from typing import Any, Dict, List, Literal, Optional, Sequence, Tuple, Union, cast
 
-from bound.adapter.base.llms.types import (
+from anchor.adapter.base.llms.types import (
     CachePoint,
     ChatMessage,
     ChatResponse,

@@ -8,9 +8,9 @@ import time
 from typing import Any, Dict, List, Literal, Optional, Union
 
 import requests
-from bound.adapter.bridge.pydantic import Field, PrivateAttr, field_validator
-from bound.adapter.readers.base import BasePydanticReader
-from bound.adapter.schema import Document
+from anchor.adapter.bridge.pydantic import Field, PrivateAttr, field_validator
+from anchor.adapter.readers.base import BasePydanticReader
+from anchor.adapter.schema import Document
 
 
 class ZenRowsWebReader(BasePydanticReader):

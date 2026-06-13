@@ -17,9 +17,9 @@ from typing import (
     Generator,
 )
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document, MediaResource
-from bound.adapter.utilities.sql_wrapper import SQLDatabase
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document, MediaResource
+from anchor.adapter.utilities.sql_wrapper import SQLDatabase
 from sqlalchemy import text
 from sqlalchemy.engine import Engine
 

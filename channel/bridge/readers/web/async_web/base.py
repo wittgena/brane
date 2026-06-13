@@ -5,8 +5,8 @@ import asyncio
 import logging
 from typing import List, Optional
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document
 
 logger = logging.getLogger(__name__)
 

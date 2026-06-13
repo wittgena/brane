@@ -4,9 +4,9 @@
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.schema import Document, ImageDocument
-from bound.adapter.utils import infer_torch_device
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.schema import Document, ImageDocument
+from anchor.adapter.utils import infer_torch_device
 
 
 class ImageVisionLLMReader(BaseReader):
@@ -68,7 +68,7 @@ class ImageVisionLLMReader(BaseReader):
         self, file: Path, extra_info: Optional[Dict] = None
     ) -> List[Document]:
         """Parse file."""
-        from bound.adapter.img_utils import img_2_b64
+        from anchor.adapter.img_utils import img_2_b64
         from PIL import Image
 
         # load document image

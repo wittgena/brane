@@ -2,8 +2,8 @@
 ## @lineage: bound.plane
 ## @lineage: channel.bound.plane
 from typing import Any, Dict, List, Optional, Tuple, Union
-from anchor.model.types.utils import LiteLLMLoggingBaseClass
-from channel.cost.telemetry import Telemetry
+from channel.model.types.utils import LiteLLMLoggingBaseClass
+from bound.plane.telemetry import Telemetry
 from bound.plane.metrics import Metrics
 from watcher.plane.emitter import get_emitter
 

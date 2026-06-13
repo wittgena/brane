@@ -34,11 +34,11 @@ from arch.proto.phase.gate import uuid
 from anchor.rule.template.common import is_function_call
 from channel.bridge.litellm.model_response_utils import is_model_response_stream_empty
 from channel.bridge.litellm.thread_pool_executor import executor
-from anchor.model.types.llms.openai import OpenAIChatCompletionChunk
-from anchor.model.types.router import GenericLiteLLMParams
-from anchor.model.types.utils import Delta
-from anchor.model.types.utils import GenericStreamingChunk as GChunk
-from anchor.model.types.utils import (
+from channel.model.types.llms.openai import OpenAIChatCompletionChunk
+from channel.model.types.router import GenericLiteLLMParams
+from channel.model.types.utils import Delta
+from channel.model.types.utils import GenericStreamingChunk as GChunk
+from channel.model.types.utils import (
     LlmProviders,
     ModelResponse,
     ModelResponseStream,
@@ -1151,7 +1151,7 @@ class CustomStreamWrapper:
         try:
             # return this for all models
             completion_obj: Dict[str, Any] = {"content": ""}
-            from anchor.model.types.utils import GenericStreamingChunk as GChunk
+            from channel.model.types.utils import GenericStreamingChunk as GChunk
 
             if (
                 isinstance(chunk, ModelResponseStream)
@@ -1675,7 +1675,7 @@ class CustomStreamWrapper:
         """
         try:
             import litellm
-            from anchor.model.types.utils import CallTypes
+            from channel.model.types.utils import CallTypes
             if self._post_streaming_hooks is None:
                 self._post_streaming_hooks = []
 
@@ -2444,7 +2444,7 @@ def generic_chunk_has_all_required_fields(chunk: dict) -> bool:
 def convert_generic_chunk_to_model_response_stream(
     chunk: GChunk,
 ) -> ModelResponseStream:
-    from anchor.model.types.utils import Delta
+    from channel.model.types.utils import Delta
 
     model_response_stream = ModelResponseStream(
         id=str(uuid.uuid4()),

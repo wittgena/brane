@@ -5,9 +5,9 @@
 
 from typing import Any, List, Optional, Dict, Callable
 
-from bound.adapter.bridge.pydantic import PrivateAttr
-from bound.adapter.readers.base import BasePydanticReader
-from bound.adapter.schema import Document
+from anchor.adapter.bridge.pydantic import PrivateAttr
+from anchor.adapter.readers.base import BasePydanticReader
+from anchor.adapter.schema import Document
 
 
 class FireCrawlWebReader(BasePydanticReader):

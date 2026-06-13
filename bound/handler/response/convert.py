@@ -8,9 +8,9 @@ import time
 import traceback
 from typing import Dict, Iterable, List, Literal, Optional, Tuple, Union, cast
 from anchor.rule.template.common import _extract_reasoning_content
-from anchor.model.types.llms.databricks import DatabricksTool
+from channel.model.types.llms.databricks import DatabricksTool
 from bound.config.constants import RESPONSE_FORMAT_TOOL_NAME
-from anchor.model.types.llms.openai import (
+from channel.model.types.llms.openai import (
     ChatCompletionThinkingBlock,
     ImageURLListItem,
     OpenAIModerationResponse,
@@ -42,7 +42,7 @@ from anchor.router.switch.params import (
     Choices, 
     Delta
 )
-from anchor.model.types.utils import Logprobs as TextCompletionLogprobs
+from channel.model.types.utils import Logprobs as TextCompletionLogprobs
 from anchor.base.exceptions import APIError
 from bound.handler.response.header import get_response_headers
 from watcher.plane.emitter import get_emitter 

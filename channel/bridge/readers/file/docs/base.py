@@ -19,9 +19,9 @@ from tenacity import retry, stop_after_attempt
 
 from fsspec import AbstractFileSystem
 
-from bound.adapter.readers.base import BaseReader
-from bound.adapter.readers.file.base import get_default_fs, is_default_fs
-from bound.adapter.schema import Document
+from anchor.adapter.readers.base import BaseReader
+from anchor.adapter.readers.file.base import get_default_fs, is_default_fs
+from anchor.adapter.schema import Document
 
 logger = logging.getLogger(__name__)
 
