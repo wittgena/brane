@@ -26,21 +26,21 @@ from litellm.llms.anthropic.chat import AnthropicChatCompletion
 from litellm.llms.openai.completion.handler import OpenAITextCompletion
 
 from anchor.model.provider.gate import get_non_default_completion_params, get_optional_params
-from anchor.switch.params import Choices, Message, ModelResponse, Usage, ModelResponseStream
+from anchor.router.switch.params import Choices, Message, ModelResponse, Usage, ModelResponseStream
 from bound.handler.client import client
 from bound.plane.delegator import Logging as LiteLLMLoggingObj
 from bound.config.resolver import config
 from bound.handler.completion import CompletionHandler
 from bound.handler.stream.wrapper import CustomStreamWrapper
 
-from anchor.template.common import add_system_prompt_to_messages
+from anchor.rule.template.common import add_system_prompt_to_messages
 from channel.secret.manager import get_secret_bool, get_secret_str
-from bridge.litellm.exception_mapping_utils import exception_type
-from bridge.litellm.get_litellm_params import get_litellm_params
+from channel.bridge.litellm.exception_mapping_utils import exception_type
+from channel.bridge.litellm.get_litellm_params import get_litellm_params
 from anchor.model.info.support import supports_httpx_timeout
 from anchor.base.exceptions import LiteLLMUnknownProvider
-from bridge.litellm.completion_timeout import CompletionTimeout
-from bridge.litellm.dd_tracing import tracer
+from channel.bridge.litellm.completion_timeout import CompletionTimeout
+from channel.bridge.litellm.dd_tracing import tracer
 from anchor.model.provider.manager import ProviderConfigManager
 from anchor.model.provider.resolver import get_llm_provider
 from anchor.model.validator.params import (

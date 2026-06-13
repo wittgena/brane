@@ -24,10 +24,10 @@ from litellm.llms.huggingface.embedding.handler import HuggingFaceEmbedding
 from litellm.llms.ollama.completion import handler as ollama
 
 from bound.handler.transport.llm import CustomLLM
-from bridge.litellm.get_litellm_params import get_litellm_params
+from channel.bridge.litellm.get_litellm_params import get_litellm_params
 from bound.config.resolver import config
 from bound.handler.client import client
-from bridge.litellm.exception_mapping_utils import exception_type
+from channel.bridge.litellm.exception_mapping_utils import exception_type
 from anchor.base.exceptions import LiteLLMUnknownProvider
 from bound.plane.delegator import Logging as LiteLLMLoggingObj
 from anchor.model.types.utils import (
@@ -44,7 +44,7 @@ from bound.token.counter import token_counter
 from anchor.model.llms.openai.embedding import OpenAIEmbedding
 from anchor.model.types.utils import all_litellm_params, EmbeddingResponse
 
-from anchor.switch.params import Choices, Message, ModelResponse
+from anchor.router.switch.params import Choices, Message, ModelResponse
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("bound.embedding")

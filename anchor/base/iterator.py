@@ -8,7 +8,7 @@ from abc import abstractmethod
 from typing import List, Optional, Union, cast
 from anchor.model.types.utils import GenericStreamingChunk
 from bound.handler.stream.wrapper import CustomStreamWrapper
-from anchor.switch.params import Choices, Delta, ModelResponse, ModelResponseStream, StreamingChoices
+from anchor.router.switch.params import Choices, Delta, ModelResponse, ModelResponseStream, StreamingChoices
 
 
 def convert_model_response_to_streaming(

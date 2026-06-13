@@ -10,7 +10,7 @@ from bound.handler.transport.http_handler import AsyncHTTPHandler, HTTPHandler, 
 from bound.handler.stream.wrapper import CustomStreamWrapper
 from anchor.model.provider.manager import ProviderConfigManager
 from anchor.model.types.provider import LlmProviders
-from anchor.switch.params import ModelResponse
+from anchor.router.switch.params import ModelResponse
 from bound.config.resolver import config
 from watcher.plane.emitter import get_emitter
 

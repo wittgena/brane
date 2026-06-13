@@ -25,7 +25,7 @@ from anchor.base.responses.transformation import BaseResponsesAPIConfig
 # from gate.litellm.voider import Logging as LiteLLMLoggingObj
 LiteLLMLoggingObj = Any
 
-from bridge.litellm.core_helpers import process_response_headers
+from channel.bridge.litellm.core_helpers import process_response_headers
 
 from anchor.model.types.provider import LlmProviders
 from bound.config.resolver import config

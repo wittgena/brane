@@ -62,12 +62,12 @@ from litellm.router_utils.get_retry_from_policy import get_num_retries_from_retr
 from litellm.litellm_core_utils.cached_imports import get_coroutine_checker, get_litellm_logging_class, get_set_callbacks
 from litellm.utils import _get_cached_llm_caching_handler
 
-import bridge.litellm.json_validation_rule
+import channel.bridge.litellm.json_validation_rule
 
 from bound.handler.stream.chunk.builder import stream_chunk_builder
 from bound.token.counter import get_modified_max_tokens
 from arch.proto.phase.gate import uuid
-from bridge.litellm.credential_accessor import CredentialAccessor
+from channel.bridge.litellm.credential_accessor import CredentialAccessor
 from anchor.model.types.llms.openai import (
     AllMessageValues,
     AllPromptValues,
@@ -83,8 +83,8 @@ from anchor.model.types.utils import CallTypes, Embedding, EmbeddingResponse, Ll
 from anchor.base.utils import type_to_response_format_param
 from anchor.model.provider.resolver import get_llm_provider
 from bound.handler.response.metadata import update_response_metadata
-from bridge.litellm.rules import Rules
-from bridge.litellm.thread_pool_executor import executor
+from channel.bridge.litellm.rules import Rules
+from channel.bridge.litellm.thread_pool_executor import executor
 from anchor.base.exceptions import (
     APIConnectionError,
     APIError,

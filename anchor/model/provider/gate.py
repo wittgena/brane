@@ -100,7 +100,7 @@ from anchor.model.types.utils import (
     all_litellm_params,
 )
 from anchor.model.provider.manager import ProviderConfigManager, get_provider_info
-from anchor.switch.params import Choices, Delta, Message, ModelResponse, ModelResponseStream, Usage
+from anchor.router.switch.params import Choices, Delta, Message, ModelResponse, ModelResponseStream, Usage
 
 if TYPE_CHECKING:
     from litellm.caching.caching_handler import CachingHandlerResponse, LLMCachingHandler
@@ -121,7 +121,7 @@ if TYPE_CHECKING:
     )
 
     from anchor.model.provider.logic import get_llm_provider
-    from anchor.template.common import _parse_content_for_reasoning
+    from anchor.rule.template.common import _parse_content_for_reasoning
     from bound.handler.stream.wrapper import CustomStreamWrapper
 
     from litellm.litellm_core_utils.redact_messages import (
@@ -139,7 +139,7 @@ if TYPE_CHECKING:
         get_litellm_logging_class,
         get_set_callbacks,
     )
-    from bridge.litellm.core_helpers import (
+    from channel.bridge.litellm.core_helpers import (
         get_litellm_metadata_from_kwargs,
         map_finish_reason,
         process_response_headers,

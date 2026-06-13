@@ -20,7 +20,7 @@ import httpx
 from pydantic import BaseModel
 
 from bound.handler.stream.wrapper import CustomStreamWrapper
-from anchor.switch.params import ModelResponse
+from anchor.router.switch.params import ModelResponse
 
 from anchor.base.utils import map_developer_role_to_system_role, type_to_response_format_param
 

@@ -18,9 +18,9 @@ from bound.handler.response.utils import ResponsesAPIRequestUtils
 from anchor.base.responses.transformation import BaseResponsesAPIConfig
 from anchor.model.types.llms import openai as openai_types
 from bound.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
-from bridge.litellm.asyncify import run_async_function
-from bridge.litellm.core_helpers import process_response_headers
-from bridge.litellm.thread_pool_executor import executor
+from channel.bridge.litellm.asyncify import run_async_function
+from channel.bridge.litellm.core_helpers import process_response_headers
+from channel.bridge.litellm.thread_pool_executor import executor
 from bound.handler.response.get_api_base import get_api_base
 from bound.handler.response.metadata import update_response_metadata
 from anchor.model.types.llms.openai import ResponsesAPIStreamEvents

@@ -8,7 +8,7 @@ from anchor.model.provider.resolver import get_llm_provider
 from channel.cost.map import model_cost
 from anchor.model.provider.gate import _get_model_info_helper
 from anchor.model.provider.manager import get_provider_info
-from bridge.litellm.get_supported_openai_params import get_supported_openai_params
+from channel.bridge.litellm.get_supported_openai_params import get_supported_openai_params
 
 from watcher.plane.emitter import get_emitter
 log = get_emitter("gate.support")

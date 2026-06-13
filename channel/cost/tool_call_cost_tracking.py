@@ -8,7 +8,7 @@ from bound.config.resolver import config
 from bound.config.constants import OPENAI_FILE_SEARCH_COST_PER_1K_CALLS
 from anchor.model.types.llms.openai import FileSearchTool, ResponsesAPIResponse, WebSearchOptions
 from anchor.model.types.utils import ModelInfo, SearchContextCostPerQuery, StandardBuiltInToolsParams, PromptTokensDetailsWrapper
-from anchor.switch.params import Message, ModelResponse, Usage
+from anchor.router.switch.params import Message, ModelResponse, Usage
 
 class StandardBuiltInToolCostTracking:
     """

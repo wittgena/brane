@@ -18,7 +18,7 @@ from typing import (
 import tiktoken
 
 from bound.config.resolver import config
-from anchor.template.common import extract_search_results_text
+from anchor.rule.template.common import extract_search_results_text
 from bound.config.constants import (
     DEFAULT_IMAGE_HEIGHT,
     DEFAULT_IMAGE_TOKEN_COUNT,
@@ -29,9 +29,9 @@ from bound.config.constants import (
     MAX_TILE_HEIGHT,
     MAX_TILE_WIDTH,
 )
-from bridge.litellm.default_encoding import encoding as default_encoding
+from channel.bridge.litellm.default_encoding import encoding as default_encoding
 from bound.handler.transport.http_handler import _get_httpx_client
-from bridge.litellm.url_utils import safe_get
+from channel.bridge.litellm.url_utils import safe_get
 from anchor.model.types.llms.anthropic import (
     AnthropicMessagesToolResultParam,
     AnthropicMessagesToolUseParam,
@@ -44,7 +44,7 @@ from anchor.model.types.llms.openai import (
 )
 from anchor.model.types.utils import SelectTokenizerResponse
 
-from anchor.switch.params import Message
+from anchor.router.switch.params import Message
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter(__name__)

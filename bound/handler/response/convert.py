@@ -7,7 +7,7 @@ import json
 import time
 import traceback
 from typing import Dict, Iterable, List, Literal, Optional, Tuple, Union, cast
-from anchor.template.common import _extract_reasoning_content
+from anchor.rule.template.common import _extract_reasoning_content
 from anchor.model.types.llms.databricks import DatabricksTool
 from bound.config.constants import RESPONSE_FORMAT_TOOL_NAME
 from anchor.model.types.llms.openai import (
@@ -28,7 +28,7 @@ from litellm.types.utils import (
     TranscriptionUsageDurationObject,
     TranscriptionUsageTokensObject,
 )
-from anchor.switch.params import (
+from anchor.router.switch.params import (
     TextChoices,
     TextCompletionResponse,
     TranscriptionResponse,

@@ -5,7 +5,7 @@ from collections import defaultdict
 from contextlib import contextmanager
 from typing import Any, Generator
 from pydantic import BaseModel
-from anchor.switch.dspy.settings import settings
+from anchor.router.switch.dspy.settings import settings
 
 class UsageTracker:
     def __init__(self):

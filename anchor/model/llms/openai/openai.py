@@ -50,7 +50,7 @@ from anchor.model.llms.openai.common_utils import (
     drop_params_from_unprocessable_entity_error,
 )
 
-from anchor.switch.params import ModelResponse, ModelResponseStream
+from anchor.router.switch.params import ModelResponse, ModelResponseStream
 from watcher.plane.emitter import get_emitter
 log = get_emitter("llms.openai")
 

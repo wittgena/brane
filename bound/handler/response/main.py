@@ -32,7 +32,7 @@ from bound.handler.ws import ResponseWebsocketHandler
 from bound.config.resolver import config
 
 from arch.proto.phase.gate import uuid
-from anchor.template.common import update_responses_input_with_model_file_ids, update_responses_tools_with_model_file_ids
+from anchor.rule.template.common import update_responses_input_with_model_file_ids, update_responses_tools_with_model_file_ids
 from anchor.base.responses.transformation import BaseResponsesAPIConfig
 from anchor.model.provider.resolver import get_llm_provider
 from anchor.model.types.llms.openai import (
@@ -47,8 +47,8 @@ from anchor.model.types.llms.openai import (
     ToolParam,
 )
 from bound.config.constants import request_timeout
-from bridge.litellm.asyncify import run_async_function
-from bridge.litellm.get_litellm_params import get_litellm_params
+from channel.bridge.litellm.asyncify import run_async_function
+from channel.bridge.litellm.get_litellm_params import get_litellm_params
 from anchor.model.llms.openai.data_residency import infer_openai_data_residency
 from anchor.model.types.responses.main import *
 from channel.secret.manager import get_secret_str

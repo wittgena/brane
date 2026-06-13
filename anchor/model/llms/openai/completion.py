@@ -19,7 +19,7 @@ from bound.config.constants import DEFAULT_MAX_RETRIES
 from anchor.base.chat.transformation import BaseConfig
 from anchor.base.exceptions import BaseLLMException
 from anchor.model.types.utils import EmbeddingResponse
-from anchor.switch.params import ModelResponse, ModelResponseStream
+from anchor.router.switch.params import ModelResponse, ModelResponseStream
 from bound.handler.response.convert import convert_to_model_response_object
 from anchor.model.provider.manager import ProviderConfigManager
 from bound.handler.stream.wrapper import CustomStreamWrapper

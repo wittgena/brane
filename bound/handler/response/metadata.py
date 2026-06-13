@@ -7,7 +7,7 @@
 import datetime
 from typing import Any, Optional, Union
 from bound.config.constants import LITELLM_DETAILED_TIMING
-from bridge.litellm.core_helpers import process_response_headers
+from channel.bridge.litellm.core_helpers import process_response_headers
 from bound.handler.response.get_api_base import get_api_base
 
 # from gate.litellm.voider import Logging as LiteLLMLoggingObject

@@ -31,9 +31,9 @@ from bound.handler.stream.chunk.builder import stream_chunk_builder
 from bound.config.resolver import config
 
 from arch.proto.phase.gate import uuid
-from anchor.template.common import is_function_call
-from bridge.litellm.model_response_utils import is_model_response_stream_empty
-from bridge.litellm.thread_pool_executor import executor
+from anchor.rule.template.common import is_function_call
+from channel.bridge.litellm.model_response_utils import is_model_response_stream_empty
+from channel.bridge.litellm.thread_pool_executor import executor
 from anchor.model.types.llms.openai import OpenAIChatCompletionChunk
 from anchor.model.types.router import GenericLiteLLMParams
 from anchor.model.types.utils import Delta
@@ -46,10 +46,10 @@ from anchor.model.types.utils import (
     Usage,
 )
 from anchor.base.exceptions import OpenAIError
-from bridge.litellm.core_helpers import map_finish_reason, process_response_headers
-from bridge.litellm.exception_mapping_utils import exception_type
+from channel.bridge.litellm.core_helpers import map_finish_reason, process_response_headers
+from channel.bridge.litellm.exception_mapping_utils import exception_type
 from bound.handler.response.get_api_base import get_api_base
-from bridge.litellm.rules import Rules
+from channel.bridge.litellm.rules import Rules
 from watcher.plane.emitter import get_emitter
 
 # from gate.litellm.voider import Logging as LiteLLMLoggingObject 
@@ -971,7 +971,7 @@ class CustomStreamWrapper:
         model_response: ModelResponseStream,
         response_obj: Dict[str, Any],
     ):
-        from bridge.litellm.core_helpers import (
+        from channel.bridge.litellm.core_helpers import (
             preserve_upstream_non_openai_attributes,
         )
 
