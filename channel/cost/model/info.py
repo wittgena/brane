@@ -7,7 +7,7 @@ from typing import Optional
 from functools import lru_cache, wraps
 
 from anchor.base.utils import BaseLLMModelInfo, type_to_response_format_param
-from anchor.base.constants import DEFAULT_MAX_LRU_CACHE_SIZE
+from bound.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from bound.config.resolver import config
 from anchor.model.provider.manager import get_provider_info
 from anchor.model.types.utils import ModelInfo

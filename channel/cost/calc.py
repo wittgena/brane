@@ -11,7 +11,7 @@ from functools import lru_cache
 from anchor.model.provider.gate import _get_model_info_helper
 
 from channel.cost.map import model_cost
-from anchor.base.constants import (
+from bound.config.constants import (
     DEFAULT_MAX_LRU_CACHE_SIZE,
     DEFAULT_REPLICATE_GPU_PRICE_PER_SECOND,
 )
@@ -45,7 +45,7 @@ from anchor.model.types.rerank import RerankBilledUnits, RerankResponse
 from anchor.model.types.utils import CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject, LlmProvidersSet, StandardBuiltInToolsParams, Usage
 from anchor.model.types.utils import CallTypes, CostPerToken, EmbeddingResponse, ImageResponse, TextCompletionResponse, TranscriptionResponse
 from bound.token.counter import token_counter
-from channel.switch.params import ModelResponse, ModelResponseStream
+from anchor.switch.params import ModelResponse, ModelResponseStream
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("cost.calculator")

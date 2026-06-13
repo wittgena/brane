@@ -25,11 +25,11 @@ from anchor.base.responses.transformation import BaseResponsesAPIConfig
 # from gate.litellm.voider import Logging as LiteLLMLoggingObj
 LiteLLMLoggingObj = Any
 
-from channel.litellm.core_helpers import process_response_headers
+from bridge.litellm.core_helpers import process_response_headers
 
 from anchor.model.types.provider import LlmProviders
 from bound.config.resolver import config
-from anchor.model.llms.custom.http_handler import (
+from bound.handler.transport.http_handler import (
     AsyncHTTPHandler,
     HTTPHandler,
     _get_httpx_client,

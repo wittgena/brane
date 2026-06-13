@@ -6,7 +6,7 @@ import re
 from typing import Optional, Tuple, Dict, Callable
 from urllib.parse import urlparse
 from bound.config.resolver import config
-from anchor.base.constants import REPLICATE_MODEL_NAME_WITH_ID_LENGTH
+from bound.config.constants import REPLICATE_MODEL_NAME_WITH_ID_LENGTH
 from anchor.model.types.router import LiteLLM_Params
 from channel.secret.manager import get_secret_str, get_secret 
 from watcher.plane.emitter import get_emitter

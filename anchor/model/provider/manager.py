@@ -54,7 +54,7 @@ from litellm.llms.s3_vectors.vector_stores.transformation import S3VectorsVector
 from litellm.llms.openai.vector_store_files.transformation import OpenAIVectorStoreFilesConfig
 
 from bound.config.resolver import config
-from anchor.base.constants import DEFAULT_MAX_LRU_CACHE_SIZE
+from bound.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from anchor.model.types.provider import LlmProviders
 from anchor.base.utils import BaseLLMModelInfo
 from anchor.model.types.utils import LlmProvidersSet, ProviderSpecificModelInfo

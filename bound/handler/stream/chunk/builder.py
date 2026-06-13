@@ -32,14 +32,14 @@ import tiktoken
 if TYPE_CHECKING:
     from bound.plane.delegator import Logging as LiteLLMLoggingObj
 
-from channel.litellm.template.common import get_content_from_model_response
+from anchor.template.common import get_content_from_model_response
 from anchor.model.types.utils import TextChoices, TextCompletionResponse
 from anchor.base.exceptions import APIError
 
 from bound.config.resolver import config
 from bound.token.counter import token_counter
 from bound.handler.stream.chunk.processor import ChunkProcessor
-from channel.switch.params import Choices, Message, ModelResponse, Usage
+from anchor.switch.params import Choices, Message, ModelResponse, Usage
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("blm.main")

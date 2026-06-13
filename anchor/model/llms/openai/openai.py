@@ -34,23 +34,23 @@ from bound.plane.delegator import Logging as LiteLLMLoggingObj
 
 from bound.config.resolver import config
 from anchor.model.types.provider import LlmProviders
-from anchor.base.constants import DEFAULT_MAX_RETRIES
+from bound.config.constants import DEFAULT_MAX_RETRIES
 from anchor.model.types.file import FileContentStreamingResult
 from anchor.base.iterator import BaseModelResponseIterator
 from anchor.base.chat.transformation import BaseConfig
 from anchor.base.exceptions import BaseLLMException
 from anchor.model.types.utils import EmbeddingResponse, ImageResponse, LiteLLMBatch
-from channel.litellm.response.convert import convert_to_model_response_object
+from bound.handler.response.convert import convert_to_model_response_object
 from bound.handler.stream.wrapper import CustomStreamWrapper
 from anchor.model.types.llms.openai import *
-from anchor.base.action import BaseLLM
+from anchor.action.base import BaseLLM
 from anchor.model.llms.openai.common_utils import (
     BaseOpenAILLM,
     OpenAIError,
     drop_params_from_unprocessable_entity_error,
 )
 
-from channel.switch.params import ModelResponse, ModelResponseStream
+from anchor.switch.params import ModelResponse, ModelResponseStream
 from watcher.plane.emitter import get_emitter
 log = get_emitter("llms.openai")
 

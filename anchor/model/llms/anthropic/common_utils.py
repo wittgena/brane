@@ -15,7 +15,7 @@ from anchor.model.types.llms.anthropic import (
 )
 from channel.cost.map import model_cost
 from anchor.model.types.llms.openai import AllMessageValues, ChatCompletionFileObject
-from anchor.model.llms.custom.http_handler import HTTPHandler
+from bound.handler.transport.http_handler import HTTPHandler
 from channel.secret.manager import get_secret_str
 
 def get_file_ids_from_messages(messages: List[AllMessageValues]) -> List[str]:

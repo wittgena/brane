@@ -7,7 +7,7 @@ import traceback
 import httpx
 from typing import Optional, Union, Dict, Tuple
 from channel.secret.handler.client import get_secret_from_vendor
-from anchor.model.llms.custom.http_handler import HTTPHandler
+from bound.handler.transport.http_handler import HTTPHandler
 from bound.config.resolver import config
 from watcher.plane.emitter import get_emitter
 

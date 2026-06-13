@@ -7,9 +7,9 @@
 from __future__ import annotations
 from collections.abc import Sequence
 from typing import Protocol, TypeGuard
-from channel.switch.params import ChatCompletionToolParam
-from channel.switch.params import Message as LiteLLMMessage
-from channel.switch.params import Choices, ModelResponse, StreamingChoices
+from anchor.switch.params import ChatCompletionToolParam
+from anchor.switch.params import Message as LiteLLMMessage
+from anchor.switch.params import Choices, ModelResponse, StreamingChoices
 from gov.gateway.call.exceptions.types import LLMNoResponseError
 from gov.gateway.call.converter import (
     STOP_WORDS,

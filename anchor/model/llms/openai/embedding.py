@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 import openai
 from openai import AsyncOpenAI, OpenAI
 from pydantic import BaseModel
-from anchor.base.constants import DEFAULT_MAX_RETRIES
+from bound.config.constants import DEFAULT_MAX_RETRIES
 from anchor.model.types.utils import EmbeddingResponse
-from channel.litellm.response.convert import convert_to_model_response_object
+from bound.handler.response.convert import convert_to_model_response_object
 from anchor.model.llms.openai.common_utils import BaseOpenAILLM, OpenAIError
 from watcher.plane.emitter import get_emitter
 

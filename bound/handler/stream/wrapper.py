@@ -31,9 +31,9 @@ from bound.handler.stream.chunk.builder import stream_chunk_builder
 from bound.config.resolver import config
 
 from arch.proto.phase.gate import uuid
-from channel.litellm.template.common import is_function_call
-from channel.litellm.model_response_utils import is_model_response_stream_empty
-from channel.litellm.thread_pool_executor import executor
+from anchor.template.common import is_function_call
+from bridge.litellm.model_response_utils import is_model_response_stream_empty
+from bridge.litellm.thread_pool_executor import executor
 from anchor.model.types.llms.openai import OpenAIChatCompletionChunk
 from anchor.model.types.router import GenericLiteLLMParams
 from anchor.model.types.utils import Delta
@@ -46,10 +46,10 @@ from anchor.model.types.utils import (
     Usage,
 )
 from anchor.base.exceptions import OpenAIError
-from channel.litellm.core_helpers import map_finish_reason, process_response_headers
-from channel.litellm.exception_mapping_utils import exception_type
-from channel.litellm.response.get_api_base import get_api_base
-from channel.litellm.rules import Rules
+from bridge.litellm.core_helpers import map_finish_reason, process_response_headers
+from bridge.litellm.exception_mapping_utils import exception_type
+from bound.handler.response.get_api_base import get_api_base
+from bridge.litellm.rules import Rules
 from watcher.plane.emitter import get_emitter
 
 # from gate.litellm.voider import Logging as LiteLLMLoggingObject 
@@ -217,7 +217,7 @@ class CustomStreamWrapper:
 
     def _check_max_streaming_duration(self) -> None:
         """Raise litellm.Timeout if the stream has exceeded LITELLM_MAX_STREAMING_DURATION_SECONDS."""
-        from anchor.base.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
+        from bound.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
 
         if LITELLM_MAX_STREAMING_DURATION_SECONDS is None:
             return
@@ -971,7 +971,7 @@ class CustomStreamWrapper:
         model_response: ModelResponseStream,
         response_obj: Dict[str, Any],
     ):
-        from channel.litellm.core_helpers import (
+        from bridge.litellm.core_helpers import (
             preserve_upstream_non_openai_attributes,
         )
 

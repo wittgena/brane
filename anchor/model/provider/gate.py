@@ -68,7 +68,7 @@ from litellm.llms.base_llm.base_utils import BaseLLMModelInfo, type_to_response_
 from bound.config.resolver import config
 from bound.token.counter import get_modified_max_tokens
 from bound.handler.retry import completion_with_retries, acompletion_with_retries
-from anchor.base.constants import (
+from bound.config.constants import (
     DEFAULT_CHAT_COMPLETION_PARAM_VALUES,
     DEFAULT_EMBEDDING_PARAM_VALUES,
     DEFAULT_MAX_LRU_CACHE_SIZE,
@@ -100,7 +100,7 @@ from anchor.model.types.utils import (
     all_litellm_params,
 )
 from anchor.model.provider.manager import ProviderConfigManager, get_provider_info
-from channel.switch.params import Choices, Delta, Message, ModelResponse, ModelResponseStream, Usage
+from anchor.switch.params import Choices, Delta, Message, ModelResponse, ModelResponseStream, Usage
 
 if TYPE_CHECKING:
     from litellm.caching.caching_handler import CachingHandlerResponse, LLMCachingHandler
@@ -121,7 +121,7 @@ if TYPE_CHECKING:
     )
 
     from anchor.model.provider.logic import get_llm_provider
-    from channel.litellm.template.common import _parse_content_for_reasoning
+    from anchor.template.common import _parse_content_for_reasoning
     from bound.handler.stream.wrapper import CustomStreamWrapper
 
     from litellm.litellm_core_utils.redact_messages import (
@@ -139,7 +139,7 @@ if TYPE_CHECKING:
         get_litellm_logging_class,
         get_set_callbacks,
     )
-    from channel.litellm.core_helpers import (
+    from bridge.litellm.core_helpers import (
         get_litellm_metadata_from_kwargs,
         map_finish_reason,
         process_response_headers,
@@ -367,7 +367,7 @@ def get_optional_params_transcription(
     drop_params: Optional[bool] = None,
     **kwargs,
 ):
-    from anchor.base.constants import OPENAI_TRANSCRIPTION_PARAMS
+    from bound.config.constants import OPENAI_TRANSCRIPTION_PARAMS
 
     # retrieve all parameters passed to the function
     passed_params = locals()
@@ -3410,7 +3410,7 @@ def strip_reasoning_summary_aliases_from_optional_params(
 
 
 def get_non_default_transcription_params(kwargs: dict) -> dict:
-    from anchor.base.constants import OPENAI_TRANSCRIPTION_PARAMS
+    from bound.config.constants import OPENAI_TRANSCRIPTION_PARAMS
 
     default_params = OPENAI_TRANSCRIPTION_PARAMS + all_litellm_params
     non_default_params = {k: v for k, v in kwargs.items() if k not in default_params}
