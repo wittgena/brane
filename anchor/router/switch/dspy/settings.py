@@ -1,8 +1,4 @@
 # anchor.router.switch.dspy.settings
-## @lineage: anchor.switch.dspy.settings
-## @lineage: anchor.base.dsp
-## @lineage: frame.scope.dsp
-## @lineage: gov.scope.dsp
 import asyncio
 import contextvars
 import copy

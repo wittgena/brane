@@ -13,7 +13,7 @@ from anyio import create_memory_object_stream, create_task_group
 from anyio.streams.memory import MemoryObjectSendStream
 from anchor.router.switch.compat import is_model_response_stream
 from anchor.router.switch.dspy.settings import settings
-from anchor.xor.exam.prediction import Prediction
+from bound.xor.exam.prediction import Prediction
 
 from channel.bridge.dsp.stream.messages import StatusMessage, StatusMessageProvider, StatusStreamingCallback
 from channel.bridge.dsp.stream.listener import StreamListener, find_predictor_for_stream_listeners
@@ -23,7 +23,7 @@ from channel.bridge.dsp.stream.asyncify import asyncify
 logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
-    from bound.module.meta import Module
+    from bound.scope.module.meta import Module
 
 
 def streamify(

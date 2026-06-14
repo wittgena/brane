@@ -10,13 +10,13 @@ from typing import Any, Literal, get_args, get_origin
 from pydantic import BaseModel
 from pydantic_core import PydanticUndefined
 from typeguard import TypeCheckError, check_type
-from anchor.xor.chat import ChatAdapter
-from anchor.xor.lm.base import BaseLM
+from bound.xor.chat import ChatAdapter
+from bound.xor.lm.base import BaseLM
 from channel.bridge.dsp.instance import LM
 from anchor.router.switch.dspy.settings import settings
-from anchor.xor.manifold.parameter import Parameter
-from bound.module.meta import Module
-from anchor.xor.exam.prediction import Prediction
+from bound.xor.manifold.parameter import Parameter
+from bound.scope.module.meta import Module
+from bound.xor.exam.prediction import Prediction
 from arch.xor.manifold.sign.signature import Signature, ensure_signature
 from channel.bridge.dsp.stream.callback import BaseCallback
 

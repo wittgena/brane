@@ -6,7 +6,7 @@ from pydantic.fields import FieldInfo
 
 from arch.xor.manifold.sign.field import InputField, OutputField
 from arch.xor.manifold.sign.signature import Signature, ensure_signature
-from bound.module.meta import Module
+from bound.scope.module.meta import Module
 from channel.bridge.dsp.predict import Predict
 
 class ChainOfThought(Module):

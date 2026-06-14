@@ -2,7 +2,7 @@
 ## @lineage: meta.xor.manifold.citation
 from typing import Any, Optional
 import pydantic
-from anchor.xor.basetype import Type
+from bound.xor.basetype import Type
 
 from arch.contract.exp.frag import exp
 from arch.xor.manifold.sign.field import InputField, OutputField

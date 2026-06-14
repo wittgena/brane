@@ -6,7 +6,7 @@ from anyio import CapacityLimiter
 from anchor.router.switch.dspy.settings import settings
 
 if TYPE_CHECKING:
-    from bound.module.meta import Module
+    from bound.scope.module.meta import Module
 
 _limiter = None
 

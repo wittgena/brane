@@ -37,7 +37,7 @@ from channel.model.types.utils import TextChoices, TextCompletionResponse
 from anchor.base.exceptions import APIError
 
 from bound.config.resolver import config
-from bound.token.counter import token_counter
+from channel.model.token.counter import token_counter
 from bound.handler.stream.chunk.processor import ChunkProcessor
 from anchor.router.switch.params import Choices, Message, ModelResponse, Usage
 from watcher.plane.emitter import get_emitter

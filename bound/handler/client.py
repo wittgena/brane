@@ -58,7 +58,7 @@ from bound.handler.retry import completion_with_retries, acompletion_with_retrie
 from bound.handler.worklet.logging import GLOBAL_LOGGING_WORKER
 from bound.handler.stream.chunk.builder import stream_chunk_builder
 from bound.handler.response.metadata import update_response_metadata
-from bound.token.counter import get_modified_max_tokens
+from channel.model.token.counter import get_modified_max_tokens
 
 from channel.secret.credential import CredentialAccessor
 from channel.model.types.llms.openai import (

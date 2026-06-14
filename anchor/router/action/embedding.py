@@ -41,7 +41,7 @@ from bound.handler.stream.wrapper import CustomStreamWrapper
 from channel.model.provider.gate import get_optional_params_embeddings
 from channel.secret.manager import get_secret, get_secret_str
 from channel.model.provider.resolver import get_llm_provider
-from bound.token.counter import token_counter
+from channel.model.token.counter import token_counter
 from channel.bridge.llms.openai.embedding import OpenAIEmbedding
 from channel.model.types.utils import all_litellm_params, EmbeddingResponse
 

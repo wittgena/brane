@@ -5,11 +5,11 @@ import logging
 from typing import Any, get_origin
 import json_repair
 
-from anchor.xor.basetype import Type
-from anchor.xor.basetype import split_message_content_for_custom_types
-from anchor.xor.lm.base import BaseLM
-from anchor.xor.manifold.history import History
-from anchor.xor.manifold.tool import Tool, ToolCalls
+from bound.xor.basetype import Type
+from bound.xor.basetype import split_message_content_for_custom_types
+from bound.xor.lm.base import BaseLM
+from bound.xor.manifold.history import History
+from bound.xor.manifold.tool import Tool, ToolCalls
 
 from channel.bridge.dsp.reasoning import Reasoning
 from channel.bridge.dsp.citation import Citations

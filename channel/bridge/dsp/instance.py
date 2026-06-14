@@ -13,7 +13,7 @@ from asyncer import syncify
 from anchor.router.action.acompletion import acompletion
 from anchor.router.switch.dspy.settings import settings
 from anchor.base.exceptions import ContextWindowExceededError as LitellmContextWindowExceededError
-from anchor.xor.lm.base import BaseLM
+from bound.xor.lm.base import BaseLM
 
 from bound.handler.dsp.cache import request_cache
 from bound.handler.stream.chunk.builder import stream_chunk_builder

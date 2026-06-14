@@ -26,7 +26,7 @@ from channel.model.types.utils import (
 )
 
 from channel.model.types.llms.openai import ChatCompletionRedactedThinkingBlock, ChatCompletionThinkingBlock
-from bound.token.counter import token_counter
+from channel.model.token.counter import token_counter
 from watcher.plane.emitter import get_emitter 
 
 log = get_emitter("chunk.processor")

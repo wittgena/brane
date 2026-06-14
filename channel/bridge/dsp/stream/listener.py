@@ -7,15 +7,15 @@ from queue import Queue
 from typing import TYPE_CHECKING, Any
 import jiter
 from anchor.router.switch.compat import extract_stream_content
-from anchor.xor.chat import ChatAdapter
-from anchor.xor.json import JSONAdapter
-from anchor.xor.xml import XMLAdapter
+from bound.xor.chat import ChatAdapter
+from bound.xor.json import JSONAdapter
+from bound.xor.xml import XMLAdapter
 from anchor.router.switch.dspy.settings import settings
-from anchor.xor.basetype import Type
+from bound.xor.basetype import Type
 from channel.bridge.dsp.stream.messages import StreamResponse
 
 if TYPE_CHECKING:
-    from bound.module.meta import Module
+    from bound.scope.module.meta import Module
 
 ADAPTER_SUPPORT_STREAMING = [ChatAdapter, XMLAdapter, JSONAdapter]
 

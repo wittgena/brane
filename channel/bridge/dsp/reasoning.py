@@ -4,8 +4,8 @@
 ## @lineage: xor.adapter.manifold.reasoning
 from typing import TYPE_CHECKING, Any, Optional
 import pydantic
-from anchor.xor.basetype import Type
-from anchor.xor.lm.base import BaseLM
+from bound.xor.basetype import Type
+from bound.xor.lm.base import BaseLM
 
 if TYPE_CHECKING:
     from arch.xor.manifold.sign.signature import Signature

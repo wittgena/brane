@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from functools import lru_cache
 
 from bound.config.resolver import config
-from bound.token.counter import token_counter
+from channel.model.token.counter import token_counter
 
 from channel.model.provider.gate import _get_model_info_helper
 from channel.model.cost.map import model_cost

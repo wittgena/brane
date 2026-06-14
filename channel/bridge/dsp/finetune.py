@@ -7,7 +7,7 @@ from pathlib import Path
 from enum import Enum
 from typing import TYPE_CHECKING, Any, Literal, TypedDict
 import orjson
-from anchor.xor.chat import ChatAdapter
+from bound.xor.chat import ChatAdapter
 from channel.bridge.dsp.hasher import Hasher
 
 if TYPE_CHECKING:
