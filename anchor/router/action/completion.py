@@ -1,8 +1,4 @@
 # anchor.router.action.completion
-## @lineage: anchor.action.completion
-## @lineage: bound.completion
-## @lineage: channel.bound.completion
-## @lineage: gate.bound.completion
 import asyncio
 import contextvars
 import datetime
@@ -26,7 +22,8 @@ from litellm.litellm_core_utils.prompt_templates.factory import map_system_messa
 from litellm.llms.anthropic.chat import AnthropicChatCompletion
 from litellm.llms.openai.completion.handler import OpenAITextCompletion
 
-from channel.model.provider.gate import get_non_default_completion_params, get_optional_params
+# from channel.model.provider.gate import get_optional_params
+from channel.model.provider.optional_params import get_optional_params
 from anchor.router.switch.params import Choices, Message, ModelResponse, Usage, ModelResponseStream
 from bound.handler.client import client
 from bound.plane.delegator import Logging as LiteLLMLoggingObj
@@ -36,12 +33,12 @@ from bound.handler.stream.wrapper import CustomStreamWrapper
 
 from anchor.rule.template.common import add_system_prompt_to_messages
 from channel.secret.manager import get_secret_bool, get_secret_str
-from channel.bridge.litellm.exception_mapping_utils import exception_type
-from channel.bridge.litellm.get_litellm_params import get_litellm_params
+from channel.mapping.exception import exception_type
+from channel.bridge.litellm.params import get_litellm_params
 from channel.model.info.support import supports_httpx_timeout
 from anchor.base.exceptions import LiteLLMUnknownProvider
-from channel.bridge.litellm.completion_timeout import CompletionTimeout
-from channel.bridge.litellm.dd_tracing import tracer
+from anchor.router.action.timeout import CompletionTimeout
+from bound.plane.trace.dd import tracer
 from channel.model.provider.manager import ProviderConfigManager
 from channel.model.provider.resolver import get_llm_provider
 from channel.model.validator.params import (
@@ -60,6 +57,8 @@ from channel.model.types.llms.openai import (
     OpenAIWebSearchOptions,
 )
 from channel.model.types.provider import LlmProviders
+from channel.model.types.utils import all_litellm_params
+
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("bound.completion")
@@ -68,6 +67,15 @@ openai_chat_completions = OpenAIChatCompletion()
 openai_text_completions = OpenAITextCompletion()
 anthropic_chat_completions = AnthropicChatCompletion()
 completion_handler = CompletionHandler()
+
+def get_non_default_completion_params(kwargs: dict) -> dict:
+    openai_params = config.OPENAI_CHAT_COMPLETION_PARAMS
+    default_params = openai_params + all_litellm_params
+    non_default_params = {
+        k: v for k, v in kwargs.items() if k not in default_params
+    }  # model-specific params - pass them straight to the model/provider
+
+    return non_default_params
 
 class Completions:
     def __init__(self, params, router_obj: Optional[Any]):

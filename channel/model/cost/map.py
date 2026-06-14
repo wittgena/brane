@@ -6,11 +6,9 @@ from typing import Union, cast
 from channel.model.provider.parser import get_model_cost_map
 from channel.model.types.provider import LlmProviders
 from bound.config.resolver import config
-from channel.model.provider.gate import _update_dictionary, _invalidate_model_cost_lowercase_map
-from channel.model.info.entry import get_model_info
 from watcher.plane.emitter import get_emitter
 
-log = get_emitter("bound.cost.model")
+log = get_emitter("cost.map")
 
 ## Data Layer: 자체 비용 맵 초기화 (단일 진실 공급원 - SSOT)
 model_cost_map_url: str = os.getenv(
@@ -24,6 +22,9 @@ model_cost, _ = get_model_cost_map(url=model_cost_map_url)
 
 ## Mutation Layer: 독립적인 register_model 구현
 def register_model(new_model_cost: Union[str, dict]):
+    from channel.model.provider.gate import _update_dictionary, _invalidate_model_cost_lowercase_map
+    from channel.model.info.entry import get_model_info
+
     """
     동적으로 새로운 모델의 비용 및 메타데이터를 등록
     litellm의 전역 상태가 아닌, 현재 모듈의 model_cost를 직접 업데이트

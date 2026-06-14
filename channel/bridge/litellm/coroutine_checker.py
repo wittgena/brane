@@ -1,21 +1,8 @@
 # channel.bridge.litellm.coroutine_checker
-## @lineage: bridge.litellm.coroutine_checker
-## @lineage: channel.litellm.coroutine_checker
-## @lineage: channel.bound.litellm.coroutine_checker
-## @lineage: gate.litellm.coroutine_checker
-## @lineage: gate.bound.core.coroutine_checker
-## @lineage: blm.bound.core.coroutine_checker
-## @lineage: blm.core.coroutine_checker
-## @lineage: blm.litellm_core_utils.coroutine_checker
-# CoroutineChecker utility for checking if functions/callables are coroutines or coroutine functions
-
 import inspect
 from typing import Any
 from weakref import WeakKeyDictionary
-from bound.config.constants import (
-    COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY,
-)
-
+from bound.config.constants import COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY
 
 class CoroutineChecker:
     """Utility class for checking coroutine status of functions and callables.
@@ -67,7 +54,6 @@ class CoroutineChecker:
             pass
 
         return result
-
 
 # Global instance for backward compatibility and convenience
 coroutine_checker = CoroutineChecker()

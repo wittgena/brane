@@ -1,12 +1,4 @@
 # bound.plane.laminar
-## @lineage: channel.cost.laminar
-## @lineage: channel.gov.cost.laminar
-## @lineage: channel.bound.cost.laminar
-## @lineage: meta.watcher.bind.laminar
-## @lineage: gov.watcher.bind.laminar
-## @lineage: bound.watcher.bind.laminar
-## @lineage: bound.observer.laminar
-## @lineage: topos.observer.laminar
 import os
 import inspect
 import functools
@@ -15,6 +7,8 @@ from contextlib import contextmanager
 from typing import Any, Literal
 from dotenv import dotenv_values
 from opentelemetry import trace
+
+from bound.config.resolver import config
 from arch.proto.event.next import LogEvent
 from watcher.plane.emitter import get_emitter, register_interceptor, flow_scope
 
@@ -77,7 +71,6 @@ class _TracerBackend:
 class _LaminarBackend(_TracerBackend):
     """Laminar 종속성을 캡슐화한 어댑터 클래스"""
     def __init__(self):
-        import litellm
         from lmnr import Laminar, LaminarLiteLLMCallback, Instruments
 
         if _is_otel_backend_laminar():
@@ -93,7 +86,7 @@ class _LaminarBackend(_TracerBackend):
                     Instruments.PLAYWRIGHT,
                 ],
             )
-        litellm.callbacks.append(LaminarLiteLLMCallback())
+        config.callbacks.append(LaminarLiteLLMCallback())
         
         self.Laminar = Laminar
         self._stack: list[trace.Span] = []

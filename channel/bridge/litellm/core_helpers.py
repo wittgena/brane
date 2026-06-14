@@ -1,19 +1,9 @@
 # channel.bridge.litellm.core_helpers
-## @lineage: bridge.litellm.core_helpers
-## @lineage: channel.litellm.core_helpers
-## @lineage: channel.bound.litellm.core_helpers
-## @lineage: gate.litellm.core_helpers
-## @lineage: gate.bound.core.core_helpers
-## @lineage: blm.bound.core.core_helpers
-## @lineage: blm.core.core_helpers
-## @lineage: blm.litellm_core_utils.core_helpers
-## @lineage: gov.blm.litellm_core_utils.core_helpers
 import copy
 from typing import TYPE_CHECKING, Any, Iterable, List, Literal, Optional, Union
 import httpx
-from watcher.plane.emitter import get_emitter
-log = get_emitter("core.helpers")
 
+from bound.config.resolver import config
 from channel.model.types.llms.openai import AllMessageValues, OpenAIChatCompletionFinishReason
 if TYPE_CHECKING:
     from opentelemetry.trace import Span as _Span
@@ -21,6 +11,10 @@ if TYPE_CHECKING:
     Span = Union[_Span, Any]
 else:
     Span = Any
+
+from watcher.plane.emitter import get_emitter
+
+log = get_emitter("core.helpers")
 
 def safe_divide_seconds(
     seconds: float, denominator: float, default: Optional[float] = None
@@ -295,10 +289,7 @@ def safe_deep_copy(data):
     original ref
     """
     import copy
-
-    import litellm
-
-    if litellm.safe_memory_mode is True:
+    if config.safe_memory_mode is True:
         return data
 
     litellm_parent_otel_span: Optional[Any] = None
@@ -309,13 +300,9 @@ def safe_deep_copy(data):
         if "metadata" in data and "litellm_parent_otel_span" in data["metadata"]:
             litellm_parent_otel_span = data["metadata"].pop("litellm_parent_otel_span")
             data["metadata"]["litellm_parent_otel_span"] = "placeholder"
-        if (
-            "litellm_metadata" in data
-            and "litellm_parent_otel_span" in data["litellm_metadata"]
-        ):
-            litellm_parent_otel_span = data["litellm_metadata"].pop(
-                "litellm_parent_otel_span"
-            )
+
+        if ("litellm_metadata" in data and "litellm_parent_otel_span" in data["litellm_metadata"]):
+            litellm_parent_otel_span = data["litellm_metadata"].pop("litellm_parent_otel_span")
             data["litellm_metadata"]["litellm_parent_otel_span"] = "placeholder"
 
     # Step 2: Per-key deepcopy with fallback
@@ -340,9 +327,7 @@ def safe_deep_copy(data):
             "litellm_metadata" in data
             and "litellm_parent_otel_span" in data["litellm_metadata"]
         ):
-            data["litellm_metadata"][
-                "litellm_parent_otel_span"
-            ] = litellm_parent_otel_span
+            data["litellm_metadata"]["litellm_parent_otel_span"] = litellm_parent_otel_span
     return new_data
 
 
@@ -414,19 +399,6 @@ def filter_exceptions_from_params(data: Any, max_depth: int = 20) -> Any:
 def filter_internal_params(
     data: dict, additional_internal_params: Optional[set] = None
 ) -> dict:
-    """
-    Filter out LiteLLM internal parameters that shouldn't be sent to provider APIs.
-
-    This removes internal/MCP-related parameters that are used by LiteLLM internally
-    but should not be included in API requests to providers.
-
-    Args:
-        data: Dictionary of parameters to filter
-        additional_internal_params: Optional set of additional internal parameter names to filter
-
-    Returns:
-        Filtered dictionary with internal parameters removed
-    """
     if not isinstance(data, dict):
         return data
 

@@ -1,8 +1,4 @@
 # bound.config.resolver
-## @lineage: channel.config.resolver
-## @lineage: channel.bound.config.resolver
-## @lineage: gate.bound.config.resolver
-## @lineage: gate.config.resolver
 import os
 import logging
 from typing import Any
@@ -14,6 +10,13 @@ class ConfigResolver:
     def __init__(self):
         self._local_overrides = {}
 
+    def get(self, name: str, default: Any = None) -> Any:
+        try:
+            value = getattr(self, name)
+            return default if value is None else value
+        except AttributeError:
+            return default
+
     def set_override(self, key: str, value: Any):
         self._local_overrides[key] = value
 
@@ -22,26 +25,27 @@ class ConfigResolver:
         객체에 없는 속성(key)을 호출할 때 자동으로 실행되는 매직 메서드
         탐색 순위: 1. Gate 오버라이드 -> 2. 환경변수 -> 3. litellm (과도기용 폴백)
         """
-        # 1. Gate 인메모리 오버라이드 확인
+        ## Gate 인메모리 오버라이드 확인
         if name in self._local_overrides:
             return self._local_overrides[name]
 
-        # 2. 시스템 환경 변수 확인 (예: api_key -> API_KEY)
+        ## 시스템 환경 변수 확인 (예: api_key -> API_KEY)
         env_key = name.upper()
         if env_key in os.environ:
             return os.environ[env_key]
 
-        # 3. [점진적 마이그레이션 영역] litellm 폴백 (향후 이 블록만 삭제하면 됨)
+        ## [점진적 마이그레이션 영역] litellm 폴백 (향후 이 블록만 삭제하면 됨)
         try:
             import litellm
             if hasattr(litellm, name):
-                # log.debug(f"[Migration] '{name}'을(를) litellm에서 가져왔습니다.")
+                ## log.debug(f"[Migration] '{name}'을(를) litellm에서 가져왔습니다.")
                 return getattr(litellm, name)
         except ImportError:
             pass
 
-        # 값을 찾지 못한 경우 안전하게 None 반환
-        return None
+        raise AttributeError(f"'{type(self).__name__}' object (brane config) has no attribute '{name}'")
+        ## 값을 찾지 못한 경우 안전하게 None 반환
+        # return None
     
     def __setattr__(self, name: str, value: Any):
         """
@@ -55,14 +59,11 @@ class ConfigResolver:
 
         ## Gate 인메모리 오버라이드 갱신
         self._local_overrides[name] = value
-
-        ## [점진적 마이그레이션 영역] litellm 상태 강제 동기화 (Write-through)
         try:
             import litellm
             setattr(litellm, name, value)
-            # log.debug(f"[Migration] litellm.{name} = {value} 동기화 완료")
+            ## log.debug(f"[Migration] litellm.{name} = {value} 동기화 완료")
         except ImportError:
             pass
 
-# 싱글톤 객체로 내보냄
 config = ConfigResolver()

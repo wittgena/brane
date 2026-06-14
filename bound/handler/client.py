@@ -1,8 +1,4 @@
 # bound.handler.client
-## @lineage: bound.client
-## @lineage: channel.bound.client
-## @lineage: gate.bound.client
-## @lineage: gate.bound.stream.client
 import asyncio
 import contextvars
 import copy
@@ -52,22 +48,19 @@ from httpx import Proxy
 from httpx._utils import get_environment_proxies
 from openai.lib import _parsing
 
-from litellm.litellm_core_utils.logging_worker import GLOBAL_LOGGING_WORKER
-import litellm
-import litellm.litellm_core_utils
-from litellm.main import completion_with_retries, acompletion_with_retries
-from litellm.caching.caching import Cache
-from litellm.caching.caching_handler import CachingHandlerResponse, LLMCachingHandler
-from litellm.router_utils.get_retry_from_policy import get_num_retries_from_retry_policy, reset_retry_policy
-from litellm.litellm_core_utils.cached_imports import get_coroutine_checker, get_litellm_logging_class, get_set_callbacks
-from litellm.utils import _get_cached_llm_caching_handler
+from litellm.litellm_core_utils.litellm_logging import Logging as LiteLLMLoggingObject
+import anchor.rule.validator
 
-import channel.bridge.litellm.json_validation_rule
+from channel.bridge.litellm.coroutine_checker import coroutine_checker
 
+from bound.config.resolver import config
+from bound.handler.retry import completion_with_retries, acompletion_with_retries
+from bound.handler.worklet.logging import GLOBAL_LOGGING_WORKER
 from bound.handler.stream.chunk.builder import stream_chunk_builder
+from bound.handler.response.metadata import update_response_metadata
 from bound.token.counter import get_modified_max_tokens
-from arch.proto.phase.gate import uuid
-from channel.bridge.litellm.credential_accessor import CredentialAccessor
+
+from channel.secret.credential import CredentialAccessor
 from channel.model.types.llms.openai import (
     AllMessageValues,
     AllPromptValues,
@@ -80,11 +73,11 @@ from channel.model.types.llms.openai import (
 )
 from channel.model.types.utils import FileTypes
 from channel.model.types.utils import CallTypes, Embedding, EmbeddingResponse, LlmProviders, LLMResponseTypes, ModelResponse
-from anchor.base.utils import type_to_response_format_param
 from channel.model.provider.resolver import get_llm_provider
-from bound.handler.response.metadata import update_response_metadata
-from channel.bridge.litellm.rules import Rules
-from channel.bridge.litellm.thread_pool_executor import executor
+
+from anchor.base.utils import type_to_response_format_param
+from anchor.rule.validator import Rules
+from anchor.base.executor import executor
 from anchor.base.exceptions import (
     APIConnectionError,
     APIError,
@@ -103,9 +96,10 @@ from anchor.base.exceptions import (
     UnsupportedParamsError,
 )
 
+from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
-log = get_emitter("blm.utils")
 
+log = get_emitter("handler.client")
 _CALL_TYPE_ENUM_MAP: dict = {ct.value: ct for ct in CallTypes}
 
 try:
@@ -123,7 +117,7 @@ except (ImportError, AttributeError, TypeError):
 
 # Convert to str (if necessary)
 claude_json_str = json.dumps(json_data)
-LiteLLMLoggingObject = Any
+# LiteLLMLoggingObject = Any
 CustomLogger = Any
 
 sentry_sdk_instance = None
@@ -158,16 +152,16 @@ last_fetched_at = None
 last_fetched_at_keys = None
 
 def custom_llm_setup():
-    for custom_llm in litellm.custom_provider_map:
-        if custom_llm["provider"] not in litellm.provider_list:
-            litellm.provider_list.append(custom_llm["provider"])
+    for custom_llm in config.custom_provider_map:
+        if custom_llm["provider"] not in config.provider_list:
+            config.provider_list.append(custom_llm["provider"])
 
-        if custom_llm["provider"] not in litellm._custom_providers:
-            litellm._custom_providers.append(custom_llm["provider"])
+        if custom_llm["provider"] not in config._custom_providers:
+            config._custom_providers.append(custom_llm["provider"])
 
 def load_credentials_from_list(kwargs: dict):
     credential_name = kwargs.get("litellm_credential_name")
-    if credential_name and litellm.credential_list:
+    if credential_name and config.credential_list:
         credential_accessor = CredentialAccessor.get_credential_values(credential_name)
         for key, value in credential_accessor.items():
             if key not in kwargs:
@@ -175,10 +169,6 @@ def load_credentials_from_list(kwargs: dict):
 
 def function_setup(original_function: str, rules_obj, start_time, *args, **kwargs):
     try:
-        get_coroutine_checker_fn = getattr(sys.modules[__name__], "get_coroutine_checker", None)
-        if get_coroutine_checker_fn:
-            coroutine_checker = get_coroutine_checker_fn()
-
         applied_guardrails = []
         function_id = kwargs.get("id", None)
         model = args[0] if len(args) > 0 else kwargs.get("model", None)
@@ -201,9 +191,7 @@ def function_setup(original_function: str, rules_obj, start_time, *args, **kwarg
         if _is_streaming_request(kwargs=kwargs, call_type=call_type):
             stream = True
 
-        ## @temp.sustain: LiteLLMLoggingObject 생성 (Router/Proxy가 의존하는 핵심 객체)
-        get_litellm_logging_class_fn = getattr(sys.modules[__name__], "get_litellm_logging_class")
-        logging_obj = get_litellm_logging_class_fn()(
+        logging_obj = LiteLLMLoggingObject(
             model=model,
             messages=messages,
             stream=stream,
@@ -261,10 +249,6 @@ async def _client_async_logging_helper(
             end_time=end_time,
         )
 
-def check_coroutine(value) -> bool:
-    get_coroutine_checker = getattr(sys.modules[__name__], "get_coroutine_checker")
-    return get_coroutine_checker().is_async_callable(value)
-
 async def async_pre_call_deployment_hook(kwargs: Dict[str, Any], call_type: str):
     try:
         typed_call_type = CallTypes(call_type)
@@ -272,9 +256,8 @@ async def async_pre_call_deployment_hook(kwargs: Dict[str, Any], call_type: str)
         typed_call_type = None  # unknown call type
 
     modified_kwargs = kwargs.copy()
-
     CustomLogger = _get_cached_custom_logger()
-    for callback in litellm.callbacks:
+    for callback in config.callbacks:
         if isinstance(callback, CustomLogger):
             result = await callback.async_pre_call_deployment_hook(
                 modified_kwargs, typed_call_type
@@ -329,7 +312,7 @@ _model_cost_lowercase_map: Optional[Dict[str, str]] = None
 from typing_extensions import TypedDict
 
 def acreate(*args, **kwargs):  ## Thin client to handle the acreate langchain call
-    return litellm.acompletion(*args, **kwargs)
+    return config.acompletion(*args, **kwargs)
 
 def print_args_passed_to_litellm(original_function, args, kwargs):
     try:
@@ -376,7 +359,7 @@ def _get_model_cost_entry_for_provider_config(
 ) -> Dict[str, Any]:
     candidate_keys = (model, f"{provider.value}/{model}")
     for model_key in candidate_keys:
-        model_info = litellm.model_cost.get(model_key)
+        model_info = config.model_cost.get(model_key)
         if model_info is not None:
             return model_info
 
@@ -528,7 +511,5 @@ def client(original_function):
                     pass
             raise e
 
-    get_coro_checker = getattr(sys.modules.get(__name__), "get_coroutine_checker", None)
-    is_coroutine = get_coro_checker().is_async_callable(original_function) if get_coro_checker else asyncio.iscoroutinefunction(original_function)
-
+    is_coroutine = coroutine_checker.is_async_callable(original_function)
     return wrapper_async if is_coroutine else wrapper

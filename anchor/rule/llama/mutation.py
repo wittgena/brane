@@ -1,7 +1,4 @@
 # anchor.rule.llama.mutation
-## @lineage: bridge.rule.llama.mutation
-## @lineage: bridge.router.llama.mutation
-## @lineage: channel.router.llama.mutation
 import os
 import sys
 import shutil
@@ -15,8 +12,8 @@ from urllib.error import URLError, HTTPError
 from pathlib import Path
 from phase.bind.resolver import find_current_self
 from arch.contract.registry.unified import contract, registry
-from watcher.plane.emitter import get_emitter
 from phase.runtime.cli.executor import CliTaskAdapter, parse_local, dispatch_cli
+from watcher.plane.emitter import get_emitter
 
 log = get_emitter("llama.mutation", phase="SYSTEM")
 

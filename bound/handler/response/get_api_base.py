@@ -1,9 +1,4 @@
 # bound.handler.response.get_api_base
-## @lineage: channel.litellm.response.get_api_base
-## @lineage: channel.bound.litellm.response.get_api_base
-## @lineage: gate.litellm.response.get_api_base
-## @lineage: gate.litellm.llm_response_utils.get_api_base
-## @lineage: gate.litellm_core_utils.llm_response_utils.get_api_base
 from typing import Optional, Union
 from bound.config.resolver import config
 from channel.model.provider.resolver import get_llm_provider

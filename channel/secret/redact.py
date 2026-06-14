@@ -1,9 +1,8 @@
 # channel.secret.redact
-## @lineage: meta.ops.observer.security.secret.redact
 import copy
 import re
 from collections.abc import Mapping
-from typing import Any
+from typing import Any, List
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 import httpx
 
@@ -20,12 +19,7 @@ SECRET_KEY_PATTERNS = frozenset(
     }
 )
 
-# Keys that should have ALL nested values redacted (not just detected secret keys).
-# These typically contain environment variables or headers that may include secrets.
 REDACT_ALL_VALUES_KEYS = frozenset({"environment", "env", "headers", "acp_env"})
-
-# Specific URL query parameter names (lowercased) that should always be redacted,
-# in addition to any parameter matching SECRET_KEY_PATTERNS via is_secret_key().
 SENSITIVE_URL_PARAMS = frozenset(
     {
         "tavilyapikey",
@@ -40,24 +34,6 @@ SENSITIVE_URL_PARAMS = frozenset(
 
 
 def is_secret_key(key: str) -> bool:
-    """Check if a key name likely contains secret data.
-
-    Performs case-insensitive substring matching against known secret key patterns.
-
-    Args:
-        key: The key name to check (e.g., "api_key", "Authorization", "X-Token")
-
-    Returns:
-        True if the key matches any secret pattern, False otherwise
-
-    Examples:
-        >>> is_secret_key("api_key")
-        True
-        >>> is_secret_key("Authorization")
-        True
-        >>> is_secret_key("user_name")
-        False
-    """
     key_upper = key.upper()
     return any(pattern in key_upper for pattern in SECRET_KEY_PATTERNS)
 
@@ -72,19 +48,6 @@ def _redact_all_values(value: Any) -> Any:
 
 
 def sanitize_dict(content: Any) -> Any:
-    """Recursively redact likely secrets from structured data.
-
-    This function walks through a nested dict/list structure and:
-    - Redacts values for keys matching SECRET_KEY_PATTERNS
-    - Redacts ALL nested values for keys in REDACT_ALL_VALUES_KEYS
-    - Leaves other values unchanged
-
-    Args:
-        content: A dict, list, or scalar value to sanitize
-
-    Returns:
-        A sanitized copy with secrets replaced by '<redacted>'
-    """
     if isinstance(content, Mapping):
         sanitized = {}
         for key, value in content.items():
@@ -103,17 +66,6 @@ def sanitize_dict(content: Any) -> Any:
 
 
 def http_error_log_content(response: httpx.Response) -> str | dict:
-    """Return a sanitized representation of an HTTP error body for logs.
-
-    For JSON responses, returns a sanitized dict with secrets redacted.
-    For non-JSON responses, returns a placeholder message with the body length.
-
-    Args:
-        response: The httpx.Response to extract error content from
-
-    Returns:
-        A sanitized dict or string safe for logging
-    """
     try:
         return sanitize_dict(response.json())
     except Exception:
@@ -122,27 +74,6 @@ def http_error_log_content(response: httpx.Response) -> str | dict:
 
 
 def redact_url_params(url: str) -> str:
-    """Redact sensitive query parameter values from a URL string.
-
-    Parses the URL, checks each query parameter name against both
-    ``SENSITIVE_URL_PARAMS`` (exact, case-insensitive) and ``is_secret_key()``
-    (substring pattern matching), and replaces matching values with
-    ``<redacted>``.
-
-    Args:
-        url: The URL string to sanitize.
-
-    Returns:
-        The URL with sensitive query parameter values replaced by '<redacted>'.
-        If the URL has no query parameters or cannot be parsed, it is returned
-        unchanged.
-
-    Examples:
-        >>> redact_url_params("https://example.com/search?q=hello&apikey=secret123")
-        'https://example.com/search?q=hello&apikey=%3Credacted%3E'
-        >>> redact_url_params("https://example.com/path")
-        'https://example.com/path'
-    """
     try:
         parsed = urlparse(url)
     except Exception:
@@ -179,18 +110,6 @@ def _walk_redact_urls(obj: Any) -> Any:
 
 
 def sanitize_config(config: dict[str, Any]) -> dict[str, Any]:
-    """Deep-copy a config dict, redact secret keys, and redact URL query params.
-
-    Combines ``sanitize_dict`` (key-based redaction for headers, env, api_key,
-    token, etc.) with ``redact_url_params`` (URL query-param redaction for
-    string values like ``https://api.example.com?apiKey=secret``).
-
-    Args:
-        config: A configuration dict (e.g. MCP server config).
-
-    Returns:
-        A sanitized deep copy safe for logging.
-    """
     config = copy.deepcopy(config)
     config = sanitize_dict(config)
     config = _walk_redact_urls(config)
@@ -198,24 +117,6 @@ def sanitize_config(config: dict[str, Any]) -> dict[str, Any]:
 
 
 def redact_text_secrets(text: str) -> str:
-    """Redact secrets from a string representation of a config object.
-
-    Useful when you have a pydantic model or other object whose ``str()``
-    output contains credentials but cannot be converted to a dict for
-    ``sanitize_dict``.
-
-    Redacts:
-    - ``api_key='...'`` patterns
-    - Dict entries whose keys contain KEY, SECRET, TOKEN, or PASSWORD
-    - URL query params matching common secret names
-    - Authorization and X-Session-API-Key header values
-
-    Args:
-        text: The string to redact.
-
-    Returns:
-        The string with secrets replaced by ``<redacted>``.
-    """
     # api_key='...' patterns (single or double quotes)
     text = re.sub(r"api_key='[^']*'", "api_key='<redacted>'", text)
     text = re.sub(r'api_key="[^"]*"', 'api_key="<redacted>"', text)
@@ -292,3 +193,76 @@ def redact_api_key_literals(text: str) -> str:
     - Matches known key prefixes (OpenAI, Anthropic, OpenRouter, GROQ, HuggingFace, etc.) anywhere in the text.
     """
     return _API_KEY_LITERAL_RE.sub("<redacted>", text)
+
+## --- from litellm
+
+_REDACTED = "REDACTED"
+
+def _build_secret_patterns() -> "re.Pattern[str]":
+    patterns: List[str] = [
+        # PEM private key / certificate blocks
+        r"-----BEGIN[A-Z \-]*PRIVATE KEY-----[\s\S]*?-----END[A-Z \-]*PRIVATE KEY-----",
+        # GCP OAuth2 access tokens (ya29.*)
+        r"\bya29\.[A-Za-z0-9_.~+/-]+",
+        # Credential %s formatting (space separator, no key= prefix)
+        r"(?:client_secret|azure_password|azure_username)\s+[^\s,'\"})\]{}>]+",
+        # AWS access key IDs
+        r"(?:AKIA|ASIA)[0-9A-Z]{16}",
+        # AWS secrets / session tokens / access key IDs (key=value)
+        r"(?:aws_secret_access_key|aws_session_token|aws_access_key_id)"
+        r"\s*[:=]\s*[A-Za-z0-9/+=]{20,}",
+        # Bearer tokens (OAuth, JWT, etc.)
+        r"Bearer\s+[A-Za-z0-9\-._~+/]{10,}=*",
+        # Basic auth headers
+        r"Basic\s+[A-Za-z0-9+/]{10,}={0,2}",
+        # OpenAI / Anthropic sk- prefixed keys
+        r"sk-[A-Za-z0-9\-_]{20,}",
+        # Generic api_key / api-key / apikey (handles 'key': 'value' dict repr)
+        r"(?:api[_-]?key)['\"]?\s*[:=]\s*['\"]?[^\s,'\"})\]{}>]{8,}",
+        # x-api-key / api-key header values (handles 'key': 'value' dict repr)
+        r"(?:x-api-key|api-key)['\"]?\s*[:=]\s*['\"]?[^\s,'\"})\]{}>]+",
+        # Anthropic internal header keys
+        r"x-ak-[A-Za-z0-9\-_]{20,}",
+        # Google API keys (bare key value)
+        r"AIza[0-9A-Za-z\-_]{35}",
+        # URL query-param key=VALUE (e.g. ?key=AIza... or &key=...) — catches the
+        # full "key=<secret>" fragment so the value is redacted regardless of format.
+        r"(?<=[?&])key=[^\s&'\"]{8,}",
+        # Password / secret params (handles key=value and 'key': 'value')
+        # Word boundary prevents O(n^2) backtracking on long word-char runs.
+        r"(?:^|(?<=\W))\w*(?:password|passwd|client_secret|secret_key|_secret)"
+        r"['\"]?\s*[:=]\s*['\"]?[^\s,'\"})\]{}>]+",
+        # Database connection string credentials (scheme://user:pass@host)
+        r"(?<=://)[^\s'\"]*:[^\s'\"@]+(?=@)",
+        # Databricks personal access tokens
+        r"dapi[0-9a-f]{32}",
+        # Module-level provider keys logged as litellm.<provider>_key=<value>
+        r"litellm\.[A-Za-z0-9_]*_key['\"]?\s*[:=]\s*['\"]?[^\s,'\"})\]{}>]+",
+        # ── Key-name-based redaction ──
+        # Catches secrets inside dicts/config dumps by matching on the KEY name
+        # regardless of what the value looks like.
+        # e.g. 'master_key': 'any-value-here', "database_url": "postgres://..."
+        # private_key with PEM-aware value capture
+        r"""private_key['\"]?\s*[:=]\s*['\"]?(?:-----BEGIN[A-Z \-]*PRIVATE KEY-----[\s\S]*?-----END[A-Z \-]*PRIVATE KEY-----|[^\s,'\"})\]{}>]+)""",
+        r"(?:master_key|xai_key|database_url|db_url|connection_string|"
+        r"signing_key|encryption_key|"
+        r"auth_token|access_token|refresh_token|"
+        r"slack_webhook_url|webhook_url|"
+        r"database_connection_string|"
+        r"huggingface_token|jwt_secret)"
+        r"""['\"]?\s*[:=]\s*['\"]?[^\s,'\"})\]{}>]+""",
+        # Raw JWTs (without Bearer prefix)
+        r"\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]*",
+        # Azure SAS tokens in URLs
+        r"[?&]sig=[A-Za-z0-9%+/=]+",
+        # Full JSON service-account blobs (single-line and multi-line)
+        r'\{[^{}]*"type"\s*:\s*"service_account"[^{}]*(?:\{[^{}]*\}[^{}]*)*\}',
+    ]
+    return re.compile("|".join(patterns), re.IGNORECASE)
+
+
+_SECRET_RE = _build_secret_patterns()
+
+def redact_string(value: str) -> str:
+    """Scrub known secret/credential patterns from *value* and return the result."""
+    return _SECRET_RE.sub(_REDACTED, value)

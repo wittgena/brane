@@ -1,9 +1,4 @@
 # anchor.router.action.acompletion
-## @lineage: anchor.action.acompletion
-## @lineage: bound.acompletion
-## @lineage: channel.bound.acompletion
-## @lineage: gate.bound.acompletion
-## @lineage: blm.bound.acompletion
 import asyncio
 import contextvars
 import datetime
@@ -16,6 +11,12 @@ import time
 import traceback
 from copy import deepcopy
 from functools import partial
+from aiohttp import ClientSession
+import httpx
+import openai
+import tiktoken
+from pydantic import BaseModel
+from typing_extensions import overload
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -34,18 +35,18 @@ from typing import (
     cast,
     get_args,
 )
-from aiohttp import ClientSession
-import httpx
-import openai
-import tiktoken
-from pydantic import BaseModel
-from typing_extensions import overload
+
+from anchor.base.exceptions import Timeout
+from anchor.router.switch.params import ModelResponse
 
 from bound.handler.stream.wrapper import CustomStreamWrapper
 from bound.handler.client import client
-from channel.bridge.litellm.exception_mapping_utils import exception_type
-from channel.bridge.litellm.dd_tracing import tracer
+from bound.plane.trace.dd import tracer
 from bound.plane.delegator import Logging as LiteLLMLoggingObj
+
+from channel.bridge.litellm.core_helpers import safe_deep_copy, filter_internal_params
+from bound.handler.asyncify import run_async_function
+from channel.mapping.exception import exception_type
 from channel.model.types.utils import (
     CustomPricingLiteLLMParams,
     ModelResponseStream,
@@ -53,15 +54,15 @@ from channel.model.types.utils import (
     StreamingChoices,
 )
 from channel.model.provider.gate import should_run_mock_completion
-from channel.bridge.litellm.fallback_utils import async_completion_with_fallbacks
 from channel.model.types.llms.anthropic import AnthropicThinkingParam
 from channel.model.types.llms.openai import ChatCompletionAudioParam, ChatCompletionModality, ChatCompletionPredictionContentParam, OpenAIWebSearchOptions
 from anchor.base.exceptions import Timeout
 from channel.model.provider.resolver import get_llm_provider
-from anchor.router.switch.params import ModelResponse
+
+from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
 
-log = get_emitter("gate.bound.acompletion")
+log = get_emitter("action.acompletion")
 
 class AsyncCompletions:
     def __init__(self, params, router_obj: Optional[Any]):
@@ -290,3 +291,55 @@ async def _sleep_for_timeout_async(timeout: Union[float, str, httpx.Timeout]):
         await asyncio.sleep(float(timeout))
     elif isinstance(timeout, httpx.Timeout) and timeout.connect is not None:
         await asyncio.sleep(timeout.connect)
+
+async def async_completion_with_fallbacks(**kwargs):
+    nested_kwargs = kwargs.pop("kwargs", {})
+    original_model = kwargs["model"]
+    model = original_model
+    fallbacks = [original_model] + nested_kwargs.pop("fallbacks", [])
+    kwargs.pop("acompletion", None)  # Remove to prevent keyword conflicts
+    litellm_call_id = str(uuid.uuid4())
+    base_kwargs = {**kwargs, **nested_kwargs, "litellm_call_id": litellm_call_id}
+
+    # fields to remove
+    base_kwargs.pop("model", None)  # Remove model as it will be set per fallback
+    litellm_logging_obj = base_kwargs.pop("litellm_logging_obj", None)
+
+    # Try each fallback model
+    most_recent_exception_str: Optional[str] = None
+    for fallback in fallbacks:
+        try:
+            completion_kwargs = safe_deep_copy(base_kwargs)
+            # Handle dictionary fallback configurations
+            if isinstance(fallback, dict):
+                fallback_config = safe_deep_copy(dict(fallback))
+                model = fallback_config.pop("model", original_model)
+                completion_kwargs.update(fallback_config)
+            else:
+                model = fallback
+
+            # Filter out internal parameters that shouldn't be sent to provider APIs
+            completion_kwargs = filter_internal_params(completion_kwargs)
+
+            response = await acompletion(
+                **completion_kwargs,
+                model=model,
+                litellm_logging_obj=litellm_logging_obj,
+            )
+
+            if response is not None:
+                return response
+
+        except Exception as e:
+            log.exception(
+                f"Fallback attempt failed for model {model}: {str(e)}"
+            )
+            most_recent_exception_str = str(e)
+            continue
+
+    raise Exception(
+        f"{most_recent_exception_str}. All fallback attempts failed. Enable verbose logging with `litellm.set_verbose=True` for details."
+    )
+
+def completion_with_fallbacks(**kwargs):
+    return run_async_function(async_function=async_completion_with_fallbacks, **kwargs)

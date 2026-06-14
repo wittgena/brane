@@ -47,8 +47,8 @@ from channel.model.types.llms.openai import (
     ToolParam,
 )
 from bound.config.constants import request_timeout
-from channel.bridge.litellm.asyncify import run_async_function
-from channel.bridge.litellm.get_litellm_params import get_litellm_params
+from bound.handler.asyncify import run_async_function
+from channel.bridge.litellm.params import get_litellm_params
 from channel.bridge.llms.openai.data_residency import infer_openai_data_residency
 from channel.model.types.responses.main import *
 from channel.secret.manager import get_secret_str

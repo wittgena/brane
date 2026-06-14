@@ -1,7 +1,4 @@
 # anchor.router.switch.params
-## @lineage: anchor.switch.params
-## @lineage: channel.switch.params
-## @lineage: bound.switch.params
 import os
 from pydantic import BaseModel, ConfigDict
 from typing import Any, Dict, Iterable, List, Optional, Union
@@ -11,13 +8,14 @@ USE_LITELLM_STRICT_TYPES = False
 
 if USE_LITELLM_STRICT_TYPES:
     try:
-        from litellm.types.responses.main import GenericResponseOutputItem
-        from litellm.types.rerank import RerankResponse
         from litellm.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
         from litellm.types.llms.openai import ChatCompletionToolParam
         from litellm.types.llms.openai import OutputFunctionToolCall
         from litellm.types.llms.openai import ChatCompletionToolParamFunctionChunk
         from litellm.types.llms.openai import ResponsesAPIResponse
+        ## --- 
+        from litellm.types.responses.main import GenericResponseOutputItem
+        from litellm.types.rerank import RerankResponse
         from litellm.types.completion import (
             ChatCompletionMessageParam,
             ChatCompletionSystemMessageParam,
@@ -29,24 +27,38 @@ if USE_LITELLM_STRICT_TYPES:
             ChatCompletionContentPartParam,
             ChatCompletionMessageToolCall
         )
-
+        from litellm.types.utils import (
+            ChatCompletionDeltaToolCall,
+            ChatCompletionRedactedThinkingBlock,
+            CompletionTokensDetailsWrapper,
+            EmbeddingResponse,
+            Function,
+            HiddenParams,
+            ImageResponse,
+            PromptTokensDetailsWrapper,
+            TranscriptionUsageDurationObject,
+            TranscriptionUsageTokensObject,
+        )
+        from litellm.types.utils import Usage
+        ## ---
         from litellm.types.utils import TextChoices, TextCompletionResponse, TranscriptionResponse
         from litellm.types.utils import ChatCompletionMessageToolCall
         from litellm.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
-        from litellm.types.utils import Usage
+
         USE_LITELLM_STRICT_TYPES = True
     except ImportError:
         USE_LITELLM_STRICT_TYPES = False
 
 if not USE_LITELLM_STRICT_TYPES:
     try:
-        from channel.model.types.responses.main import GenericResponseOutputItem
-        from channel.model.types.rerank import RerankResponse
         from channel.model.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
         from channel.model.types.llms.openai import ChatCompletionToolParam
         from channel.model.types.llms.openai import OutputFunctionToolCall
         from channel.model.types.llms.openai import ResponsesAPIResponse
         from channel.model.types.llms.openai import ChatCompletionToolParamFunctionChunk
+        ## ---
+        from channel.model.types.responses.main import GenericResponseOutputItem
+        from channel.model.types.rerank import RerankResponse
         from channel.model.types.completion import (
             ChatCompletionMessageParam,
             ChatCompletionSystemMessageParam,
@@ -57,10 +69,23 @@ if not USE_LITELLM_STRICT_TYPES:
             ChatCompletionMessageToolCallParam,
             ChatCompletionContentPartParam
         )
+        from channel.model.types.utils import (
+            ChatCompletionDeltaToolCall,
+            ChatCompletionRedactedThinkingBlock,
+            CompletionTokensDetailsWrapper,
+            EmbeddingResponse,
+            Function,
+            HiddenParams,
+            ImageResponse,
+            PromptTokensDetailsWrapper,
+            TranscriptionUsageDurationObject,
+            TranscriptionUsageTokensObject,
+        )
+        from channel.model.types.utils import Usage
+        ## -- 
         from litellm.types.utils import TextChoices, TextCompletionResponse, TranscriptionResponse
         from litellm.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
         from litellm.types.utils import ChatCompletionMessageToolCall
-        from channel.model.types.utils import Usage
     except ImportError as e:
         raise ImportError(f"Failed to load fallback types from internal blm.types modules. Error: {e}")
 

@@ -1,15 +1,12 @@
 # anchor.rule.llama.scanner.reader
-## @lineage: bridge.rule.llama.scanner.reader
-## @lineage: bridge.router.scanner.reader
-## @lineage: channel.llama.workflow.scanner
 import os
 import ast
 from pathlib import Path
 from typing import Dict, Protocol, runtime_checkable
+from watcher.plane.emitter import get_emitter
 
-# 1. 느슨한 규격 (Protocol) 정의
-# - 시스템 내에서 'scan' 행위를 하는 객체들을 묶어주는 역할만 수행합니다.
-# - 강한 결합(상속) 없이, 이 규격을 만족하면 모두 Scannable로 취급(Duck Typing)됩니다.
+log = get_emitter("scanner.reader")
+
 @runtime_checkable
 class Scannable(Protocol):
     def scan(self, *args, **kwargs) -> Dict:
@@ -64,22 +61,14 @@ class ReaderScanner:
                                 "class": node.name
                             }
             except Exception as e:
-                print(f"[Warning] Failed to parse {file_path}: {e}")
+                log.info(f"[Warning] Failed to parse {file_path}: {e}")
                 
         return registry
 
-# ==========================================
-# 실행 및 검증
-# ==========================================
 if __name__ == "__main__":
-    # 인스턴스화
     scanner = ReaderScanner("brane/channel/llama/readers")
-    
-    # 구조적 서브타이핑(Protocol) 검증
-    # 상속을 하지 않았음에도 시스템은 이를 완벽한 Scannable 객체로 인식합니다.
     if isinstance(scanner, Scannable):
-        print("[System] ReaderScanner가 유효한 Scannable 객체로 인식되었습니다.")
+        log.info("[System] ReaderScanner가 유효한 Scannable 객체로 인식되었습니다.")
         
-    # 실제 스캔 실행
     result = scanner.scan()
-    print(f"Scanned {len(result)} components.")
+    log.info(f"Scanned {len(result)} components.")

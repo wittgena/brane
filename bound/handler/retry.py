@@ -1,7 +1,4 @@
 # bound.handler.retry
-## @lineage: bound.retry
-from bound.handler.response.main import responses
-from bound.handler.response.main import aresponses
 from typing import Literal
 
 def completion_with_retries(*args, **kwargs):
@@ -56,6 +53,7 @@ async def acompletion_with_retries(*args, **kwargs):
     return await retryer(original_function, *args, **kwargs)
 
 def responses_with_retries(*args, **kwargs):
+    from bound.handler.response.main import responses
     try:
         import tenacity
     except Exception as e:
@@ -82,6 +80,7 @@ def responses_with_retries(*args, **kwargs):
 
 
 async def aresponses_with_retries(*args, **kwargs):
+    from bound.handler.response.main import aresponses
     try:
         import tenacity
     except Exception as e:

@@ -1,8 +1,4 @@
 # bound.handler.response.utils
-## @lineage: channel.bound.handler.response.utils
-## @lineage: gate.bound.handler.response.utils
-## @lineage: gate.responses.utils
-## @lineage: blm.responses.utils
 import base64
 import re
 from typing import (
@@ -23,10 +19,10 @@ from pydantic import BaseModel
 from starlette.datastructures import Headers
 
 from litellm.proxy._experimental.mcp_server.auth.user_api_key_auth_mcp import MCPRequestHandler
-from litellm.utils import PreProcessNonDefaultParams
 
 from anchor.base.responses.transformation import BaseResponsesAPIConfig
 from bound.config.resolver import config
+from channel.model.provider.optional_params import PreProcessNonDefaultParams
 from channel.model.types.llms.openai import (
     ResponseAPIUsage,
     ResponsesAPIOptionalRequestParams,
@@ -42,6 +38,7 @@ from channel.model.types.utils import (
 )
 
 from watcher.plane.emitter import get_emitter
+
 log = get_emitter("responses.utils")
 
 def get_requester_metadata(metadata: dict):

@@ -1,42 +1,11 @@
 # channel.bridge.litellm.url_utils
-## @lineage: bridge.litellm.url_utils
-## @lineage: channel.litellm.url_utils
-## @lineage: channel.bound.litellm.url_utils
-## @lineage: gate.litellm.url_utils
-## @lineage: gate.bound.core.url_utils
-## @lineage: blm.bound.core.url_utils
-## @lineage: blm.core.url_utils
-## @lineage: blm.litellm_core_utils.url_utils
-## @lineage: gov.blm.litellm_core_utils.url_utils
-"""
-URL validation for user-controlled URLs.
-
-Use validate_url() before fetching any URL that originates from user
-input (image_url, file_url, spec_path, etc.) to prevent SSRF attacks.
-
-validate_url() resolves DNS once, validates all IPs, and rewrites the
-URL to connect to the validated IP directly — no TOCTOU gap, no DNS
-rebinding. Redirects are followed manually with validation at each hop.
-
-Admins can opt out via two ``litellm`` globals (wired from proxy config):
-
-- ``litellm.user_url_validation`` (bool, default True): master switch.
-  When False, ``safe_get``/``async_safe_get`` perform a plain fetch with
-  no DNS check, no block list, and no rewrite.
-- ``litellm.user_url_allowed_hosts`` (List[str], default []): per-host
-  allowlist. Entries are ``hostname`` or ``hostname:port`` (IPv6 hosts as
-  ``[addr]`` / ``[addr]:port``). Matching hosts skip the blocked-networks
-  check but still resolve DNS and still rewrite HTTP to the resolved IP.
-"""
-
 import socket
 from ipaddress import ip_address, ip_network
 from typing import Any, List, Optional, Set, Tuple
 from urllib.parse import quote, urlparse, urlunparse
-
 import httpx
 
-import litellm
+from bound.config.resolver import config
 
 # Globally-routable IPs that are cloud-internal. Everything else
 # non-public is caught by ``not ip.is_global`` (RFC 6890, as implemented by
@@ -46,9 +15,7 @@ import litellm
 _CLOUD_METADATA_EXCEPTIONS = [
     ip_network("168.63.129.16/32"),  # Azure Wire Server
 ]
-
 _ALLOWED_SCHEMES = ("http", "https")
-
 
 class SSRFError(ValueError):
     """Raised when a URL targets a blocked network."""
@@ -57,13 +24,6 @@ class SSRFError(ValueError):
 
 
 def encode_url_path_segment(value: Any, *, field_name: str = "path parameter") -> str:
-    """Percent-encode one user-controlled URL path segment.
-
-    ``urllib.parse.quote(..., safe="")`` intentionally leaves RFC 3986
-    unreserved characters such as ``.`` unescaped, so reject standalone dot
-    segments before they can be appended to an upstream URL and normalized by
-    the HTTP client.
-    """
     if value is None:
         raise ValueError(f"{field_name} is required")
 
@@ -230,7 +190,7 @@ def _is_host_allowlisted(hostname: str, effective_port: int) -> bool:
     literals are written bracketed (``[::1]`` / ``[::1]:8080``). Matching
     is case-insensitive on the hostname.
     """
-    configured: List[str] = getattr(litellm, "user_url_allowed_hosts", []) or []
+    configured: List[str] = config.user_url_allowed_hosts or []
     if not configured:
         return False
     normalized_host = _normalize_host(hostname)

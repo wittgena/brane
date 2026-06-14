@@ -15,11 +15,10 @@ from channel.model.types.llms.openai import (
     ImageURLListItem,
     OpenAIModerationResponse,
 )
-from litellm.types.utils import (
+from anchor.router.switch.params import (
     ChatCompletionDeltaToolCall,
     ChatCompletionRedactedThinkingBlock,
     CompletionTokensDetailsWrapper,
-    Delta,
     EmbeddingResponse,
     Function,
     HiddenParams,

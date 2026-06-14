@@ -1,12 +1,8 @@
 # anchor.router.action.base
-## @lineage: anchor.action.base
-## @lineage: anchor.base.action
-## @lineage: channel.llms.base.action
-## @lineage: gate.llms.base.action
-## @lineage: gate.llms.base_llm.action
 from typing import TYPE_CHECKING, Any, Optional, Union
 import httpx
-import litellm
+
+from bound.config.resolver import config
 if TYPE_CHECKING:
     from bound.handler.stream.wrapper import CustomStreamWrapper
     from channel.model.types.utils import ModelResponse, TextCompletionResponse
@@ -53,19 +49,17 @@ class BaseLLM:
         return model_response
 
     def create_client_session(self):
-        if litellm.client_session:
-            _client_session = litellm.client_session
+        if config.client_session:
+            _client_session = config.client_session
         else:
             _client_session = httpx.Client()
-
         return _client_session
 
     def create_aclient_session(self):
-        if litellm.aclient_session:
-            _aclient_session = litellm.aclient_session
+        if config.aclient_session:
+            _aclient_session = config.aclient_session
         else:
             _aclient_session = httpx.AsyncClient()
-
         return _aclient_session
 
     def __exit__(self):

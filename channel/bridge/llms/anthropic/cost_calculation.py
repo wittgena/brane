@@ -1,27 +1,17 @@
 # channel.bridge.llms.anthropic.cost_calculation
-## @lineage: anchor.model.llms.anthropic.cost_calculation
-## @lineage: channel.llms.anthropic.cost_calculation
-## @lineage: gate.llms.anthropic.cost_calculation
-## @lineage: blm.llms.anthropic.cost_calculation
-## @lineage: gov.blm.llms.anthropic.cost_calculation
 """
 Helper util for handling anthropic-specific cost calculation
 - e.g.: prompt caching
 """
-
 from typing import TYPE_CHECKING, Optional, Tuple
-
 from channel.model.cost.calculator.utils import (
     _get_token_base_cost,
     _parse_prompt_tokens_details,
     calculate_cache_writing_cost,
     generic_cost_per_token,
 )
-
-if TYPE_CHECKING:
-    from channel.model.types.utils import ModelInfo, Usage
-import litellm
-
+from channel.model.info.entry import get_model_info
+from channel.model.types.utils import ModelInfo, Usage
 
 def _compute_cache_only_cost(model_info: "ModelInfo", usage: "Usage") -> float:
     """
@@ -72,18 +62,13 @@ def cost_per_token(model: str, usage: "Usage") -> Tuple[float, float]:
     Returns:
         Tuple[float, float] - prompt_cost_in_usd, completion_cost_in_usd
     """
-    prompt_cost, completion_cost = generic_cost_per_token(
-        model=model, usage=usage, custom_llm_provider="anthropic"
-    )
-
+    prompt_cost, completion_cost = generic_cost_per_token(model=model, usage=usage, custom_llm_provider="anthropic")
     # Apply provider_specific_entry multipliers for geo/speed routing
     try:
-        model_info = litellm.get_model_info(
-            model=model, custom_llm_provider="anthropic"
-        )
+        model_info = get_model_info(model=model, custom_llm_provider="anthropic")
         provider_specific_entry: dict = model_info.get("provider_specific_entry") or {}
-
         multiplier = 1.0
+
         if (
             hasattr(usage, "inference_geo")
             and usage.inference_geo

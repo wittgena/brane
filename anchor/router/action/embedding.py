@@ -25,10 +25,10 @@ from litellm.llms.huggingface.embedding.handler import HuggingFaceEmbedding
 from litellm.llms.ollama.completion import handler as ollama
 
 from bound.handler.transport.llm import CustomLLM
-from channel.bridge.litellm.get_litellm_params import get_litellm_params
+from channel.bridge.litellm.params import get_litellm_params
 from bound.config.resolver import config
 from bound.handler.client import client
-from channel.bridge.litellm.exception_mapping_utils import exception_type
+from channel.mapping.exception import exception_type
 from anchor.base.exceptions import LiteLLMUnknownProvider
 from bound.plane.delegator import Logging as LiteLLMLoggingObj
 from channel.model.types.utils import (

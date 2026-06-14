@@ -1,15 +1,14 @@
 # channel.model.validator.params
-## @lineage: anchor.model.validator.params
-## @lineage: anchor.model.validate
-## @lineage: gate.model.validate
-## @lineage: gate.validate
 from typing import Any, Dict, List, Optional, Type, Union, cast
 from pydantic import BaseModel
+from typing import Literal, Optional
+
 from channel.model.types.llms.openai import AllMessageValues
 from channel.model.types.llms.openai import ValidUserMessageContentTypes
+
 from watcher.plane.emitter import get_emitter
 
-log = get_emitter("gate.validate")
+log = get_emitter("validator.params")
 
 def jsonify_tools(tools: List[Any]) -> List[Dict]:
     new_tools: List[Dict] = []

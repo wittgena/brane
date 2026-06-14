@@ -1,8 +1,4 @@
 # bound.handler.stream.wrapper
-## @lineage: channel.bound.stream.wrapper
-## @lineage: channel.bound.handler.stream.wrapper
-## @lineage: gate.bound.handler.stream.wrapper
-## @lineage: gate.bound.stream.handler
 import asyncio
 import collections.abc
 import datetime
@@ -27,29 +23,26 @@ import anyio
 import httpx
 from pydantic import BaseModel
 
+from bound.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
 from bound.handler.stream.chunk.builder import stream_chunk_builder
 from bound.config.resolver import config
+from bound.handler.response.get_api_base import get_api_base
+
+from anchor.base.executor import executor
+from anchor.rule.template.common import is_function_call
+from anchor.base.exceptions import OpenAIError
+from anchor.rule.validator import Rules
+from anchor.router.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
+
+from channel.bridge.litellm.model_response_utils import is_model_response_stream_empty
+from channel.bridge.litellm.core_helpers import map_finish_reason, process_response_headers
+from channel.mapping.exception import exception_type
+from channel.model.types.llms.openai import OpenAIChatCompletionChunk
+from channel.model.types.provider import LlmProviders
+from channel.model.types.router import GenericLiteLLMParams
+from channel.model.types.utils import Delta, CallTypes, GenericStreamingChunk as GChunk
 
 from arch.proto.phase.gate import uuid
-from anchor.rule.template.common import is_function_call
-from channel.bridge.litellm.model_response_utils import is_model_response_stream_empty
-from channel.bridge.litellm.thread_pool_executor import executor
-from channel.model.types.llms.openai import OpenAIChatCompletionChunk
-from channel.model.types.router import GenericLiteLLMParams
-from channel.model.types.utils import Delta
-from channel.model.types.utils import GenericStreamingChunk as GChunk
-from channel.model.types.utils import (
-    LlmProviders,
-    ModelResponse,
-    ModelResponseStream,
-    StreamingChoices,
-    Usage,
-)
-from anchor.base.exceptions import OpenAIError
-from channel.bridge.litellm.core_helpers import map_finish_reason, process_response_headers
-from channel.bridge.litellm.exception_mapping_utils import exception_type
-from bound.handler.response.get_api_base import get_api_base
-from channel.bridge.litellm.rules import Rules
 from watcher.plane.emitter import get_emitter
 
 # from gate.litellm.voider import Logging as LiteLLMLoggingObject 
@@ -196,18 +189,9 @@ class CustomStreamWrapper:
         )
         self._cached_logging_llm_provider: Optional[str] = _cached_logging_provider
         _effective_model = model or ""
-        if (
-            custom_llm_provider == "openai"
-            and custom_llm_provider != _cached_logging_provider
-        ):
-            _effective_model = "{}/{}".format(
-                _cached_logging_provider, _effective_model
-            )
+        if (custom_llm_provider == "openai" and custom_llm_provider != _cached_logging_provider):
+            _effective_model = "{}/{}".format(_cached_logging_provider, _effective_model)
         self._cached_model_name: str = _effective_model
-
-        # Snapshot assumes self._hidden_params is populated from litellm_params
-        # at init and never mutated during the stream. If that ever changes,
-        # this cache must be removed.
         self._base_hidden_params: Dict[str, Any] = {
             **self._hidden_params,
             "response_cost": None,
@@ -217,8 +201,6 @@ class CustomStreamWrapper:
 
     def _check_max_streaming_duration(self) -> None:
         """Raise litellm.Timeout if the stream has exceeded LITELLM_MAX_STREAMING_DURATION_SECONDS."""
-        from bound.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
-
         if LITELLM_MAX_STREAMING_DURATION_SECONDS is None:
             return
         elapsed = time.time() - self._stream_created_time
@@ -289,13 +271,6 @@ class CustomStreamWrapper:
             raise e
 
     def raise_on_model_repetition(self) -> None:
-        """
-        Fixes - https://github.com/BerriAI/litellm/issues/5158
-
-        if the model enters a loop and starts repeating the same chunk again, break out of loop and raise an internalservererror - allows for retries.
-
-        Raises - InternalServerError, if LLM enters infinite loop while streaming
-        """
         if len(self.chunks) < 2:
             return
 
@@ -1653,29 +1628,10 @@ class CustomStreamWrapper:
             )
 
     def set_logging_event_loop(self, loop):
-        """
-        import litellm, asyncio
-
-        loop = asyncio.get_event_loop() # 👈 gets the current event loop
-
-        response = litellm.completion(.., stream=True)
-
-        response.set_logging_event_loop(loop=loop) # 👈 enables async_success callbacks for sync logging
-
-        for chunk in response:
-            ...
-        """
         self.logging_loop = loop
 
     async def _call_post_streaming_deployment_hook(self, chunk):
-        """
-        Call the post-call streaming deployment hook for callbacks.
-
-        This allows callbacks to modify streaming chunks before they're returned.
-        """
         try:
-            import litellm
-            from channel.model.types.utils import CallTypes
             if self._post_streaming_hooks is None:
                 self._post_streaming_hooks = []
 
@@ -1698,12 +1654,9 @@ class CustomStreamWrapper:
                 )
                 if result is not None:
                     chunk = result
-
             return chunk
         except Exception as e:
-            log.exception(
-                f"Error in post-call streaming deployment hook: {str(e)}"
-            )
+            log.exception(f"Error in post-call streaming deployment hook: {str(e)}")
             return chunk
 
     def _add_mcp_list_tools_to_first_chunk(

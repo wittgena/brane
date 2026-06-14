@@ -1,6 +1,4 @@
 # bound.token.counter
-## @lineage: channel.bound.token.counter
-## @lineage: gate.bound.token.counter
 import base64
 import io
 import struct
@@ -16,7 +14,6 @@ from typing import (
     cast,
 )
 import tiktoken
-
 from bound.config.resolver import config
 from anchor.rule.template.common import extract_search_results_text
 from bound.config.constants import (
@@ -29,7 +26,7 @@ from bound.config.constants import (
     MAX_TILE_HEIGHT,
     MAX_TILE_WIDTH,
 )
-from channel.bridge.litellm.default_encoding import encoding as default_encoding
+from bound.token.encoding import get_default_encoding
 from bound.handler.transport.http_handler import _get_httpx_client
 from channel.bridge.litellm.url_utils import safe_get
 from channel.model.types.llms.anthropic import (
@@ -490,42 +487,38 @@ def _count_extra(
 
     return num_tokens
 
-
 def _get_count_function(
     model: Optional[str],
     custom_tokenizer: Optional[Union[dict, SelectTokenizerResponse]] = None,
 ) -> TokenCounterFunction:
-    """
-    Get the function to count tokens based on the model and custom tokenizer."""
+    """Get the function to count tokens based on the model and custom tokenizer"""
     from bound.token.tokenizer import _select_tokenizer
     if model is not None or custom_tokenizer is not None:
         tokenizer_json = custom_tokenizer or _select_tokenizer(model)  # type: ignore
         if tokenizer_json["type"] == "huggingface_tokenizer":
-
             def count_tokens(text: str) -> int:
                 enc = tokenizer_json["tokenizer"].encode(text)
                 return len(enc.ids)
-
         elif tokenizer_json["type"] == "openai_tokenizer":
             model_to_use = _fix_model_name(model)  # type: ignore
             try:
                 if "gpt-4o" in model_to_use:
-                    encoding = tiktoken.get_encoding("o200k_base")
+                    encoding = get_default_encoding("o200k_base")
                 else:
                     encoding = tiktoken.encoding_for_model(model_to_use)
             except KeyError:
                 print_verbose("Warning: model not found. Using cl100k_base encoding.")
-                encoding = tiktoken.get_encoding("cl100k_base")
+                encoding = get_default_encoding("cl100k_base")
 
             def count_tokens(text: str) -> int:
                 return len(encoding.encode(text, disallowed_special=()))
-
         else:
             raise ValueError("Unsupported tokenizer type")
     else:
 
         def count_tokens(text: str) -> int:
-            return len(default_encoding.encode(text, disallowed_special=()))
+            encoding = get_default_encoding()
+            return len(encoding.encode(text, disallowed_special=()))
 
     return count_tokens
 

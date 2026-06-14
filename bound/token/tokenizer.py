@@ -1,17 +1,13 @@
 # bound.token.tokenizer
-## @lineage: channel.bound.token.tokenizer
-## @lineage: gate.bound.token.tokenizer
-## @lineage: blm.bound.token.tokenizer
-## @lineage: blm.frag.token.tokenizer
-## @lineage: blm.tokenizer
 from functools import lru_cache, wraps
 from typing import Dict, List, Optional, Type
 from tokenizers import Tokenizer
 from channel.model.types.utils import CustomHuggingfaceTokenizer, SelectTokenizerResponse
+from bound.token.encoding import get_default_encoding
 from bound.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from watcher.plane.emitter import get_emitter
 
-log = get_emitter("blm.tokenizer")
+log = get_emitter("token.tokenizer")
 
 def encode(model="", text="", custom_tokenizer: Optional[dict] = None):
     tokenizer_json = custom_tokenizer or _select_tokenizer(model=model)
@@ -65,7 +61,7 @@ def _select_tokenizer_helper(model: str) -> SelectTokenizerResponse:
         log.debug(f"Error selecting tokenizer: {e}")
 
 def _return_openai_tokenizer(model: str) -> SelectTokenizerResponse:
-    return {"type": "openai_tokenizer", "tokenizer": _get_default_encoding()}
+    return {"type": "openai_tokenizer", "tokenizer": get_default_encoding()}
     return _return_openai_tokenizer(model)
 
 def _return_huggingface_tokenizer(model: str) -> Optional[SelectTokenizerResponse]:
