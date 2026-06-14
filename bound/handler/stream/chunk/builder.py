@@ -1,11 +1,4 @@
 # bound.handler.stream.chunk.builder
-## @lineage: channel.bound.stream.chunk.builder
-## @lineage: channel.bound.handler.chunk.builder
-## @lineage: gate.bound.handler.chunk.builder
-## @lineage: gate.bound.stream.chunk
-## @lineage: blm.bound.stream.chunk
-## @lineage: blm.frag.stream.chunk
-## @lineage: blm.stream_chunk
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -32,7 +25,6 @@ import tiktoken
 if TYPE_CHECKING:
     from bound.plane.delegator import Logging as LiteLLMLoggingObj
 
-from anchor.rule.template.common import get_content_from_model_response
 from channel.model.types.utils import TextChoices, TextCompletionResponse
 from anchor.base.exceptions import APIError
 
@@ -419,3 +411,22 @@ def stream_chunk_builder(  # noqa: PLR0915
             llm_provider="",
             model="",
         )
+
+def get_content_from_model_response(response: Union[ModelResponse, dict]) -> str:
+    if isinstance(response, dict):
+        new_response = ModelResponse(**response)
+    else:
+        new_response = response
+
+    content = ""
+    for choice in new_response.choices:
+        if isinstance(choice, Choices):
+            content += choice.message.content if choice.message.content else ""
+            if choice.message.function_call:
+                content += choice.message.function_call.model_dump_json()
+            if choice.message.tool_calls:
+                for tc in choice.message.tool_calls:
+                    content += tc.model_dump_json()
+        elif isinstance(choice, StreamingChoices):
+            content += getattr(choice, "delta", {}).get("content", "") or ""
+    return content

@@ -1,12 +1,14 @@
 # channel.bridge.llms.anthropic.common_utils
-## @lineage: anchor.model.llms.anthropic.common_utils
-## @lineage: channel.llms.anthropic.common_utils
-## @lineage: gate.llms.anthropic.common_utils
 import copy
 from typing import Any, Dict, List, Optional, Union
 import httpx
+
 from anchor.base.utils import BaseLLMModelInfo, BaseTokenCounter
 from anchor.base.exceptions import BaseLLMException, AuthenticationError
+
+from bound.handler.transport.http_handler import HTTPHandler
+
+from channel.model.info.support import _supports_factory
 from channel.model.types.llms.anthropic import (
     ANTHROPIC_HOSTED_TOOLS,
     ANTHROPIC_OAUTH_BETA_HEADER,
@@ -16,7 +18,6 @@ from channel.model.types.llms.anthropic import (
 )
 from channel.model.cost.map import model_cost
 from channel.model.types.llms.openai import AllMessageValues, ChatCompletionFileObject
-from bound.handler.transport.http_handler import HTTPHandler
 from channel.secret.manager import get_secret_str
 
 def get_file_ids_from_messages(messages: List[AllMessageValues]) -> List[str]:
@@ -291,7 +292,6 @@ class AnthropicModelInfo(BaseLLMModelInfo):
 
     @staticmethod
     def _supports_model_capability(model: str, key: str) -> bool:
-        from channel.model.provider.gate import _supports_factory
         try:
             if _supports_factory(
                 model=model,

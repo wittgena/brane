@@ -1,8 +1,4 @@
 # anchor.router.action.embedding
-## @lineage: anchor.action.embedding
-## @lineage: bound.embedding
-## @lineage: channel.bound.embedding
-## @lineage: gate.bound.embedding
 import asyncio
 import contextvars
 import datetime
@@ -19,33 +15,32 @@ import httpx
 import openai
 from typing_extensions import overload
 
-from litellm.litellm_core_utils.mock_functions import mock_embedding
-from litellm.llms.gemini.common_utils import get_api_key_from_env
 from litellm.llms.huggingface.embedding.handler import HuggingFaceEmbedding
 from litellm.llms.ollama.completion import handler as ollama
 
+from anchor.router.switch.params import Choices, Message, ModelResponse
+from anchor.base.exceptions import LiteLLMUnknownProvider
 from bound.handler.transport.llm import CustomLLM
-from channel.bridge.litellm.params import get_litellm_params
 from bound.config.resolver import config
 from bound.handler.client import client
-from channel.mapping.exception import exception_type
-from anchor.base.exceptions import LiteLLMUnknownProvider
 from bound.plane.delegator import Logging as LiteLLMLoggingObj
+from bound.handler.stream.wrapper import CustomStreamWrapper
+
+from channel.bridge.litellm.params import get_litellm_params
+from channel.mapping.exception import exception_type
+from channel.model.types.utils import all_litellm_params, EmbeddingResponse
 from channel.model.types.utils import (
     CustomPricingLiteLLMParams,
     ModelResponseStream,
     RawRequestTypedDict,
     StreamingChoices,
 )
-from bound.handler.stream.wrapper import CustomStreamWrapper
-from channel.model.provider.gate import get_optional_params_embeddings
-from channel.secret.manager import get_secret, get_secret_str
+from channel.model.provider.param_embedding import get_optional_params_embeddings
 from channel.model.provider.resolver import get_llm_provider
 from channel.model.token.counter import token_counter
 from channel.bridge.llms.openai.embedding import OpenAIEmbedding
-from channel.model.types.utils import all_litellm_params, EmbeddingResponse
+from channel.secret.manager import get_secret, get_secret_str
 
-from anchor.router.switch.params import Choices, Message, ModelResponse
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("bound.embedding")
@@ -287,9 +282,6 @@ def embedding(  # noqa: PLR0915
         litellm_params=litellm_params_dict,
         custom_llm_provider=custom_llm_provider,
     )
-
-    if mock_response is not None:
-        return mock_embedding(model=model, mock_response=mock_response)
 
     try:
         response: Optional[Union[EmbeddingResponse, Coroutine[Any, Any, EmbeddingResponse]]] = None

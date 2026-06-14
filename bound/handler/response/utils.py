@@ -164,8 +164,6 @@ class ResponsesAPIRequestUtils:
         Returns:
             ResponsesAPIOptionalRequestParams instance with only the valid parameters
         """
-        from channel.model.provider.gate import PreProcessNonDefaultParams
-
         valid_keys = get_type_hints(ResponsesAPIOptionalRequestParams).keys()
         custom_llm_provider = params.pop("custom_llm_provider", None)
         special_params = params.pop("kwargs", {})

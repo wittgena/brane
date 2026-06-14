@@ -29,7 +29,6 @@ from bound.config.resolver import config
 from bound.handler.response.get_api_base import get_api_base
 
 from anchor.base.executor import executor
-from anchor.rule.template.common import is_function_call
 from anchor.base.exceptions import OpenAIError
 from anchor.rule.validator import Rules
 from anchor.router.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
@@ -248,7 +247,8 @@ class CustomStreamWrapper:
         if hasattr(logging_obj, "optional_params") and isinstance(
             logging_obj.optional_params, dict
         ):
-            if is_function_call(logging_obj.optional_params):
+            optional_params = logging_obj.optional_params
+            if "functions" in optional_params and optional_params.get("functions"):
                 return True
 
         return False

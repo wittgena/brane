@@ -1,7 +1,4 @@
 # bound.handler.response.main
-## @lineage: channel.bound.handler.response.main
-## @lineage: gate.bound.handler.response.main
-## @lineage: gate.responses.main
 import asyncio
 import contextvars
 from functools import partial
@@ -20,20 +17,23 @@ from typing import (
 )
 import httpx
 from pydantic import BaseModel
-from litellm.responses.utils import ResponsesAPIRequestUtils
+
 from litellm.responses.mcp.mcp_streaming_iterator import create_mcp_list_tools_events
 from litellm.completion_extras.litellm_responses_transformation.transformation import LiteLLMResponsesTransformationHandler
 from litellm.responses.litellm_completion_transformation.handler import LiteLLMCompletionTransformationHandler
 
+from anchor.base.responses.transformation import BaseResponsesAPIConfig
+
+from bound.handler.response.template import update_responses_input_with_model_file_ids, update_responses_tools_with_model_file_ids
 from bound.handler.client import client
+from bound.handler.response.utils import ResponsesAPIRequestUtils
 from bound.handler.response.streaming_iterator import BaseResponsesAPIStreamingIterator
 from bound.handler.api import ResponseApiHandler
 from bound.handler.ws import ResponseWebsocketHandler
 from bound.config.resolver import config
+from bound.config.constants import request_timeout
+from bound.handler.asyncify import run_async_function
 
-from arch.proto.phase.gate import uuid
-from anchor.rule.template.common import update_responses_input_with_model_file_ids, update_responses_tools_with_model_file_ids
-from anchor.base.responses.transformation import BaseResponsesAPIConfig
 from channel.model.provider.resolver import get_llm_provider
 from channel.model.types.llms.openai import (
     AllMessageValues,
@@ -46,8 +46,6 @@ from channel.model.types.llms.openai import (
     ToolChoice,
     ToolParam,
 )
-from bound.config.constants import request_timeout
-from bound.handler.asyncify import run_async_function
 from channel.bridge.litellm.params import get_litellm_params
 from channel.bridge.llms.openai.data_residency import infer_openai_data_residency
 from channel.model.types.responses.main import *
@@ -56,6 +54,7 @@ from channel.model.types.router import GenericLiteLLMParams
 from channel.model.provider.manager import ProviderConfigManager
 from channel.model.types.llms.openai import ResponseText
 
+from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("blm.main")
@@ -171,21 +170,12 @@ async def aresponses_api_with_mcp(
     3. Call the standard responses API
     4. If require_approval="never" and tool calls are returned, automatically execute them
     """
-    from litellm.responses.mcp.litellm_proxy_mcp_handler import (
-        LiteLLM_Proxy_MCP_Handler,
-    )
-
-    # Parse MCP tools and separate from other tools
+    from litellm.responses.mcp.litellm_proxy_mcp_handler import LiteLLM_Proxy_MCP_Handler
     (
         mcp_tools_with_litellm_proxy,
         other_tools,
     ) = LiteLLM_Proxy_MCP_Handler._parse_mcp_tools(tools)
-
-    # Process MCP tools through the complete pipeline (fetch + filter + deduplicate + transform)
-    # Extract user_api_key_auth from litellm_metadata (where it's added by add_user_api_key_auth_to_request_metadata)
-    user_api_key_auth = kwargs.get("user_api_key_auth") or kwargs.get(
-        "litellm_metadata", {}
-    ).get("user_api_key_auth")
+    user_api_key_auth = kwargs.get("user_api_key_auth") or kwargs.get("litellm_metadata", {}).get("user_api_key_auth")
 
     # Extract MCP auth headers from request (for dynamic auth when fetching tools)
     mcp_auth_header: Optional[str] = None
@@ -371,10 +361,7 @@ async def aresponses_api_with_mcp(
                         or hasattr(final_response, "__iter__")
                     )
                 ):
-                    from litellm.responses.mcp.mcp_streaming_iterator import (
-                        MCPEnhancedStreamingIterator,
-                    )
-
+                    from litellm.responses.mcp.mcp_streaming_iterator import MCPEnhancedStreamingIterator
                     final_response = MCPEnhancedStreamingIterator(
                         tool_server_map=tool_server_map,
                         base_iterator=final_response,
@@ -754,7 +741,6 @@ def _responses_try_dispatch_mcp_gateway(
 ) -> Optional[Any]:
     """Return a response when MCP gateway handles the call; otherwise None."""
     from litellm.responses.mcp.litellm_proxy_mcp_handler import LiteLLM_Proxy_MCP_Handler
-
     if not LiteLLM_Proxy_MCP_Handler._should_use_litellm_mcp_gateway(tools=tools):
         return None
     mcp_call_kwargs = {
@@ -826,6 +812,7 @@ def _responses_try_dispatch_emulated_file_search(
     kwargs: Dict[str, Any],
     _is_async: bool,
 ) -> Optional[Any]:
+    from anchor.router.search.file import aresponses_with_emulated_file_search
     """Return a response when emulated file_search handles the call; otherwise None."""
     if not _has_file_search_tool(tools) or not (
         responses_api_provider_config is None
@@ -833,7 +820,6 @@ def _responses_try_dispatch_emulated_file_search(
         or not responses_api_provider_config.supports_native_file_search()
     ):
         return None
-    from litellm.responses.file_search.emulated_handler import aresponses_with_emulated_file_search
 
     _internal_skip = {"litellm_call_id", "aresponses"}
     emulated_kwargs = {
@@ -1042,7 +1028,6 @@ def responses(
             )
 
         local_vars.update(kwargs)
-        # Map reasoning_effort (from litellm_params/proxy config) to reasoning when not set
         if reasoning is None and "reasoning_effort" in local_vars:
             _mapped = LiteLLMResponsesTransformationHandler()._map_reasoning_effort(
                 local_vars.pop("reasoning_effort")

@@ -1,18 +1,13 @@
 # channel.model.info.entry
-## @lineage: channel.cost.model.info
-## @lineage: anchor.model.info
-## @lineage: gate.model.info
-## @lineage: gate.bound.model.info
-## @lineage: gate.bound.mode.info
 from typing import Optional
 from functools import lru_cache, wraps
 
 from anchor.base.utils import BaseLLMModelInfo, type_to_response_format_param
 from bound.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from bound.config.resolver import config
+
 from channel.model.provider.manager import get_provider_info
 from channel.model.types.utils import ModelInfo
-from channel.model.provider.gate import _get_model_info_helper
 
 def get_model_info(
     model: str,
@@ -30,6 +25,8 @@ def _build_model_info(
     api_base: Optional[str] = None,
     api_key: Optional[str] = None,
 ) -> ModelInfo:
+    from channel.model.cost.map import _get_model_info_helper
+
     supported_openai_params = config.get_supported_openai_params(
         model=model, custom_llm_provider=custom_llm_provider
     )

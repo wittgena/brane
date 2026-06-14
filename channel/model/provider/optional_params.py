@@ -20,22 +20,20 @@ from pydantic import BaseModel
 from tiktoken import Encoding
 from typing import TYPE_CHECKING, Any, Dict, List, Mapping, Optional
 
-if TYPE_CHECKING:
-    from litellm.litellm_core_utils.dot_notation_indexing import delete_nested_value, is_nested_path
-
-from litellm.litellm_core_utils.llm_request_utils import _ensure_extra_body_is_safe
-from litellm.types.llms.anthropic import AnthropicThinkingParam
-from litellm.llms.base_llm.chat.transformation import BaseConfig
-from litellm.llms.base_llm.base_utils import type_to_response_format_param
+from anchor.base.exceptions import UnsupportedParamsError
+from anchor.base.utils import type_to_response_format_param
+from anchor.base.chat.transformation import BaseConfig
 
 from bound.config.resolver import config
 from bound.config.constants import DEFAULT_CHAT_COMPLETION_PARAM_VALUES
+
+from channel.bridge.litellm.dot_notation_indexing import delete_nested_value, is_nested_path
+from channel.model.types.llms.anthropic import AnthropicThinkingParam
 from channel.model.types.llms.openai import AllMessageValues, OpenAIWebSearchOptions
 from channel.model.types.utils import Embedding, Function, LlmProviders
 from channel.model.provider.manager import ProviderConfigManager
 from channel.model.info.support import get_supported_openai_params
 
-from anchor.base.exceptions import UnsupportedParamsError
 from watcher.plane.emitter import get_emitter
 
 CustomLogger = Any
@@ -452,8 +450,6 @@ def add_provider_specific_params_to_optional_params(
                 }
             else:
                 processed_extra_body = initial_extra_body
-
-            _ensure_extra_body_is_safe = getattr(sys.modules[__name__], "_ensure_extra_body_is_safe")
             optional_params["extra_body"] = _ensure_extra_body_is_safe(extra_body=processed_extra_body)
     else:
         for k in passed_params.keys():
@@ -483,6 +479,23 @@ def _should_drop_param(k, additional_drop_params) -> bool:
 
     return False
 
+def _ensure_extra_body_is_safe(extra_body: Optional[Dict]) -> Optional[Dict]:
+    if extra_body is None:
+        return None
+
+    if not isinstance(extra_body, dict):
+        return extra_body
+
+    if "metadata" in extra_body and isinstance(extra_body["metadata"], dict):
+        if "prompt" in extra_body["metadata"]:
+            _prompt = extra_body["metadata"].get("prompt")
+
+            # users can send Langfuse TextPromptClient objects, so we need to convert them to dicts
+            # Langfuse TextPromptClients have .__dict__ attribute
+            if _prompt is not None and hasattr(_prompt, "__dict__"):
+                extra_body["metadata"]["prompt"] = _prompt.__dict__
+
+    return extra_body
 
 class PreProcessNonDefaultParams:
     @staticmethod

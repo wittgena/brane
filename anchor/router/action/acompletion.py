@@ -53,7 +53,6 @@ from channel.model.types.utils import (
     RawRequestTypedDict,
     StreamingChoices,
 )
-from channel.model.provider.gate import should_run_mock_completion
 from channel.model.types.llms.anthropic import AnthropicThinkingParam
 from channel.model.types.llms.openai import ChatCompletionAudioParam, ChatCompletionModality, ChatCompletionPredictionContentParam, OpenAIWebSearchOptions
 from anchor.base.exceptions import Timeout
@@ -231,11 +230,7 @@ async def acompletion(  # noqa: PLR0915
     mock_response = kwargs.get("mock_response")
     mock_tool_calls = kwargs.get("mock_tool_calls")
     mock_timeout = kwargs.get("mock_timeout")
-    if mock_delay and should_run_mock_completion(
-        mock_response=mock_response,
-        mock_tool_calls=mock_tool_calls,
-        mock_timeout=mock_timeout,
-    ):
+    if mock_delay and (mock_response or mock_tool_calls or mock_timeout): 
         await asyncio.sleep(mock_delay)
 
     try:

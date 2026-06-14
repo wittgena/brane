@@ -1,14 +1,16 @@
 # channel.model.info.support
 from typing import Optional, Literal, List, Dict
+
 from bound.config.resolver import config
-from channel.model.cost.map import model_cost
+
+from channel.model.cost.map import model_cost, _get_model_info_helper
 from channel.model.provider.resolver import get_llm_provider
 from channel.model.provider.manager import get_provider_info
 from channel.model.info.openai_params import get_supported_openai_params
 
 from watcher.plane.emitter import get_emitter
 
-log = get_emitter("fino.support")
+log = get_emitter("info.support")
 
 def supports_httpx_timeout(custom_llm_provider: str) -> bool:
     supported_providers = ["openai"]
@@ -38,7 +40,6 @@ def supports_url_context(model: str, custom_llm_provider: Optional[str] = None) 
     )
 
 def supports_native_streaming(model: str, custom_llm_provider: Optional[str]) -> bool:
-    from channel.model.provider.gate import _get_model_info_helper
     try:
         model, custom_llm_provider, _, _ = get_llm_provider(model=model, custom_llm_provider=custom_llm_provider)
         model_info = _get_model_info_helper(model=model, custom_llm_provider=custom_llm_provider)
@@ -98,7 +99,6 @@ def _supports_provider_info_factory(
     return None
 
 def _supports_factory(model: str, custom_llm_provider: Optional[str], key: str) -> bool:
-    from channel.model.provider.gate import _get_model_info_helper
     try:
         model, custom_llm_provider, _, _ = get_llm_provider(model=model, custom_llm_provider=custom_llm_provider)
         model_info = _get_model_info_helper(model=model, custom_llm_provider=custom_llm_provider)
@@ -188,7 +188,6 @@ def supports_native_structured_output(
 def get_supported_regions(
     model: str, custom_llm_provider: Optional[str] = None
 ) -> Optional[List[str]]:
-    from channel.model.provider.gate import _get_model_info_helper
     try:
         model, custom_llm_provider, _, _ = get_llm_provider(model=model, custom_llm_provider=custom_llm_provider)
         model_info = _get_model_info_helper(model=model, custom_llm_provider=custom_llm_provider)

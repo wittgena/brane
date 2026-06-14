@@ -26,11 +26,17 @@ from anchor.base.exceptions import (
     Timeout,
     UnprocessableEntityError,
 )
-
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("exception.mapping")
 
+def get_first_chars_messages(kwargs: dict) -> str:
+    try:
+        _messages = kwargs.get("messages")
+        _messages = str(_messages)[:100]
+        return _messages
+    except Exception:
+        return ""
 
 class ExceptionCheckers:
     """
@@ -245,7 +251,6 @@ def exception_type(  # type: ignore  # noqa: PLR0915
     completion_kwargs={},
     extra_kwargs={},
 ):
-    from channel.model.provider.gate import get_first_chars_messages
     """Maps an LLM Provider Exception to OpenAI Exception Format"""
     if any(
         isinstance(original_exception, exc_type)

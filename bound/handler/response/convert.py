@@ -1,15 +1,14 @@
 # bound.handler.response.convert
-## @lineage: channel.litellm.response.convert
-## @lineage: channel.bound.litellm.response.convert
-## @lineage: gate.litellm.response.convert
 import asyncio
 import json
 import time
 import traceback
 from typing import Dict, Iterable, List, Literal, Optional, Tuple, Union, cast
-from anchor.rule.template.common import _extract_reasoning_content
-from channel.model.types.llms.databricks import DatabricksTool
+
 from bound.config.constants import RESPONSE_FORMAT_TOOL_NAME
+from bound.handler.response.header import get_response_headers
+
+from channel.model.types.llms.databricks import DatabricksTool
 from channel.model.types.llms.openai import (
     ChatCompletionThinkingBlock,
     ImageURLListItem,
@@ -41,9 +40,10 @@ from anchor.router.switch.params import (
     Choices, 
     Delta
 )
-from channel.model.types.utils import Logprobs as TextCompletionLogprobs
 from anchor.base.exceptions import APIError
-from bound.handler.response.header import get_response_headers
+
+from channel.model.types.utils import Logprobs as TextCompletionLogprobs
+
 from watcher.plane.emitter import get_emitter 
 
 log = get_emitter("response.converter")
@@ -813,3 +813,28 @@ def convert_to_model_response_object(  # noqa: PLR0915
         raise Exception(
             f"Invalid response object {traceback.format_exc()}\n\nreceived_args={received_args}"
         )
+
+def _extract_reasoning_content(message: dict) -> Tuple[Optional[str], Optional[str]]:
+    message_content = message.get("content")
+    if "reasoning_content" in message:
+        return message["reasoning_content"], message_content
+    elif "reasoning" in message:
+        return message["reasoning"], message_content
+    elif isinstance(message_content, str):
+        return _parse_content_for_reasoning(message_content)
+    return None, message_content
+
+def _parse_content_for_reasoning(
+    message_text: Optional[str],
+) -> Tuple[Optional[str], Optional[str]]:
+    if not message_text:
+        return None, message_text
+    reasoning_match = re.match(
+        r"<(?:think|thinking|budget:thinking)>(.*?)</(?:think|thinking|budget:thinking)>(.*)",
+        message_text,
+        re.DOTALL,
+    )
+    if reasoning_match:
+        return reasoning_match.group(1), reasoning_match.group(2)
+
+    return None, message_text

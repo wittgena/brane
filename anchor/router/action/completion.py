@@ -18,11 +18,9 @@ import httpx
 import openai
 from pydantic import BaseModel
 
-from litellm.litellm_core_utils.prompt_templates.factory import map_system_message_pt
 from litellm.llms.anthropic.chat import AnthropicChatCompletion
 from litellm.llms.openai.completion.handler import OpenAITextCompletion
 
-# from channel.model.provider.gate import get_optional_params
 from channel.model.provider.optional_params import get_optional_params
 from anchor.router.switch.params import Choices, Message, ModelResponse, Usage, ModelResponseStream
 from bound.handler.client import client
@@ -31,7 +29,7 @@ from bound.config.resolver import config
 from bound.handler.completion import CompletionHandler
 from bound.handler.stream.wrapper import CustomStreamWrapper
 
-from anchor.rule.template.common import add_system_prompt_to_messages
+from channel.model.types.llms.openai import AllMessageValues
 from channel.secret.manager import get_secret_bool, get_secret_str
 from channel.mapping.exception import exception_type
 from channel.bridge.litellm.params import get_litellm_params
@@ -375,3 +373,48 @@ def completion(  # type: ignore # noqa: PLR0915
             model=model, custom_llm_provider=custom_llm_provider, original_exception=e,
             completion_kwargs=args, extra_kwargs=kwargs,
         )
+
+def add_system_prompt_to_messages(
+    messages: List[AllMessageValues],
+    system_prompt: str,
+    merge_with_first_system: bool = False,
+) -> List[AllMessageValues]:
+    if not system_prompt:
+        return list(messages)
+
+    if merge_with_first_system and messages and messages[0].get("role") == "system":
+        first = dict(messages[0])
+        existing_content = first.get("content", "")
+        merged_content: Union[str, List[Dict[str, str]]]
+        if isinstance(existing_content, str):
+            merged_content = f"{system_prompt.strip()}\n\n{existing_content}"
+        elif isinstance(existing_content, list):
+            merged_content = [{"type": "text", "text": system_prompt.strip()}] + list(
+                existing_content
+            )
+        else:
+            merged_content = [{"type": "text", "text": system_prompt.strip()}]
+        first["content"] = merged_content
+        return [cast(AllMessageValues, first)] + list(messages[1:])
+
+    system_message: AllMessageValues = {"role": "system", "content": system_prompt}
+    return [system_message, *messages]
+
+def map_system_message_pt(messages: list) -> list:
+    new_messages = []
+    for i, m in enumerate(messages):
+        if m["role"] == "system":
+            if i < len(messages) - 1:
+                next_m = messages[i + 1]
+                next_role = next_m["role"]
+                if (next_role == "user" or next_role == "assistant"):
+                    next_m["content"] = m["content"] + " " + next_m["content"]
+                elif next_role == "system":
+                    new_message = {"role": "user", "content": m["content"]}
+                    new_messages.append(new_message)
+            else:
+                new_message = {"role": "user", "content": m["content"]}
+                new_messages.append(new_message)
+        else:
+            new_messages.append(m)
+    return new_messages
