@@ -5,9 +5,9 @@ from pydantic import BaseModel, ConfigDict
 from typing import Any, Dict, Iterable, List, Optional, Union
 from openai.types.responses.response_function_tool_call import ResponseFunctionToolCall
 
-USE_LITELLM_STRICT_TYPES = False
+LITELLM_CONVERT_SWITCH = False
 
-if USE_LITELLM_STRICT_TYPES:
+if LITELLM_CONVERT_SWITCH:
     try:
         from litellm.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
         from litellm.types.llms.openai import ChatCompletionToolParam
@@ -46,11 +46,11 @@ if USE_LITELLM_STRICT_TYPES:
         from litellm.types.utils import ChatCompletionMessageToolCall
         from litellm.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
 
-        USE_LITELLM_STRICT_TYPES = True
+        LITELLM_CONVERT_SWITCH = True
     except ImportError:
-        USE_LITELLM_STRICT_TYPES = False
+        LITELLM_CONVERT_SWITCH = False
 
-if not USE_LITELLM_STRICT_TYPES:
+if not LITELLM_CONVERT_SWITCH:
     try:
         from bound.router.model.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
         from bound.router.model.types.llms.openai import ChatCompletionToolParam
@@ -83,12 +83,11 @@ if not USE_LITELLM_STRICT_TYPES:
             TranscriptionUsageTokensObject,
         )
         from bound.router.model.types.utils import Usage
-        ## -- 
-        from litellm.types.utils import TextChoices, TextCompletionResponse, TranscriptionResponse
-        from litellm.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
-        from litellm.types.utils import ChatCompletionMessageToolCall
+        from bound.router.model.types.utils import TextChoices, TextCompletionResponse, TranscriptionResponse
+        from bound.router.model.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
+        from bound.router.model.types.utils import ChatCompletionMessageToolCall
     except ImportError as e:
-        raise ImportError(f"Failed to load fallback types from internal blm.types modules. Error: {e}")
+        raise ImportError(f"Failed to load fallback types from internal modules. Error: {e}")
 
 class CompletionRequest(BaseModel):
     model: str
