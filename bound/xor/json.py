@@ -20,8 +20,8 @@ from bound.xor.utils import (
 )
 from bound.xor.lm.base import BaseLM
 from arch.xor.manifold.sign.signature import Signature, SignatureMeta
-from channel.bridge.dsp.stream.callback import BaseCallback
-from channel.bridge.dsp.exceptions import AdapterParseError
+from bound.channel.bridge.dsp.stream.callback import BaseCallback
+from bound.channel.bridge.dsp.exceptions import AdapterParseError
 
 logger = logging.getLogger(__name__)
 

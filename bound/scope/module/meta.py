@@ -2,15 +2,15 @@
 import inspect
 from typing import Any, TextIO, TYPE_CHECKING
 
-from anchor.router.switch.dspy.settings import settings
-from anchor.router.switch.dspy.usage import track_usage
+from anchor.switch.dspy.settings import settings
+from anchor.switch.dspy.usage import track_usage
 from bound.xor.exam.example import Example
 from bound.xor.exam.prediction import Prediction
 
 from bound.scope.module.base import BaseModule
-from bound.plane.tracker.history import pretty_print_history
+from bound.scope.plane.tracker.history import pretty_print_history
 
-from channel.bridge.dsp.stream.callback import with_callbacks
+from bound.channel.bridge.dsp.stream.callback import with_callbacks
 
 from bound.scope.module.runner import ParallelRunner
 
@@ -65,7 +65,7 @@ class Module(BaseModule, metaclass=ProgramMeta):
 
     @with_callbacks
     def __call__(self, *args, **kwargs) -> Prediction:
-        from anchor.router.switch.dspy.settings import thread_local_overrides
+        from anchor.switch.dspy.settings import thread_local_overrides
 
         caller_modules = settings.caller_modules or []
         caller_modules = list(caller_modules)
@@ -84,7 +84,7 @@ class Module(BaseModule, metaclass=ProgramMeta):
 
     @with_callbacks
     async def acall(self, *args, **kwargs) -> Prediction:
-        from anchor.router.switch.dspy.settings import thread_local_overrides
+        from anchor.switch.dspy.settings import thread_local_overrides
 
         caller_modules = settings.caller_modules or []
         caller_modules = list(caller_modules)
@@ -102,7 +102,7 @@ class Module(BaseModule, metaclass=ProgramMeta):
             return await self.aforward(*args, **kwargs)
 
     def named_predictors(self):
-        from channel.bridge.dsp.predict import Predict
+        from bound.channel.bridge.dsp.predict import Predict
         return [(name, param) for name, param in self.named_parameters() if isinstance(param, Predict)]
 
     def predictors(self):

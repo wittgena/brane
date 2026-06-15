@@ -13,7 +13,7 @@ import pydantic
 from bound.xor.lm.base import BaseLM
 
 if TYPE_CHECKING:
-    from anchor.router.switch.params import ModelResponseStream
+    from anchor.switch.params import ModelResponseStream
     from arch.xor.manifold.sign.signature import Signature
 
 CUSTOM_TYPE_START_IDENTIFIER = "<<CUSTOM-TYPE-START-IDENTIFIER>>"

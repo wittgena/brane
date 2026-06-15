@@ -15,10 +15,10 @@ from typing import (
 
 import httpx
 from bound.handler.transport.http_handler import AsyncHTTPHandler, HTTPHandler
-from channel.model.types.utils import GenericStreamingChunk
-from channel.model.types.utils import EmbeddingResponse, ImageResponse, ModelResponse
-from anchor.router.action.base import BaseLLM
-from bound.handler.stream.wrapper import CustomStreamWrapper
+from bound.channel.model.types.utils import GenericStreamingChunk
+from bound.channel.model.types.utils import EmbeddingResponse, ImageResponse, ModelResponse
+from bound.channel.router.action.base import BaseLLM
+from bound.handler.support.stream.wrapper import CustomStreamWrapper
 
 class CustomLLMError(Exception):  # use this for all your exceptions
     def __init__(

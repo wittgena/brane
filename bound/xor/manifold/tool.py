@@ -9,8 +9,8 @@ import pydantic
 from jsonschema import ValidationError, validate
 from pydantic import BaseModel, TypeAdapter, create_model
 from bound.xor.basetype import Type
-from anchor.router.switch.dspy.settings import settings
-from channel.bridge.dsp.stream.callback import with_callbacks
+from anchor.switch.dspy.settings import settings
+from bound.channel.bridge.dsp.stream.callback import with_callbacks
 
 _TYPE_MAPPING = {"string": str, "integer": int, "number": float, "boolean": bool, "array": list, "object": dict}
 

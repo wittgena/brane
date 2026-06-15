@@ -12,7 +12,7 @@ import logging
 from typing import Coroutine, Optional
 import atexit
 from typing_extensions import TypedDict
-from bound.config.constants import (
+from anchor.config.constants import (
     LOGGING_WORKER_CONCURRENCY,
     LOGGING_WORKER_MAX_QUEUE_SIZE,
     LOGGING_WORKER_MAX_TIME_PER_COROUTINE,

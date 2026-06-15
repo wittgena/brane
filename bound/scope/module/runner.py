@@ -2,8 +2,8 @@
 import threading
 from typing import Any
 
-from anchor.router.switch.dspy.settings import settings
-from anchor.router.switch.dspy.context import get_dspy_context_propagator
+from anchor.switch.dspy.settings import settings
+from anchor.switch.dspy.context import get_dspy_context_propagator
 from bound.xor.exam.example import Example
 from arch.proto.wrapper.opt import OptExecutor
 

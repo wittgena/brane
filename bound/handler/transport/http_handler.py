@@ -29,10 +29,10 @@ from aiohttp import ClientSession, TCPConnector
 from httpx import USE_CLIENT_DEFAULT, AsyncHTTPTransport, HTTPTransport
 from httpx._types import RequestFiles
 from watcher.plane.emitter import get_emitter
-from bound.config.resolver import config
-from anchor.base.exceptions import Timeout
+from anchor.config.resolver import config
+from anchor.exceptions import Timeout
 
-from bound.config.constants import (
+from anchor.config.constants import (
     _DEFAULT_TTL_FOR_HTTPX_CLIENTS,
     AIOHTTP_CONNECTOR_LIMIT,
     AIOHTTP_CONNECTOR_LIMIT_PER_HOST,
@@ -48,9 +48,9 @@ from bound.config.constants import (
     HTTP_HANDLER_CONNECT_TIMEOUT_SECONDS,
 )
 
-from channel.model.types.llms.custom_http import VerifyTypes, httpxSpecialProvider
+from bound.channel.model.types.llms.custom_http import VerifyTypes, httpxSpecialProvider
 if TYPE_CHECKING:
-    from channel.model.types.provider import LlmProviders
+    from bound.channel.model.types.provider import LlmProviders
     from bound.handler.transport.aiohttp_transport import LiteLLMAiohttpTransport
 else:
     LlmProviders = Any

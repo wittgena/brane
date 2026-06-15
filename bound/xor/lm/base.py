@@ -8,9 +8,9 @@
 import datetime
 import uuid
 from typing import Any, TextIO
-from anchor.router.switch.dspy.settings import settings
-from bound.plane.tracker.history import pretty_print_history
-from channel.bridge.dsp.stream.callback import with_callbacks
+from anchor.switch.dspy.settings import settings
+from bound.scope.plane.tracker.history import pretty_print_history
+from bound.channel.bridge.dsp.stream.callback import with_callbacks
 
 MAX_HISTORY_SIZE = 10_000
 GLOBAL_HISTORY = []

@@ -3,7 +3,7 @@
 ## @lineage: meta.watcher.scope.surface.dphi
 from contextlib import ExitStack
 
-from anchor.router.switch.dspy.settings import settings
+from anchor.switch.dspy.settings import settings
 from bound.xor.lm.local import LocalLM
 from bound.scope.surface.config import BaseSurface, SurfaceConfig
 from bound.scope.thch import thch_scope

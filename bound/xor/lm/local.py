@@ -2,7 +2,7 @@
 ## @lineage: anchor.xor.lm.local
 ## @lineage: meta.xor.adapter.lm.local
 ## @lineage: meta.ops.trainer.local
-from channel.bridge.dsp.instance import LM
+from bound.channel.bridge.dsp.instance import LM
 from phase.bind.client.engine.local import LLMEngine
 from watcher.plane.emitter import get_emitter
 

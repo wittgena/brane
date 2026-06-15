@@ -7,7 +7,7 @@ from pathlib import Path
 from dataclasses import dataclass, field
 from typing import List, Optional, Union, Dict
 
-from anchor.xphi.flow.ktory import EmissionRunner, KotlinPSITool, RipgrepTool
+from xphi.flow.ktory import EmissionRunner, KotlinPSITool, RipgrepTool
 
 from arch.xor.block.extractor import extract_block_from_file, Block
 from phase.bind.resolver import find_current_self, resolve_path
