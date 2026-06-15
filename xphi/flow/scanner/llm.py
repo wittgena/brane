@@ -1,5 +1,4 @@
 # xphi.flow.scanner.llm
-## @lineage: anchor.rule.llama.scanner.llm
 import os
 import sys
 import ast
@@ -10,7 +9,6 @@ import urllib.request
 import argparse
 from pathlib import Path
 from typing import Dict, Any
-
 from bound.adapter.base.llms.base import BaseLLM 
 from watcher.plane.emitter import get_emitter
 from arch.contract.registry.unified import contract
@@ -160,7 +158,7 @@ def entry_task(args):
 
 
 @contract.cli(
-    name="llama.scanner.llm", 
+    name="scanner.llm", 
     args=["--target", "--base-path"],
     tags=["llama", "scanner", "llm"],
     entry="entry_task" 
@@ -173,7 +171,7 @@ def main(args=None):
     if bound_args.local:
         entry_task(remain).run()
     else:
-        dispatch_cli("llama.scanner.llm", entry_task, __file__)
+        dispatch_cli("scanner.llm", entry_task, __file__)
 
 if __name__ == "__main__":
     main()

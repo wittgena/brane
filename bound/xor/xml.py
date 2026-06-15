@@ -8,7 +8,7 @@ from pydantic.fields import FieldInfo
 from bound.xor.chat import ChatAdapter, FieldInfoWithName
 from bound.xor.utils import format_field_value, translate_field_type
 from arch.xor.manifold.sign.signature import Signature
-from bound.channel.bridge.dsp.stream.callback import BaseCallback
+from bound.xor.dsp.stream.callback import BaseCallback
 
 class XMLAdapter(ChatAdapter):
     def __init__(self, callbacks: list[BaseCallback] | None = None):
@@ -97,7 +97,7 @@ class XMLAdapter(ChatAdapter):
         for k, v in fields.items():
             fields[k] = self._parse_field_value(signature.output_fields[k], v, completion, signature)
         if fields.keys() != signature.output_fields.keys():
-            from bound.channel.bridge.dsp.exceptions import AdapterParseError
+            from bound.xor.dsp.exceptions import AdapterParseError
 
             raise AdapterParseError(
                 adapter_name="XMLAdapter",
@@ -113,7 +113,7 @@ class XMLAdapter(ChatAdapter):
         try:
             return parse_value(raw, field_info.annotation)
         except Exception as e:
-            from bound.channel.bridge.dsp.exceptions import AdapterParseError
+            from bound.xor.dsp.exceptions import AdapterParseError
 
             raise AdapterParseError(
                 adapter_name="XMLAdapter",

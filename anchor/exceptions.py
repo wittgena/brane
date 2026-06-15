@@ -6,7 +6,7 @@
 from typing import Any, Dict, Optional, Union
 import httpx
 import openai
-from bound.channel.model.types.utils import LiteLLMCommonStrings
+from bound.router.model.types.utils import LiteLLMCommonStrings
 
 _MINIMAL_ERROR_RESPONSE: Optional[httpx.Response] = None
 

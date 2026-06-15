@@ -6,7 +6,7 @@
 import random
 from bound.xor.manifold.parameter import Parameter
 from bound.xor.exam.prediction import Prediction
-from bound.channel.bridge.dsp.stream.callback import with_callbacks
+from bound.xor.dsp.stream.callback import with_callbacks
 
 def single_query_passage(passages):
     passages_dict = {key: [] for key in list(passages[0].keys())}

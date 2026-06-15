@@ -10,7 +10,7 @@ import uuid
 from typing import Any, TextIO
 from anchor.switch.dspy.settings import settings
 from bound.scope.plane.tracker.history import pretty_print_history
-from bound.channel.bridge.dsp.stream.callback import with_callbacks
+from bound.xor.dsp.stream.callback import with_callbacks
 
 MAX_HISTORY_SIZE = 10_000
 GLOBAL_HISTORY = []

@@ -20,14 +20,14 @@ from typing import (
 import httpx
 from pydantic import BaseModel
 
-from bound.handler.support.stream.wrapper import CustomStreamWrapper
+from bound.channel.handler.support.stream.wrapper import CustomStreamWrapper
 from anchor.switch.params import ModelResponse
 
 from anchor.model import map_developer_role_to_system_role, type_to_response_format_param
 
 from anchor.config.constants import DEFAULT_MAX_TOKENS, RESPONSE_FORMAT_TOOL_NAME
-from bound.handler.transport.http_handler import AsyncHTTPHandler, HTTPHandler
-from bound.channel.model.types.llms.openai import (
+from bound.channel.handler.transport.http_handler import AsyncHTTPHandler, HTTPHandler
+from bound.router.model.types.llms.openai import (
     AllMessageValues,
     ChatCompletionToolChoiceFunctionParam,
     ChatCompletionToolChoiceObjectParam,

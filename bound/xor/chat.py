@@ -6,7 +6,7 @@ import re
 import textwrap
 from typing import Any, NamedTuple
 from pydantic.fields import FieldInfo
-from bound.channel.bridge.dsp.adapter import Adapter
+from bound.xor.dsp.adapter import Adapter
 from bound.xor.utils import (
     format_field_value,
     get_annotation_name,
@@ -16,8 +16,8 @@ from bound.xor.utils import (
 )
 from bound.xor.lm.base import BaseLM
 from arch.xor.manifold.sign.signature import Signature
-from bound.channel.bridge.dsp.stream.callback import BaseCallback
-from bound.channel.bridge.dsp.exceptions import AdapterParseError, ContextWindowExceededError
+from bound.xor.dsp.stream.callback import BaseCallback
+from bound.xor.dsp.exceptions import AdapterParseError, ContextWindowExceededError
 
 field_header_pattern = re.compile(r"\[\[ ## (\w+) ## \]\]")
 

@@ -4,9 +4,12 @@ import os
 import ast
 from pathlib import Path
 from typing import Dict, Protocol, runtime_checkable
+from phase.bind.resolver import find_current_self
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("scanner.reader")
+SELF_ROOT = find_current_self()
+TARGET_PATH = SELF_ROOT / "bound/adapter/llama/readers"
 
 @runtime_checkable
 class Scannable(Protocol):
@@ -67,7 +70,7 @@ class ReaderScanner:
         return registry
 
 if __name__ == "__main__":
-    scanner = ReaderScanner("brane/channel/llama/readers")
+    scanner = ReaderScanner(TARGET_PATH)
     if isinstance(scanner, Scannable):
         log.info("[System] ReaderScanner가 유효한 Scannable 객체로 인식되었습니다.")
         

@@ -10,10 +10,10 @@ import warnings
 from collections.abc import Callable
 from typing import Any, ClassVar
 from arch.proto.phase.gate import uuid4
-from bound.channel.model.cost.calculator.calc import completion_cost as litellm_completion_cost
+from bound.router.model.cost.calculator.calc import completion_cost as litellm_completion_cost
 from anchor.switch.params import ResponseAPIUsage, ResponsesAPIResponse
 from anchor.switch.params import ModelResponse
-from bound.channel.model.types.utils import CostPerToken, Usage
+from bound.router.model.types.utils import CostPerToken, Usage
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
 from bound.scope.plane.metrics import Metrics
 from watcher.plane.emitter import get_emitter, _flow_context

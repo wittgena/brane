@@ -10,7 +10,7 @@ from bound.xor.exam.prediction import Prediction
 from bound.scope.module.base import BaseModule
 from bound.scope.plane.tracker.history import pretty_print_history
 
-from bound.channel.bridge.dsp.stream.callback import with_callbacks
+from bound.xor.dsp.stream.callback import with_callbacks
 
 from bound.scope.module.runner import ParallelRunner
 
@@ -102,7 +102,7 @@ class Module(BaseModule, metaclass=ProgramMeta):
             return await self.aforward(*args, **kwargs)
 
     def named_predictors(self):
-        from bound.channel.bridge.dsp.predict import Predict
+        from bound.xor.dsp.predict import Predict
         return [(name, param) for name, param in self.named_parameters() if isinstance(param, Predict)]
 
     def predictors(self):

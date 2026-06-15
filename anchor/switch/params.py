@@ -52,15 +52,15 @@ if USE_LITELLM_STRICT_TYPES:
 
 if not USE_LITELLM_STRICT_TYPES:
     try:
-        from bound.channel.model.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
-        from bound.channel.model.types.llms.openai import ChatCompletionToolParam
-        from bound.channel.model.types.llms.openai import OutputFunctionToolCall
-        from bound.channel.model.types.llms.openai import ResponsesAPIResponse
-        from bound.channel.model.types.llms.openai import ChatCompletionToolParamFunctionChunk
+        from bound.router.model.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
+        from bound.router.model.types.llms.openai import ChatCompletionToolParam
+        from bound.router.model.types.llms.openai import OutputFunctionToolCall
+        from bound.router.model.types.llms.openai import ResponsesAPIResponse
+        from bound.router.model.types.llms.openai import ChatCompletionToolParamFunctionChunk
         ## ---
-        from bound.channel.model.types.responses.main import GenericResponseOutputItem
-        from bound.channel.model.types.rerank import RerankResponse
-        from bound.channel.model.types.completion import (
+        from bound.router.model.types.responses.main import GenericResponseOutputItem
+        from bound.router.model.types.rerank import RerankResponse
+        from bound.router.model.types.completion import (
             ChatCompletionMessageParam,
             ChatCompletionSystemMessageParam,
             ChatCompletionUserMessageParam,
@@ -70,7 +70,7 @@ if not USE_LITELLM_STRICT_TYPES:
             ChatCompletionMessageToolCallParam,
             ChatCompletionContentPartParam
         )
-        from bound.channel.model.types.utils import (
+        from bound.router.model.types.utils import (
             ChatCompletionDeltaToolCall,
             ChatCompletionRedactedThinkingBlock,
             CompletionTokensDetailsWrapper,
@@ -82,7 +82,7 @@ if not USE_LITELLM_STRICT_TYPES:
             TranscriptionUsageDurationObject,
             TranscriptionUsageTokensObject,
         )
-        from bound.channel.model.types.utils import Usage
+        from bound.router.model.types.utils import Usage
         ## -- 
         from litellm.types.utils import TextChoices, TextCompletionResponse, TranscriptionResponse
         from litellm.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
