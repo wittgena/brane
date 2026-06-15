@@ -13,9 +13,9 @@ explicitly, making it clear that the APIs are incubating.
 
 from __future__ import annotations
 
-from .permissions import PermissionBroker, default_permission_options
-from .session_state import SessionAccumulator, SessionSnapshot, ToolCallView
-from .tool_calls import ToolCallTracker, TrackedToolCallView
+from acps.contrib.permissions import PermissionBroker, default_permission_options
+from acps.contrib.session_state import SessionAccumulator, SessionSnapshot, ToolCallView
+from acps.contrib.tool_calls import ToolCallTracker, TrackedToolCallView
 
 __all__ = [
     "PermissionBroker",

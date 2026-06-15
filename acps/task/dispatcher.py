@@ -6,10 +6,10 @@ from collections.abc import Awaitable, Callable
 from contextlib import suppress
 from typing import Any, Protocol
 
-from . import RpcTaskKind
-from .queue import MessageQueue
-from .state import MessageStateStore
-from .supervisor import TaskSupervisor
+from acps.task import RpcTaskKind
+from acps.task.queue import MessageQueue
+from acps.task.state import MessageStateStore
+from acps.task.supervisor import TaskSupervisor
 
 __all__ = [
     "DefaultMessageDispatcher",

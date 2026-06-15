@@ -5,10 +5,10 @@ import asyncio
 from collections.abc import Callable
 from typing import Any, cast, final
 
-from ..connection import Connection
-from ..interfaces import Agent, Client
-from ..meta import CLIENT_METHODS
-from ..schema import (
+from acps.connection import Connection
+from acps.interfaces import Agent, Client
+from acps.meta import CLIENT_METHODS
+from acps.schema import (
     AgentMessageChunk,
     AgentPlanContentUpdate,
     AgentPlanRemovedUpdate,
@@ -43,8 +43,8 @@ from ..schema import (
     WriteTextFileRequest,
     WriteTextFileResponse,
 )
-from ..utils import compatible_class, notify_model, param_model, request_model, request_optional_model
-from .router import build_agent_router
+from acps.utils import compatible_class, notify_model, param_model, request_model, request_optional_model
+from acps.agent.router import build_agent_router
 
 __all__ = ["AgentSideConnection"]
 _AGENT_CONNECTION_ERROR = "AgentSideConnection requires asyncio StreamWriter/StreamReader"

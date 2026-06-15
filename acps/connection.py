@@ -14,8 +14,8 @@ from typing import Any
 
 from pydantic import BaseModel, ValidationError
 
-from .exceptions import RequestError
-from .task import (
+from acps.exceptions import RequestError
+from acps.task import (
     DefaultMessageDispatcher,
     InMemoryMessageQueue,
     InMemoryMessageStateStore,
@@ -30,7 +30,7 @@ from .task import (
     SenderFactory,
     TaskSupervisor,
 )
-from .telemetry import span_context
+from acps.telemetry import span_context
 
 JsonValue = Any
 MethodHandler = Callable[[str, JsonValue | None, bool], Awaitable[JsonValue | None]]

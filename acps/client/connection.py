@@ -5,10 +5,10 @@ import asyncio
 from collections.abc import Callable
 from typing import Any, cast, final
 
-from ..connection import Connection
-from ..interfaces import Agent, Client
-from ..meta import AGENT_METHODS
-from ..schema import (
+from acps.connection import Connection
+from acps.interfaces import Agent, Client
+from acps.meta import AGENT_METHODS
+from acps.schema import (
     AcpMcpServer,
     AudioContentBlock,
     AuthenticateRequest,
@@ -45,8 +45,8 @@ from ..schema import (
     SseMcpServer,
     TextContentBlock,
 )
-from ..utils import compatible_class, notify_model, param_model, param_models, request_model, request_model_from_dict
-from .router import build_client_router
+from acps.utils import compatible_class, notify_model, param_model, param_models, request_model, request_model_from_dict
+from acps.client.router import build_client_router
 
 __all__ = ["ClientSideConnection"]
 _CLIENT_CONNECTION_ERROR = "ClientSideConnection requires asyncio StreamWriter/StreamReader"

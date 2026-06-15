@@ -13,11 +13,11 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any, cast
 
-from .agent.connection import AgentSideConnection
-from .client.connection import ClientSideConnection
-from .connection import Connection, MethodHandler, StreamObserver
-from .interfaces import Agent, Client
-from .transports import spawn_stdio_transport
+from acps.agent.connection import AgentSideConnection
+from acps.client.connection import ClientSideConnection
+from acps.connection import Connection, MethodHandler, StreamObserver
+from acps.interfaces import Agent, Client
+from acps.transports import spawn_stdio_transport
 
 __all__ = [
     "spawn_agent_process",

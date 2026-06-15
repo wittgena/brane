@@ -3,11 +3,11 @@ from __future__ import annotations
 
 from typing import Any
 
-from ..exceptions import RequestError
-from ..interfaces import Client
-from ..meta import CLIENT_METHODS
-from ..router import MessageRouter
-from ..schema import (
+from acps.exceptions import RequestError
+from acps.interfaces import Client
+from acps.meta import CLIENT_METHODS
+from acps.router import MessageRouter
+from acps.schema import (
     CreateTerminalRequest,
     KillTerminalRequest,
     ReadTextFileRequest,
@@ -18,7 +18,7 @@ from ..schema import (
     WaitForTerminalExitRequest,
     WriteTextFileRequest,
 )
-from ..utils import normalize_result
+from acps.utils import normalize_result
 
 __all__ = ["build_client_router"]
 

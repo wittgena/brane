@@ -8,7 +8,7 @@ from typing import Any, TypeVar
 
 from pydantic import BaseModel
 
-from .connection import Connection
+from acps.connection import Connection
 
 __all__ = [
     "ensure_dict",

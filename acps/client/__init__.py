@@ -1,4 +1,4 @@
 # acps.client.__init__
-from .connection import ClientSideConnection
+from acps.client.connection import ClientSideConnection
 
 __all__ = ["ClientSideConnection"]

@@ -1,4 +1,5 @@
-# acps.examples.client
+# acps.gena.ex.client
+## @lineage: acps.examples.client
 import asyncio
 import asyncio.subprocess as aio_subprocess
 import contextlib
@@ -8,15 +9,15 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from acp import (
+from acps import (
     PROTOCOL_VERSION,
     Client,
     RequestError,
     connect_to_agent,
     text_block,
 )
-from acp.core import ClientSideConnection
-from acp.schema import (
+from acps.core import ClientSideConnection
+from acps.schema import (
     AgentMessageChunk,
     AgentPlanContentUpdate,
     AgentPlanRemovedUpdate,

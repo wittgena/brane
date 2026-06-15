@@ -1,14 +1,14 @@
 # acps.__init__
 from typing import Any
 
-from .core import (
+from acps.core import (
     Agent,
     Client,
     RequestError,
     connect_to_agent,
     run_agent,
 )
-from .helpers import (
+from acps.helpers import (
     audio_block,
     embedded_blob_resource,
     embedded_text_resource,
@@ -33,12 +33,12 @@ from .helpers import (
     update_user_message,
     update_user_message_text,
 )
-from .meta import (
+from acps.meta import (
     AGENT_METHODS,
     CLIENT_METHODS,
     PROTOCOL_VERSION,
 )
-from .schema import (
+from acps.schema import (
     AuthenticateRequest,
     AuthenticateResponse,
     CancelNotification,
@@ -72,8 +72,8 @@ from .schema import (
     WriteTextFileRequest,
     WriteTextFileResponse,
 )
-from .stdio import spawn_agent_process, spawn_client_process, spawn_stdio_connection, stdio_streams
-from .transports import default_environment, spawn_stdio_transport
+from acps.stdio import spawn_agent_process, spawn_client_process, spawn_stdio_connection, stdio_streams
+from acps.transports import default_environment, spawn_stdio_transport
 
 _DEPRECATED_NAMES = [
     (

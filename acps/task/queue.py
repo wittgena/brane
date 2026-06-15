@@ -6,7 +6,7 @@ from collections.abc import AsyncIterator
 from contextlib import suppress
 from typing import Protocol
 
-from . import RpcTask
+from acps.task import RpcTask
 
 __all__ = ["InMemoryMessageQueue", "MessageQueue"]
 

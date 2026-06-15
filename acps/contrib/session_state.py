@@ -7,7 +7,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict
 
-from ..schema import (
+from acps.schema import (
     AgentMessageChunk,
     AgentPlanUpdate,
     AgentThoughtChunk,

@@ -1,9 +1,10 @@
-# acps.examples.agent
+# acps.gena.ex.agent
+## @lineage: acps.examples.agent
 import asyncio
 import logging
 from typing import Any
 
-from acp import (
+from acps import (
     PROTOCOL_VERSION,
     Agent,
     AuthenticateResponse,
@@ -16,8 +17,8 @@ from acp import (
     text_block,
     update_agent_message,
 )
-from acp.interfaces import Client
-from acp.schema import (
+from acps.interfaces import Client
+from acps.schema import (
     AgentCapabilities,
     AgentMessageChunk,
     AudioContentBlock,

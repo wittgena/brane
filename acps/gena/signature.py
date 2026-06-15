@@ -1,4 +1,5 @@
-# acps.scripts.gen_signature
+# acps.gena.signature
+## @lineage: acps.scripts.gen_signature
 import ast
 import importlib.util
 import inspect
@@ -11,7 +12,7 @@ from pydantic.fields import FieldInfo
 from pydantic_core import PydanticUndefined
 
 ROOT = Path(__file__).resolve().parents[1]
-SCHEMA_MODULE_PATH = ROOT / "src" / "acp" / "schema.py"
+SCHEMA_MODULE_PATH = ROOT / "acps" / "schema.py"
 
 
 def _load_schema_module() -> t.Any:

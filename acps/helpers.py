@@ -4,7 +4,7 @@ from __future__ import annotations
 from collections.abc import Iterable, Sequence
 from typing import Any
 
-from .schema import (
+from acps.schema import (
     AgentMessageChunk,
     AgentPlanUpdate,
     AgentThoughtChunk,

@@ -10,11 +10,11 @@ from __future__ import annotations
 
 from typing import Any
 
-from .agent.connection import AgentSideConnection
-from .client.connection import ClientSideConnection
-from .connection import Connection, JsonValue, MethodHandler
-from .exceptions import RequestError
-from .interfaces import Agent, Client
+from acps.agent.connection import AgentSideConnection
+from acps.client.connection import ClientSideConnection
+from acps.connection import Connection, JsonValue, MethodHandler
+from acps.exceptions import RequestError
+from acps.interfaces import Agent, Client
 
 __all__ = [
     "DEFAULT_STDIO_BUFFER_LIMIT_BYTES",
@@ -58,7 +58,7 @@ async def run_agent(
         **connection_kwargs: Additional keyword arguments to pass to the
             :class:`AgentSideConnection` constructor.
     """
-    from .stdio import stdio_streams
+    from acps.stdio import stdio_streams
 
     if input_stream is None and output_stream is None:
         output_stream, input_stream = await stdio_streams(limit=stdio_buffer_limit_bytes)

@@ -1,4 +1,5 @@
-# acps.scripts.gen_all
+# acps.gena.all
+## @lineage: acps.scripts.gen_all
 #!/usr/bin/env python3
 from __future__ import annotations
 

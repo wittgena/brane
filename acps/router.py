@@ -11,7 +11,7 @@ from pydantic import BaseModel
 
 from acp.utils import to_camel_case
 
-from .exceptions import RequestError
+from acps.exceptions import RequestError
 
 __all__ = ["MessageRouter", "Route"]
 

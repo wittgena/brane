@@ -1,4 +1,5 @@
-# acps.examples.echo_agent
+# acps.gena.ex.echo_agent
+## @lineage: acps.examples.echo_agent
 # /// script
 # requires-python = ">=3.10,<3.15"
 # dependencies = [
@@ -9,7 +10,7 @@ import asyncio
 from typing import Any
 from uuid import uuid4
 
-from acp import (
+from acps import (
     Agent,
     InitializeResponse,
     NewSessionResponse,
@@ -18,8 +19,8 @@ from acp import (
     text_block,
     update_agent_message,
 )
-from acp.interfaces import Client
-from acp.schema import (
+from acps.interfaces import Client
+from acps.schema import (
     AudioContentBlock,
     ClientCapabilities,
     EmbeddedResourceContentBlock,

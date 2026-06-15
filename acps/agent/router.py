@@ -5,11 +5,11 @@ from typing import Any
 
 from pydantic import BaseModel
 
-from ..exceptions import RequestError
-from ..interfaces import Agent
-from ..meta import AGENT_METHODS
-from ..router import MessageRouter, Route, _resolve_handler, _warn_legacy_handler
-from ..schema import (
+from acps.exceptions import RequestError
+from acps.interfaces import Agent
+from acps.meta import AGENT_METHODS
+from acps.router import MessageRouter, Route, _resolve_handler, _warn_legacy_handler
+from acps.schema import (
     AuthenticateRequest,
     CancelNotification,
     CloseSessionRequest,
@@ -24,7 +24,7 @@ from ..schema import (
     SetSessionConfigOptionSelectRequest,
     SetSessionModeRequest,
 )
-from ..utils import model_to_kwargs, normalize_result
+from acps.utils import model_to_kwargs, normalize_result
 
 __all__ = ["build_agent_router"]
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import Any, Protocol
 
-from .schema import (
+from acps.schema import (
     AcpMcpServer,
     AgentMessageChunk,
     AgentPlanContentUpdate,
@@ -73,7 +73,7 @@ from .schema import (
     WriteTextFileRequest,
     WriteTextFileResponse,
 )
-from .utils import param_model, param_models
+from acps.utils import param_model, param_models
 
 __all__ = ["Agent", "Client"]
 

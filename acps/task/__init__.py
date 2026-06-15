@@ -19,16 +19,16 @@ class RpcTask:
     message: dict[str, Any]
 
 
-from .dispatcher import (  # noqa: E402
+from acps.task.dispatcher import (  # noqa: E402
     DefaultMessageDispatcher,
     MessageDispatcher,
     NotificationRunner,
     RequestRunner,
 )
-from .queue import InMemoryMessageQueue, MessageQueue  # noqa: E402
-from .sender import MessageSender, SenderFactory  # noqa: E402
-from .state import InMemoryMessageStateStore, MessageStateStore  # noqa: E402
-from .supervisor import TaskSupervisor  # noqa: E402
+from acps.task.queue import InMemoryMessageQueue, MessageQueue  # noqa: E402
+from acps.task.sender import MessageSender, SenderFactory  # noqa: E402
+from acps.task.state import InMemoryMessageStateStore, MessageStateStore  # noqa: E402
+from acps.task.supervisor import TaskSupervisor  # noqa: E402
 
 __all__ += [
     "DefaultMessageDispatcher",

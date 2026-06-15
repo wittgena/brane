@@ -1,6 +1,6 @@
-# acps.examples.gemini
+# acps.gena.ex.gemini
+## @lineage: acps.examples.gemini
 from __future__ import annotations
-
 import argparse
 import asyncio
 import asyncio.subprocess
@@ -12,16 +12,15 @@ import sys
 from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
-
-from acp import (
+from acps import (
     PROTOCOL_VERSION,
     Client,
     RequestError,
     connect_to_agent,
     text_block,
 )
-from acp.core import ClientSideConnection
-from acp.schema import (
+from acps.core import ClientSideConnection
+from acps.schema import (
     AgentMessageChunk,
     AgentPlanContentUpdate,
     AgentPlanRemovedUpdate,

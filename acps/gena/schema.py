@@ -1,4 +1,5 @@
-# acps.scripts.gen_schema
+# acps.gena.schema
+## @lineage: acps.scripts.gen_schema
 #!/usr/bin/env python3
 from __future__ import annotations
 
@@ -16,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_DIR = ROOT / "schema"
 SCHEMA_JSON = SCHEMA_DIR / "schema.json"
 VERSION_FILE = SCHEMA_DIR / "VERSION"
-SCHEMA_OUT = ROOT / "src" / "acp" / "schema.py"
+SCHEMA_OUT = ROOT / "acps" / "schema.py"
 
 # Pattern caches used when post-processing generated schema.
 FIELD_DECLARATION_PATTERN = re.compile(r"[A-Za-z_][A-Za-z0-9_]*\s*:")

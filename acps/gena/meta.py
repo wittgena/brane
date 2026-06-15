@@ -1,4 +1,5 @@
-# acps.scripts.gen_meta
+# acps.gena.meta
+## @lineage: acps.scripts.gen_meta
 #!/usr/bin/env python3
 from __future__ import annotations
 
@@ -16,7 +17,7 @@ def main() -> None:
 
 def generate_meta() -> None:
     meta_json = SCHEMA_DIR / "meta.json"
-    out_py = ROOT / "src" / "acp" / "meta.py"
+    out_py = ROOT / "acps" / "meta.py"
     if not meta_json.exists():
         raise SystemExit("schema/meta.json not found. Run gen_schema.py first.")
 

@@ -1,11 +1,12 @@
-# acps.examples.duet
+# acps.gena.ex.duet
+## @lineage: acps.examples.duet
 import asyncio
 import importlib.util
 import os
 import sys
 from pathlib import Path
 
-from acp import PROTOCOL_VERSION, spawn_agent_process
+from acps import PROTOCOL_VERSION, spawn_agent_process
 
 
 def _load_client_module(path: Path):

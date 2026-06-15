@@ -4,9 +4,9 @@ from __future__ import annotations
 from collections.abc import Awaitable, Callable, Sequence
 from typing import Any
 
-from ..helpers import text_block, tool_content
-from ..schema import PermissionOption, RequestPermissionRequest, RequestPermissionResponse, ToolCallUpdate
-from .tool_calls import ToolCallTracker, _copy_model_list
+from acps.helpers import text_block, tool_content
+from acps.schema import PermissionOption, RequestPermissionRequest, RequestPermissionResponse, ToolCallUpdate
+from acps.contrib.tool_calls import ToolCallTracker, _copy_model_list
 
 
 class PermissionBrokerError(ValueError):

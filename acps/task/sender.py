@@ -9,7 +9,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-from .supervisor import TaskSupervisor
+from acps.task.supervisor import TaskSupervisor
 
 __all__ = ["MessageSender", "SenderFactory"]
 

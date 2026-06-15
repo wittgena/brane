@@ -7,8 +7,8 @@ from typing import Any, cast
 
 from pydantic import BaseModel, ConfigDict
 
-from ..helpers import text_block, tool_content
-from ..schema import (
+from acps.helpers import text_block, tool_content
+from acps.schema import (
     ToolCallLocation,
     ToolCallProgress,
     ToolCallStart,
