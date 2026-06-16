@@ -29,7 +29,7 @@ from anchor.config.constants import (
     MAX_TILE_WIDTH,
 )
 from bound.router.model.token.encoding import get_default_encoding
-from bound.channel.handler.transport.http_handler import _get_httpx_client
+from bound.handler.transport.http_handler import _get_httpx_client
 from bound.router.model.token.url_utils import safe_get
 from bound.router.model.types.llms.anthropic import (
     AnthropicMessagesToolResultParam,

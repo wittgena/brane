@@ -21,27 +21,25 @@ import openai
 from pydantic import BaseModel
 
 from litellm.llms.anthropic.chat import AnthropicChatCompletion
-from litellm.llms.openai.completion.handler import OpenAITextCompletion
-
-from bound.router.action.param.optional import get_optional_params
+from bound.param.optional import get_optional_params
 from anchor.switch.params import Choices, Message, ModelResponse, Usage, ModelResponseStream
-from bound.channel.client.wrapper import client
+from bound.handler.client.wrapper import client
 from bound.scope.plane.delegator import Logging as LiteLLMLoggingObj
 from anchor.config.resolver import config
-from bound.channel.handler.completion import CompletionHandler
-from bound.channel.handler.support.stream.wrapper import CustomStreamWrapper
+from bound.handler.completion import CompletionHandler
+from bound.handler.support.stream.wrapper import CustomStreamWrapper
 
 from bound.router.model.types.llms.openai import AllMessageValues
 from bound.xor.secret.manager import get_secret_bool, get_secret_str
-from anchor.mapping.exception import exception_type
-from bound.channel.handler.param.litellm import get_litellm_params
+from anchor.base.mapping.exception import exception_type
+from bound.param.litellm import get_litellm_params
 from bound.router.model.info.support import supports_httpx_timeout
-from anchor.exceptions import LiteLLMUnknownProvider
+from anchor.base.exception import LiteLLMUnknownProvider
 from bound.router.action.timeout import CompletionTimeout
 from bound.scope.plane.trace.dd import tracer
 from bound.router.model.provider.manager import ProviderConfigManager
 from bound.router.model.provider.resolver import get_llm_provider
-from bound.router.action.param.validator import (
+from bound.param.validator import (
     validate_and_fix_openai_messages,
     validate_and_fix_openai_tools,
     validate_and_fix_thinking_param,
@@ -64,7 +62,6 @@ from watcher.plane.emitter import get_emitter
 log = get_emitter("bound.completion")
 
 openai_chat_completions = OpenAIChatCompletion()
-openai_text_completions = OpenAITextCompletion()
 anthropic_chat_completions = AnthropicChatCompletion()
 completion_handler = CompletionHandler()
 

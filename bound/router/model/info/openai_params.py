@@ -6,7 +6,7 @@ from typing import Optional, Literal, List, Dict
 from anchor.config.resolver import config
 from bound.router.model.provider.resolver import get_llm_provider
 from bound.router.model.provider.manager import ProviderConfigManager
-from anchor.exceptions import BadRequestError
+from anchor.base.exception import BadRequestError
 from bound.router.model.types.utils import LlmProviders, LlmProvidersSet
 
 from watcher.plane.emitter import get_emitter

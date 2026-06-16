@@ -1,6 +1,4 @@
 # bound.xor.secret.redact
-## @lineage: bound.channel.secret.redact
-## @lineage: channel.secret.redact
 import copy
 import re
 from collections.abc import Mapping
@@ -195,8 +193,6 @@ def redact_api_key_literals(text: str) -> str:
     - Matches known key prefixes (OpenAI, Anthropic, OpenRouter, GROQ, HuggingFace, etc.) anywhere in the text.
     """
     return _API_KEY_LITERAL_RE.sub("<redacted>", text)
-
-## --- from litellm
 
 _REDACTED = "REDACTED"
 

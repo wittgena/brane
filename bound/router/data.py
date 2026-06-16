@@ -8,7 +8,7 @@ import importlib
 import inspect
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from xphi.flow.scanner.reader import ReaderScanner
+from xphi.manager.scanner.reader import ReaderScanner
 
 DEFAULT_REGISTRY = {
     "pdf": {

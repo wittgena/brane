@@ -21,15 +21,15 @@ from litellm.llms.huggingface.embedding.handler import HuggingFaceEmbedding
 from litellm.llms.ollama.completion import handler as ollama
 
 from anchor.switch.params import Choices, Message, ModelResponse
-from anchor.exceptions import LiteLLMUnknownProvider
-from bound.channel.handler.transport.llm import CustomLLM
+from anchor.base.exception import LiteLLMUnknownProvider
+from bound.handler.transport.llm import CustomLLM
 from anchor.config.resolver import config
-from bound.channel.client.wrapper import client
+from bound.handler.client.wrapper import client
 from bound.scope.plane.delegator import Logging as LiteLLMLoggingObj
-from bound.channel.handler.support.stream.wrapper import CustomStreamWrapper
+from bound.handler.support.stream.wrapper import CustomStreamWrapper
 
-from bound.channel.handler.param.litellm import get_litellm_params
-from anchor.mapping.exception import exception_type
+from bound.param.litellm import get_litellm_params
+from anchor.base.mapping.exception import exception_type
 from bound.router.model.types.utils import all_litellm_params, EmbeddingResponse
 from bound.router.model.types.utils import (
     CustomPricingLiteLLMParams,
@@ -37,7 +37,7 @@ from bound.router.model.types.utils import (
     RawRequestTypedDict,
     StreamingChoices,
 )
-from bound.router.action.param.embedding import get_optional_params_embeddings
+from bound.param.embedding import get_optional_params_embeddings
 from bound.router.model.provider.resolver import get_llm_provider
 from bound.router.model.token.counter import token_counter
 from bound.adapter.llama.llms.openai.embedding import OpenAIEmbedding

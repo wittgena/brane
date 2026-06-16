@@ -48,7 +48,7 @@ EventHookType = Any
 from arch.proto.phase.gate import uuid
 from bound.router.model.types.llms.base import BaseLiteLLMOpenAIResponseObject, LiteLLMPydanticObjectBase
 from bound.router.model.types.mcp import MCPServerCostInfo
-from bound.channel.handler.support.helpers import map_finish_reason
+from bound.handler.support.helpers import map_finish_reason
 from bound.router.model.types.agents import LiteLLMSendMessageResponse
 from bound.router.model.types.llms.anthropic_messages.anthropic_response import AnthropicMessagesResponse
 from bound.router.model.types.llms.base import HiddenParams

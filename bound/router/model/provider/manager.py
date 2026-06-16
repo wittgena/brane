@@ -8,7 +8,7 @@ from typing import Callable, Optional, Union
 from anchor.config.resolver import config
 from anchor.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from bound.router.model.types.provider import LlmProviders
-from anchor.model import BaseLLMModelInfo
+from anchor.base.model import BaseLLMModelInfo
 from bound.router.model.types.utils import LlmProvidersSet, ProviderSpecificModelInfo
 
 class ProviderConfigManager:

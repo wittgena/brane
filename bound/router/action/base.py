@@ -7,7 +7,7 @@ import httpx
 from anchor.config.resolver import config
 
 if TYPE_CHECKING:
-    from bound.channel.handler.support.stream.wrapper import CustomStreamWrapper
+    from bound.handler.support.stream.wrapper import CustomStreamWrapper
     from bound.router.model.types.utils import ModelResponse, TextCompletionResponse
 
 class BaseLLM:
