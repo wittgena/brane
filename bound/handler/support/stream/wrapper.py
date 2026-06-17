@@ -1,5 +1,5 @@
-# bound.channel.handler.support.stream.wrapper
-## @lineage: bound.handler.support.stream.wrapper
+# bound.handler.support.stream.wrapper
+## @lineage: bound.channel.handler.support.stream.wrapper
 ## @lineage: bound.handler.stream.wrapper
 import asyncio
 import collections.abc

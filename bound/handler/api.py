@@ -1,5 +1,5 @@
-# bound.channel.handler.api
-## @lineage: bound.handler.api
+# bound.handler.api
+## @lineage: bound.channel.handler.api
 ## @lineage: channel.bound.handler.api
 ## @lineage: gate.bound.handler.api
 ## @lineage: gate.llms.handler.api

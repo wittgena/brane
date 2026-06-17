@@ -1,4 +1,5 @@
-# bound.router.action.param.validator
+# bound.param.validator
+## @lineage: bound.router.action.param.validator
 ## @lineage: bound.channel.router.action.param.validator
 ## @lineage: channel.model.validator.params
 from typing import Any, Dict, List, Optional, Type, Union, cast

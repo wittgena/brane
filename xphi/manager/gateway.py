@@ -1,4 +1,5 @@
-# bound.router.manager.gateway
+# xphi.manager.gateway
+## @lineage: bound.router.manager.gateway
 ## @lineage: bound.channel.manager.gateway
 ## @lineage: channel.manager
 """

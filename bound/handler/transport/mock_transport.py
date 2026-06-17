@@ -1,5 +1,5 @@
-# bound.channel.handler.transport.mock_transport
-## @lineage: bound.handler.transport.mock_transport
+# bound.handler.transport.mock_transport
+## @lineage: bound.channel.handler.transport.mock_transport
 ## @lineage: anchor.model.llms.custom.mock_transport
 ## @lineage: channel.llms.custom.mock_transport
 ## @lineage: gate.llms.custom.mock_transport

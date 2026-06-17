@@ -1,4 +1,5 @@
-# acps.task.queue
+# xphi.spec.acp.message.queue
+## @lineage: acps.task.queue
 from __future__ import annotations
 
 import asyncio

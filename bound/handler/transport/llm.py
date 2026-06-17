@@ -1,5 +1,5 @@
-# bound.channel.handler.transport.llm
-## @lineage: bound.handler.transport.llm
+# bound.handler.transport.llm
+## @lineage: bound.channel.handler.transport.llm
 ## @lineage: anchor.model.llms.custom.llm
 ## @lineage: channel.llms.custom.llm
 ## @lineage: gate.llms.custom.llm

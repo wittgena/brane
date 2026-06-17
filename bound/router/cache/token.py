@@ -1,4 +1,5 @@
-# bound.router.manager.cache.token
+# bound.router.cache.token
+## @lineage: bound.router.manager.cache.token
 ## @lineage: bound.channel.manager.cache.token
 ## @lineage: channel.cache.token
 ## @lineage: anchor.context.cache.token

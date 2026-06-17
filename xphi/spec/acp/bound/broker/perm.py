@@ -1,4 +1,5 @@
-# acps.contrib.permissions
+# xphi.spec.acp.bound.broker.perm
+## @lineage: acps.contrib.permissions
 from __future__ import annotations
 
 from collections.abc import Awaitable, Callable, Sequence

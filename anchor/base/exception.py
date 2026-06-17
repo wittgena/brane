@@ -1,4 +1,5 @@
-# anchor.exceptions
+# anchor.base.exception
+## @lineage: anchor.exceptions
 ## @lineage: anchor.base.exceptions
 ## @lineage: gov.gate.exceptions
 ## @lineage: gate.exceptions

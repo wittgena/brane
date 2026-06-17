@@ -1,5 +1,5 @@
-# bound.channel.handler.support.utils
-## @lineage: bound.handler.support.utils
+# bound.handler.support.utils
+## @lineage: bound.channel.handler.support.utils
 ## @lineage: bound.handler.support.response.utils
 ## @lineage: bound.handler.response.utils
 import base64

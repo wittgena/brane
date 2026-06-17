@@ -1,5 +1,5 @@
-# bound.channel.handler.retry
-## @lineage: bound.handler.retry
+# bound.handler.retry
+## @lineage: bound.channel.handler.retry
 from typing import Literal
 
 def completion_with_retries(*args, **kwargs):

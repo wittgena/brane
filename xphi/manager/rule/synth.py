@@ -1,4 +1,5 @@
-# xphi.flow.rule.synth
+# xphi.manager.rule.synth
+## @lineage: xphi.flow.rule.synth
 ## @lineage: xphi.rule.synth
 ## @lineage: anchor.rule.synth
 ## @lineage: bridge.rule.synth

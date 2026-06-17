@@ -1,5 +1,5 @@
-# bound.channel.handler.support.stream.chunk.processor
-## @lineage: bound.handler.support.stream.chunk.processor
+# bound.handler.support.stream.chunk.processor
+## @lineage: bound.channel.handler.support.stream.chunk.processor
 ## @lineage: bound.handler.stream.chunk.processor
 ## @lineage: channel.bound.stream.chunk.processor
 ## @lineage: channel.bound.handler.chunk.processor

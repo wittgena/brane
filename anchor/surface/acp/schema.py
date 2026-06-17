@@ -1,4 +1,5 @@
-# acps.schema
+# anchor.surface.acp.schema
+## @lineage: acps.schema
 # Generated from schema/schema.json. Do not edit by hand.
 # Schema ref: refs/tags/v0.13.6
 

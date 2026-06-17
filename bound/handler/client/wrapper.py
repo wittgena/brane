@@ -1,6 +1,6 @@
-# bound.channel.client.wrapper
+# bound.handler.client.wrapper
+## @lineage: bound.channel.client.wrapper
 ## @lineage: bound.channel.handler.client.wrapper
-## @lineage: bound.handler.client.wrapper
 ## @lineage: bound.handler.client
 import asyncio
 import contextvars

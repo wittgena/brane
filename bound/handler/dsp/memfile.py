@@ -1,5 +1,5 @@
-# bound.channel.handler.dsp.memfile
-## @lineage: bound.handler.dsp.memfile
+# bound.handler.dsp.memfile
+## @lineage: bound.channel.handler.dsp.memfile
 ## @lineage: anchor.dsp.memfile
 ## @lineage: gov.gateway.io.memory
 import os

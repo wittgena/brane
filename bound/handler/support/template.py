@@ -1,5 +1,5 @@
-# bound.channel.handler.support.template
-## @lineage: bound.handler.support.template
+# bound.handler.support.template
+## @lineage: bound.channel.handler.support.template
 ## @lineage: bound.handler.support.response.template
 ## @lineage: bound.handler.response.template
 ## @lineage: handler.response.template

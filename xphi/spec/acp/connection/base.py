@@ -1,4 +1,5 @@
-# acps.connection
+# xphi.spec.acp.connection.base
+## @lineage: acps.connection
 from __future__ import annotations
 
 import asyncio

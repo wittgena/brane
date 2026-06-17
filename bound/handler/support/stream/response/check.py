@@ -1,5 +1,5 @@
-# bound.channel.handler.support.stream.response.check
-## @lineage: bound.handler.support.stream.response.check
+# bound.handler.support.stream.response.check
+## @lineage: bound.channel.handler.support.stream.response.check
 ## @lineage: channel.bridge.litellm.model_response_utils
 from typing import Any
 from bound.router.model.types.utils import Delta, ModelResponseBase, ModelResponseStream

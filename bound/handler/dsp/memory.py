@@ -1,5 +1,5 @@
-# bound.channel.handler.dsp.memory
-## @lineage: bound.handler.dsp.memory
+# bound.handler.dsp.memory
+## @lineage: bound.channel.handler.dsp.memory
 ## @lineage: anchor.dsp.memory
 ## @lineage: gov.gateway.io.cache
 ## @lineage: gov.gate.io.cache

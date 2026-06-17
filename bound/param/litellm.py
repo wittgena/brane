@@ -1,4 +1,5 @@
-# bound.channel.handler.param.litellm
+# bound.param.litellm
+## @lineage: bound.channel.handler.param.litellm
 ## @lineage: bound.handler.param.litellm
 ## @lineage: channel.bridge.litellm.params
 ## @lineage: channel.bridge.litellm.get_litellm_params

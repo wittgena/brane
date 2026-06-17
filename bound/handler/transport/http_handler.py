@@ -1,5 +1,5 @@
-# bound.channel.handler.transport.http_handler
-## @lineage: bound.handler.transport.http_handler
+# bound.handler.transport.http_handler
+## @lineage: bound.channel.handler.transport.http_handler
 ## @lineage: anchor.model.llms.custom.http_handler
 ## @lineage: channel.llms.custom.http_handler
 ## @lineage: gate.llms.custom.http_handler

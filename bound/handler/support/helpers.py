@@ -1,5 +1,5 @@
-# bound.channel.handler.support.helpers
-## @lineage: bound.handler.support.helpers
+# bound.handler.support.helpers
+## @lineage: bound.channel.handler.support.helpers
 ## @lineage: channel.bridge.litellm.core_helpers
 import copy
 from typing import TYPE_CHECKING, Any, Iterable, List, Literal, Optional, Union

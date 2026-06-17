@@ -1,5 +1,5 @@
-# bound.channel.handler.completion
-## @lineage: bound.handler.completion
+# bound.handler.completion
+## @lineage: bound.channel.handler.completion
 ## @lineage: channel.bound.handler.completion
 ## @lineage: gate.bound.handler.completion
 import json

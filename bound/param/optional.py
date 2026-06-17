@@ -1,4 +1,5 @@
-# bound.router.action.param.optional
+# bound.param.optional
+## @lineage: bound.router.action.param.optional
 ## @lineage: bound.channel.router.action.param.optional
 ## @lineage: channel.model.provider.optional_params
 import copy

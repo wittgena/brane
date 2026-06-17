@@ -1,4 +1,5 @@
-# bound.router.action.param.embedding
+# bound.param.embedding
+## @lineage: bound.router.action.param.embedding
 ## @lineage: bound.channel.router.action.param.embedding
 ## @lineage: channel.model.provider.param_embedding
 from typing import (

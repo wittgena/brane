@@ -1,5 +1,5 @@
-# bound.channel.handler.support.metadata
-## @lineage: bound.handler.support.metadata
+# bound.handler.support.metadata
+## @lineage: bound.channel.handler.support.metadata
 ## @lineage: bound.handler.support.response.metadata
 ## @lineage: bound.handler.response.metadata
 ## @lineage: channel.litellm.response.metadata

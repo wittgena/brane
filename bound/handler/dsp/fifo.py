@@ -1,5 +1,5 @@
-# bound.channel.handler.dsp.fifo
-## @lineage: bound.handler.dsp.fifo
+# bound.handler.dsp.fifo
+## @lineage: bound.channel.handler.dsp.fifo
 ## @lineage: anchor.dsp.fifo
 ## @lineage: gov.gateway.io.resource.fifo
 ## @lineage: gov.gate.io.resource.fifo

@@ -1,5 +1,5 @@
-# bound.channel.handler.support.stream.chunk.builder
-## @lineage: bound.handler.support.stream.chunk.builder
+# bound.handler.support.stream.chunk.builder
+## @lineage: bound.channel.handler.support.stream.chunk.builder
 ## @lineage: bound.handler.stream.chunk.builder
 from typing import (
     TYPE_CHECKING,

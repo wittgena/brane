@@ -1,5 +1,5 @@
-# bound.channel.handler.support.get_api_base
-## @lineage: bound.handler.support.get_api_base
+# bound.handler.support.get_api_base
+## @lineage: bound.channel.handler.support.get_api_base
 ## @lineage: bound.handler.support.response.get_api_base
 ## @lineage: bound.handler.response.get_api_base
 from typing import Optional, Union

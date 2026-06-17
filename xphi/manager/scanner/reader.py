@@ -1,4 +1,5 @@
-# xphi.flow.scanner.reader
+# xphi.manager.scanner.reader
+## @lineage: xphi.flow.scanner.reader
 ## @lineage: anchor.rule.llama.scanner.reader
 import os
 import ast

@@ -1,4 +1,5 @@
-# xphi.flow.load.spec
+# xphi.manager.loader.spec
+## @lineage: xphi.flow.load.spec
 ## @lineage: xphi.spec.loader
 ## @lineage: bound.node
 import os

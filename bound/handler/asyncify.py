@@ -1,5 +1,5 @@
-# bound.channel.handler.asyncify
-## @lineage: bound.handler.asyncify
+# bound.handler.asyncify
+## @lineage: bound.channel.handler.asyncify
 ## @lineage: channel.bridge.litellm.asyncify
 import asyncio
 import functools

@@ -1,5 +1,5 @@
-# bound.channel.handler.worklet.logging
-## @lineage: bound.handler.worklet.logging
+# bound.handler.worklet.logging
+## @lineage: bound.channel.handler.worklet.logging
 ## @lineage: channel.bridge.litellm.logging_worker
 ## @lineage: bridge.litellm.logging_worker
 ## @lineage: channel.litellm.logging_worker

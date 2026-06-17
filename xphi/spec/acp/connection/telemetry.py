@@ -1,4 +1,5 @@
-# acps.telemetry
+# xphi.spec.acp.connection.telemetry
+## @lineage: acps.telemetry
 from __future__ import annotations
 
 import os

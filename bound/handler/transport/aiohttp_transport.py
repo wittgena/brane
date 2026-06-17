@@ -1,5 +1,5 @@
-# bound.channel.handler.transport.aiohttp_transport
-## @lineage: bound.handler.transport.aiohttp_transport
+# bound.handler.transport.aiohttp_transport
+## @lineage: bound.channel.handler.transport.aiohttp_transport
 ## @lineage: anchor.model.llms.custom.aiohttp_transport
 ## @lineage: channel.llms.custom.aiohttp_transport
 ## @lineage: gate.llms.custom.aiohttp_transport

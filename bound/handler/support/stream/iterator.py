@@ -1,5 +1,5 @@
-# bound.channel.handler.support.stream.iterator
-## @lineage: bound.handler.support.stream.iterator
+# bound.handler.support.stream.iterator
+## @lineage: bound.channel.handler.support.stream.iterator
 ## @lineage: bound.handler.support.response.streaming_iterator
 from __future__ import annotations
 import asyncio

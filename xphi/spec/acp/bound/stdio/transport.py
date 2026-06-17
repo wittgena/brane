@@ -1,4 +1,5 @@
-# acps.transports
+# xphi.spec.acp.bound.stdio.transport
+## @lineage: acps.transports
 from __future__ import annotations
 
 import asyncio

@@ -1,5 +1,5 @@
-# bound.channel.handler.ws
-## @lineage: bound.handler.ws
+# bound.handler.ws
+## @lineage: bound.channel.handler.ws
 import json
 import ssl
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse

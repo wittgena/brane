@@ -1,4 +1,5 @@
-# acps.contrib.session_state
+# xphi.spec.acp.connection.session.state
+## @lineage: acps.contrib.session_state
 from __future__ import annotations
 
 from collections.abc import Callable, Sequence

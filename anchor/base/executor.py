@@ -1,5 +1,5 @@
-# anchor.executor
-## @lineage: anchor.base.executor
+# anchor.base.executor
+## @lineage: anchor.executor
 ## @lineage: channel.bridge.litellm.thread_pool_executor
 from concurrent.futures import ThreadPoolExecutor
 

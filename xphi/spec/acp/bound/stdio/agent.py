@@ -1,4 +1,5 @@
-# acps.core
+# xphi.spec.acp.bound.stdio.agent
+## @lineage: acps.core
 """Compatibility re-exports for historical imports.
 
 The project now keeps implementation in dedicated modules mirroring the

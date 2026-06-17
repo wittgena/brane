@@ -1,5 +1,5 @@
-# bound.channel.handler.support.sse_output_recovery
-## @lineage: bound.handler.support.sse_output_recovery
+# bound.handler.support.sse_output_recovery
+## @lineage: bound.channel.handler.support.sse_output_recovery
 ## @lineage: bound.handler.support.response.sse_output_recovery
 """
 Shared helpers for recovering Responses API output items from raw SSE chunks.

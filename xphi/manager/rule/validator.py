@@ -1,4 +1,5 @@
-# xphi.flow.rule.validator
+# xphi.manager.rule.validator
+## @lineage: xphi.flow.rule.validator
 ## @lineage: xphi.rule.validator
 ## @lineage: anchor.rule.validator
 import json
