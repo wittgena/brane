@@ -8,7 +8,7 @@ from pydantic.fields import FieldInfo
 
 from arch.xor.manifold.sign.field import InputField, OutputField
 from arch.xor.manifold.sign.signature import Signature, ensure_signature
-from bound.scope.module.meta import Module
+from bound.xor.scope.module.meta import Module
 from bound.xor.dsp.predict import Predict
 
 class ChainOfThought(Module):

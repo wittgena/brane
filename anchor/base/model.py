@@ -9,8 +9,8 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional, Type, Union
 from openai.lib import _parsing, _pydantic
 from pydantic import BaseModel
-from bound.router.model.types.llms.openai import AllMessageValues, ChatCompletionToolCallChunk
-from bound.router.model.types.utils import ProviderSpecificModelInfo, TokenCountResponse
+from anchor.router.model.types.llms.openai import AllMessageValues, ChatCompletionToolCallChunk
+from anchor.router.model.types.utils import ProviderSpecificModelInfo, TokenCountResponse
 
 from anchor.switch.params import Message
 from watcher.plane.emitter import get_emitter

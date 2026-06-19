@@ -12,15 +12,15 @@ import pydantic
 from anyio.streams.memory import MemoryObjectSendStream
 from asyncer import syncify
 
-from bound.router.action.acompletion import acompletion
+from anchor.router.action.acompletion import acompletion
 from anchor.switch.dspy.settings import settings
 from anchor.base.exception import ContextWindowExceededError as LitellmContextWindowExceededError
 from bound.xor.lm.base import BaseLM
 
-from bound.handler.dsp.cache import request_cache
-from bound.handler.support.stream.chunk.builder import stream_chunk_builder
+from bound.xor.dsp.handler.cache import request_cache
+from bound.client.handler.stream.chunk.builder import stream_chunk_builder
 
-from bound.router.model.info.support import supports_function_calling, supports_reasoning, supports_response_schema, get_supported_openai_params
+from anchor.router.model.info.support import supports_function_calling, supports_reasoning, supports_response_schema, get_supported_openai_params
 from bound.xor.dsp.stream.callback import BaseCallback
 from bound.xor.dsp.provider.openai import OpenAIProvider
 from bound.xor.dsp.provider.base import Provider, ReinforceJob, TrainingJob

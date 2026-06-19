@@ -10,10 +10,13 @@ LITELLM_CONVERT_SWITCH = False
 if LITELLM_CONVERT_SWITCH:
     try:
         from litellm.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
+        from litellm.types.llms.openai import ResponsesAPIStreamingResponse
+        from litellm.types.llms.openai import ToolParam
         from litellm.types.llms.openai import ChatCompletionToolParam
         from litellm.types.llms.openai import OutputFunctionToolCall
         from litellm.types.llms.openai import ChatCompletionToolParamFunctionChunk
         from litellm.types.llms.openai import ResponsesAPIResponse
+        from litellm.types.llms.openai import ResponsesAPIStreamEvents
         ## --- 
         from litellm.types.responses.main import GenericResponseOutputItem
         from litellm.types.rerank import RerankResponse
@@ -52,15 +55,18 @@ if LITELLM_CONVERT_SWITCH:
 
 if not LITELLM_CONVERT_SWITCH:
     try:
-        from bound.router.model.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
-        from bound.router.model.types.llms.openai import ChatCompletionToolParam
-        from bound.router.model.types.llms.openai import OutputFunctionToolCall
-        from bound.router.model.types.llms.openai import ResponsesAPIResponse
-        from bound.router.model.types.llms.openai import ChatCompletionToolParamFunctionChunk
+        from anchor.router.model.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
+        from anchor.router.model.types.llms.openai import ResponsesAPIStreamingResponse
+        from anchor.router.model.types.llms.openai import ToolParam
+        from anchor.router.model.types.llms.openai import ChatCompletionToolParam
+        from anchor.router.model.types.llms.openai import OutputFunctionToolCall
+        from anchor.router.model.types.llms.openai import ResponsesAPIResponse
+        from anchor.router.model.types.llms.openai import ChatCompletionToolParamFunctionChunk
+        from anchor.router.model.types.llms.openai import ResponsesAPIStreamEvents
         ## ---
-        from bound.router.model.types.responses.main import GenericResponseOutputItem
-        from bound.router.model.types.rerank import RerankResponse
-        from bound.router.model.types.completion import (
+        from anchor.router.model.types.responses.main import GenericResponseOutputItem
+        from anchor.router.model.types.rerank import RerankResponse
+        from anchor.router.model.types.completion import (
             ChatCompletionMessageParam,
             ChatCompletionSystemMessageParam,
             ChatCompletionUserMessageParam,
@@ -70,7 +76,7 @@ if not LITELLM_CONVERT_SWITCH:
             ChatCompletionMessageToolCallParam,
             ChatCompletionContentPartParam
         )
-        from bound.router.model.types.utils import (
+        from anchor.router.model.types.utils import (
             ChatCompletionDeltaToolCall,
             ChatCompletionRedactedThinkingBlock,
             CompletionTokensDetailsWrapper,
@@ -82,10 +88,10 @@ if not LITELLM_CONVERT_SWITCH:
             TranscriptionUsageDurationObject,
             TranscriptionUsageTokensObject,
         )
-        from bound.router.model.types.utils import Usage
-        from bound.router.model.types.utils import TextChoices, TextCompletionResponse, TranscriptionResponse
-        from bound.router.model.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
-        from bound.router.model.types.utils import ChatCompletionMessageToolCall
+        from anchor.router.model.types.utils import Usage
+        from anchor.router.model.types.utils import TextChoices, TextCompletionResponse, TranscriptionResponse
+        from anchor.router.model.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
+        from anchor.router.model.types.utils import ChatCompletionMessageToolCall
     except ImportError as e:
         raise ImportError(f"Failed to load fallback types from internal modules. Error: {e}")
 

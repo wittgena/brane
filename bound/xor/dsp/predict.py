@@ -17,7 +17,7 @@ from bound.xor.lm.base import BaseLM
 from bound.xor.dsp.instance import LM
 from anchor.switch.dspy.settings import settings
 from bound.xor.manifold.parameter import Parameter
-from bound.scope.module.meta import Module
+from bound.xor.scope.module.meta import Module
 from bound.xor.exam.prediction import Prediction
 from arch.xor.manifold.sign.signature import Signature, ensure_signature
 from bound.xor.dsp.stream.callback import BaseCallback

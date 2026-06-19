@@ -6,7 +6,7 @@ import base64
 import os
 from typing import Any, Optional
 from bound.xor.secret.handler.base import BaseSecretManager
-from bound.router.model.types.secret_managers.main import KeyManagementSystem
+from anchor.router.model.types.secret_managers.main import KeyManagementSystem
 from anchor.config.resolver import config
 from watcher.plane.emitter import get_emitter
 

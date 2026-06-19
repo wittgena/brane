@@ -6,8 +6,8 @@ from typing import Any, Dict, List, Optional, Type, Union, cast
 from pydantic import BaseModel
 from typing import Literal, Optional
 
-from bound.router.model.types.llms.openai import AllMessageValues
-from bound.router.model.types.llms.openai import ValidUserMessageContentTypes
+from anchor.router.model.types.llms.openai import AllMessageValues
+from anchor.router.model.types.llms.openai import ValidUserMessageContentTypes
 
 from watcher.plane.emitter import get_emitter
 

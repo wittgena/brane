@@ -24,14 +24,14 @@ from typing import (
 import httpx
 import openai
 from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI
-from bound.handler.transport.mock_transport import MockOpenAITransport
+from bound.client.transport.mock_transport import MockOpenAITransport
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession
 
 from anchor.config.resolver import config
 from anchor.base.exception import BaseLLMException
-from bound.handler.transport.http_handler import (
+from bound.client.transport.http_handler import (
     _DEFAULT_TTL_FOR_HTTPX_CLIENTS,
     AsyncHTTPHandler,
     get_ssl_configuration,

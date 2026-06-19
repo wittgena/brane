@@ -8,7 +8,7 @@ from anyio import CapacityLimiter
 from anchor.switch.dspy.settings import settings
 
 if TYPE_CHECKING:
-    from bound.scope.module.meta import Module
+    from bound.xor.scope.module.meta import Module
 
 _limiter = None
 

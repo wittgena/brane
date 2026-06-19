@@ -30,7 +30,7 @@ from anchor.base.exception import (
     MockException
 )
 from bound.param.optional import PreProcessNonDefaultParams, add_provider_specific_params_to_optional_params
-from bound.router.model.info.openai_params import get_supported_openai_params
+from anchor.router.model.info.openai_params import get_supported_openai_params
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("provider.param_embedding")
