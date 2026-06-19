@@ -239,7 +239,7 @@ def _responses_try_dispatch_mcp_gateway(
     _is_async: bool,
 ) -> Optional[Any]:
     """Return a response when MCP gateway handles the call; otherwise None."""
-    from bound.client.mcp.proxy import MCPProxyHandler
+    from bound.proxy.mcp import MCPProxyHandler
     if not MCPProxyHandler._should_use_litellm_mcp_gateway(tools=tools):
         return None
     mcp_call_kwargs = {

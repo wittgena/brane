@@ -1,8 +1,4 @@
 # anchor.router.action.search.file
-## @lineage: bound.router.action.search.file
-## @lineage: bound.router.search.file
-## @lineage: bound.channel.router.search.file
-## @lineage: anchor.router.search.file
 import json
 import time
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union, cast

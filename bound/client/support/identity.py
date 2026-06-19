@@ -17,8 +17,7 @@ from typing import (
 )
 from starlette.datastructures import Headers
 
-from litellm.proxy._experimental.mcp_server.auth.user_api_key_auth_mcp import MCPRequestHandler
-
+from bound.client.mcp.header import MCPHeaderParser
 from anchor.router.model.types.responses.main import DecodedResponseId
 from anchor.router.model.types.utils import SpecialEnums
 from watcher.plane.emitter import get_emitter
@@ -278,33 +277,24 @@ class ResponseIdentityManager:
 
         if raw_headers_from_request:
             headers_obj = Headers(raw_headers_from_request)
-            mcp_auth_header = MCPRequestHandler._get_mcp_auth_header_from_headers(
-                headers_obj
-            )
-            mcp_server_auth_headers = (
-                MCPRequestHandler._get_mcp_server_auth_headers_from_headers(headers_obj)
-            )
-            oauth2_headers = MCPRequestHandler._get_oauth2_headers_from_headers(
-                headers_obj
-            )
+            mcp_auth_header = MCPHeaderParser.get_mcp_auth_header(headers_obj)
+            mcp_server_auth_headers = MCPHeaderParser.get_mcp_server_auth_headers(headers_obj)
+            oauth2_headers = MCPHeaderParser.get_oauth2_headers(headers_obj)
 
         if tools:
             for tool in tools:
                 if isinstance(tool, dict) and tool.get("type") == "mcp":
                     tool_headers = tool.get("headers", {})
                     if tool_headers and isinstance(tool_headers, dict):
-                        # Merge tool headers into mcp_server_auth_headers
-                        # Extract server-specific headers from tool.headers
                         headers_obj_from_tool = Headers(tool_headers)
+                        # 변경점: MCPRequestHandler 대체
                         tool_mcp_server_auth_headers = (
-                            MCPRequestHandler._get_mcp_server_auth_headers_from_headers(
-                                headers_obj_from_tool
-                            )
+                            MCPHeaderParser.get_mcp_server_auth_headers(headers_obj_from_tool)
                         )
+                        
                         if tool_mcp_server_auth_headers:
                             if mcp_server_auth_headers is None:
                                 mcp_server_auth_headers = {}
-                            # Merge the headers from tool into existing headers
                             for (
                                 server_alias,
                                 headers_dict,
@@ -314,7 +304,7 @@ class ResponseIdentityManager:
                                 mcp_server_auth_headers[server_alias].update(
                                     headers_dict
                                 )
-                        # Also merge raw headers (non-prefixed headers from tool.headers)
+                        
                         if raw_headers_from_request is None:
                             raw_headers_from_request = {}
                         raw_headers_from_request.update(tool_headers)

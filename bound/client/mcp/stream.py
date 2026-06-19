@@ -7,9 +7,8 @@ if TYPE_CHECKING:
 else:
     MCPTool = Any
 
-from litellm.proxy._experimental.mcp_server.auth.user_api_key_auth_mcp import MCPRequestHandler
-
-from bound.client.mcp.proxy import MCPProxyHandler
+from bound.client.mcp.header import MCPHeaderParser
+from bound.proxy.mcp import MCPProxyHandler
 from bound.client.mcp.payload import MCPPayloadUtils
 from anchor.router.model.types.llms.openai import OutputItemDoneEvent
 from anchor.router.model.types.llms.openai import ResponsesAPIStreamEvents
@@ -335,15 +334,9 @@ class MCPEnhancedStreamingIterator(BaseResponsesAPIStreamingIterator):
 
         if raw_headers_from_request:
             headers_obj = Headers(raw_headers_from_request)
-            self.mcp_auth_header = MCPRequestHandler._get_mcp_auth_header_from_headers(
-                headers_obj
-            )
-            self.mcp_server_auth_headers = (
-                MCPRequestHandler._get_mcp_server_auth_headers_from_headers(headers_obj)
-            )
-            self.oauth2_headers = MCPRequestHandler._get_oauth2_headers_from_headers(
-                headers_obj
-            )
+            self.mcp_auth_header = MCPHeaderParser.get_mcp_auth_headers(headers_obj)
+            self.mcp_server_auth_headers = MCPHeaderParser.get_mcp_server_auth_headers(headers_obj)
+            self.oauth2_headers = MCPHeaderParser.get_oauth2_headers(headers_obj)
 
         # Also check if headers are provided in tools array (from request body)
         tools = self.original_request_params.get("tools")
@@ -354,11 +347,7 @@ class MCPEnhancedStreamingIterator(BaseResponsesAPIStreamingIterator):
                     if tool_headers and isinstance(tool_headers, dict):
                         # Merge tool headers into mcp_server_auth_headers
                         headers_obj_from_tool = Headers(tool_headers)
-                        tool_mcp_server_auth_headers = (
-                            MCPRequestHandler._get_mcp_server_auth_headers_from_headers(
-                                headers_obj_from_tool
-                            )
-                        )
+                        tool_mcp_server_auth_headers = MCPHeaderParser.get_mcp_server_auth_headers(headers_obj_from_tool)
 
                         if tool_mcp_server_auth_headers:
                             if self.mcp_server_auth_headers is None:

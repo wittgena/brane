@@ -96,7 +96,7 @@ async def aresponses_api_with_mcp(
     custom_llm_provider: Optional[str] = None,
     **kwargs,
 ) -> Union[ResponsesAPIResponse, BaseResponsesAPIStreamingIterator]:
-    from bound.client.mcp.proxy import MCPProxyHandler
+    from bound.proxy.mcp import MCPProxyHandler
     (
         mcp_tools_with_litellm_proxy,
         other_tools,
