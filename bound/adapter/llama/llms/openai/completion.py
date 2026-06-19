@@ -23,12 +23,12 @@ from anchor.config.resolver import config
 from anchor.config.constants import DEFAULT_MAX_RETRIES
 from anchor.switch.params import ModelResponse, ModelResponseStream
 
-from anchor.router.model.types.provider import LlmProviders
-from anchor.router.model.types.utils import EmbeddingResponse
+from anchor.model.types.provider import LlmProviders
+from anchor.model.types.utils import EmbeddingResponse
 from bound.client.support.convert import convert_to_model_response_object
-from anchor.router.model.provider.manager import ProviderConfigManager
+from anchor.model.provider.manager import ProviderConfigManager
 from bound.client.handler.stream.wrapper import CustomStreamWrapper
-from anchor.router.action.base import BaseLLM
+from bound.client.action.base import BaseLLM
 from bound.adapter.llama.llms.openai.common_utils import (
     BaseOpenAILLM,
     OpenAIError,

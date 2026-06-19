@@ -3,7 +3,7 @@
 ## @lineage: bound.channel.handler.support.stream.response.check
 ## @lineage: channel.bridge.litellm.model_response_utils
 from typing import Any
-from anchor.router.model.types.utils import Delta, ModelResponseBase, ModelResponseStream
+from anchor.model.types.utils import Delta, ModelResponseBase, ModelResponseStream
 
 def is_model_response_stream_empty(model_response: ModelResponseStream) -> bool:
     # Fields that are always set in ModelResponseBase and should be ignored

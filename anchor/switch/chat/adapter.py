@@ -3,7 +3,7 @@
 ## @lineage: channel.switch.chat.adapter
 ## @lineage: channel.chat.adapter
 from typing import AsyncGenerator, Protocol, Any
-from anchor.router.action.acompletion import acompletion
+from bound.client.action.acompletion import acompletion
 from anchor.switch.params import ModelResponse
 
 class SimpleMessage(dict):

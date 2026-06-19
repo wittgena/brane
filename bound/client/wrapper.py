@@ -62,9 +62,9 @@ from bound.client.handler.worklet.logging import GLOBAL_LOGGING_WORKER
 from bound.client.handler.stream.chunk.builder import stream_chunk_builder
 from bound.client.support.metadata import update_response_metadata
 
-from anchor.router.model.token.counter import get_modified_max_tokens
+from anchor.model.token.counter import get_modified_max_tokens
 from bound.xor.secret.credential import CredentialAccessor
-from anchor.router.model.types.llms.openai import (
+from anchor.model.types.llms.openai import (
     AllMessageValues,
     AllPromptValues,
     ChatCompletionAssistantToolCall,
@@ -74,9 +74,9 @@ from anchor.router.model.types.llms.openai import (
     OpenAITextCompletionUserMessage,
     OpenAIWebSearchOptions,
 )
-from anchor.router.model.types.utils import FileTypes
-from anchor.router.model.types.utils import CallTypes, Embedding, EmbeddingResponse, LlmProviders, LLMResponseTypes, ModelResponse
-from anchor.router.model.provider.resolver import get_llm_provider
+from anchor.model.types.utils import FileTypes
+from anchor.model.types.utils import CallTypes, Embedding, EmbeddingResponse, LlmProviders, LLMResponseTypes, ModelResponse
+from anchor.model.provider.resolver import get_llm_provider
 
 from anchor.base.model import type_to_response_format_param
 from xphi.manager.rule.validator import Rules

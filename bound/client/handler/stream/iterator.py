@@ -18,9 +18,9 @@ from anchor.base.response.transformation import BaseResponsesAPIConfig
 from anchor.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
 from anchor.base.executor import executor
 
-from anchor.router.model.types.llms import openai as openai_types
-from anchor.router.model.types.llms.openai import ResponsesAPIStreamEvents
-from anchor.router.model.types.utils import CallTypes
+from anchor.model.types.llms import openai as openai_types
+from anchor.model.types.llms.openai import ResponsesAPIStreamEvents
+from anchor.model.types.utils import CallTypes
 from bound.client.handler.asyncify import run_async_function
 
 from bound.client.support.helpers import process_response_headers
@@ -37,7 +37,7 @@ LiteLLMLoggingObj = Any
 
 @lru_cache(maxsize=1)
 def _get_openai_response_types():
-    from anchor.router.model.types.llms import openai as openai_types
+    from anchor.model.types.llms import openai as openai_types
     return openai_types
 
 def _log_background_task_failure(task: "asyncio.Task[Any]", *, task_name: str) -> None:
@@ -1592,7 +1592,7 @@ class ManagedResponsesWebSocketHandler:
         if not model:
             return None
         try:
-            from anchor.router.model.provider.resolver import get_llm_provider
+            from anchor.model.provider.resolver import get_llm_provider
             _, provider, _, _ = get_llm_provider(model=model)
             return provider
         except Exception:

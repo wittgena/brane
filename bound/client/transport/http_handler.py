@@ -50,9 +50,9 @@ from anchor.config.constants import (
     HTTP_HANDLER_CONNECT_TIMEOUT_SECONDS,
 )
 
-from anchor.router.model.types.llms.custom_http import VerifyTypes, httpxSpecialProvider
+from anchor.model.types.llms.custom_http import VerifyTypes, httpxSpecialProvider
 if TYPE_CHECKING:
-    from anchor.router.model.types.provider import LlmProviders
+    from anchor.model.types.provider import LlmProviders
     from bound.client.transport.aiohttp_transport import LiteLLMAiohttpTransport
 else:
     LlmProviders = Any

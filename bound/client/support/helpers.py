@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Any, Iterable, List, Literal, Optional, Union
 import httpx
 
 from anchor.config.resolver import config
-from anchor.router.model.types.llms.openai import AllMessageValues, OpenAIChatCompletionFinishReason
+from anchor.model.types.llms.openai import AllMessageValues, OpenAIChatCompletionFinishReason
 if TYPE_CHECKING:
     from opentelemetry.trace import Span as _Span
     from anchor.switch.params import ModelResponseStream
@@ -244,7 +244,7 @@ def _get_parent_otel_span_from_kwargs(
 
 
 def process_response_headers(response_headers: Union[httpx.Headers, dict]) -> dict:
-    from anchor.router.model.types.utils import OPENAI_RESPONSE_HEADERS
+    from anchor.model.types.utils import OPENAI_RESPONSE_HEADERS
 
     openai_headers = {}
     processed_headers = {}

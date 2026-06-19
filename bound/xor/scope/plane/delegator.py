@@ -4,7 +4,7 @@
 ## @lineage: bound.plane
 ## @lineage: channel.bound.plane
 from typing import Any, Dict, List, Optional, Tuple, Union
-from anchor.router.model.types.utils import LiteLLMLoggingBaseClass
+from anchor.model.types.utils import LiteLLMLoggingBaseClass
 from bound.xor.scope.plane.telemetry import Telemetry
 from bound.xor.scope.plane.metrics import Metrics
 from watcher.plane.emitter import get_emitter

@@ -55,18 +55,18 @@ if LITELLM_CONVERT_SWITCH:
 
 if not LITELLM_CONVERT_SWITCH:
     try:
-        from anchor.router.model.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
-        from anchor.router.model.types.llms.openai import ResponsesAPIStreamingResponse
-        from anchor.router.model.types.llms.openai import ToolParam
-        from anchor.router.model.types.llms.openai import ChatCompletionToolParam
-        from anchor.router.model.types.llms.openai import OutputFunctionToolCall
-        from anchor.router.model.types.llms.openai import ResponsesAPIResponse
-        from anchor.router.model.types.llms.openai import ChatCompletionToolParamFunctionChunk
-        from anchor.router.model.types.llms.openai import ResponsesAPIStreamEvents
+        from anchor.model.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
+        from anchor.model.types.llms.openai import ResponsesAPIStreamingResponse
+        from anchor.model.types.llms.openai import ToolParam
+        from anchor.model.types.llms.openai import ChatCompletionToolParam
+        from anchor.model.types.llms.openai import OutputFunctionToolCall
+        from anchor.model.types.llms.openai import ResponsesAPIResponse
+        from anchor.model.types.llms.openai import ChatCompletionToolParamFunctionChunk
+        from anchor.model.types.llms.openai import ResponsesAPIStreamEvents
         ## ---
-        from anchor.router.model.types.responses.main import GenericResponseOutputItem
-        from anchor.router.model.types.rerank import RerankResponse
-        from anchor.router.model.types.completion import (
+        from anchor.model.types.responses.main import GenericResponseOutputItem
+        from anchor.model.types.rerank import RerankResponse
+        from anchor.model.types.completion import (
             ChatCompletionMessageParam,
             ChatCompletionSystemMessageParam,
             ChatCompletionUserMessageParam,
@@ -76,7 +76,7 @@ if not LITELLM_CONVERT_SWITCH:
             ChatCompletionMessageToolCallParam,
             ChatCompletionContentPartParam
         )
-        from anchor.router.model.types.utils import (
+        from anchor.model.types.utils import (
             ChatCompletionDeltaToolCall,
             ChatCompletionRedactedThinkingBlock,
             CompletionTokensDetailsWrapper,
@@ -88,10 +88,10 @@ if not LITELLM_CONVERT_SWITCH:
             TranscriptionUsageDurationObject,
             TranscriptionUsageTokensObject,
         )
-        from anchor.router.model.types.utils import Usage
-        from anchor.router.model.types.utils import TextChoices, TextCompletionResponse, TranscriptionResponse
-        from anchor.router.model.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
-        from anchor.router.model.types.utils import ChatCompletionMessageToolCall
+        from anchor.model.types.utils import Usage
+        from anchor.model.types.utils import TextChoices, TextCompletionResponse, TranscriptionResponse
+        from anchor.model.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
+        from anchor.model.types.utils import ChatCompletionMessageToolCall
     except ImportError as e:
         raise ImportError(f"Failed to load fallback types from internal modules. Error: {e}")
 

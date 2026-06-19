@@ -18,8 +18,8 @@ from typing import (
 from starlette.datastructures import Headers
 
 from bound.client.mcp.header import MCPHeaderParser
-from anchor.router.model.types.responses.main import DecodedResponseId
-from anchor.router.model.types.utils import SpecialEnums
+from anchor.model.types.responses.main import DecodedResponseId
+from anchor.model.types.utils import SpecialEnums
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("support.identity")

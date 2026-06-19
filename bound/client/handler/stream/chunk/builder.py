@@ -28,11 +28,11 @@ import tiktoken
 if TYPE_CHECKING:
     from bound.xor.scope.plane.delegator import Logging as LiteLLMLoggingObj
 
-from anchor.router.model.types.utils import TextChoices, TextCompletionResponse
+from anchor.model.types.utils import TextChoices, TextCompletionResponse
 from anchor.base.exception import APIError
 
 from anchor.config.resolver import config
-from anchor.router.model.token.counter import token_counter
+from anchor.model.token.counter import token_counter
 from bound.client.handler.stream.chunk.processor import ChunkProcessor
 from anchor.switch.params import Choices, Message, ModelResponse, Usage
 from watcher.plane.emitter import get_emitter

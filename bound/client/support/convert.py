@@ -12,8 +12,8 @@ from typing import Dict, Iterable, List, Literal, Optional, Tuple, Union, cast
 from anchor.config.constants import RESPONSE_FORMAT_TOOL_NAME
 from bound.client.support.header import get_response_headers
 
-from anchor.router.model.types.llms.databricks import DatabricksTool
-from anchor.router.model.types.llms.openai import (
+from anchor.model.types.llms.databricks import DatabricksTool
+from anchor.model.types.llms.openai import (
     ChatCompletionThinkingBlock,
     ImageURLListItem,
     OpenAIModerationResponse,
@@ -46,7 +46,7 @@ from anchor.switch.params import (
 )
 from anchor.base.exception import APIError
 
-from anchor.router.model.types.utils import Logprobs as TextCompletionLogprobs
+from anchor.model.types.utils import Logprobs as TextCompletionLogprobs
 
 from watcher.plane.emitter import get_emitter 
 

@@ -1,8 +1,8 @@
 # bound.client.api.get_api_base
 from typing import Optional, Union
 from anchor.config.resolver import config
-from anchor.router.model.provider.resolver import get_llm_provider
-from anchor.router.model.types.router import LiteLLM_Params
+from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.types.router import LiteLLM_Params
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("api.base")

@@ -40,14 +40,14 @@ from anchor.base.chat.transform import BaseConfig
 from anchor.base.exception import BaseLLMException
 from anchor.switch.params import ModelResponse, ModelResponseStream
 
-from anchor.router.model.types.file import FileContentStreamingResult
-from anchor.router.model.types.provider import LlmProviders
-from anchor.router.model.types.utils import EmbeddingResponse, ImageResponse, LiteLLMBatch
+from anchor.model.types.file import FileContentStreamingResult
+from anchor.model.types.provider import LlmProviders
+from anchor.model.types.utils import EmbeddingResponse, ImageResponse, LiteLLMBatch
 from bound.xor.scope.plane.delegator import Logging as LiteLLMLoggingObj
 from bound.client.support.convert import convert_to_model_response_object
 from bound.client.handler.stream.wrapper import CustomStreamWrapper
-from anchor.router.model.types.llms.openai import *
-from anchor.router.action.base import BaseLLM
+from anchor.model.types.llms.openai import *
+from bound.client.action.base import BaseLLM
 from bound.adapter.llama.llms.openai.common_utils import (
     BaseOpenAILLM,
     OpenAIError,

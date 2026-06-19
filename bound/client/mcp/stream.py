@@ -10,9 +10,9 @@ else:
 from bound.client.mcp.header import MCPHeaderParser
 from bound.proxy.mcp import MCPProxyHandler
 from bound.client.mcp.payload import MCPPayloadUtils
-from anchor.router.model.types.llms.openai import OutputItemDoneEvent
-from anchor.router.model.types.llms.openai import ResponsesAPIStreamEvents
-from anchor.router.model.types.llms.openai import (
+from anchor.model.types.llms.openai import OutputItemDoneEvent
+from anchor.model.types.llms.openai import ResponsesAPIStreamEvents
+from anchor.model.types.llms.openai import (
     BaseLiteLLMOpenAIResponseObject,
     MCPCallArgumentsDeltaEvent,
     MCPCallArgumentsDoneEvent,

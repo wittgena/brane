@@ -8,7 +8,7 @@
 import json
 from abc import abstractmethod
 from typing import List, Optional, Union, cast
-from anchor.router.model.types.utils import GenericStreamingChunk
+from anchor.model.types.utils import GenericStreamingChunk
 from bound.client.handler.stream.wrapper import CustomStreamWrapper
 from anchor.switch.params import Choices, Delta, ModelResponse, ModelResponseStream, StreamingChoices
 

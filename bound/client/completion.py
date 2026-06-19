@@ -11,8 +11,8 @@ from anchor.config.resolver import config
 
 from bound.client.transport.http_handler import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
 from bound.client.handler.stream.wrapper import CustomStreamWrapper
-from anchor.router.model.provider.manager import ProviderConfigManager
-from anchor.router.model.types.provider import LlmProviders
+from anchor.model.provider.manager import ProviderConfigManager
+from anchor.model.types.provider import LlmProviders
 
 from watcher.plane.emitter import get_emitter
 

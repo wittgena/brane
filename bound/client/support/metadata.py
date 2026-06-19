@@ -17,7 +17,7 @@ from bound.client.api.get_api_base import get_api_base
 # from gate.litellm.voider import Logging as LiteLLMLoggingObject
 LiteLLMLoggingObject = Any
 
-from anchor.router.model.types.utils import (
+from anchor.model.types.utils import (
     EmbeddingResponse,
     HiddenParams,
     ModelResponse,

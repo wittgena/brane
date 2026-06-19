@@ -18,14 +18,14 @@ from typing import (
 from pydantic import BaseModel
 from anchor.base.response.transformation import BaseResponsesAPIConfig
 from anchor.config.resolver import config
-from bound.param.optional import PreProcessNonDefaultParams
-from anchor.router.model.types.llms.openai import (
+from bound.client.handler.param.optional import PreProcessNonDefaultParams
+from anchor.model.types.llms.openai import (
     ResponsesAPIOptionalRequestParams,
     ResponsesAPIResponse,
     ResponseText,
 )
 from bound.client.support.identity import ResponseIdentityManager
-from anchor.router.model.types.responses.main import DecodedResponseId
+from anchor.model.types.responses.main import DecodedResponseId
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("responses.utils")

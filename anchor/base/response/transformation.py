@@ -11,15 +11,15 @@ import httpx
 # from gate.litellm.voider import Logging as LiteLLMLoggingObj
 LiteLLMLoggingObj = Any
 
-from anchor.router.model.types.llms.openai import (
+from anchor.model.types.llms.openai import (
     ResponseInputParam,
     ResponsesAPIOptionalRequestParams,
     ResponsesAPIResponse,
     ResponsesAPIStreamingResponse,
 )
-from anchor.router.model.types.responses.main import DeleteResponseResult
-from anchor.router.model.types.router import GenericLiteLLMParams
-from anchor.router.model.types.provider import LlmProviders
+from anchor.model.types.responses.main import DeleteResponseResult
+from anchor.model.types.router import GenericLiteLLMParams
+from anchor.model.types.provider import LlmProviders
 from anchor.base.exception import BaseLLMException
 
 class BaseResponsesAPIConfig(ABC):

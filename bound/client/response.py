@@ -26,8 +26,8 @@ from anchor.config.resolver import config
 from anchor.config.constants import request_timeout
 from anchor.base.response.transformation import BaseResponsesAPIConfig
 
-from anchor.router.model.provider.resolver import get_llm_provider
-from anchor.router.model.types.llms.openai import (
+from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.types.llms.openai import (
     AllMessageValues,
     PromptObject,
     Reasoning,
@@ -38,10 +38,10 @@ from anchor.router.model.types.llms.openai import (
     ToolChoice,
     ToolParam,
 )
-from anchor.router.model.types.responses.main import *
-from anchor.router.model.types.router import GenericLiteLLMParams
-from anchor.router.model.provider.manager import ProviderConfigManager
-from anchor.router.model.types.llms.openai import ResponseText
+from anchor.model.types.responses.main import *
+from anchor.model.types.router import GenericLiteLLMParams
+from anchor.model.provider.manager import ProviderConfigManager
+from anchor.model.types.llms.openai import ResponseText
 
 from bound.client.handler.api import ResponseApiHandler
 from bound.client.handler.asyncify import run_async_function
@@ -311,7 +311,7 @@ def _responses_try_dispatch_emulated_file_search(
     kwargs: Dict[str, Any],
     _is_async: bool,
 ) -> Optional[Any]:
-    from anchor.router.action.search.file import aresponses_with_emulated_file_search
+    from bound.client.action.search.file import aresponses_with_emulated_file_search
     """Return a response when emulated file_search handles the call; otherwise None."""
     if not _has_file_search_tool(tools) or not (
         responses_api_provider_config is None
