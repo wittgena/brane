@@ -5,9 +5,9 @@
 ## @lineage: channel.model.info.openai_params
 ## @lineage: channel.model.info.support
 from typing import Optional, Literal, List, Dict
-from anchor.config.resolver import config
-from anchor.model.provider.resolver import get_llm_provider
-from anchor.model.provider.manager import ProviderConfigManager
+from anchor.base.config.resolver import config
+from anchor.model.router.provider.resolver import get_llm_provider
+from anchor.model.router.provider.manager import ProviderConfigManager
 from anchor.base.exception import BadRequestError
 from anchor.model.types.utils import LlmProviders, LlmProvidersSet
 

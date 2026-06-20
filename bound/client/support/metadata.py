@@ -10,7 +10,7 @@
 ## @lineage: gate.litellm_core_utils.llm_response_utils.response_metadata
 import datetime
 from typing import Any, Optional, Union
-from anchor.config.constants import LITELLM_DETAILED_TIMING
+from anchor.base.config.constants import LITELLM_DETAILED_TIMING
 from bound.client.support.helpers import process_response_headers
 from bound.client.api.get_api_base import get_api_base
 

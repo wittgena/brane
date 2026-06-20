@@ -31,7 +31,7 @@ if TYPE_CHECKING:
 from anchor.model.types.utils import TextChoices, TextCompletionResponse
 from anchor.base.exception import APIError
 
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from anchor.model.token.counter import token_counter
 from bound.client.handler.stream.chunk.processor import ChunkProcessor
 from anchor.switch.params import Choices, Message, ModelResponse, Usage

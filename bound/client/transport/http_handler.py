@@ -31,10 +31,10 @@ from aiohttp import ClientSession, TCPConnector
 from httpx import USE_CLIENT_DEFAULT, AsyncHTTPTransport, HTTPTransport
 from httpx._types import RequestFiles
 from watcher.plane.emitter import get_emitter
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from anchor.base.exception import Timeout
 
-from anchor.config.constants import (
+from anchor.base.config.constants import (
     _DEFAULT_TTL_FOR_HTTPX_CLIENTS,
     AIOHTTP_CONNECTOR_LIMIT,
     AIOHTTP_CONNECTOR_LIMIT_PER_HOST,

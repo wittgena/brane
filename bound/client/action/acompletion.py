@@ -59,7 +59,7 @@ from anchor.model.types.utils import (
 from anchor.model.types.llms.anthropic import AnthropicThinkingParam
 from anchor.model.types.llms.openai import ChatCompletionAudioParam, ChatCompletionModality, ChatCompletionPredictionContentParam, OpenAIWebSearchOptions
 from anchor.base.exception import Timeout
-from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.router.provider.resolver import get_llm_provider
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter

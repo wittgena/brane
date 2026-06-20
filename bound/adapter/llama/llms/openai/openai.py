@@ -33,8 +33,8 @@ from openai.types.file_deleted import FileDeleted
 from pydantic import BaseModel
 from typing_extensions import overload
 
-from anchor.config.resolver import config
-from anchor.config.constants import DEFAULT_MAX_RETRIES
+from anchor.base.config.resolver import config
+from anchor.base.config.constants import DEFAULT_MAX_RETRIES
 from anchor.base.response.iterator import BaseModelResponseIterator
 from anchor.base.chat.transform import BaseConfig
 from anchor.base.exception import BaseLLMException

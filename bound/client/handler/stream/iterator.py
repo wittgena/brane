@@ -13,9 +13,9 @@ from typing import Any, Dict, List, Literal, Optional
 import httpx
 from openai._streaming import SSEDecoder
 
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from anchor.base.response.transformation import BaseResponsesAPIConfig
-from anchor.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
+from anchor.base.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
 from anchor.base.executor import executor
 
 from anchor.model.types.llms import openai as openai_types
@@ -1592,7 +1592,7 @@ class ManagedResponsesWebSocketHandler:
         if not model:
             return None
         try:
-            from anchor.model.provider.resolver import get_llm_provider
+            from anchor.model.router.provider.resolver import get_llm_provider
             _, provider, _, _ = get_llm_provider(model=model)
             return provider
         except Exception:

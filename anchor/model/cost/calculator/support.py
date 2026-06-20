@@ -8,16 +8,16 @@ from typing import TYPE_CHECKING, Any, List, Literal, Optional, Tuple, Union, ca
 from httpx import Response
 from pydantic import BaseModel
 from functools import lru_cache
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from anchor.model.token.counter import token_counter
 from anchor.model.cost.map import model_cost, _get_model_info_helper
-from anchor.config.constants import (
+from anchor.base.config.constants import (
     DEFAULT_MAX_LRU_CACHE_SIZE,
     DEFAULT_REPLICATE_GPU_PRICE_PER_SECOND,
 )
 from anchor.model.cost.calculator.transform import TranscriptionUsageObjectTransformation
 from anchor.model.cost.calculator.utils import generic_cost_per_token
-from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.router.provider.resolver import get_llm_provider
 from anchor.model.types.llms.openai import (
     HttpxBinaryResponseContent,
     OpenAIModerationResponse,

@@ -10,7 +10,7 @@ import httpx
 from typing import Optional, Union, Dict, Tuple
 from bound.xor.secret.handler.client import get_secret_from_vendor
 from bound.client.transport.http_handler import HTTPHandler
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("secret.manager")

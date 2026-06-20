@@ -7,9 +7,9 @@ import os
 import litellm
 from typing import Union, cast, Optional, Dict
 
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from anchor.model.info.entry import get_model_info
-from anchor.model.provider.parser import get_model_cost_map
+from anchor.model.router.provider.registry import get_model_cost_map
 from anchor.model.types.provider import LlmProviders
 from watcher.plane.emitter import get_emitter
 

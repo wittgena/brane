@@ -28,13 +28,13 @@ from anchor.base.exception import UnsupportedParamsError
 from anchor.base.model import type_to_response_format_param
 from anchor.base.chat.transform import BaseConfig
 
-from anchor.config.resolver import config
-from anchor.config.constants import DEFAULT_CHAT_COMPLETION_PARAM_VALUES
+from anchor.base.config.resolver import config
+from anchor.base.config.constants import DEFAULT_CHAT_COMPLETION_PARAM_VALUES
 
 from anchor.model.types.llms.anthropic import AnthropicThinkingParam
 from anchor.model.types.llms.openai import AllMessageValues, OpenAIWebSearchOptions
 from anchor.model.types.utils import Embedding, Function, LlmProviders
-from anchor.model.provider.manager import ProviderConfigManager
+from anchor.model.router.provider.manager import ProviderConfigManager
 from anchor.model.info.support import get_supported_openai_params
 
 from watcher.plane.emitter import get_emitter

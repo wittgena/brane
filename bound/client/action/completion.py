@@ -26,7 +26,7 @@ from bound.client.handler.param.optional import get_optional_params
 from anchor.switch.params import Choices, Message, ModelResponse, Usage, ModelResponseStream
 from bound.client.wrapper import client
 from bound.xor.scope.plane.delegator import Logging as LiteLLMLoggingObj
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from bound.client.completion import CompletionHandler
 from bound.client.handler.stream.wrapper import CustomStreamWrapper
 
@@ -38,8 +38,8 @@ from anchor.model.info.support import supports_httpx_timeout
 from anchor.base.exception import LiteLLMUnknownProvider
 from bound.client.action.timeout import CompletionTimeout
 from bound.xor.scope.plane.trace.dd import tracer
-from anchor.model.provider.manager import ProviderConfigManager
-from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.router.provider.manager import ProviderConfigManager
+from anchor.model.router.provider.resolver import get_llm_provider
 from bound.client.handler.param.validator import (
     validate_and_fix_openai_messages,
     validate_and_fix_openai_tools,

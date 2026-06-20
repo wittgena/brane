@@ -17,7 +17,7 @@ from typing import (
 )
 from starlette.datastructures import Headers
 
-from bound.client.mcp.header import MCPHeaderParser
+from anchor.spec.mcp.legacy.header import MCPHeaderParser
 from anchor.model.types.responses.main import DecodedResponseId
 from anchor.model.types.utils import SpecialEnums
 from watcher.plane.emitter import get_emitter

@@ -24,7 +24,7 @@ from litellm.llms.ollama.completion import handler as ollama
 from anchor.switch.params import Choices, Message, ModelResponse
 from anchor.base.exception import LiteLLMUnknownProvider
 from bound.client.transport.llm import CustomLLM
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from bound.client.wrapper import client
 from bound.xor.scope.plane.delegator import Logging as LiteLLMLoggingObj
 from bound.client.handler.stream.wrapper import CustomStreamWrapper
@@ -39,7 +39,7 @@ from anchor.model.types.utils import (
     StreamingChoices,
 )
 from bound.client.handler.param.embedding import get_optional_params_embeddings
-from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.router.provider.resolver import get_llm_provider
 from anchor.model.token.counter import token_counter
 from bound.adapter.llama.llms.openai.embedding import OpenAIEmbedding
 from bound.xor.secret.manager import get_secret, get_secret_str

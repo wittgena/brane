@@ -26,9 +26,9 @@ import anyio
 import httpx
 from pydantic import BaseModel
 
-from anchor.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
+from anchor.base.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
 from bound.client.handler.stream.chunk.builder import stream_chunk_builder
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from bound.client.api.get_api_base import get_api_base
 
 from anchor.base.executor import executor

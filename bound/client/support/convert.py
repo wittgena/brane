@@ -9,7 +9,7 @@ import time
 import traceback
 from typing import Dict, Iterable, List, Literal, Optional, Tuple, Union, cast
 
-from anchor.config.constants import RESPONSE_FORMAT_TOOL_NAME
+from anchor.base.config.constants import RESPONSE_FORMAT_TOOL_NAME
 from bound.client.support.header import get_response_headers
 
 from anchor.model.types.llms.databricks import DatabricksTool

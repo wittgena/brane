@@ -6,7 +6,7 @@ import copy
 from typing import TYPE_CHECKING, Any, Iterable, List, Literal, Optional, Union
 import httpx
 
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from anchor.model.types.llms.openai import AllMessageValues, OpenAIChatCompletionFinishReason
 if TYPE_CHECKING:
     from opentelemetry.trace import Span as _Span

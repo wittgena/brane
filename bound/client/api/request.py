@@ -17,7 +17,7 @@ from typing import (
 )
 from pydantic import BaseModel
 from anchor.base.response.transformation import BaseResponsesAPIConfig
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from bound.client.handler.param.optional import PreProcessNonDefaultParams
 from anchor.model.types.llms.openai import (
     ResponsesAPIOptionalRequestParams,

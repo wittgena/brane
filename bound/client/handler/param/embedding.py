@@ -19,8 +19,8 @@ from typing import (
     cast,
     get_args,
 )
-from anchor.config.resolver import config
-from anchor.config.constants import (
+from anchor.base.config.resolver import config
+from anchor.base.config.constants import (
     DEFAULT_EMBEDDING_PARAM_VALUES,
     OPENAI_EMBEDDING_PARAMS,
 )

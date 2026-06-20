@@ -9,7 +9,7 @@ from typing import Dict, List, Optional, Type
 from tokenizers import Tokenizer
 from anchor.model.types.utils import CustomHuggingfaceTokenizer, SelectTokenizerResponse
 from anchor.model.token.encoding import get_default_encoding
-from anchor.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
+from anchor.base.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("token.tokenizer")

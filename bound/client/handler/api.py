@@ -30,7 +30,7 @@ LiteLLMLoggingObj = Any
 from bound.client.support.helpers import process_response_headers
 
 from anchor.model.types.provider import LlmProviders
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from bound.client.transport.http_handler import (
     AsyncHTTPHandler,
     HTTPHandler,

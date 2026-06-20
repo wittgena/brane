@@ -22,11 +22,11 @@ from pydantic import BaseModel
 from litellm.completion_extras.litellm_responses_transformation.transformation import LiteLLMResponsesTransformationHandler
 from litellm.responses.litellm_completion_transformation.handler import LiteLLMCompletionTransformationHandler
 
-from anchor.config.resolver import config
-from anchor.config.constants import request_timeout
+from anchor.base.config.resolver import config
+from anchor.base.config.constants import request_timeout
 from anchor.base.response.transformation import BaseResponsesAPIConfig
 
-from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.router.provider.resolver import get_llm_provider
 from anchor.model.types.llms.openai import (
     AllMessageValues,
     PromptObject,
@@ -40,7 +40,7 @@ from anchor.model.types.llms.openai import (
 )
 from anchor.model.types.responses.main import *
 from anchor.model.types.router import GenericLiteLLMParams
-from anchor.model.provider.manager import ProviderConfigManager
+from anchor.model.router.provider.manager import ProviderConfigManager
 from anchor.model.types.llms.openai import ResponseText
 
 from bound.client.handler.api import ResponseApiHandler
@@ -239,7 +239,7 @@ def _responses_try_dispatch_mcp_gateway(
     _is_async: bool,
 ) -> Optional[Any]:
     """Return a response when MCP gateway handles the call; otherwise None."""
-    from bound.proxy.mcp import MCPProxyHandler
+    from anchor.spec.mcp.handler import MCPProxyHandler
     if not MCPProxyHandler._should_use_litellm_mcp_gateway(tools=tools):
         return None
     mcp_call_kwargs = {

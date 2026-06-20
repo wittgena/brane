@@ -54,9 +54,9 @@ from openai.lib import _parsing
 import inspect
 from weakref import WeakKeyDictionary
 
-from anchor.config.constants import COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY
+from anchor.base.config.constants import COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY
 from bound.xor.scope.plane.delegator import Logging as LiteLLMLoggingObject
-from anchor.config.resolver import config
+from anchor.base.config.resolver import config
 from bound.client.handler.retry import completion_with_retries, acompletion_with_retries
 from bound.client.handler.worklet.logging import GLOBAL_LOGGING_WORKER
 from bound.client.handler.stream.chunk.builder import stream_chunk_builder
@@ -76,7 +76,7 @@ from anchor.model.types.llms.openai import (
 )
 from anchor.model.types.utils import FileTypes
 from anchor.model.types.utils import CallTypes, Embedding, EmbeddingResponse, LlmProviders, LLMResponseTypes, ModelResponse
-from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.router.provider.resolver import get_llm_provider
 
 from anchor.base.model import type_to_response_format_param
 from xphi.manager.rule.validator import Rules

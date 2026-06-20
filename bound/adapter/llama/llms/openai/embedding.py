@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 import openai
 from openai import AsyncOpenAI, OpenAI
 from pydantic import BaseModel
-from anchor.config.constants import DEFAULT_MAX_RETRIES
+from anchor.base.config.constants import DEFAULT_MAX_RETRIES
 from anchor.model.types.utils import EmbeddingResponse
 from bound.client.support.convert import convert_to_model_response_object
 from bound.adapter.llama.llms.openai.common_utils import BaseOpenAILLM, OpenAIError
