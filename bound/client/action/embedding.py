@@ -41,7 +41,7 @@ from anchor.model.types.utils import (
 from bound.client.handler.param.embedding import get_optional_params_embeddings
 from anchor.model.router.provider.resolver import get_llm_provider
 from anchor.model.token.counter import token_counter
-from bound.adapter.llama.llms.openai.embedding import OpenAIEmbedding
+from bound.inter.llms.openai.embedding import OpenAIEmbedding
 from bound.xor.secret.manager import get_secret, get_secret_str
 
 from watcher.plane.emitter import get_emitter

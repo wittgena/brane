@@ -47,7 +47,7 @@ from bound.client.handler.param.validator import (
     validate_chat_completion_tool_choice,
     validate_openai_optional_params
 )
-from bound.adapter.llama.llms.openai.completion import OpenAIChatCompletion
+from bound.inter.llms.openai.completion import OpenAIChatCompletion
 from anchor.model.types.llms.anthropic import AnthropicThinkingParam
 from anchor.model.types.llms.openai import (
     ChatCompletionAudioParam,

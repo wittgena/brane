@@ -74,7 +74,7 @@ from anchor.surface.acps.schema import (
     WriteTextFileRequest,
     WriteTextFileResponse,
 )
-from bound.server.acps.bound.utils import param_model, param_models
+from anchor.surface.acps.utils import param_model, param_models
 
 __all__ = ["Agent", "Client"]
 

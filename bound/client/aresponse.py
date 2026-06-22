@@ -23,14 +23,14 @@ from pydantic import BaseModel
 from anchor.base.config.resolver import config
 from anchor.base.response.transformation import BaseResponsesAPIConfig
 
-from bound.legacy.mcp.payload import MCPPayloadUtils
+from bound.adapter.litellm.mcp.payload import MCPPayloadUtils
 from bound.client.handler.api import ResponseApiHandler
 from bound.client.handler.ws import ResponseWebsocketHandler
 from bound.client.wrapper import client
 from bound.client.api.request import ResponsesAPIRequestUtils
-from bound.legacy.support.identity import ResponseIdentityManager
+from bound.adapter.litellm.support.identity import ResponseIdentityManager
 from bound.client.handler.stream.iterator import BaseResponsesAPIStreamingIterator
-from bound.legacy.mcp.stream import create_mcp_list_tools_events, MCPEnhancedStreamingIterator
+from bound.adapter.litellm.mcp.stream import create_mcp_list_tools_events, MCPEnhancedStreamingIterator
 
 from anchor.model.types.responses.main import *
 from anchor.model.types.router import GenericLiteLLMParams
@@ -49,7 +49,7 @@ from anchor.model.types.llms.openai import (
 )
 from bound.client.handler.param.litellm import get_litellm_params
 from bound.xor.secret.manager import get_secret_str
-from bound.adapter.llama.llms.openai.data_residency import infer_openai_data_residency
+from bound.inter.llms.openai.data_residency import infer_openai_data_residency
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
@@ -96,7 +96,7 @@ async def aresponses_api_with_mcp(
     custom_llm_provider: Optional[str] = None,
     **kwargs,
 ) -> Union[ResponsesAPIResponse, BaseResponsesAPIStreamingIterator]:
-    from bound.legacy.proxy.handler import MCPProxyHandler
+    from bound.adapter.litellm.proxy.handler import MCPProxyHandler
     (
         mcp_tools_with_litellm_proxy,
         other_tools,

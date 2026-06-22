@@ -37,7 +37,7 @@ from xphi.manager.rule.validator import Rules
 from anchor.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
 
 from bound.client.handler.stream.response.check import is_model_response_stream_empty
-from bound.legacy.support.helpers import map_finish_reason, process_response_headers
+from bound.adapter.litellm.support.helpers import map_finish_reason, process_response_headers
 from anchor.base.mapping.exception import exception_type
 from anchor.model.types.llms.openai import OpenAIChatCompletionChunk
 from anchor.model.types.provider import LlmProviders
@@ -949,7 +949,7 @@ class CustomStreamWrapper:
         model_response: ModelResponseStream,
         response_obj: Dict[str, Any],
     ):
-        from bound.legacy.support.helpers import (
+        from bound.adapter.litellm.support.helpers import (
             preserve_upstream_non_openai_attributes,
         )
 

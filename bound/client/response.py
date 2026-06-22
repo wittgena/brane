@@ -46,10 +46,10 @@ from anchor.model.types.llms.openai import ResponseText
 from bound.client.handler.api import ResponseApiHandler
 from bound.client.handler.asyncify import run_async_function
 from bound.client.wrapper import client
-from bound.legacy.support.template import update_responses_input_with_model_file_ids, update_responses_tools_with_model_file_ids
+from bound.adapter.litellm.support.template import update_responses_input_with_model_file_ids, update_responses_tools_with_model_file_ids
 from bound.client.api.request import ResponsesAPIRequestUtils
-from bound.legacy.support.identity import ResponseIdentityManager
-from bound.adapter.llama.llms.openai.data_residency import infer_openai_data_residency
+from bound.adapter.litellm.support.identity import ResponseIdentityManager
+from bound.inter.llms.openai.data_residency import infer_openai_data_residency
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
@@ -239,7 +239,7 @@ def _responses_try_dispatch_mcp_gateway(
     _is_async: bool,
 ) -> Optional[Any]:
     """Return a response when MCP gateway handles the call; otherwise None."""
-    from bound.legacy.proxy.handler import MCPProxyHandler
+    from bound.adapter.litellm.proxy.handler import MCPProxyHandler
     if not MCPProxyHandler._should_use_litellm_mcp_gateway(tools=tools):
         return None
     mcp_call_kwargs = {

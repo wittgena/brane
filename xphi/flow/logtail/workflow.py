@@ -8,7 +8,7 @@ import numpy as np
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Dict, List, Any, Optional
-from bound.adapter.llama.embeddings.huggingface import HuggingFaceEmbedding
+from bound.inter.embeddings.huggingface import HuggingFaceEmbedding
 from watcher.plane.emitter import get_emitter
 from phase.bind.resolver import find_current_self, resolve_path
 from phase.bind.folding import folding

@@ -10,7 +10,7 @@ import urllib.request
 import argparse
 from pathlib import Path
 from typing import Dict, Any
-from bound.adapter.base.llms.base import BaseLLM 
+from bound.adapter.llama.base.llms.base import BaseLLM 
 from watcher.plane.emitter import get_emitter
 from arch.contract.registry.unified import contract
 from phase.runtime.cli.executor import CliTaskAdapter, parse_local, dispatch_cli
