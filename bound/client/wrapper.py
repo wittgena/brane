@@ -60,7 +60,7 @@ from anchor.base.config.resolver import config
 from bound.client.handler.retry import completion_with_retries, acompletion_with_retries
 from bound.client.handler.worklet.logging import GLOBAL_LOGGING_WORKER
 from bound.client.handler.stream.chunk.builder import stream_chunk_builder
-from bound.client.support.metadata import update_response_metadata
+from bound.legacy.support.metadata import update_response_metadata
 
 from anchor.model.token.counter import get_modified_max_tokens
 from bound.xor.secret.credential import CredentialAccessor

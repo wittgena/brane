@@ -29,7 +29,7 @@ def _build_model_info(
     api_base: Optional[str] = None,
     api_key: Optional[str] = None,
 ) -> ModelInfo:
-    from anchor.model.cost.map import _get_model_info_helper
+    from anchor.model.info.cost.map import _get_model_info_helper
 
     supported_openai_params = config.get_supported_openai_params(
         model=model, custom_llm_provider=custom_llm_provider

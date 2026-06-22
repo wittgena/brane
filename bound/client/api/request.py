@@ -24,7 +24,7 @@ from anchor.model.types.llms.openai import (
     ResponsesAPIResponse,
     ResponseText,
 )
-from bound.client.support.identity import ResponseIdentityManager
+from bound.legacy.support.identity import ResponseIdentityManager
 from anchor.model.types.responses.main import DecodedResponseId
 from watcher.plane.emitter import get_emitter
 

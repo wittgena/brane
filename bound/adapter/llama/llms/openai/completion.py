@@ -25,7 +25,7 @@ from anchor.switch.params import ModelResponse, ModelResponseStream
 
 from anchor.model.types.provider import LlmProviders
 from anchor.model.types.utils import EmbeddingResponse
-from bound.client.support.convert import convert_to_model_response_object
+from bound.legacy.support.convert import convert_to_model_response_object
 from anchor.model.router.provider.manager import ProviderConfigManager
 from bound.client.handler.stream.wrapper import CustomStreamWrapper
 from bound.client.action.base import BaseLLM

@@ -11,7 +11,7 @@ import warnings
 from collections.abc import Callable
 from typing import Any, ClassVar
 from arch.proto.phase.gate import uuid4
-from anchor.model.cost.calculator.calc import completion_cost as litellm_completion_cost
+from anchor.model.info.cost.calculator.calc import completion_cost as litellm_completion_cost
 from anchor.switch.params import ResponseAPIUsage, ResponsesAPIResponse
 from anchor.switch.params import ModelResponse
 from anchor.model.types.utils import CostPerToken, Usage

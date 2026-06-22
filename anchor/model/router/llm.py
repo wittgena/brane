@@ -8,7 +8,7 @@ import inspect
 from typing import Dict, Any, Optional
 
 # 기존 cost.map 모듈에서 Provider 식별 함수를 가져옵니다.
-from anchor.model.cost.map import get_provider_for_model
+from anchor.model.info.cost.map import get_provider_for_model
 
 # Provider별 LLM 구현체가 위치할 기본 경로 매핑 (예시)
 DEFAULT_LLM_REGISTRY = {

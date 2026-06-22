@@ -23,11 +23,11 @@ from anchor.model.types.llms.openai import ResponsesAPIStreamEvents
 from anchor.model.types.utils import CallTypes
 from bound.client.handler.asyncify import run_async_function
 
-from bound.client.support.helpers import process_response_headers
+from bound.legacy.support.helpers import process_response_headers
 from bound.client.api.get_api_base import get_api_base
-from bound.client.support.metadata import update_response_metadata
+from bound.legacy.support.metadata import update_response_metadata
 from bound.client.api.request import ResponsesAPIRequestUtils
-from bound.client.support.identity import ResponseIdentityManager
+from bound.legacy.support.identity import ResponseIdentityManager
 
 from watcher.plane.emitter import get_emitter
 

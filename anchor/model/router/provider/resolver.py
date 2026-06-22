@@ -167,7 +167,7 @@ class LLMProviderResolver:
         return model, custom_llm_provider, api_key, api_base
 
     def _resolve_special_cases(self, model: str, custom_llm_provider: Optional[str]) -> Tuple[str, Optional[str], bool]:
-        from anchor.model.cost.map import get_provider_for_model
+        from anchor.model.info.cost.map import get_provider_for_model
         ## Azure의 Cohere/Mistral 호스팅 모델 교정
         if model.startswith("azure/"):
             model_name = model.split("/", 1)[1]
@@ -212,7 +212,7 @@ class LLMProviderResolver:
         return None
     
     def _resolve_by_model_name(self, model: str, custom_llm_provider: Optional[str]) -> Tuple[str, Optional[str]]:
-        from anchor.model.cost.model import get_provider_for_model
+        from anchor.model.info.cost.model import get_provider_for_model
         registry_provider = get_provider_for_model(model)
         if registry_provider:
             ## JSON 스펙에 정의된 프로바이더를 즉시 반환 (수백 개의 모델 커버)

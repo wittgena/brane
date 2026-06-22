@@ -1,14 +1,4 @@
 # bound.server.cache.token
-## @lineage: bound.proxy.cache.token
-## @lineage: anchor.router.cache.token
-## @lineage: bound.router.cache.token
-## @lineage: bound.router.manager.cache.token
-## @lineage: bound.channel.manager.cache.token
-## @lineage: channel.cache.token
-## @lineage: anchor.context.cache.token
-## @lineage: bound.context.cache.token
-## @lineage: hub.memory.cache.token
-## @lineage: meta.gov.state.cache.token
 import os
 import sys
 import argparse

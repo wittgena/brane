@@ -47,7 +47,7 @@ from bound.client.wrapper import client
 from bound.xor.scope.plane.trace.dd import tracer
 from bound.xor.scope.plane.delegator import Logging as LiteLLMLoggingObj
 
-from bound.client.support.helpers import safe_deep_copy, filter_internal_params
+from bound.legacy.support.helpers import safe_deep_copy, filter_internal_params
 from bound.client.handler.asyncify import run_async_function
 from anchor.base.mapping.exception import exception_type
 from anchor.model.types.utils import (
