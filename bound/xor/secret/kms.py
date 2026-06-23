@@ -1,13 +1,8 @@
-# anchor.model.types.secret_managers.main
-## @lineage: anchor.router.model.types.secret_managers.main
-## @lineage: bound.router.model.types.secret_managers.main
-## @lineage: bound.channel.model.types.secret_managers.main
-## @lineage: channel.model.types.secret_managers.main
-## @lineage: gate.model.types.secret_managers.main
+# bound.xor.secret.kms
+## @lineage: anchor.model.types.secret_managers.main
 import enum
 from typing import Dict, List, Literal, Optional
-from anchor.model.types.llms.base import LiteLLMPydanticObjectBase
-
+from anchor.model.llm.types.base import LiteLLMPydanticObjectBase
 
 class KeyManagementSystem(enum.Enum):
     GOOGLE_KMS = "google_kms"
@@ -19,7 +14,6 @@ class KeyManagementSystem(enum.Enum):
     LOCAL = "local"
     AWS_KMS = "aws_kms"
     CUSTOM = "custom"
-
 
 class KeyManagementSettings(LiteLLMPydanticObjectBase):
     hosted_keys: Optional[List] = None

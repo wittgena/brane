@@ -28,8 +28,8 @@ from anchor.base.config.resolver import config
 from anchor.base.config.constants import request_timeout
 from anchor.base.response.transformation import BaseResponsesAPIConfig
 
-from anchor.model.router.provider.resolver import get_llm_provider
-from anchor.model.types.llms.openai import (
+from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.llm.types.openai import (
     AllMessageValues,
     PromptObject,
     Reasoning,
@@ -40,10 +40,10 @@ from anchor.model.types.llms.openai import (
     ToolChoice,
     ToolParam,
 )
-from anchor.model.types.responses.main import *
-from anchor.model.types.router import GenericLiteLLMParams
-from anchor.model.router.provider.manager import ProviderConfigManager
-from anchor.model.types.llms.openai import ResponseText
+from anchor.surface.legacy.types.response import *
+from anchor.surface.legacy.types.router import GenericLiteLLMParams
+from anchor.model.provider.manager import ProviderConfigManager
+from anchor.model.llm.types.openai import ResponseText
 
 from bound.channel.action.handler.api import ResponseApiHandler
 from bound.channel.action.handler.asyncify import run_async_function

@@ -21,7 +21,7 @@ from fastapi import HTTPException
 
 from anchor.base.exception import BlockedPiiEntityError, GuardrailRaisedException
 from anchor.switch.params import ResponsesAPIResponse
-from anchor.model.types.utils import CallTypes, StandardLoggingMCPToolCall
+from anchor.surface.legacy.types.utils import CallTypes, StandardLoggingMCPToolCall
 
 from anchor.surface.legacy.proxy.reverse import global_mcp_server_manager, LegacyLitellmToolsManager
 from anchor.surface.legacy.proxy.logger import LegacyLitellmLogManager

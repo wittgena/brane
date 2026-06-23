@@ -1,12 +1,5 @@
-# anchor.model.types.llms.openai
-## @lineage: anchor.router.model.types.llms.openai
-## @lineage: bound.router.model.types.llms.openai
-## @lineage: bound.channel.model.types.llms.openai
-## @lineage: channel.model.types.llms.openai
-## @lineage: gate.model.types.llms.openai
-## @lineage: gate.types.llms.openai
-## @lineage: blm.types.llms.openai
-## @lineage: gov.blm.types.llms.openai
+# anchor.model.llm.types.openai
+## @lineage: anchor.model.types.llms.openai
 from enum import Enum
 from os import PathLike
 from typing import (
@@ -97,8 +90,8 @@ from typing_extensions import (
     override,
 )
 
-from anchor.model.types.llms.base import BaseLiteLLMOpenAIResponseObject
-from anchor.model.types.responses.main import (
+from anchor.model.llm.types.base import BaseLiteLLMOpenAIResponseObject
+from anchor.surface.legacy.types.response import (
     GenericResponseOutputItem,
     OutputCodeInterpreterCall,
     OutputFunctionToolCall,

@@ -1,4 +1,5 @@
-# anchor.model.types.rerank
+# anchor.surface.legacy.types.rerank
+## @lineage: anchor.model.types.rerank
 ## @lineage: anchor.router.model.types.rerank
 ## @lineage: bound.router.model.types.rerank
 ## @lineage: bound.channel.model.types.rerank

@@ -41,10 +41,10 @@ from anchor.switch.params import ModelResponse, ModelResponseStream, StreamingCh
 from bound.transport.stream.response.check import is_model_response_stream_empty
 from bound.channel.support.helpers import map_finish_reason, process_response_headers
 from anchor.surface.legacy.mapping.exception import exception_type
-from anchor.model.types.llms.openai import OpenAIChatCompletionChunk
-from anchor.model.types.provider import LlmProviders
-from anchor.model.types.router import GenericLiteLLMParams
-from anchor.model.types.utils import Delta, CallTypes, GenericStreamingChunk as GChunk
+from anchor.model.llm.types.openai import OpenAIChatCompletionChunk
+from anchor.model.provider.types import LlmProviders
+from anchor.surface.legacy.types.router import GenericLiteLLMParams
+from anchor.surface.legacy.types.utils import Delta, CallTypes, GenericStreamingChunk as GChunk
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
@@ -1131,7 +1131,7 @@ class CustomStreamWrapper:
         try:
             # return this for all models
             completion_obj: Dict[str, Any] = {"content": ""}
-            from anchor.model.types.utils import GenericStreamingChunk as GChunk
+            from anchor.surface.legacy.types.utils import GenericStreamingChunk as GChunk
 
             if (
                 isinstance(chunk, ModelResponseStream)
@@ -2402,7 +2402,7 @@ def generic_chunk_has_all_required_fields(chunk: dict) -> bool:
 def convert_generic_chunk_to_model_response_stream(
     chunk: GChunk,
 ) -> ModelResponseStream:
-    from anchor.model.types.utils import Delta
+    from anchor.surface.legacy.types.utils import Delta
 
     model_response_stream = ModelResponseStream(
         id=str(uuid.uuid4()),

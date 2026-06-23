@@ -1,4 +1,5 @@
-# anchor.model.types.llms.base
+# anchor.model.llm.types.base
+## @lineage: anchor.model.types.llms.base
 ## @lineage: anchor.router.model.types.llms.base
 ## @lineage: bound.router.model.types.llms.base
 ## @lineage: bound.channel.model.types.llms.base

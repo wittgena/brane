@@ -32,7 +32,7 @@ from anchor.base.config.resolver import config
 from bound.channel.action.handler.completor import CompletionHandler
 from bound.transport.stream.wrapper import CustomStreamWrapper
 
-from anchor.model.types.llms.openai import AllMessageValues
+from anchor.model.llm.types.openai import AllMessageValues
 from bound.xor.secret.manager import get_secret_bool, get_secret_str
 from anchor.surface.legacy.mapping.exception import exception_type
 from bound.channel.action.handler.param.litellm import get_litellm_params
@@ -40,8 +40,8 @@ from anchor.model.info.support import supports_httpx_timeout
 from anchor.base.exception import LiteLLMUnknownProvider
 from bound.channel.action.timeout import CompletionTimeout
 from xphi.scope.plane.trace.dd import tracer
-from anchor.model.router.provider.manager import ProviderConfigManager
-from anchor.model.router.provider.resolver import get_llm_provider
+from anchor.model.provider.manager import ProviderConfigManager
+from anchor.model.provider.resolver import get_llm_provider
 from bound.channel.action.handler.param.validator import (
     validate_and_fix_openai_messages,
     validate_and_fix_openai_tools,
@@ -50,15 +50,15 @@ from bound.channel.action.handler.param.validator import (
     validate_openai_optional_params
 )
 from bound.inter.llms.openai.completion import OpenAIChatCompletion
-from anchor.model.types.llms.anthropic import AnthropicThinkingParam
-from anchor.model.types.llms.openai import (
+from anchor.model.llm.types.anthropic import AnthropicThinkingParam
+from anchor.model.llm.types.openai import (
     ChatCompletionAudioParam,
     ChatCompletionModality,
     ChatCompletionPredictionContentParam,
     OpenAIWebSearchOptions,
 )
-from anchor.model.types.provider import LlmProviders
-from anchor.model.types.utils import all_litellm_params
+from anchor.model.provider.types import LlmProviders
+from anchor.surface.legacy.types.utils import all_litellm_params
 
 from watcher.plane.emitter import get_emitter
 

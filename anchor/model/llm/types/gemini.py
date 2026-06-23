@@ -1,4 +1,5 @@
-# anchor.model.types.llms.gemini
+# anchor.model.llm.types.gemini
+## @lineage: anchor.model.types.llms.gemini
 ## @lineage: anchor.router.model.types.llms.gemini
 ## @lineage: bound.router.model.types.llms.gemini
 ## @lineage: bound.channel.model.types.llms.gemini
@@ -10,7 +11,7 @@
 from enum import Enum
 from typing import Any, Dict, List, Literal, Optional
 from typing_extensions import Required, TypedDict
-from anchor.model.types.llms.vertex_ai import (
+from anchor.model.llm.types.vertex_ai import (
     GenerationConfig,
     HttpxBlobType,
     HttpxContentType,

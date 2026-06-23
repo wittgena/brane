@@ -1,4 +1,5 @@
-# anchor.model.types.provider
+# anchor.model.provider.types
+## @lineage: anchor.model.types.provider
 ## @lineage: anchor.router.model.types.provider
 ## @lineage: bound.router.model.types.provider
 ## @lineage: bound.channel.model.types.provider

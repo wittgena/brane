@@ -1,10 +1,4 @@
 # bound.channel.wrapper
-## @lineage: bound.bridge.wrapper
-## @lineage: bound.client.wrapper
-## @lineage: bound.handler.client.wrapper
-## @lineage: bound.channel.client.wrapper
-## @lineage: bound.channel.handler.client.wrapper
-## @lineage: bound.handler.client
 import asyncio
 import contextvars
 import copy
@@ -66,7 +60,7 @@ from bound.channel.support.metadata import update_response_metadata
 
 from anchor.model.token.counter import get_modified_max_tokens
 from bound.xor.secret.credential import CredentialAccessor
-from anchor.model.types.llms.openai import (
+from anchor.model.llm.types.openai import (
     AllMessageValues,
     AllPromptValues,
     ChatCompletionAssistantToolCall,
@@ -76,9 +70,8 @@ from anchor.model.types.llms.openai import (
     OpenAITextCompletionUserMessage,
     OpenAIWebSearchOptions,
 )
-from anchor.model.types.utils import FileTypes
-from anchor.model.types.utils import CallTypes, Embedding, EmbeddingResponse, LlmProviders, LLMResponseTypes, ModelResponse
-from anchor.model.router.provider.resolver import get_llm_provider
+from anchor.surface.legacy.types.utils import CallTypes, Embedding, LlmProviders
+from anchor.model.provider.resolver import get_llm_provider
 
 from anchor.base.model import type_to_response_format_param
 from xphi.manager.rule.validator import Rules

@@ -13,8 +13,8 @@ from anchor.base.config.resolver import config
 
 from bound.channel.action.handler.http import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
 from bound.transport.stream.wrapper import CustomStreamWrapper
-from anchor.model.router.provider.manager import ProviderConfigManager
-from anchor.model.types.provider import LlmProviders
+from anchor.model.provider.manager import ProviderConfigManager
+from anchor.model.provider.types import LlmProviders
 
 from watcher.plane.emitter import get_emitter
 

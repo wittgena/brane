@@ -33,17 +33,17 @@ from anchor.base.config.constants import (
 from anchor.model.token.encoding import get_default_encoding
 from bound.channel.action.handler.http import _get_httpx_client
 from anchor.model.token.url_utils import safe_get
-from anchor.model.types.llms.anthropic import (
+from anchor.model.llm.types.anthropic import (
     AnthropicMessagesToolResultParam,
     AnthropicMessagesToolUseParam,
 )
-from anchor.model.types.llms.openai import (
+from anchor.model.llm.types.openai import (
     AllMessageValues,
     ChatCompletionNamedToolChoiceParam,
     ChatCompletionToolParam,
     OpenAIMessageContent,
 )
-from anchor.model.types.utils import SelectTokenizerResponse
+from anchor.surface.legacy.types.utils import SelectTokenizerResponse
 
 from anchor.switch.params import Message
 from watcher.plane.emitter import get_emitter

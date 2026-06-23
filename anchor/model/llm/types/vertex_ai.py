@@ -1,4 +1,5 @@
-# anchor.model.types.llms.vertex_ai
+# anchor.model.llm.types.vertex_ai
+## @lineage: anchor.model.types.llms.vertex_ai
 ## @lineage: anchor.router.model.types.llms.vertex_ai
 ## @lineage: bound.router.model.types.llms.vertex_ai
 ## @lineage: bound.channel.model.types.llms.vertex_ai
@@ -14,7 +15,7 @@ from typing_extensions import (
     TypedDict,
 )
 
-from anchor.model.types.llms.openai import EmbeddingInput
+from anchor.model.llm.types.openai import EmbeddingInput
 
 # Gemini supports nested-list inputs (e.g. [["text", "image"]]) as an explicit
 # opt-in for combined embeddings — a provider-specific extension of the

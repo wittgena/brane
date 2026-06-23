@@ -8,8 +8,8 @@ from typing import Optional, Literal, List, Dict
 from anchor.base.config.resolver import config
 
 from anchor.model.info.cost.map import model_cost, _get_model_info_helper
-from anchor.model.router.provider.resolver import get_llm_provider
-from anchor.model.router.provider.manager import get_provider_info
+from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.provider.manager import get_provider_info
 from anchor.model.info.openai_params import get_supported_openai_params
 
 from watcher.plane.emitter import get_emitter

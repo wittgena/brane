@@ -13,8 +13,8 @@ from typing import (
 
 import httpx
 from bound.channel.action.handler.http import AsyncHTTPHandler, HTTPHandler
-from anchor.model.types.utils import GenericStreamingChunk
-from anchor.model.types.utils import EmbeddingResponse, ImageResponse, ModelResponse
+from anchor.surface.legacy.types.utils import GenericStreamingChunk
+from anchor.surface.legacy.types.utils import EmbeddingResponse, ImageResponse, ModelResponse
 from bound.channel.action.base import BaseLLM
 from bound.transport.stream.wrapper import CustomStreamWrapper
 

@@ -1,5 +1,5 @@
-# anchor.model.router.provider.resolver
-## @lineage: anchor.model.provider.resolver
+# anchor.model.provider.resolver
+## @lineage: anchor.model.router.provider.resolver
 ## @lineage: anchor.router.model.provider.resolver
 ## @lineage: bound.router.model.provider.resolver
 ## @lineage: bound.channel.model.provider.resolver
@@ -12,10 +12,10 @@ from typing import Optional, Tuple, Dict, Callable
 from urllib.parse import urlparse
 from anchor.base.config.resolver import config
 from anchor.base.config.constants import REPLICATE_MODEL_NAME_WITH_ID_LENGTH
-from anchor.model.types.router import LiteLLM_Params
+from anchor.surface.legacy.types.router import LiteLLM_Params
 from bound.xor.secret.manager import get_secret_str, get_secret 
 from watcher.plane.emitter import get_emitter
-from anchor.model.router.provider.logic import (
+from anchor.model.provider.logic import (
     _matches_claude_model_pattern,
     handle_cohere_chat_model_custom_llm_provider,
     handle_anthropic_text_model_custom_llm_provider,

@@ -1,4 +1,5 @@
-# anchor.model.types.llms.anthropic
+# anchor.model.llm.types.anthropic
+## @lineage: anchor.model.types.llms.anthropic
 ## @lineage: anchor.router.model.types.llms.anthropic
 ## @lineage: bound.router.model.types.llms.anthropic
 ## @lineage: bound.channel.model.types.llms.anthropic
@@ -11,7 +12,7 @@ from enum import Enum
 from typing import Any, Dict, Iterable, List, Optional, Union
 from pydantic import BaseModel, ConfigDict
 from typing_extensions import Literal, NotRequired, Required, TypedDict
-from anchor.model.types.llms.openai import (
+from anchor.model.llm.types.openai import (
     ChatCompletionCachedContent,
     ChatCompletionRedactedThinkingBlock,
     ChatCompletionThinkingBlock,

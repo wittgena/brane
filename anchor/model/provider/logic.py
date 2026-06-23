@@ -1,5 +1,5 @@
-# anchor.model.router.provider.logic
-## @lineage: anchor.model.provider.logic
+# anchor.model.provider.logic
+## @lineage: anchor.model.router.provider.logic
 ## @lineage: anchor.router.model.provider.logic
 ## @lineage: bound.router.model.provider.logic
 ## @lineage: bound.channel.model.provider.logic

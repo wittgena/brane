@@ -14,9 +14,9 @@ else:
 from anchor.surface.legacy.mcp.header import MCPHeaderParser
 from anchor.surface.legacy.proxy.handler import MCPProxyHandler
 from anchor.surface.legacy.mcp.payload import MCPPayloadUtils
-from anchor.model.types.llms.openai import OutputItemDoneEvent
-from anchor.model.types.llms.openai import ResponsesAPIStreamEvents
-from anchor.model.types.llms.openai import (
+from anchor.model.llm.types.openai import OutputItemDoneEvent
+from anchor.model.llm.types.openai import ResponsesAPIStreamEvents
+from anchor.model.llm.types.openai import (
     BaseLiteLLMOpenAIResponseObject,
     MCPCallArgumentsDeltaEvent,
     MCPCallArgumentsDoneEvent,

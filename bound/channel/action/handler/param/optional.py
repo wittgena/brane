@@ -33,10 +33,10 @@ from anchor.base.chat.transform import BaseConfig
 from anchor.base.config.resolver import config
 from anchor.base.config.constants import DEFAULT_CHAT_COMPLETION_PARAM_VALUES
 
-from anchor.model.types.llms.anthropic import AnthropicThinkingParam
-from anchor.model.types.llms.openai import AllMessageValues, OpenAIWebSearchOptions
-from anchor.model.types.utils import Embedding, Function, LlmProviders
-from anchor.model.router.provider.manager import ProviderConfigManager
+from anchor.model.llm.types.anthropic import AnthropicThinkingParam
+from anchor.model.llm.types.openai import AllMessageValues, OpenAIWebSearchOptions
+from anchor.surface.legacy.types.utils import Embedding, Function, LlmProviders
+from anchor.model.provider.manager import ProviderConfigManager
 from anchor.model.info.support import get_supported_openai_params
 
 from watcher.plane.emitter import get_emitter

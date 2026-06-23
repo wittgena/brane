@@ -1,11 +1,5 @@
-# anchor.model.types.utils
-## @lineage: anchor.router.model.types.utils
-## @lineage: bound.router.model.types.utils
-## @lineage: bound.channel.model.types.utils
-## @lineage: channel.model.types.utils
-## @lineage: gate.model.types.utils
-## @lineage: gate.types.utils
-## @lineage: blm.types.utils
+# anchor.surface.legacy.types.utils
+## @lineage: anchor.model.types.utils
 import json
 import time
 from enum import Enum
@@ -22,18 +16,12 @@ from typing import (
 )
 
 from openai._models import BaseModel as OpenAIObject
-from openai.types.audio.transcription_create_params import FileTypes as FileTypes
-from openai.types.chat.chat_completion import ChatCompletion as ChatCompletion
 from openai.types.completion_usage import (
     CompletionTokensDetails,
     CompletionUsage,
     PromptTokensDetails,
 )
-from openai.types.moderation import Categories as Categories
-from openai.types.moderation import CategoryAppliedInputTypes as CategoryAppliedInputTypes
-from openai.types.moderation import CategoryScores as CategoryScores
 from openai.types.moderation_create_response import Moderation as Moderation
-from openai.types.moderation_create_response import ModerationCreateResponse as ModerationCreateResponse
 from pydantic import (
     BaseModel,
     ConfigDict,
@@ -47,13 +35,10 @@ from typing_extensions import Required, TypedDict
 EventHookType = Any
 
 from arch.proto.phase.gate import uuid
-from anchor.model.types.llms.base import BaseLiteLLMOpenAIResponseObject, LiteLLMPydanticObjectBase
-from anchor.model.types.mcp import MCPServerCostInfo
+from anchor.model.llm.types.base import BaseLiteLLMOpenAIResponseObject, LiteLLMPydanticObjectBase
 from bound.channel.support.helpers import map_finish_reason
-from anchor.model.types.agents import LiteLLMSendMessageResponse
-from anchor.model.types.llms.anthropic_messages.anthropic_response import AnthropicMessagesResponse
-from anchor.model.types.llms.base import HiddenParams
-from anchor.model.types.llms.openai import (
+from anchor.model.llm.types.base import HiddenParams
+from anchor.model.llm.types.openai import (
     AllMessageValues,
     Batch,
     ChatCompletionAnnotation,
@@ -73,13 +58,12 @@ from anchor.model.types.llms.openai import (
     ResponsesAPIResponse,
     WebSearchOptions,
 )
-from anchor.model.types.rerank import RerankResponse as RerankResponse
 if TYPE_CHECKING:
-    from anchor.model.types.vector_stores import VectorStoreSearchResponse
+    from anchor.surface.legacy.types.vector_stores import VectorStoreSearchResponse
 else:
     VectorStoreSearchResponse = Any
 
-from anchor.model.types.provider import LlmProviders
+from anchor.model.provider.types import LlmProviders
 
 def _generate_id():  # private helper function
     return "chatcmpl-" + str(uuid.uuid4())
@@ -2542,6 +2526,10 @@ class StandardLoggingUserAPIKeyMetadata(TypedDict):
     user_api_key_auth_metadata: Optional[Dict[str, str]]
 
 
+class MCPServerCostInfo(TypedDict, total=False):
+    default_cost_per_query: Optional[float]
+    tool_name_to_cost_per_query: Optional[Dict[str, float]]
+
 class StandardLoggingMCPToolCall(TypedDict, total=False):
     name: str
     """
@@ -3252,7 +3240,6 @@ LIST_BATCHES_SUPPORTED_PROVIDERS: frozenset[str] = frozenset(
     get_args(ListBatchesSupportedProvider)
 )
 
-
 class SearchProviders(str, Enum):
     """
     Enum for search provider types.
@@ -3490,20 +3477,6 @@ class DataResidency(Enum):
 
     US = "us"
     EU = "eu"
-
-
-LLMResponseTypes = Union[
-    ModelResponse,
-    EmbeddingResponse,
-    ImageResponse,
-    OpenAIFileObject,
-    LiteLLMBatch,
-    LiteLLMFineTuningJob,
-    AnthropicMessagesResponse,
-    ResponsesAPIResponse,
-    LiteLLMSendMessageResponse,
-]
-
 
 class DynamicPromptManagementParamLiteral(str, Enum):
     """

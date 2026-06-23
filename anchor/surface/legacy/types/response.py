@@ -1,16 +1,10 @@
-# anchor.model.types.responses.main
-## @lineage: anchor.router.model.types.responses.main
-## @lineage: bound.router.model.types.responses.main
-## @lineage: bound.channel.model.types.responses.main
-## @lineage: channel.model.types.responses.main
-## @lineage: gate.model.types.responses.main
-## @lineage: gate.types.responses.main
-## @lineage: blm.types.responses.main
+# anchor.surface.legacy.types.response
+## @lineage: anchor.model.types.responses.main
 from typing import List, Literal, Optional, Union
 from openai.types.responses.response_function_tool_call import ResponseFunctionToolCall
 from pydantic import PrivateAttr
 from typing_extensions import Any, List, Optional, TypedDict
-from anchor.model.types.llms.base import BaseLiteLLMOpenAIResponseObject
+from anchor.model.llm.types.base import BaseLiteLLMOpenAIResponseObject
 
 Phase = Optional[Literal["commentary", "final_answer"]]
 

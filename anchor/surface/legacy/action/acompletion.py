@@ -52,16 +52,16 @@ from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
 from bound.channel.support.helpers import safe_deep_copy, filter_internal_params
 from bound.channel.action.handler.asyncify import run_async_function
 from anchor.surface.legacy.mapping.exception import exception_type
-from anchor.model.types.utils import (
+from anchor.surface.legacy.types.utils import (
     CustomPricingLiteLLMParams,
     ModelResponseStream,
     RawRequestTypedDict,
     StreamingChoices,
 )
-from anchor.model.types.llms.anthropic import AnthropicThinkingParam
-from anchor.model.types.llms.openai import ChatCompletionAudioParam, ChatCompletionModality, ChatCompletionPredictionContentParam, OpenAIWebSearchOptions
+from anchor.model.llm.types.anthropic import AnthropicThinkingParam
+from anchor.model.llm.types.openai import ChatCompletionAudioParam, ChatCompletionModality, ChatCompletionPredictionContentParam, OpenAIWebSearchOptions
 from anchor.base.exception import Timeout
-from anchor.model.router.provider.resolver import get_llm_provider
+from anchor.model.provider.resolver import get_llm_provider
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter

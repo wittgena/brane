@@ -34,12 +34,12 @@ from bound.channel.support.identity import ResponseIdentityManager
 from bound.transport.stream.iterator import BaseResponsesAPIStreamingIterator
 from anchor.surface.legacy.mcp.stream import create_mcp_list_tools_events, MCPEnhancedStreamingIterator
 
-from anchor.model.types.responses.main import *
-from anchor.model.types.router import GenericLiteLLMParams
-from anchor.model.router.provider.manager import ProviderConfigManager
-from anchor.model.types.llms.openai import ResponseText
-from anchor.model.router.provider.resolver import get_llm_provider
-from anchor.model.types.llms.openai import (
+from anchor.surface.legacy.types.response import *
+from anchor.surface.legacy.types.router import GenericLiteLLMParams
+from anchor.model.provider.manager import ProviderConfigManager
+from anchor.model.llm.types.openai import ResponseText
+from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.llm.types.openai import (
     AllMessageValues,
     PromptObject,
     Reasoning,

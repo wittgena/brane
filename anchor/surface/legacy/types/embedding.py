@@ -1,4 +1,5 @@
-# anchor.model.types.embedding
+# anchor.surface.legacy.types.embedding
+## @lineage: anchor.model.types.embedding
 ## @lineage: anchor.router.model.types.embedding
 ## @lineage: bound.router.model.types.embedding
 ## @lineage: bound.channel.model.types.embedding

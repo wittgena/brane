@@ -22,9 +22,9 @@ from copy import deepcopy
 import json
 
 from anchor.switch.params import ResponsesAPIResponse, ModelResponse
-from anchor.model.types.utils import Choices
+from anchor.surface.legacy.types.utils import Choices
 from anchor.model.token.convert import convert_list_message_to_dict
-from anchor.model.types.responses.main import GenericResponseOutputItem, OutputText
+from anchor.surface.legacy.types.response import GenericResponseOutputItem, OutputText
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter

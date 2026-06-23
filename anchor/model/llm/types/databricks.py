@@ -1,4 +1,5 @@
-# anchor.model.types.llms.databricks
+# anchor.model.llm.types.databricks
+## @lineage: anchor.model.types.llms.databricks
 ## @lineage: anchor.router.model.types.llms.databricks
 ## @lineage: bound.router.model.types.llms.databricks
 ## @lineage: bound.channel.model.types.llms.databricks
@@ -18,7 +19,7 @@ from typing_extensions import (
     override,
     runtime_checkable,
 )
-from anchor.model.types.llms.openai import ChatCompletionToolCallChunk, ChatCompletionUsageBlock
+from anchor.model.llm.types.openai import ChatCompletionToolCallChunk, ChatCompletionUsageBlock
 
 
 class GenericStreamingChunk(TypedDict, total=False):

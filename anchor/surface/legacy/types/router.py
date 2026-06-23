@@ -1,11 +1,5 @@
-# anchor.model.types.router
-## @lineage: anchor.router.model.types.router
-## @lineage: bound.router.model.types.router
-## @lineage: bound.channel.model.types.router
-## @lineage: channel.model.types.router
-## @lineage: gate.model.types.router
-## @lineage: gate.types.router
-## @lineage: blm.types.router
+# anchor.surface.legacy.types.router
+## @lineage: anchor.model.types.router
 import datetime
 import enum
 from dataclasses import dataclass
@@ -14,16 +8,13 @@ import httpx
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 from typing_extensions import Required, TypedDict
 from arch.proto.phase.gate import uuid
-from anchor.model.types.completion import CompletionRequest
-from anchor.model.types.embedding import EmbeddingRequest
-from anchor.model.types.llms.openai import OpenAIFileObject
-from anchor.model.types.search import SearchProvider
-from anchor.model.types.utils import CustomPricingLiteLLMParams, ModelResponse
-
+from anchor.surface.legacy.types.completion import CompletionRequest
+from anchor.surface.legacy.types.embedding import EmbeddingRequest
+from anchor.model.llm.types.openai import OpenAIFileObject
+from anchor.surface.legacy.types.utils import CustomPricingLiteLLMParams, ModelResponse, SearchProviders
 
 class ConfigurableClientsideParamsCustomAuth(TypedDict):
     api_base: str
-
 
 CONFIGURABLE_CLIENTSIDE_AUTH_PARAMS = Optional[
     List[Union[str, ConfigurableClientsideParamsCustomAuth]]
@@ -573,7 +564,7 @@ class SearchToolLiteLLMParams(TypedDict, total=False):
     Search tools don't require a 'model' field like regular deployments.
     """
 
-    search_provider: Required[SearchProvider]
+    search_provider: Required[SearchProviders]
     api_key: Optional[str]
     api_base: Optional[str]
     timeout: Optional[Union[float, str, httpx.Timeout]]

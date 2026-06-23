@@ -1,23 +1,18 @@
 # bound.inter.llms.openai.openai
-## @lineage: bound.adapter.llama.llms.openai.openai
-## @lineage: bound.channel.bridge.llms.openai.openai
-## @lineage: channel.bridge.llms.openai.openai
-## @lineage: anchor.model.llms.openai.openai
-## @lineage: channel.llms.openai.openai
-## @lineage: gate.llms.openai.openai
-## @lineage: blm.llms.openai.openai
 import time
 import types
 from typing import (
     TYPE_CHECKING,
     Any,
     AsyncIterator,
+    Dict,
     Callable,
     Coroutine,
     Iterable,
     Iterator,
     List,
     Literal,
+    NamedTuple,
     Optional,
     Union,
     cast,
@@ -40,14 +35,13 @@ from anchor.base.response.iterator import BaseModelResponseIterator
 from anchor.base.chat.transform import BaseConfig
 from anchor.base.exception import BaseLLMException
 from anchor.switch.params import ModelResponse, ModelResponseStream
+from anchor.model.provider.types import LlmProviders
+from anchor.surface.legacy.types.utils import EmbeddingResponse, ImageResponse, LiteLLMBatch
+from anchor.model.llm.types.openai import *
 
-from anchor.model.types.file import FileContentStreamingResult
-from anchor.model.types.provider import LlmProviders
-from anchor.model.types.utils import EmbeddingResponse, ImageResponse, LiteLLMBatch
 from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
 from bound.channel.support.convert import convert_to_model_response_object
 from bound.transport.stream.wrapper import CustomStreamWrapper
-from anchor.model.types.llms.openai import *
 from bound.channel.action.base import BaseLLM
 from bound.inter.llms.openai.common_utils import (
     BaseOpenAILLM,
@@ -58,8 +52,13 @@ from bound.inter.llms.openai.common_utils import (
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("llms.openai")
-
 CustomLogger = Any
+FileContentProvider = Literal["openai", "azure", "vertex_ai", "bedrock", "hosted_vllm", "anthropic", "manus"]
+
+class FileContentStreamingResult(NamedTuple):
+    stream_iterator: Union[Iterator[bytes], AsyncIterator[bytes]]
+    headers: Dict[str, str]
+
 
 class MistralEmbeddingConfig:
     """

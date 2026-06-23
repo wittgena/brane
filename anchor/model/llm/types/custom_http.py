@@ -1,4 +1,5 @@
-# anchor.model.types.llms.custom_http
+# anchor.model.llm.types.custom_http
+## @lineage: anchor.model.types.llms.custom_http
 ## @lineage: anchor.router.model.types.llms.custom_http
 ## @lineage: bound.router.model.types.llms.custom_http
 ## @lineage: bound.channel.model.types.llms.custom_http

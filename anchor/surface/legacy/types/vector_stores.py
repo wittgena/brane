@@ -1,20 +1,11 @@
-# anchor.model.types.vector_stores
-## @lineage: anchor.router.model.types.vector_stores
-## @lineage: bound.router.model.types.vector_stores
-## @lineage: bound.channel.model.types.vector_stores
-## @lineage: channel.model.types.vector_stores
-## @lineage: gate.model.types.vector_stores
-## @lineage: gate.types.vector_stores
-## @lineage: blm.types.vector_stores
-## @lineage: gov.blm.types.vector_stores
+# anchor.surface.legacy.types.vector_stores
+## @lineage: anchor.model.types.vector_stores
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Literal, Optional, Tuple, Union
-
 from pydantic import BaseModel
 from typing_extensions import TypedDict
-
 
 class SupportedVectorStoreIntegrations(str, Enum):
     """Supported vector store integrations."""
@@ -122,18 +113,6 @@ class VectorStoreSearchRequest(VectorStoreSearchOptionalRequestParams, total=Fal
 
 
 class VertexSearchDataStoreExtraBody(TypedDict, total=False):
-    """
-    Native Discovery Engine ``SearchRequest`` fields callers may forward via
-    ``extra_body`` when searching a Vertex AI Search **data store** serving
-    config (``.../dataStores/{id}/servingConfigs/default_config``).
-
-    The data store is scoped by the request URL path, so target-selecting
-    fields (``servingConfig``, ``branch``, ``entity``) are intentionally
-    omitted and rejected by the transformation layer. Engine/app-only fields
-    such as ``dataStoreSpecs`` and ``numResultsPerDataStore`` live on
-    ``VertexSearchEngineExtraBody`` instead.
-    """
-
     query: str
     pageSize: int
     pageToken: str

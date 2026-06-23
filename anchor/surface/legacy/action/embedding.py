@@ -34,15 +34,15 @@ from bound.transport.stream.wrapper import CustomStreamWrapper
 
 from bound.channel.action.handler.param.litellm import get_litellm_params
 from anchor.surface.legacy.mapping.exception import exception_type
-from anchor.model.types.utils import all_litellm_params, EmbeddingResponse
-from anchor.model.types.utils import (
+from anchor.surface.legacy.types.utils import all_litellm_params, EmbeddingResponse
+from anchor.surface.legacy.types.utils import (
     CustomPricingLiteLLMParams,
     ModelResponseStream,
     RawRequestTypedDict,
     StreamingChoices,
 )
 from bound.channel.action.handler.param.embedding import get_optional_params_embeddings
-from anchor.model.router.provider.resolver import get_llm_provider
+from anchor.model.provider.resolver import get_llm_provider
 from anchor.model.token.counter import token_counter
 from bound.inter.llms.openai.embedding import OpenAIEmbedding
 from bound.xor.secret.manager import get_secret, get_secret_str

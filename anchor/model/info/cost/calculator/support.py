@@ -18,8 +18,8 @@ from anchor.base.config.constants import (
 )
 from anchor.model.info.cost.calculator.transform import TranscriptionUsageObjectTransformation
 from anchor.model.info.cost.calculator.utils import generic_cost_per_token
-from anchor.model.router.provider.resolver import get_llm_provider
-from anchor.model.types.llms.openai import (
+from anchor.model.provider.resolver import get_llm_provider
+from anchor.model.llm.types.openai import (
     HttpxBinaryResponseContent,
     OpenAIModerationResponse,
     OpenAIRealtimeStreamList,
@@ -28,9 +28,9 @@ from anchor.model.types.llms.openai import (
     ResponseAPIUsage,
     ResponsesAPIResponse,
 )
-from anchor.model.types.rerank import RerankBilledUnits, RerankResponse
-from anchor.model.types.utils import CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject, LlmProvidersSet, StandardBuiltInToolsParams, Usage
-from anchor.model.types.utils import CallTypes, CostPerToken, EmbeddingResponse, ImageResponse, TextCompletionResponse, TranscriptionResponse
+from anchor.surface.legacy.types.rerank import RerankBilledUnits, RerankResponse
+from anchor.surface.legacy.types.utils import CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject, LlmProvidersSet, StandardBuiltInToolsParams, Usage
+from anchor.surface.legacy.types.utils import CallTypes, CostPerToken, EmbeddingResponse, ImageResponse, TextCompletionResponse, TranscriptionResponse
 from anchor.switch.params import ModelResponse, ModelResponseStream
 from watcher.plane.emitter import get_emitter
 
@@ -429,7 +429,7 @@ class BaseTokenUsageProcessor:
         """
         Combine multiple Usage objects into a single Usage object, checking model keys for nested values.
         """
-        from anchor.model.types.utils import (
+        from anchor.surface.legacy.types.utils import (
             CompletionTokensDetailsWrapper,
             PromptTokensDetailsWrapper,
             Usage,

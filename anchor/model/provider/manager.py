@@ -1,5 +1,5 @@
-# anchor.model.router.provider.manager
-## @lineage: anchor.model.provider.manager
+# anchor.model.provider.manager
+## @lineage: anchor.model.router.provider.manager
 ## @lineage: anchor.router.model.provider.manager
 ## @lineage: bound.router.model.provider.manager
 ## @lineage: bound.channel.model.provider.manager
@@ -10,9 +10,9 @@ from typing import Callable, Optional, Union
 
 from anchor.base.config.resolver import config
 from anchor.base.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
-from anchor.model.types.provider import LlmProviders
+from anchor.model.provider.types import LlmProviders
 from anchor.base.model import BaseLLMModelInfo
-from anchor.model.types.utils import LlmProvidersSet, ProviderSpecificModelInfo
+from anchor.surface.legacy.types.utils import LlmProvidersSet, ProviderSpecificModelInfo
 
 class ProviderConfigManager:
     _PROVIDER_CONFIG_MAP: Optional[dict[LlmProviders, tuple[Callable, bool]]] = None

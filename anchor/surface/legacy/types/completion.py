@@ -1,11 +1,5 @@
-# anchor.model.types.completion
-## @lineage: anchor.router.model.types.completion
-## @lineage: bound.router.model.types.completion
-## @lineage: bound.channel.model.types.completion
-## @lineage: channel.model.types.completion
-## @lineage: gate.model.types.completion
-## @lineage: gate.types.completion
-## @lineage: blm.types.completion
+# anchor.surface.legacy.types.completion
+## @lineage: anchor.model.types.completion
 from typing import Iterable, List, Optional, Union
 from pydantic import BaseModel, ConfigDict
 from typing_extensions import Literal, Required, TypedDict
