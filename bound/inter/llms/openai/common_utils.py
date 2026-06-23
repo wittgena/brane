@@ -1,10 +1,4 @@
 # bound.inter.llms.openai.common_utils
-## @lineage: bound.adapter.llama.llms.openai.common_utils
-## @lineage: bound.channel.bridge.llms.openai.common_utils
-## @lineage: channel.bridge.llms.openai.common_utils
-## @lineage: anchor.model.llms.openai.common_utils
-## @lineage: channel.llms.openai.common_utils
-## @lineage: gate.llms.openai.common_utils
 import hashlib
 import inspect
 import json
@@ -25,14 +19,14 @@ from typing import (
 import httpx
 import openai
 from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI
-from bound.client.transport.mock_transport import MockOpenAITransport
+from bound.bridge.transport.mock import MockOpenAITransport
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession
 
 from anchor.base.config.resolver import config
 from anchor.base.exception import BaseLLMException
-from bound.client.transport.http_handler import (
+from bound.bridge.action.handler.http import (
     _DEFAULT_TTL_FOR_HTTPX_CLIENTS,
     AsyncHTTPHandler,
     get_ssl_configuration,

@@ -9,7 +9,7 @@ import httpx
 from litellm.llms.azure.exception_mapping import AzureOpenAIExceptionMapping
 
 from anchor.base.config.resolver import config
-from bound.client.api.get_api_base import get_api_base
+from bound.bridge.api.get_api_base import get_api_base
 from bound.xor.secret.redact import redact_string
 from anchor.model.types.provider import LlmProviders
 from anchor.base.exception import (
