@@ -1,4 +1,5 @@
-# anchor.surface.legacy.mapping.exception
+# anchor.surface.legacy.types.mapping.exception
+## @lineage: anchor.surface.legacy.mapping.exception
 ## @lineage: anchor.base.mapping.exception
 ## @lineage: anchor.mapping.exception
 ## @lineage: channel.mapping.exception
@@ -12,7 +13,7 @@ from litellm.llms.azure.exception_mapping import AzureOpenAIExceptionMapping
 from anchor.base.config.resolver import config
 from bound.channel.api.get_api_base import get_api_base
 from bound.xor.secret.redact import redact_string
-from anchor.model.provider.types import LlmProviders
+from anchor.model.provider.types import ProviderTypes
 from anchor.base.exception import (
     APIConnectionError,
     APIError,
@@ -1297,9 +1298,9 @@ def exception_type(  # type: ignore  # noqa: PLR0915
                             exception_status_code=original_exception.status_code,
                         )
             elif (
-                custom_llm_provider == LlmProviders.VERTEX_AI
-                or custom_llm_provider == LlmProviders.VERTEX_AI_BETA
-                or custom_llm_provider == LlmProviders.GEMINI
+                custom_llm_provider == ProviderTypes.VERTEX_AI
+                or custom_llm_provider == ProviderTypes.VERTEX_AI_BETA
+                or custom_llm_provider == ProviderTypes.GEMINI
             ):
                 if (
                     "Vertex AI API has not been used in project" in error_str

@@ -1,7 +1,4 @@
 # bound.channel.action.handler.completor
-## @lineage: bound.bridge.action.handler.completor
-## @lineage: bound.client.completion
-## @lineage: bound.handler.completion
 import json
 from dataclasses import dataclass, field
 from typing import Any, Dict, Optional, Tuple, Union
@@ -14,7 +11,7 @@ from anchor.base.config.resolver import config
 from bound.channel.action.handler.http import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from anchor.model.provider.manager import ProviderConfigManager
-from anchor.model.provider.types import LlmProviders
+from anchor.model.provider.types import ProviderTypes
 
 from watcher.plane.emitter import get_emitter
 
@@ -96,7 +93,7 @@ class CompletionHandler:
         extra_body = ctx.optional_params.pop("extra_body", None)
 
         ctx.provider_config = ctx.provider_config or ProviderConfigManager.get_provider_chat_config(
-            model=ctx.model, provider=LlmProviders(ctx.custom_llm_provider)
+            model=ctx.model, provider=ProviderTypes(ctx.custom_llm_provider)
         )
         if not ctx.provider_config:
             log.error(f"[Prepare] Provider config 획득 실패: {ctx.model} / {ctx.custom_llm_provider}")
@@ -137,7 +134,7 @@ class CompletionHandler:
         if not isinstance(ctx.client, AsyncHTTPHandler):
             log.debug("[AsyncFlow] 새로운 Async HTTP Client를 생성합니다.")
             client = get_async_httpx_client(
-                llm_provider=LlmProviders(ctx.custom_llm_provider),
+                llm_provider=ProviderTypes(ctx.custom_llm_provider),
                 params={"ssl_verify": ctx.litellm_params.get("ssl_verify", None)},
                 shared_session=ctx.shared_session,
             )

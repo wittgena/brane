@@ -1,10 +1,5 @@
 # bound.inter.llms.llama_cpp.llama_utils
-## @lineage: bound.adapter.llama.llms.llama_cpp.llama_utils
-## @lineage: bound.channel.bridge.llms.llama_cpp.llama_utils
-## @lineage: channel.bridge.llms.llama_cpp.llama_utils
-## @lineage: bridge.llama.llms.llama_cpp.llama_utils
 from typing import List, Optional, Sequence
-
 from llama_index.core.base.llms.types import ChatMessage, MessageRole
 
 BOS, EOS = "<s>", "</s>"

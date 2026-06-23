@@ -1,12 +1,4 @@
 # anchor.model.provider.logic
-## @lineage: anchor.model.router.provider.logic
-## @lineage: anchor.router.model.provider.logic
-## @lineage: bound.router.model.provider.logic
-## @lineage: bound.channel.model.provider.logic
-## @lineage: channel.model.provider.logic
-## @lineage: channel.provider.logic
-## @lineage: gate.model.provider.logic
-## @lineage: gate.llms.provider.logic
 import re
 from typing import Optional, Tuple
 from anchor.base.config.resolver import config

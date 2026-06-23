@@ -1,6 +1,4 @@
 # bound.channel.action.handler.http
-## @lineage: bound.bridge.action.handler.http
-## @lineage: bound.client.transport.http_handler
 import asyncio
 import concurrent.futures
 import inspect
@@ -47,11 +45,11 @@ from anchor.base.config.constants import (
 )
 
 from anchor.model.llm.types.custom_http import VerifyTypes, httpxSpecialProvider
+from anchor.model.provider.types import ProviderTypes
+
 if TYPE_CHECKING:
-    from anchor.model.provider.types import LlmProviders
     from bound.transport.aiohttp import LiteLLMAiohttpTransport
 else:
-    LlmProviders = Any
     LiteLLMAiohttpTransport = Any
 
 log = get_emitter("gate.http_handler")
@@ -753,7 +751,7 @@ class HTTPHandler:
 _HTTPX_CLIENT_CACHE: Dict[str, Any] = {}
 
 def get_async_httpx_client(
-    llm_provider: Union[LlmProviders, httpxSpecialProvider],
+    llm_provider: Union[ProviderTypes, httpxSpecialProvider],
     params: Optional[dict] = None,
     shared_session: Optional["ClientSession"] = None,
 ) -> AsyncHTTPHandler:

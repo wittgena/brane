@@ -1,8 +1,4 @@
 # anchor.surface.legacy.mcp.header
-## @lineage: bound.adapter.litellm.mcp.header
-## @lineage: bound.legacy.mcp.header
-## @lineage: anchor.spec.mcp.legacy.header
-## @lineage: bound.client.mcp.header
 import os
 from typing import Dict, Optional
 from starlette.datastructures import Headers

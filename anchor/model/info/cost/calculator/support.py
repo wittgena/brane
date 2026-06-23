@@ -1,9 +1,4 @@
 # anchor.model.info.cost.calculator.support
-## @lineage: anchor.model.cost.calculator.support
-## @lineage: anchor.router.model.cost.calculator.support
-## @lineage: bound.router.model.cost.calculator.support
-## @lineage: bound.channel.model.cost.calculator.support
-## @lineage: channel.model.cost.calculator.support
 import time
 from typing import TYPE_CHECKING, Any, List, Literal, Optional, Tuple, Union, cast
 from httpx import Response
@@ -29,10 +24,12 @@ from anchor.model.llm.types.openai import (
     ResponsesAPIResponse,
 )
 from anchor.surface.legacy.types.rerank import RerankBilledUnits, RerankResponse
-from anchor.surface.legacy.types.utils import CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject, LlmProvidersSet, StandardBuiltInToolsParams, Usage
+from anchor.surface.legacy.types.utils import CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject, StandardBuiltInToolsParams, Usage
 from anchor.surface.legacy.types.utils import CallTypes, CostPerToken, EmbeddingResponse, ImageResponse, TextCompletionResponse, TranscriptionResponse
 from anchor.switch.params import ModelResponse, ModelResponseStream
 from watcher.plane.emitter import get_emitter
+
+from anchor.model.provider.manager import ProviderTypesSet
 
 log = get_emitter("cost.calculator")
 
@@ -239,7 +236,7 @@ def _model_contains_known_llm_provider(model: str) -> bool:
     Check if the model contains a known llm provider
     """
     _provider_prefix = model.split("/")[0]
-    return _provider_prefix in LlmProvidersSet
+    return _provider_prefix in ProviderTypesSet
 
 
 def _get_response_model(completion_response: Any) -> Optional[str]:

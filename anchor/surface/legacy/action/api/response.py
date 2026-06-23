@@ -1,4 +1,5 @@
-# anchor.surface.legacy.api.response
+# anchor.surface.legacy.action.api.response
+## @lineage: anchor.surface.legacy.api.response
 ## @lineage: bound.bridge.api.response
 ## @lineage: bound.client.response
 ## @lineage: bound.handler.response
@@ -241,8 +242,8 @@ def _responses_try_dispatch_mcp_gateway(
     _is_async: bool,
 ) -> Optional[Any]:
     """Return a response when MCP gateway handles the call; otherwise None."""
-    from anchor.surface.legacy.proxy.handler import MCPProxyHandler
-    if not MCPProxyHandler._should_use_litellm_mcp_gateway(tools=tools):
+    from bound.adapter.legacy.mcp.handler import LegacyMCPHandler
+    if not LegacyMCPHandler._should_use_litellm_mcp_gateway(tools=tools):
         return None
     mcp_call_kwargs = {
         "input": input,

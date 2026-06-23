@@ -1,9 +1,4 @@
 # anchor.surface.legacy.mcp.stream
-## @lineage: bound.adapter.litellm.mcp.stream
-## @lineage: bound.legacy.mcp.stream
-## @lineage: anchor.spec.mcp.legacy.stream
-## @lineage: bound.client.mcp.stream
-## @lineage: anchor.bound.handler.support.mcp.stream
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union, cast
 from starlette.datastructures import Headers
 if TYPE_CHECKING:
@@ -12,7 +7,7 @@ else:
     MCPTool = Any
 
 from anchor.surface.legacy.mcp.header import MCPHeaderParser
-from anchor.surface.legacy.proxy.handler import MCPProxyHandler
+from bound.adapter.legacy.mcp.handler import LegacyMCPHandler
 from anchor.surface.legacy.mcp.payload import MCPPayloadUtils
 from anchor.model.llm.types.openai import OutputItemDoneEvent
 from anchor.model.llm.types.openai import ResponsesAPIStreamEvents
@@ -374,7 +369,7 @@ class MCPEnhancedStreamingIterator(BaseResponsesAPIStreamingIterator):
 
     def _should_auto_execute_tools(self) -> bool:
         """Check if tools should be auto-executed"""
-        return MCPProxyHandler._should_auto_execute_tools(self.mcp_tools_with_litellm_proxy)
+        return LegacyMCPHandler._should_auto_execute_tools(self.mcp_tools_with_litellm_proxy)
 
     def __aiter__(self):
         return self
@@ -556,7 +551,7 @@ class MCPEnhancedStreamingIterator(BaseResponsesAPIStreamingIterator):
         return chunk
 
     async def _create_initial_response_iterator(self) -> None:
-        from anchor.surface.legacy.api.aresponse import aresponses
+        from anchor.surface.legacy.action.api.aresponse import aresponses
         """Create the initial response iterator by making the first LLM call"""
         try:
             # Make the initial response API call - but avoid the MCP wrapper
@@ -639,7 +634,7 @@ class MCPEnhancedStreamingIterator(BaseResponsesAPIStreamingIterator):
                     self.tool_execution_events.extend(call_events[:-1])
 
             # Execute the tools
-            tool_results = await MCPProxyHandler._execute_tool_calls(
+            tool_results = await LegacyMCPHandler._execute_tool_calls(
                 tool_server_map=self.tool_server_map,
                 tool_calls=tool_calls,
                 user_api_key_auth=self.user_api_key_auth,
@@ -709,7 +704,7 @@ class MCPEnhancedStreamingIterator(BaseResponsesAPIStreamingIterator):
             self.tool_results = []
 
     async def _create_follow_up_iterator(self) -> None:
-        from anchor.surface.legacy.api.aresponse import aresponses
+        from anchor.surface.legacy.action.api.aresponse import aresponses
         """Create the follow-up response iterator with tool results"""
         if not self.collected_response or not hasattr(self, "tool_results"):
             return

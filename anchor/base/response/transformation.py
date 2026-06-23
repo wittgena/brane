@@ -1,8 +1,4 @@
 # anchor.base.response.transformation
-## @lineage: anchor.response.transformation
-## @lineage: anchor.base.responses.transformation
-## @lineage: channel.llms.base.responses.transformation
-## @lineage: gate.llms.base.responses.transformation
 import types
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union, cast, Literal
@@ -19,7 +15,7 @@ from anchor.model.llm.types.openai import (
 )
 from anchor.surface.legacy.types.response import DeleteResponseResult
 from anchor.surface.legacy.types.router import GenericLiteLLMParams
-from anchor.model.provider.types import LlmProviders
+from anchor.model.provider.types import ProviderTypes
 from anchor.base.exception import BaseLLMException
 
 class BaseResponsesAPIConfig(ABC):
@@ -28,7 +24,7 @@ class BaseResponsesAPIConfig(ABC):
 
     @property
     @abstractmethod
-    def custom_llm_provider(self) -> LlmProviders:
+    def custom_llm_provider(self) -> ProviderTypes:
         pass
 
     @classmethod

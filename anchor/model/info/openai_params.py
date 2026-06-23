@@ -1,16 +1,10 @@
 # anchor.model.info.openai_params
-## @lineage: anchor.router.model.info.openai_params
-## @lineage: bound.router.model.info.openai_params
-## @lineage: bound.channel.model.info.openai_params
-## @lineage: channel.model.info.openai_params
-## @lineage: channel.model.info.support
 from typing import Optional, Literal, List, Dict
 from anchor.base.config.resolver import config
 from anchor.model.provider.resolver import get_llm_provider
 from anchor.model.provider.manager import ProviderConfigManager
 from anchor.base.exception import BadRequestError
-from anchor.surface.legacy.types.utils import LlmProviders, LlmProvidersSet
-
+from anchor.model.provider.types import ProviderTypes, ProviderTypesSet
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("info.openai_params")
@@ -29,16 +23,16 @@ def get_supported_openai_params(
         except BadRequestError:
             return None
 
-    if custom_llm_provider in LlmProvidersSet:
+    if custom_llm_provider in ProviderTypesSet:
         provider_config = ProviderConfigManager.get_provider_chat_config(
             model=model,
-            provider=LlmProviders(custom_llm_provider),
+            provider=ProviderTypes(custom_llm_provider),
             base_model=base_model,
         )
-    elif custom_llm_provider.split("/")[0] in LlmProvidersSet:
+    elif custom_llm_provider.split("/")[0] in ProviderTypesSet:
         provider_config = ProviderConfigManager.get_provider_chat_config(
             model=model,
-            provider=LlmProviders(custom_llm_provider.split("/")[0]),
+            provider=ProviderTypes(custom_llm_provider.split("/")[0]),
             base_model=base_model,
         )
     else:
@@ -61,15 +55,9 @@ def get_supported_openai_params(
         return config.AnthropicConfig().get_supported_openai_params(model=model)
     elif custom_llm_provider == "openai":
         if request_type == "transcription":
-            transcription_provider_config = (
-                ProviderConfigManager.get_provider_audio_transcription_config(
-                    model=model, provider=LlmProviders.OPENAI
-                )
-            )
+            transcription_provider_config = ProviderConfigManager.get_provider_audio_transcription_config(model=model, provider=ProviderTypes.OPENAI)
             if isinstance(transcription_provider_config, config.OpenAIGPTAudioTranscriptionConfig):
-                return transcription_provider_config.get_supported_openai_params(
-                    model=model
-                )
+                return transcription_provider_config.get_supported_openai_params(model=model)
             else:
                 raise ValueError(
                     f"Unsupported provider config: {transcription_provider_config} for model: {model}"

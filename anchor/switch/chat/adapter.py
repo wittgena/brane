@@ -1,9 +1,6 @@
 # anchor.switch.chat.adapter
-## @lineage: anchor.router.switch.chat.adapter
-## @lineage: channel.switch.chat.adapter
-## @lineage: channel.chat.adapter
 from typing import AsyncGenerator, Protocol, Any
-from anchor.surface.legacy.action.acompletion import acompletion
+from anchor.surface.legacy.action.completion import acompletion
 from anchor.switch.params import ModelResponse
 
 class SimpleMessage(dict):

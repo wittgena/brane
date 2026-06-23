@@ -1,8 +1,5 @@
-# xphi.manager.rule.synth
-## @lineage: xphi.flow.rule.synth
-## @lineage: xphi.rule.synth
-## @lineage: anchor.rule.synth
-## @lineage: bridge.rule.synth
+# xphi.flow.trans.synth
+## @lineage: xphi.manager.rule.synth
 import os
 import sys
 import ast
@@ -19,7 +16,7 @@ SELF_ROOT = find_current_self()
 WORKSPACE_ROOT = resolve_path("workspace")
 PATH = "bridge.llama"
 
-class MutationRuleSynthesizer:
+class RuleSynthesizer:
     """
     단순 Diff 추출을 넘어, 원본과 변이된 코드 사이의 '심볼(Symbol)'을 추적하여
     1:1 및 1:N 패키지 분할 상황을 모두 방어할 수 있는 Rule Schema를 합성합니다.
@@ -126,7 +123,7 @@ class MutationRuleSynthesizer:
 
 if __name__ == "__main__":
     base_target = WORKSPACE_ROOT if 'WORKSPACE_ROOT' in globals() else Path("./")
-    synthesizer = MutationRuleSynthesizer(
+    synthesizer = RuleSynthesizer(
         original_base_path=str(base_target / "temp_llama_clone"), 
         mutated_base_path=str(SELF_ROOT / "brane")
     )

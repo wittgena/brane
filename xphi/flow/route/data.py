@@ -1,4 +1,5 @@
-# anchor.model.router.data
+# xphi.flow.route.data
+## @lineage: anchor.model.router.data
 ## @lineage: bound.proxy.router.data
 ## @lineage: anchor.router.data
 ## @lineage: bound.router.data
@@ -7,7 +8,7 @@ import importlib
 import inspect
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from xphi.flow.scanner.reader import ReaderScanner
+from xphi.flow.scan.reader import ReaderScanner
 
 DEFAULT_REGISTRY = {
     "pdf": {

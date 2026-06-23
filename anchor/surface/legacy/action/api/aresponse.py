@@ -1,8 +1,5 @@
-# anchor.surface.legacy.api.aresponse
-## @lineage: bound.bridge.api.aresponse
-## @lineage: bound.client.aresponse
-## @lineage: bound.handler.aresponse
-## @lineage: bound.channel.handler.aresponse
+# anchor.surface.legacy.action.api.aresponse
+## @lineage: anchor.surface.legacy.api.aresponse
 import asyncio
 import contextvars
 from functools import partial
@@ -32,8 +29,8 @@ from bound.channel.wrapper import client
 from bound.channel.api.request import ResponsesAPIRequestUtils
 from bound.channel.support.identity import ResponseIdentityManager
 from bound.transport.stream.iterator import BaseResponsesAPIStreamingIterator
+from anchor.model.provider.types import ProviderTypes
 from anchor.surface.legacy.mcp.stream import create_mcp_list_tools_events, MCPEnhancedStreamingIterator
-
 from anchor.surface.legacy.types.response import *
 from anchor.surface.legacy.types.router import GenericLiteLLMParams
 from anchor.model.provider.manager import ProviderConfigManager
@@ -98,7 +95,7 @@ async def aresponses_api_with_mcp(
     custom_llm_provider: Optional[str] = None,
     **kwargs,
 ) -> Union[ResponsesAPIResponse, BaseResponsesAPIStreamingIterator]:
-    from anchor.surface.legacy.proxy.handler import MCPProxyHandler
+    from bound.adapter.legacy.mcp.handler import LegacyMCPHandler
     (
         mcp_tools_with_litellm_proxy,
         other_tools,
@@ -121,14 +118,14 @@ async def aresponses_api_with_mcp(
     (
         original_mcp_tools,
         tool_server_map,
-    ) = await MCPProxyHandler._process_mcp_tools_without_openai_transform(
+    ) = await LegacyMCPHandler._process_mcp_tools_without_openai_transform(
         user_api_key_auth=user_api_key_auth,
         mcp_tools_with_litellm_proxy=mcp_tools_with_litellm_proxy,
         litellm_trace_id=kwargs.get("litellm_trace_id"),
         mcp_auth_header=mcp_auth_header,
         mcp_server_auth_headers=mcp_server_auth_headers,
     )
-    openai_tools = MCPProxyHandler._transform_mcp_tools_to_openai(
+    openai_tools = LegacyMCPHandler._transform_mcp_tools_to_openai(
         original_mcp_tools
     )
 
@@ -172,7 +169,7 @@ async def aresponses_api_with_mcp(
             pre_processed_mcp_tools=original_mcp_tools,
         )
 
-        return MCPProxyHandler._create_mcp_streaming_response(
+        return LegacyMCPHandler._create_mcp_streaming_response(
             input=input,
             model=model,
             all_tools=all_tools,
@@ -187,7 +184,7 @@ async def aresponses_api_with_mcp(
     # Determine if we should auto-execute tools
     should_auto_execute = bool(
         mcp_tools_with_litellm_proxy
-    ) and MCPProxyHandler._should_auto_execute_tools(mcp_tools_with_litellm_proxy=mcp_tools_with_litellm_proxy)
+    ) and LegacyMCPHandler._should_auto_execute_tools(mcp_tools_with_litellm_proxy=mcp_tools_with_litellm_proxy)
 
     # Prepare parameters for the initial call
     initial_call_params = MCPPayloadUtils._prepare_initial_call_params(
@@ -229,7 +226,7 @@ async def aresponses_api_with_mcp(
                 tools=tools,
             )
 
-            tool_results = await MCPProxyHandler._execute_tool_calls(
+            tool_results = await LegacyMCPHandler._execute_tool_calls(
                 tool_server_map=tool_server_map,
                 tool_calls=tool_calls,
                 user_api_key_auth=user_api_key_auth,
@@ -257,12 +254,12 @@ async def aresponses_api_with_mcp(
                 tool_execution_events = []
                 if stream:
                     tool_execution_events = (
-                        MCPProxyHandler._create_tool_execution_events(
+                        LegacyMCPHandler._create_tool_execution_events(
                             tool_calls=tool_calls, tool_results=tool_results
                         )
                     )
 
-                final_response = await MCPProxyHandler._make_follow_up_call(
+                final_response = await LegacyMCPHandler._make_follow_up_call(
                     follow_up_input=follow_up_input,
                     model=model,
                     all_tools=all_tools,
@@ -292,7 +289,7 @@ async def aresponses_api_with_mcp(
                     (
                         mcp_tools_for_output,
                         _,
-                    ) = await MCPProxyHandler._process_mcp_tools_without_openai_transform(
+                    ) = await LegacyMCPHandler._process_mcp_tools_without_openai_transform(
                         user_api_key_auth=user_api_key_auth,
                         mcp_tools_with_litellm_proxy=mcp_tools_with_litellm_proxy,
                         mcp_auth_header=mcp_auth_header,
@@ -862,7 +859,7 @@ async def _aresponses_websocket(
         responses_api_provider_config = (
             ProviderConfigManager.get_provider_responses_api_config(
                 model=model,
-                provider=litellm.LlmProviders(_custom_llm_provider),
+                provider=ProviderTypes(_custom_llm_provider),
             )
         )
 

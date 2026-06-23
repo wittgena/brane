@@ -1,12 +1,4 @@
 # anchor.model.provider.resolver
-## @lineage: anchor.model.router.provider.resolver
-## @lineage: anchor.router.model.provider.resolver
-## @lineage: bound.router.model.provider.resolver
-## @lineage: bound.channel.model.provider.resolver
-## @lineage: channel.model.provider.resolver
-## @lineage: channel.provider.resolver
-## @lineage: gate.model.provider.resolver
-## @lineage: gate.llms.provider.resolver
 import re
 from typing import Optional, Tuple, Dict, Callable
 from urllib.parse import urlparse

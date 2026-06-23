@@ -1,4 +1,5 @@
-# xphi.flow.scanner.llm
+# xphi.flow.llm.scanner
+## @lineage: xphi.flow.scanner.llm
 ## @lineage: xphi.manager.scanner.llm
 import os
 import sys
@@ -15,7 +16,7 @@ from watcher.plane.emitter import get_emitter
 from arch.contract.registry.unified import contract
 from phase.runtime.cli.executor import CliTaskAdapter, parse_local, dispatch_cli
 
-log = get_emitter("scanner.llm", phase="SYSTEM")
+log = get_emitter("llm.scanner", phase="SYSTEM")
 
 class LLMScanner:
     """Dual-mode LLM scanner for both local installed modules and remote integration catalogs"""
@@ -159,7 +160,7 @@ def entry_task(args):
 
 
 @contract.cli(
-    name="scanner.llm", 
+    name="llm.scanner", 
     args=["--target", "--base-path"],
     tags=["llama", "scanner", "llm"],
     entry="entry_task" 
@@ -172,7 +173,7 @@ def main(args=None):
     if bound_args.local:
         entry_task(remain).run()
     else:
-        dispatch_cli("scanner.llm", entry_task, __file__)
+        dispatch_cli("llm.scanner", entry_task, __file__)
 
 if __name__ == "__main__":
     main()

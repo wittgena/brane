@@ -1,9 +1,5 @@
-# anchor.surface.legacy.proxy.handler
-## @lineage: bound.adapter.litellm.proxy.handler
-## @lineage: bound.legacy.proxy.handler
-## @lineage: anchor.spec.mcp.handler
-## @lineage: bound.proxy.mcp
-## @lineage: bound.client.mcp.proxy
+# bound.adapter.legacy.mcp.handler
+## @lineage: anchor.surface.legacy.proxy.handler
 import re
 from datetime import datetime
 from typing import (
@@ -24,7 +20,7 @@ from anchor.switch.params import ResponsesAPIResponse
 from anchor.surface.legacy.types.utils import CallTypes, StandardLoggingMCPToolCall
 
 from anchor.surface.legacy.proxy.reverse import global_mcp_server_manager, LegacyLitellmToolsManager
-from anchor.surface.legacy.proxy.logger import LegacyLitellmLogManager
+from anchor.surface.legacy.proxy.logger import LegacyLogManager
 from anchor.surface.legacy.mcp.tool import transform_mcp_tool_to_openai_responses_api_tool, transform_mcp_tool_to_openai_tool
 from anchor.surface.legacy.mcp.payload import MCPPayloadUtils
 from bound.transport.stream.iterator import BaseResponsesAPIStreamingIterator
@@ -54,7 +50,7 @@ def split_server_prefix_from_name(prefixed_name: str) -> Tuple[str, str]:
     return prefixed_name, ""
 
 
-class MCPProxyHandler:
+class LegacyMCPHandler:
     @staticmethod
     def _create_tool_execution_events(
         tool_calls: List[Any], tool_results: List[Dict[str, Any]]
@@ -187,13 +183,13 @@ class MCPProxyHandler:
         (
             deduplicated_mcp_tools,
             tool_server_map,
-        ) = await MCPProxyHandler._process_mcp_tools_without_openai_transform(
+        ) = await LegacyMCPHandler._process_mcp_tools_without_openai_transform(
             user_api_key_auth,
             mcp_tools_with_litellm_proxy,
             litellm_trace_id=litellm_trace_id,
         )
 
-        openai_tools = MCPProxyHandler._transform_mcp_tools_to_openai(deduplicated_mcp_tools)
+        openai_tools = LegacyMCPHandler._transform_mcp_tools_to_openai(deduplicated_mcp_tools)
         return openai_tools, tool_server_map
 
     @staticmethod
@@ -210,7 +206,7 @@ class MCPProxyHandler:
         (
             mcp_tools_fetched,
             allowed_mcp_servers,
-        ) = await MCPProxyHandler._get_mcp_tools_from_manager(
+        ) = await LegacyMCPHandler._get_mcp_tools_from_manager(
             user_api_key_auth=user_api_key_auth,
             mcp_tools_with_litellm_proxy=mcp_tools_with_litellm_proxy,
             litellm_trace_id=litellm_trace_id,
@@ -218,7 +214,7 @@ class MCPProxyHandler:
             mcp_server_auth_headers=mcp_server_auth_headers,
         )
 
-        filtered_mcp_tools = MCPProxyHandler._filter_mcp_tools_by_allowed_tools(
+        filtered_mcp_tools = LegacyMCPHandler._filter_mcp_tools_by_allowed_tools(
             mcp_tools=mcp_tools_fetched,
             mcp_tools_with_litellm_proxy=mcp_tools_with_litellm_proxy,
         )
@@ -226,7 +222,7 @@ class MCPProxyHandler:
         (
             deduplicated_mcp_tools,
             tool_server_map,
-        ) = MCPProxyHandler._deduplicate_mcp_tools(
+        ) = LegacyMCPHandler._deduplicate_mcp_tools(
             filtered_mcp_tools, allowed_mcp_servers
         )
 
@@ -329,7 +325,7 @@ class MCPProxyHandler:
                         logging_request_data["user"] = user_identifier
 
                 # === 1. 어댑터 호출: 로깅 셋업 및 pre_call ===
-                litellm_logging_obj, logging_request_data = await LegacyLitellmLogManager.log_pre_call(
+                litellm_logging_obj, logging_request_data = await LegacyLogManager.log_pre_call(
                     tool_name=tool_name,
                     logging_request_data=logging_request_data,
                     logging_input=logging_input,
@@ -370,7 +366,7 @@ class MCPProxyHandler:
                 )
 
                 # === 3. 어댑터 호출: 성공 로깅 ===
-                await LegacyLitellmLogManager.log_post_call_success(
+                await LegacyLogManager.log_post_call_success(
                     litellm_logging_obj=litellm_logging_obj,
                     result=result,
                     start_time=start_time,
@@ -382,25 +378,25 @@ class MCPProxyHandler:
 
             # === 4. 어댑터 호출: 에러 로깅 (반복되는 catch 블록 통합) ===
             except BlockedPiiEntityError as e:
-                await LegacyLitellmLogManager.log_failure(user_api_key_auth, logging_request_data, e)
+                await LegacyLogManager.log_failure(user_api_key_auth, logging_request_data, e)
                 log.error(f"BlockedPiiEntityError in MCP tool call: {str(e)}")
                 error_msg = f"Tool call blocked: PII entity '{getattr(e, 'entity_type', 'unknown')}' detected by guardrail '{getattr(e, 'guardrail_name', 'unknown')}'. {str(e)}"
                 tool_results.append({"tool_call_id": tool_call_id, "result": error_msg, "name": tool_name})
                 
             except GuardrailRaisedException as e:
-                await LegacyLitellmLogManager.log_failure(user_api_key_auth, logging_request_data, e)
+                await LegacyLogManager.log_failure(user_api_key_auth, logging_request_data, e)
                 log.error(f"GuardrailRaisedException in MCP tool call: {str(e)}")
                 error_msg = f"Tool call blocked: Guardrail '{getattr(e, 'guardrail_name', 'unknown')}' violation. {str(e)}"
                 tool_results.append({"tool_call_id": tool_call_id, "result": error_msg, "name": tool_name})
                 
             except HTTPException as e:
-                await LegacyLitellmLogManager.log_failure(user_api_key_auth, logging_request_data, e)
+                await LegacyLogManager.log_failure(user_api_key_auth, logging_request_data, e)
                 log.error(f"HTTPException in MCP tool call: {str(e)}")
                 error_msg = f"Tool call failed: {str(e.detail) if hasattr(e, 'detail') else str(e)}"
                 tool_results.append({"tool_call_id": tool_call_id, "result": error_msg, "name": tool_name})
                 
             except Exception as e:
-                await LegacyLitellmLogManager.log_failure(user_api_key_auth, logging_request_data, e)
+                await LegacyLogManager.log_failure(user_api_key_auth, logging_request_data, e)
                 log.exception(f"Error executing MCP tool call: {e}")
                 tool_results.append({"tool_call_id": tool_call_id, "result": f"Error executing tool: {str(e)}", "name": tool_name})
 
@@ -414,7 +410,7 @@ class MCPProxyHandler:
         response_id: str,
         **call_params: Any,
     ) -> Union[ResponsesAPIResponse, BaseResponsesAPIStreamingIterator]:
-        from anchor.surface.legacy.api.aresponse import aresponses
+        from anchor.surface.legacy.action.api.aresponse import aresponses
         return await aresponses(
             input=follow_up_input,
             model=model,

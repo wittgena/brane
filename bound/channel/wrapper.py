@@ -51,30 +51,8 @@ import inspect
 from weakref import WeakKeyDictionary
 
 from anchor.base.config.constants import COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY
-from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObject
 from anchor.base.config.resolver import config
-from bound.channel.action.handler.retry import completion_with_retries, acompletion_with_retries
-from bound.channel.action.handler.worklet.logging import GLOBAL_LOGGING_WORKER
-from bound.transport.stream.chunk.builder import stream_chunk_builder
-from bound.channel.support.metadata import update_response_metadata
-
-from anchor.model.token.counter import get_modified_max_tokens
-from bound.xor.secret.credential import CredentialAccessor
-from anchor.model.llm.types.openai import (
-    AllMessageValues,
-    AllPromptValues,
-    ChatCompletionAssistantToolCall,
-    ChatCompletionNamedToolChoiceParam,
-    ChatCompletionToolParam,
-    ChatCompletionToolParamFunctionChunk,
-    OpenAITextCompletionUserMessage,
-    OpenAIWebSearchOptions,
-)
-from anchor.surface.legacy.types.utils import CallTypes, Embedding, LlmProviders
-from anchor.model.provider.resolver import get_llm_provider
-
 from anchor.base.model import type_to_response_format_param
-from xphi.manager.rule.validator import Rules
 from anchor.base.executor import executor
 from anchor.base.exception import (
     APIConnectionError,
@@ -93,6 +71,30 @@ from anchor.base.exception import (
     UnprocessableEntityError,
     UnsupportedParamsError,
 )
+
+
+from anchor.model.token.counter import get_modified_max_tokens
+from anchor.model.llm.types.openai import (
+    AllMessageValues,
+    AllPromptValues,
+    ChatCompletionAssistantToolCall,
+    ChatCompletionNamedToolChoiceParam,
+    ChatCompletionToolParam,
+    ChatCompletionToolParamFunctionChunk,
+    OpenAITextCompletionUserMessage,
+    OpenAIWebSearchOptions,
+)
+from anchor.model.provider.resolver import get_llm_provider
+from anchor.surface.legacy.proxy.rule import Rules
+from anchor.surface.legacy.types.utils import CallTypes, Embedding, ProviderTypes
+
+from bound.channel.action.handler.retry import completion_with_retries, acompletion_with_retries
+from bound.channel.action.handler.worklet.logging import GLOBAL_LOGGING_WORKER
+from bound.transport.stream.chunk.builder import stream_chunk_builder
+from bound.channel.support.metadata import update_response_metadata
+from bound.xor.secret.credential import CredentialAccessor
+
+from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObject
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
@@ -393,7 +395,7 @@ def _get_bundled_model_cost_map() -> Dict[str, Any]:
 
 def _get_model_cost_entry_for_provider_config(
     model: str,
-    provider: LlmProviders,
+    provider: ProviderTypes,
 ) -> Dict[str, Any]:
     candidate_keys = (model, f"{provider.value}/{model}")
     for model_key in candidate_keys:

@@ -1,8 +1,4 @@
 # anchor.model.info.support
-## @lineage: anchor.router.model.info.support
-## @lineage: bound.router.model.info.support
-## @lineage: bound.channel.model.info.support
-## @lineage: channel.model.info.support
 from typing import Optional, Literal, List, Dict
 
 from anchor.base.config.resolver import config

@@ -1,10 +1,5 @@
-# anchor.model.router.workflow
-## @lineage: bound.proxy.router.workflow
-## @lineage: anchor.router.workflow
-## @lineage: bound.router.workflow
-## @lineage: bound.channel.router.workflow
-## @lineage: bridge.router.workflow
-## @lineage: channel.llama.workflow.router.rules
+# xphi.flow.route.workflow
+## @lineage: anchor.model.router.workflow
 import asyncio
 import inspect
 import re

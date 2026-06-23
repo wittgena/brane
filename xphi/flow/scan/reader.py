@@ -1,16 +1,18 @@
-# xphi.flow.scanner.reader
+# xphi.flow.scan.reader
+## @lineage: xphi.flow.scanner.reader
 ## @lineage: xphi.manager.scanner.reader
 ## @lineage: anchor.rule.llama.scanner.reader
 import os
 import ast
 from pathlib import Path
 from typing import Dict, Protocol, runtime_checkable
+import bound.inter as inter_path
 from phase.bind.resolver import find_current_self
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("scanner.reader")
 SELF_ROOT = find_current_self()
-TARGET_PATH = SELF_ROOT / "bound/adapter/llama/readers"
+TARGET_PATH = SELF_ROOT / inter_path.__name__ / "readers"
 
 @runtime_checkable
 class Scannable(Protocol):

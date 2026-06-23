@@ -1,10 +1,7 @@
-# anchor.surface.legacy.mcp.engine
-## @lineage: bound.adapter.litellm.mcp.engine
-## @lineage: bound.legacy.mcp.engine
-## @lineage: anchor.spec.mcp.legacy.engine
-## @lineage: bound.client.mcp.engine
-from anchor.surface.legacy.mcp.interface import MCPAuthManager, MCPRouteManager, MCPLogManager
+# bound.adapter.legacy.mcp.engine
+## @lineage: anchor.surface.legacy.mcp.engine
 from anchor.surface.legacy.mcp.payload import MCPPayloadUtils
+from bound.adapter.legacy.interface import MCPAuthManager, MCPRouteManager, MCPLogManager
 from typing import List, Dict, Any
 
 class MCPEngine:

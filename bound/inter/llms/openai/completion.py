@@ -1,11 +1,4 @@
 # bound.inter.llms.openai.completion
-## @lineage: bound.adapter.llama.llms.openai.completion
-## @lineage: bound.channel.bridge.llms.openai.completion
-## @lineage: channel.bridge.llms.openai.completion
-## @lineage: anchor.model.llms.openai.completion
-## @lineage: channel.llms.openai.completion
-## @lineage: gate.llms.openai.completion
-## @lineage: gate.llms.openai.chat.completion
 import time
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple, Union, cast
@@ -24,7 +17,7 @@ from anchor.base.config.resolver import config
 from anchor.base.config.constants import DEFAULT_MAX_RETRIES
 from anchor.switch.params import ModelResponse, ModelResponseStream
 
-from anchor.model.provider.types import LlmProviders
+from anchor.model.provider.types import ProviderTypes
 from anchor.surface.legacy.types.utils import EmbeddingResponse
 from bound.channel.support.convert import convert_to_model_response_object
 from anchor.model.provider.manager import ProviderConfigManager
@@ -105,7 +98,7 @@ class OpenAIChatCompletion(BaseLLM, BaseOpenAILLM):
         if custom_llm_provider and model:
             try:
                 provider_config = ProviderConfigManager.get_provider_chat_config(
-                    model=model, provider=LlmProviders(custom_llm_provider)
+                    model=model, provider=ProviderTypes(custom_llm_provider)
                 )
             except ValueError:
                 pass

@@ -1,9 +1,4 @@
 # anchor.model.info.cost.map
-## @lineage: anchor.model.cost.map
-## @lineage: anchor.router.model.cost.map
-## @lineage: bound.router.model.cost.map
-## @lineage: bound.channel.model.cost.map
-## @lineage: channel.model.cost.map
 import os
 import litellm
 from typing import Union, cast, Optional, Dict
@@ -11,7 +6,7 @@ from typing import Union, cast, Optional, Dict
 from anchor.base.config.resolver import config
 from anchor.model.info.entry import get_model_info
 from anchor.model.provider.registry import get_model_cost_map
-from anchor.model.provider.types import LlmProviders
+from anchor.model.provider.types import ProviderTypes
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("cost.map")
@@ -74,8 +69,8 @@ def register_model(new_model_cost: Union[str, dict]):
         loaded_model_cost, _ = get_model_cost_map(url=new_model_cost)
 
     _skip_get_model_info_providers = {
-        LlmProviders.GITHUB_COPILOT.value,
-        LlmProviders.CHATGPT.value,
+        ProviderTypes.GITHUB_COPILOT.value,
+        ProviderTypes.CHATGPT.value,
     }
 
     for key, value in loaded_model_cost.items():

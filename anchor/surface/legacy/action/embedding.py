@@ -33,7 +33,7 @@ from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
 from bound.transport.stream.wrapper import CustomStreamWrapper
 
 from bound.channel.action.handler.param.litellm import get_litellm_params
-from anchor.surface.legacy.mapping.exception import exception_type
+from anchor.surface.legacy.types.mapping.exception import exception_type
 from anchor.surface.legacy.types.utils import all_litellm_params, EmbeddingResponse
 from anchor.surface.legacy.types.utils import (
     CustomPricingLiteLLMParams,

@@ -35,7 +35,7 @@ from anchor.base.config.constants import DEFAULT_CHAT_COMPLETION_PARAM_VALUES
 
 from anchor.model.llm.types.anthropic import AnthropicThinkingParam
 from anchor.model.llm.types.openai import AllMessageValues, OpenAIWebSearchOptions
-from anchor.surface.legacy.types.utils import Embedding, Function, LlmProviders
+from anchor.surface.legacy.types.utils import Embedding, Function, ProviderTypes
 from anchor.model.provider.manager import ProviderConfigManager
 from anchor.model.info.support import get_supported_openai_params
 
@@ -234,10 +234,10 @@ def get_optional_params(
     passed_params.pop("base_model", None)
     provider_config: Optional[BaseConfig] = None
 
-    if custom_llm_provider is not None and custom_llm_provider in [provider.value for provider in LlmProviders]:
+    if custom_llm_provider is not None and custom_llm_provider in [provider.value for provider in ProviderTypes]:
         provider_config = ProviderConfigManager.get_provider_chat_config(
             model=model,
-            provider=LlmProviders(custom_llm_provider),
+            provider=ProviderTypes(custom_llm_provider),
             base_model=base_model,
         )
 

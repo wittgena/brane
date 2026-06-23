@@ -58,12 +58,14 @@ from anchor.model.llm.types.openai import (
     ResponsesAPIResponse,
     WebSearchOptions,
 )
+from anchor.surface.legacy.types.support import ProviderSpecificModelInfo
+
 if TYPE_CHECKING:
     from anchor.surface.legacy.types.vector_stores import VectorStoreSearchResponse
 else:
     VectorStoreSearchResponse = Any
 
-from anchor.model.provider.types import LlmProviders
+from anchor.model.provider.types import ProviderTypes
 
 def _generate_id():  # private helper function
     return "chatcmpl-" + str(uuid.uuid4())
@@ -104,38 +106,6 @@ class ProviderField(TypedDict):
     field_type: Literal["string"]
     field_description: str
     field_value: str
-
-
-class ProviderSpecificModelInfo(TypedDict, total=False):
-    supports_system_messages: Optional[bool]
-    supports_response_schema: Optional[bool]
-    supports_vision: Optional[bool]
-    supports_function_calling: Optional[bool]
-    supports_tool_choice: Optional[bool]
-    supports_assistant_prefill: Optional[bool]
-    supports_prompt_caching: Optional[bool]
-    supports_computer_use: Optional[bool]
-    supports_audio_input: Optional[bool]
-    supports_embedding_image_input: Optional[bool]
-    supports_audio_output: Optional[bool]
-    supports_pdf_input: Optional[bool]
-    supports_native_streaming: Optional[bool]
-    supports_native_structured_output: Optional[bool]
-    supports_parallel_function_calling: Optional[bool]
-    supports_web_search: Optional[bool]
-    supports_reasoning: Optional[bool]
-    supports_url_context: Optional[bool]
-    supports_none_reasoning_effort: Optional[bool]
-    supports_minimal_reasoning_effort: Optional[bool]
-    supports_low_reasoning_effort: Optional[bool]
-    supports_xhigh_reasoning_effort: Optional[bool]
-    supports_max_reasoning_effort: Optional[bool]
-    supports_output_config: Optional[bool]
-    supports_image_size: Optional[bool]
-    bedrock_output_config_effort_ceiling: Optional[
-        Literal["low", "medium", "high", "max", "xhigh"]
-    ]
-
 
 class SearchContextCostPerQuery(TypedDict, total=False):
     search_context_size_low: float
@@ -1870,7 +1840,6 @@ class ModelResponseStream(ModelResponseBase):
             # if using pydantic v1
             return self.dict()
 
-
 class ModelResponse(ModelResponseBase):
     choices: List[Choices]
     """The list of completion choices the model generated for the input prompt."""
@@ -3225,13 +3194,9 @@ class BudgetConfig(BaseModel):
 
 GenericBudgetConfigType = Dict[str, BudgetConfig]
 
-# Create a set of all provider values for quick lookup
-LlmProvidersSet = {provider.value for provider in LlmProviders}
-
-# File and Batch API providers that are OpenAI-compatible
 OPENAI_COMPATIBLE_BATCH_AND_FILES_PROVIDERS: set[str] = {
-    LlmProviders.OPENAI.value,
-    LlmProviders.HOSTED_VLLM.value,
+    ProviderTypes.OPENAI.value,
+    ProviderTypes.HOSTED_VLLM.value,
 }
 
 ListBatchesSupportedProvider = Literal["openai", "azure", "hosted_vllm", "vertex_ai"]
@@ -3241,11 +3206,6 @@ LIST_BATCHES_SUPPORTED_PROVIDERS: frozenset[str] = frozenset(
 )
 
 class SearchProviders(str, Enum):
-    """
-    Enum for search provider types.
-    Separate from LlmProviders for semantic clarity.
-    """
-
     PERPLEXITY = "perplexity"
     TAVILY = "tavily"
     PARALLEL_AI = "parallel_ai"
@@ -3304,9 +3264,7 @@ class LITELLM_IMAGE_VARIATION_PROVIDERS(Enum):
     """
     Try using an enum for endpoints. This should make it easier to track what provider is supported for what endpoint.
     """
-
-    OPENAI = LlmProviders.OPENAI.value
-    # TOPAZ = LlmProviders.TOPAZ.value
+    OPENAI = ProviderTypes.OPENAI.value
 
 
 class HttpHandlerRequestFields(TypedDict, total=False):

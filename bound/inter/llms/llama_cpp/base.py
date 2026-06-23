@@ -1,8 +1,4 @@
 # bound.inter.llms.llama_cpp.base
-## @lineage: bound.adapter.llama.llms.llama_cpp.base
-## @lineage: bound.channel.bridge.llms.llama_cpp.base
-## @lineage: channel.bridge.llms.llama_cpp.base
-## @lineage: bridge.llama.llms.llama_cpp.base
 import os
 from typing import Any, Callable, Dict, Optional, Sequence
 

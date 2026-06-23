@@ -1,14 +1,11 @@
 # anchor.surface.legacy.proxy.logger
-## @lineage: bound.adapter.litellm.proxy.logger
-## @lineage: bound.legacy.proxy.logger
-## @lineage: bound.server.proxy.logger
-## @lineage: bound.proxy.logger
 from datetime import datetime
 from typing import Any, Dict, Optional, Tuple
 import traceback
 
 from litellm.proxy.proxy_server import proxy_logging_obj
 
+from anchor.surface.legacy.proxy.rule import Rules
 from anchor.base.config.constants import MAXIMUM_TRACEBACK_LINES_TO_LOG
 from bound.channel.wrapper import function_setup
 from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
@@ -16,10 +13,8 @@ from watcher.plane.emitter import get_emitter
 
 log = get_emitter("proxy.logger")
 
-class LegacyLitellmLogManager:
-    """
-    litellm의 복잡한 로깅, 트레이싱, 훅(Hook) 호출을 캡슐화한 어댑터.
-    """
+class LegacyLogManager:
+    """litellm의 복잡한 로깅, 트레이싱, 훅(Hook) 호출을 캡슐화한 어댑터"""
     @staticmethod
     async def log_pre_call(
         tool_name: str, 
@@ -28,7 +23,6 @@ class LegacyLitellmLogManager:
         start_time: datetime
     ) -> Tuple[Optional[LiteLLMLoggingObj], Dict[str, Any]]:
         litellm_logging_obj = None
-        from xphi.manager.rule.validator import Rules
         rules_obj = Rules()
         
         try:

@@ -29,22 +29,21 @@ import httpx
 from pydantic import BaseModel
 
 from anchor.base.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
-from bound.transport.stream.chunk.builder import stream_chunk_builder
 from anchor.base.config.resolver import config
-from bound.channel.api.get_api_base import get_api_base
-
 from anchor.base.executor import executor
 from anchor.base.exception import OpenAIError
-from xphi.manager.rule.validator import Rules
+from anchor.surface.legacy.proxy.rule import Rules
 from anchor.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
-
-from bound.transport.stream.response.check import is_model_response_stream_empty
-from bound.channel.support.helpers import map_finish_reason, process_response_headers
-from anchor.surface.legacy.mapping.exception import exception_type
+from anchor.surface.legacy.types.mapping.exception import exception_type
 from anchor.model.llm.types.openai import OpenAIChatCompletionChunk
-from anchor.model.provider.types import LlmProviders
+from anchor.model.provider.types import ProviderTypes
 from anchor.surface.legacy.types.router import GenericLiteLLMParams
 from anchor.surface.legacy.types.utils import Delta, CallTypes, GenericStreamingChunk as GChunk
+
+from bound.transport.stream.chunk.builder import stream_chunk_builder
+from bound.channel.api.get_api_base import get_api_base
+from bound.transport.stream.response.check import is_model_response_stream_empty
+from bound.channel.support.helpers import map_finish_reason, process_response_headers
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
@@ -1430,8 +1429,8 @@ class CustomStreamWrapper:
                     self.received_finish_reason = response_obj["finish_reason"]
             else:  # openai / azure chat model
                 if self.custom_llm_provider in [
-                    LlmProviders.AZURE.value,
-                    LlmProviders.AZURE_AI.value,
+                    ProviderTypes.AZURE.value,
+                    ProviderTypes.AZURE_AI.value,
                 ]:
                     if isinstance(chunk, BaseModel) and hasattr(chunk, "model"):
                         # for azure, we need to pass the model from the original chunk

@@ -1,8 +1,4 @@
 # anchor.surface.legacy.mcp.tool
-## @lineage: bound.adapter.litellm.mcp.tool
-## @lineage: bound.legacy.mcp.tool
-## @lineage: anchor.spec.mcp.legacy.tool
-## @lineage: bound.client.mcp.tool
 import json
 from typing import Dict, List, Literal, Union
 

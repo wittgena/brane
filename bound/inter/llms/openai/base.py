@@ -1,8 +1,4 @@
 # bound.inter.llms.openai.base
-## @lineage: bound.adapter.llama.llms.openai.base
-## @lineage: bound.channel.bridge.llms.openai.base
-## @lineage: channel.bridge.llms.openai.base
-## @lineage: bridge.llama.llms.openai.base
 import functools
 import re
 from json.decoder import JSONDecodeError

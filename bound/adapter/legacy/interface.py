@@ -1,4 +1,5 @@
-# anchor.surface.legacy.mcp.interface
+# bound.adapter.legacy.interface
+## @lineage: anchor.surface.legacy.mcp.interface
 ## @lineage: bound.adapter.litellm.mcp.interface
 ## @lineage: bound.legacy.mcp.interface
 ## @lineage: anchor.spec.mcp.legacy.interface

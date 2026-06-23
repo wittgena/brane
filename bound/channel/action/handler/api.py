@@ -1,11 +1,4 @@
 # bound.channel.action.handler.api
-## @lineage: bound.bridge.action.handler.api
-## @lineage: bound.client.handler.api
-## @lineage: bound.handler.api
-## @lineage: bound.channel.handler.api
-## @lineage: channel.bound.handler.api
-## @lineage: gate.bound.handler.api
-## @lineage: gate.llms.handler.api
 import json
 import ssl
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
@@ -30,8 +23,7 @@ from anchor.base.response.transformation import BaseResponsesAPIConfig
 LiteLLMLoggingObj = Any
 
 from bound.channel.support.helpers import process_response_headers
-
-from anchor.model.provider.types import LlmProviders
+from anchor.model.provider.types import ProviderTypes
 from anchor.base.config.resolver import config
 from bound.channel.action.handler.http import (
     AsyncHTTPHandler,
@@ -243,7 +235,7 @@ class ResponseApiHandler:
                 f"Creating HTTP client for responses API with shared_session: {id(shared_session) if shared_session else None}"
             )
             async_httpx_client = get_async_httpx_client(
-                llm_provider=config.LlmProviders(custom_llm_provider),
+                llm_provider=ProviderTypes(custom_llm_provider),
                 params={"ssl_verify": litellm_params.get("ssl_verify", None)},
                 shared_session=shared_session,
             )
@@ -389,7 +381,7 @@ class ResponseApiHandler:
                 f"Creating HTTP client for delete_response with shared_session: {id(shared_session) if shared_session else None}"
             )
             async_httpx_client = get_async_httpx_client(
-                llm_provider=LlmProviders(custom_llm_provider),
+                llm_provider=ProviderTypes(custom_llm_provider),
                 params={"ssl_verify": litellm_params.get("ssl_verify", None)},
                 shared_session=shared_session,
             )
@@ -649,7 +641,7 @@ class ResponseApiHandler:
                 f"Creating HTTP client for cancel_response with shared_session: {id(shared_session) if shared_session else None}"
             )
             async_httpx_client = get_async_httpx_client(
-                llm_provider=LlmProviders(custom_llm_provider),
+                llm_provider=ProviderTypes(custom_llm_provider),
                 params={"ssl_verify": litellm_params.get("ssl_verify", None)},
                 shared_session=shared_session,
             )
@@ -819,7 +811,7 @@ class ResponseApiHandler:
                 f"Creating HTTP client for compact_response with shared_session: {id(shared_session) if shared_session else None}"
             )
             async_httpx_client = get_async_httpx_client(
-                llm_provider=LlmProviders(custom_llm_provider),
+                llm_provider=ProviderTypes(custom_llm_provider),
                 params={"ssl_verify": litellm_params.get("ssl_verify", None)},
                 shared_session=shared_session,
             )
@@ -981,7 +973,7 @@ class ResponseApiHandler:
                 f"Creating HTTP client for get_responses with shared_session: {id(shared_session) if shared_session else None}"
             )
             async_httpx_client = get_async_httpx_client(
-                llm_provider=litellm.LlmProviders(custom_llm_provider),
+                llm_provider=ProviderTypes(custom_llm_provider),
                 params={"ssl_verify": litellm_params.get("ssl_verify", None)},
                 shared_session=shared_session,
             )
@@ -1147,7 +1139,7 @@ class ResponseApiHandler:
                 f"Creating HTTP client for list_input_items with shared_session: {id(shared_session) if shared_session else None}"
             )
             async_httpx_client = get_async_httpx_client(
-                llm_provider=litellm.LlmProviders(custom_llm_provider),
+                llm_provider=ProviderTypes(custom_llm_provider),
                 params={"ssl_verify": litellm_params.get("ssl_verify", None)},
                 shared_session=shared_session,
             )

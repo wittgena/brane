@@ -1,10 +1,4 @@
 # anchor.model.info.cost.calculator.calc
-## @lineage: anchor.model.cost.calculator.calc
-## @lineage: anchor.router.model.cost.calculator.calc
-## @lineage: bound.router.model.cost.calculator.calc
-## @lineage: bound.channel.model.cost.calculator.calc
-## @lineage: channel.model.cost.calculator.calc
-## @lineage: channel.cost.calc
 import time
 from typing import TYPE_CHECKING, Any, List, Literal, Optional, Tuple, Union, cast
 from httpx import Response
@@ -30,7 +24,7 @@ from anchor.model.llm.types.openai import (
 )
 from anchor.surface.legacy.types.rerank import RerankBilledUnits, RerankResponse
 from anchor.surface.legacy.types.utils import (
-    CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject, LlmProvidersSet, 
+    CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject,
     StandardBuiltInToolsParams, Usage, CallTypes, CostPerToken, 
     EmbeddingResponse, ImageResponse, TextCompletionResponse, TranscriptionResponse
 )

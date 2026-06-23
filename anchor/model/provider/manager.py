@@ -1,45 +1,41 @@
 # anchor.model.provider.manager
-## @lineage: anchor.model.router.provider.manager
-## @lineage: anchor.router.model.provider.manager
-## @lineage: bound.router.model.provider.manager
-## @lineage: bound.channel.model.provider.manager
-## @lineage: channel.model.provider.manager
 from __future__ import annotations
 from functools import lru_cache
 from typing import Callable, Optional, Union
+from enum import Enum
 
 from anchor.base.config.resolver import config
 from anchor.base.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
-from anchor.model.provider.types import LlmProviders
 from anchor.base.model import BaseLLMModelInfo
-from anchor.surface.legacy.types.utils import LlmProvidersSet, ProviderSpecificModelInfo
+from anchor.model.provider.types import ProviderTypes, ProviderTypesSet
+from anchor.surface.legacy.types.support import ProviderSpecificModelInfo
 
 class ProviderConfigManager:
-    _PROVIDER_CONFIG_MAP: Optional[dict[LlmProviders, tuple[Callable, bool]]] = None
+    _PROVIDER_CONFIG_MAP: Optional[dict[ProviderTypes, tuple[Callable, bool]]] = None
 
     @staticmethod
-    def _build_provider_config_map() -> dict[LlmProviders, tuple[Callable, bool]]:
+    def _build_provider_config_map() -> dict[ProviderTypes, tuple[Callable, bool]]:
         return {
             # Format: (factory_function, needs_model_parameter: bool)
-            LlmProviders.OPENAI: (lambda: config.OpenAIGPTConfig(), False),
-            LlmProviders.ANTHROPIC: (lambda: config.AnthropicConfig(), False),
-            LlmProviders.A2A: (lambda: config.A2AConfig(), False),
-            LlmProviders.LLAMA: (lambda: config.LlamaAPIConfig(), False),
-            LlmProviders.CHATGPT: (lambda: config.ChatGPTConfig(), False),
-            LlmProviders.CUSTOM: (lambda: config.OpenAILikeChatConfig(), False),
-            LlmProviders.AIOHTTP_OPENAI: (lambda: config.AiohttpOpenAIChatConfig(), False),
-            LlmProviders.HUGGINGFACE: (lambda: config.HuggingFaceChatConfig(), False),
-            LlmProviders.GEMINI: (lambda: config.GoogleAIStudioGeminiConfig(), False),
-            LlmProviders.OLLAMA: (lambda: config.OllamaConfig(), False)
+            ProviderTypes.OPENAI: (lambda: config.OpenAIGPTConfig(), False),
+            ProviderTypes.ANTHROPIC: (lambda: config.AnthropicConfig(), False),
+            ProviderTypes.A2A: (lambda: config.A2AConfig(), False),
+            ProviderTypes.LLAMA: (lambda: config.LlamaAPIConfig(), False),
+            ProviderTypes.CHATGPT: (lambda: config.ChatGPTConfig(), False),
+            ProviderTypes.CUSTOM: (lambda: config.OpenAILikeChatConfig(), False),
+            ProviderTypes.AIOHTTP_OPENAI: (lambda: config.AiohttpOpenAIChatConfig(), False),
+            ProviderTypes.HUGGINGFACE: (lambda: config.HuggingFaceChatConfig(), False),
+            ProviderTypes.GEMINI: (lambda: config.GoogleAIStudioGeminiConfig(), False),
+            ProviderTypes.OLLAMA: (lambda: config.OllamaConfig(), False)
         }
 
     @staticmethod
     def get_provider_chat_config(
         model: str,
-        provider: LlmProviders,
+        provider: ProviderTypes,
         base_model: Optional[str] = None,
     ):
-        if provider == LlmProviders.OPENAI:
+        if provider == ProviderTypes.OPENAI:
             if config.openaiOSeriesConfig.is_model_o_series_model(model=model):
                 return config.openaiOSeriesConfig
             if config.OpenAIGPT5Config.is_model_gpt_5_model(model=model):
@@ -63,7 +59,7 @@ class ProviderConfigManager:
     @staticmethod
     def get_provider_anthropic_messages_config(
         model: str,
-        provider: LlmProviders,
+        provider: ProviderTypes,
     ):
         return ProviderConfigManager._get_provider_anthropic_messages_config_cached(
             model=model, provider=provider
@@ -73,18 +69,18 @@ class ProviderConfigManager:
     @lru_cache(maxsize=DEFAULT_MAX_LRU_CACHE_SIZE)
     def _get_provider_anthropic_messages_config_cached(
         model: str,
-        provider: LlmProviders,
+        provider: ProviderTypes,
     ):
-        if LlmProviders.ANTHROPIC == provider:
+        if ProviderTypes.ANTHROPIC == provider:
             return config.AnthropicMessagesConfig()
         return None
 
     @staticmethod
     def get_provider_audio_transcription_config(
         model: str,
-        provider: LlmProviders,
+        provider: ProviderTypes,
     ):
-        if LlmProviders.OPENAI == provider:
+        if ProviderTypes.OPENAI == provider:
             if "gpt-4o" in model:
                 return config.OpenAIGPTAudioTranscriptionConfig()
             else:
@@ -93,15 +89,15 @@ class ProviderConfigManager:
 
     @staticmethod
     def get_provider_responses_api_config(
-        provider: Union[LlmProviders, str],
+        provider: Union[ProviderTypes, str],
         model: Optional[str] = None,
     ):
-        provider_enum: Optional[LlmProviders] = None
-        if isinstance(provider, LlmProviders):
+        provider_enum: Optional[ProviderTypes] = None
+        if isinstance(provider, ProviderTypes):
             provider_enum = provider
         else:
             try:
-                provider_enum = LlmProviders(provider)
+                provider_enum = ProviderTypes(provider)
             except ValueError:
                 pass
 
@@ -109,77 +105,77 @@ class ProviderConfigManager:
 
     @staticmethod
     def _get_python_responses_api_config(
-        provider: Optional[LlmProviders],
+        provider: Optional[ProviderTypes],
         model: Optional[str] = None,
     ):
         if provider is None:
             return None
-        if LlmProviders.OPENAI == provider:
+        if ProviderTypes.OPENAI == provider:
             return config.OpenAIResponsesAPIConfig()
-        elif LlmProviders.CHATGPT == provider:
+        elif ProviderTypes.CHATGPT == provider:
             return config.ChatGPTResponsesAPIConfig()
         return None
 
     @staticmethod
     def get_provider_skills_api_config(
-        provider: LlmProviders,
+        provider: ProviderTypes,
     ):
-        if LlmProviders.ANTHROPIC == provider:
+        if ProviderTypes.ANTHROPIC == provider:
             return config.AnthropicSkillsConfig()
         return None
 
     @staticmethod
     def get_provider_evals_api_config(
-        provider: LlmProviders,
+        provider: ProviderTypes,
     ):
         # Migrated from direct import to resolver
-        if LlmProviders.OPENAI == provider:
+        if ProviderTypes.OPENAI == provider:
             return config.OpenAIEvalsConfig()
         return None
 
     @staticmethod
     def get_provider_model_info(
         model: Optional[str],
-        provider: LlmProviders,
+        provider: ProviderTypes,
     ) -> Optional[BaseLLMModelInfo]:
-        if LlmProviders.OPENAI == provider:
+        if ProviderTypes.OPENAI == provider:
             return config.OpenAIGPTConfig()
-        elif LlmProviders.GEMINI == provider:
+        elif ProviderTypes.GEMINI == provider:
             return config.GeminiModelInfo()
-        elif LlmProviders.ANTHROPIC == provider:
+        elif ProviderTypes.ANTHROPIC == provider:
             return config.AnthropicModelInfo()
-        elif LlmProviders.OLLAMA == provider or LlmProviders.OLLAMA_CHAT == provider:
+        elif ProviderTypes.OLLAMA == provider or ProviderTypes.OLLAMA_CHAT == provider:
             # Migrated from direct import to resolver
             return config.OllamaModelInfo()
         return None
 
     @staticmethod
     def get_provider_vector_stores_config(
-        provider: LlmProviders,
+        provider: ProviderTypes,
         api_type: Optional[str] = None,
     ):
         # Migrated from direct imports to resolver
-        if LlmProviders.OPENAI == provider:
+        if ProviderTypes.OPENAI == provider:
             return config.OpenAIVectorStoreConfig()
-        elif LlmProviders.GEMINI == provider:
+        elif ProviderTypes.GEMINI == provider:
             return config.GeminiVectorStoreConfig()
-        elif LlmProviders.S3_VECTORS == provider:
+        elif ProviderTypes.S3_VECTORS == provider:
             return config.S3VectorsVectorStoreConfig()
         return None
 
     @staticmethod
     def get_provider_vector_store_files_config(
-        provider: LlmProviders,
+        provider: ProviderTypes,
     ):
         # Migrated from direct import to resolver
-        if LlmProviders.OPENAI == provider:
+        if ProviderTypes.OPENAI == provider:
             return config.OpenAIVectorStoreFilesConfig()
         return None
 
     @staticmethod
     def get_provider_text_to_speech_config(
         model: str,
-        provider: LlmProviders,
+        provider: ProviderTypes,
     ):
         return None
 
@@ -188,9 +184,9 @@ def get_provider_info(
 ) -> Optional[ProviderSpecificModelInfo]:
     """Helper to fetch provider-specific model info dynamically."""
     provider_config: Optional[BaseLLMModelInfo] = None
-    if custom_llm_provider and custom_llm_provider in LlmProvidersSet:
+    if custom_llm_provider and custom_llm_provider in ProviderTypesSet:
         provider_config = ProviderConfigManager.get_provider_model_info(
-            model=model, provider=LlmProviders(custom_llm_provider)
+            model=model, provider=ProviderTypes(custom_llm_provider)
         )
 
     model_info: Optional[ProviderSpecificModelInfo] = None

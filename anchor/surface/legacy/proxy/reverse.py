@@ -1,9 +1,4 @@
 # anchor.surface.legacy.proxy.reverse
-## @lineage: bound.adapter.litellm.proxy.reverse
-## @lineage: bound.legacy.proxy.reverse
-## @lineage: bound.server.proxy.reverse
-## @lineage: bound.proxy.reverse
-## @lineage: bound.client.mcp.reverse
 from typing import Any, Iterable, List, Optional, Tuple, Dict
 from litellm.proxy._types import LiteLLM_ObjectPermissionTable
 from litellm.proxy._experimental.mcp_server.mcp_server_manager import global_mcp_server_manager

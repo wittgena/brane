@@ -1,9 +1,5 @@
-# anchor.surface.legacy.action.acompletion
-## @lineage: bound.bridge.action.acompletion
-## @lineage: bound.client.action.acompletion
-## @lineage: anchor.router.action.acompletion
-## @lineage: bound.router.action.acompletion
-## @lineage: bound.channel.router.action.acompletion
+# anchor.surface.legacy.action.backup.acompletion
+## @lineage: anchor.surface.legacy.action.acompletion
 import asyncio
 import contextvars
 import datetime
@@ -22,36 +18,12 @@ import openai
 import tiktoken
 from pydantic import BaseModel
 from typing_extensions import overload
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    AsyncIterator,
-    Callable,
-    Coroutine,
-    Dict,
-    Iterable,
-    List,
-    Literal,
-    Mapping,
-    Optional,
-    Tuple,
-    Type,
-    Union,
-    cast,
-    get_args,
-)
+from typing import Any, Dict, List, Literal, Mapping, Optional, Type, Union
 
 from anchor.base.exception import Timeout
 from anchor.switch.params import ModelResponse
-
-from bound.transport.stream.wrapper import CustomStreamWrapper
-from bound.channel.wrapper import client
-from xphi.scope.plane.trace.dd import tracer
-from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
-
-from bound.channel.support.helpers import safe_deep_copy, filter_internal_params
-from bound.channel.action.handler.asyncify import run_async_function
-from anchor.surface.legacy.mapping.exception import exception_type
+from anchor.surface.legacy.action.completion import completion
+from anchor.surface.legacy.types.mapping.exception import exception_type
 from anchor.surface.legacy.types.utils import (
     CustomPricingLiteLLMParams,
     ModelResponseStream,
@@ -60,8 +32,15 @@ from anchor.surface.legacy.types.utils import (
 )
 from anchor.model.llm.types.anthropic import AnthropicThinkingParam
 from anchor.model.llm.types.openai import ChatCompletionAudioParam, ChatCompletionModality, ChatCompletionPredictionContentParam, OpenAIWebSearchOptions
-from anchor.base.exception import Timeout
 from anchor.model.provider.resolver import get_llm_provider
+
+from bound.transport.stream.wrapper import CustomStreamWrapper
+from bound.channel.wrapper import client
+from bound.channel.support.helpers import safe_deep_copy, filter_internal_params
+from bound.channel.action.handler.asyncify import run_async_function
+
+from xphi.scope.plane.trace.dd import tracer
+from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
@@ -116,16 +95,14 @@ async def acompletion(  # noqa: PLR0915
     logprobs: Optional[bool] = None,
     top_logprobs: Optional[int] = None,
     deployment_id=None,
-    reasoning_effort: Optional[
-        Literal["none", "minimal", "low", "medium", "high", "xhigh", "default"]
-    ] = None,
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh", "default"]] = None,
     verbosity: Optional[Literal["low", "medium", "high"]] = None,
     safety_identifier: Optional[str] = None,
     service_tier: Optional[str] = None,
     base_url: Optional[str] = None,
     api_version: Optional[str] = None,
     api_key: Optional[str] = None,
-    model_list: Optional[list] = None,  # pass in a list of api_base,keys, etc.
+    model_list: Optional[list] = None,
     extra_headers: Optional[dict] = None,
     thinking: Optional[AnthropicThinkingParam] = None,
     web_search_options: Optional[OpenAIWebSearchOptions] = None,
@@ -149,11 +126,7 @@ async def acompletion(  # noqa: PLR0915
             tools=tools,
         )
     ):
-        (
-            model,
-            messages,
-            _,
-        ) = await litellm_logging_obj.async_get_chat_completion_prompt(
+        model, messages, _ = await litellm_logging_obj.async_get_chat_completion_prompt(
             model=model,
             messages=messages,
             non_default_params=kwargs,
@@ -239,10 +212,10 @@ async def acompletion(  # noqa: PLR0915
         await asyncio.sleep(mock_delay)
 
     try:
-        # Use a partial function to pass your keyword arguments
+        ## Use a partial function to pass your keyword arguments
         func = partial(completion, **completion_kwargs, **kwargs)
 
-        # Add the context to the function
+        ## Add the context to the function
         ctx = contextvars.copy_context()
         func_with_context = partial(ctx.run, func)
 

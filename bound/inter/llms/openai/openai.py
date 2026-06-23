@@ -35,7 +35,7 @@ from anchor.base.response.iterator import BaseModelResponseIterator
 from anchor.base.chat.transform import BaseConfig
 from anchor.base.exception import BaseLLMException
 from anchor.switch.params import ModelResponse, ModelResponseStream
-from anchor.model.provider.types import LlmProviders
+from anchor.model.provider.types import ProviderTypes
 from anchor.surface.legacy.types.utils import EmbeddingResponse, ImageResponse, LiteLLMBatch
 from anchor.model.llm.types.openai import *
 

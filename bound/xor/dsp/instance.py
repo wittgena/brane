@@ -1,8 +1,4 @@
 # bound.xor.dsp.instance
-## @lineage: bound.channel.bridge.dsp.instance
-## @lineage: channel.bridge.dsp.instance
-## @lineage: gov.bridge.instance
-import logging
 import os
 import re
 import threading
@@ -12,7 +8,7 @@ import pydantic
 from anyio.streams.memory import MemoryObjectSendStream
 from asyncer import syncify
 
-from anchor.surface.legacy.action.acompletion import acompletion
+from anchor.surface.legacy.action.completion import acompletion
 from anchor.switch.dspy.settings import settings
 from anchor.base.exception import ContextWindowExceededError as LitellmContextWindowExceededError
 from anchor.base.lm.base import BaseLM
