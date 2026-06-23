@@ -17,7 +17,7 @@ from bound.xor.basetype import Type
 from bound.xor.dsp.stream.messages import StreamResponse
 
 if TYPE_CHECKING:
-    from bound.xor.scope.module.meta import Module
+    from xphi.scope.module.meta import Module
 
 ADAPTER_SUPPORT_STREAMING = [ChatAdapter, XMLAdapter, JSONAdapter]
 

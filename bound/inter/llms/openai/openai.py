@@ -44,11 +44,11 @@ from anchor.switch.params import ModelResponse, ModelResponseStream
 from anchor.model.types.file import FileContentStreamingResult
 from anchor.model.types.provider import LlmProviders
 from anchor.model.types.utils import EmbeddingResponse, ImageResponse, LiteLLMBatch
-from bound.xor.scope.plane.delegator import Logging as LiteLLMLoggingObj
-from bound.adapter.litellm.support.convert import convert_to_model_response_object
-from bound.bridge.stream.wrapper import CustomStreamWrapper
+from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
+from bound.channel.support.convert import convert_to_model_response_object
+from bound.transport.stream.wrapper import CustomStreamWrapper
 from anchor.model.types.llms.openai import *
-from bound.bridge.action.base import BaseLLM
+from bound.channel.action.base import BaseLLM
 from bound.inter.llms.openai.common_utils import (
     BaseOpenAILLM,
     OpenAIError,

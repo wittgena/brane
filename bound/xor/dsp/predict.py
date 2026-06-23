@@ -13,11 +13,11 @@ from pydantic import BaseModel
 from pydantic_core import PydanticUndefined
 from typeguard import TypeCheckError, check_type
 from bound.xor.chat import ChatAdapter
-from bound.xor.lm.base import BaseLM
+from anchor.base.lm.base import BaseLM
 from bound.xor.dsp.instance import LM
 from anchor.switch.dspy.settings import settings
 from bound.xor.manifold.parameter import Parameter
-from bound.xor.scope.module.meta import Module
+from xphi.scope.module.meta import Module
 from bound.xor.exam.prediction import Prediction
 from arch.xor.manifold.sign.signature import Signature, ensure_signature
 from bound.xor.dsp.stream.callback import BaseCallback

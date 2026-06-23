@@ -18,7 +18,7 @@ from bound.xor.utils import (
     serialize_for_json,
     translate_field_type,
 )
-from bound.xor.lm.base import BaseLM
+from anchor.base.lm.base import BaseLM
 from arch.xor.manifold.sign.signature import Signature, SignatureMeta
 from bound.xor.dsp.stream.callback import BaseCallback
 from bound.xor.dsp.exceptions import AdapterParseError

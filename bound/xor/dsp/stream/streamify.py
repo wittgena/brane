@@ -25,7 +25,7 @@ from bound.xor.dsp.stream.asyncify import asyncify
 logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
-    from bound.xor.scope.module.meta import Module
+    from xphi.scope.module.meta import Module
 
 
 def streamify(

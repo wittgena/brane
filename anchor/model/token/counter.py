@@ -31,7 +31,7 @@ from anchor.base.config.constants import (
     MAX_TILE_WIDTH,
 )
 from anchor.model.token.encoding import get_default_encoding
-from bound.bridge.action.handler.http import _get_httpx_client
+from bound.channel.action.handler.http import _get_httpx_client
 from anchor.model.token.url_utils import safe_get
 from anchor.model.types.llms.anthropic import (
     AnthropicMessagesToolResultParam,
