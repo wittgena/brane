@@ -66,7 +66,7 @@ def get_program_for_llm(
     """Get a program based on the compatible LLM."""
     if pydantic_program_mode == PydanticProgramMode.DEFAULT:
         if llm.metadata.is_function_calling_model:
-            from llama_index.core.program.function_program import FunctionCallingProgram
+            from bound.adapter.llama.program.function_program import FunctionCallingProgram
 
             return FunctionCallingProgram.from_defaults(
                 output_cls=output_cls,
@@ -75,7 +75,7 @@ def get_program_for_llm(
                 **kwargs,
             )
         else:
-            from llama_index.core.program.llm_program import (
+            from bound.adapter.llama.program.llm_program import (
                 LLMTextCompletionProgram,
             )
 
@@ -97,7 +97,7 @@ def get_program_for_llm(
             **kwargs,
         )
     elif pydantic_program_mode == PydanticProgramMode.FUNCTION:
-        from llama_index.core.program.function_program import FunctionCallingProgram
+        from bound.adapter.llama.program.function_program import FunctionCallingProgram
 
         return FunctionCallingProgram.from_defaults(
             output_cls=output_cls,
@@ -107,7 +107,7 @@ def get_program_for_llm(
         )
 
     elif pydantic_program_mode == PydanticProgramMode.LLM:
-        from llama_index.core.program.llm_program import LLMTextCompletionProgram
+        from bound.adapter.llama.program.llm_program import LLMTextCompletionProgram
 
         return LLMTextCompletionProgram.from_defaults(
             output_parser=PydanticOutputParser(output_cls=output_cls),

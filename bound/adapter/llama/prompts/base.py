@@ -16,25 +16,25 @@ from typing import (
 )
 from typing_extensions import Annotated
 
-from llama_index.core.bridge.pydantic import (
+from bound.adapter.llama.bridge.pydantic import (
     Field,
     WithJsonSchema,
     PlainSerializer,
     SerializeAsAny,
 )
 
-from llama_index.core.base.llms.types import ChatMessage
-from llama_index.core.bridge.pydantic import BaseModel, ConfigDict
-from llama_index.core.base.llms.base import BaseLLM
-from llama_index.core.base.llms.generic_utils import (
+from bound.adapter.llama.base.llms.types import ChatMessage
+from bound.adapter.llama.bridge.pydantic import BaseModel, ConfigDict
+from bound.adapter.llama.base.llms.base import BaseLLM
+from bound.adapter.llama.base.llms.generic_utils import (
     messages_to_prompt as default_messages_to_prompt,
 )
-from llama_index.core.base.llms.generic_utils import (
+from bound.adapter.llama.base.llms.generic_utils import (
     prompt_to_messages,
 )
-from llama_index.core.prompts.prompt_type import PromptType
-from llama_index.core.prompts.utils import get_template_vars, format_string
-from llama_index.core.types import BaseOutputParser
+from bound.adapter.llama.prompts.prompt_type import PromptType
+from bound.adapter.llama.prompts.utils import get_template_vars, format_string
+from bound.adapter.llama.types import BaseOutputParser
 
 
 AnnotatedCallable = Annotated[

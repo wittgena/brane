@@ -3,9 +3,9 @@
 ## @lineage: anchor.adapter.instrumentation.events.rerank
 from typing import List, Optional
 
-from llama_index.core.instrumentation.events.base import BaseEvent
-from llama_index.core.schema import NodeWithScore, QueryType
-from llama_index.core.bridge.pydantic import ConfigDict
+from bound.adapter.llama.instrumentation.events.base import BaseEvent
+from bound.adapter.llama.schema import NodeWithScore, QueryType
+from bound.adapter.llama.bridge.pydantic import ConfigDict
 
 
 class ReRankStartEvent(BaseEvent):

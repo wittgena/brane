@@ -2,14 +2,14 @@
 ## @lineage: bound.adapter.instrumentation.events.llm
 ## @lineage: anchor.adapter.instrumentation.events.llm
 from typing import Any, Dict, List, Optional
-from llama_index.core.bridge.pydantic import BaseModel, SerializeAsAny, ConfigDict
-from llama_index.core.base.llms.types import (
+from bound.adapter.llama.bridge.pydantic import BaseModel, SerializeAsAny, ConfigDict
+from bound.adapter.llama.base.llms.types import (
     ChatMessage,
     ChatResponse,
     CompletionResponse,
 )
-from llama_index.core.instrumentation.events.base import BaseEvent
-from llama_index.core.prompts import BasePromptTemplate
+from bound.adapter.llama.instrumentation.events.base import BaseEvent
+from bound.adapter.llama.prompts import BasePromptTemplate
 
 
 class LLMPredictStartEvent(BaseEvent):

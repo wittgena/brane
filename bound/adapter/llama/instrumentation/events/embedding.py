@@ -3,8 +3,8 @@
 ## @lineage: anchor.adapter.instrumentation.events.embedding
 from typing import Dict, List
 
-from llama_index.core.instrumentation.events.base import BaseEvent
-from llama_index.core.bridge.pydantic import ConfigDict
+from bound.adapter.llama.instrumentation.events.base import BaseEvent
+from bound.adapter.llama.bridge.pydantic import ConfigDict
 
 
 class EmbeddingStartEvent(BaseEvent):

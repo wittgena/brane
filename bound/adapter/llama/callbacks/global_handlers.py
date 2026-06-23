@@ -8,7 +8,7 @@ from bound.adapter.llama.callbacks.simple_llm_handler import SimpleLLMHandler
 
 def set_global_handler(eval_mode: str, **eval_params: Any) -> None:
     """Set global eval handlers."""
-    import llama_index.core
+    import bound.adapter.llama
 
     handler = create_global_handler(eval_mode, **eval_params)
     if handler:

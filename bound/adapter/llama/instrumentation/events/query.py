@@ -1,9 +1,9 @@
 # bound.adapter.llama.instrumentation.events.query
 ## @lineage: bound.adapter.instrumentation.events.query
 ## @lineage: anchor.adapter.instrumentation.events.query
-from llama_index.core.instrumentation.events.base import BaseEvent
-from llama_index.core.base.response.schema import RESPONSE_TYPE
-from llama_index.core.schema import QueryType
+from bound.adapter.llama.instrumentation.events.base import BaseEvent
+from bound.adapter.llama.base.response.schema import RESPONSE_TYPE
+from bound.adapter.llama.schema import QueryType
 
 
 class QueryStartEvent(BaseEvent):

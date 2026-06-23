@@ -1,7 +1,7 @@
 # bound.adapter.llama.instrumentation.events.chat_engine
 ## @lineage: bound.adapter.instrumentation.events.chat_engine
 ## @lineage: anchor.adapter.instrumentation.events.chat_engine
-from llama_index.core.instrumentation.events.base import BaseEvent
+from bound.adapter.llama.instrumentation.events.base import BaseEvent
 
 
 class StreamChatStartEvent(BaseEvent):

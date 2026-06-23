@@ -4,10 +4,10 @@
 """Embedding utils for LlamaIndex."""
 import os
 from typing import TYPE_CHECKING, List, Optional, Union
-from llama_index.core.base.embeddings.base import BaseEmbedding
-from llama_index.core.callbacks import CallbackManager
-from llama_index.core.embeddings.mock_embed_model import MockEmbedding
-from llama_index.core.utils import get_cache_dir
+from bound.adapter.llama.base.embeddings.base import BaseEmbedding
+from bound.adapter.llama.callbacks import CallbackManager
+from bound.adapter.llama.embeddings.mock_embed_model import MockEmbedding
+from bound.adapter.llama.utils import get_cache_dir
 
 EmbedType = Union[BaseEmbedding, str]
 

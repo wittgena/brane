@@ -16,8 +16,8 @@ if TYPE_CHECKING:
 
 import os
 
-from llama_index.core.llms.callbacks import CallbackManager
-from llama_index.core.llms.llm import LLM
+from bound.adapter.llama.llms.callbacks import CallbackManager
+from bound.adapter.llama.llms.llm import LLM
 
 LLMType = Union[str, LLM, "BaseLanguageModel"]
 
@@ -26,7 +26,7 @@ def resolve_llm(
     llm: Optional[LLMType] = None, callback_manager: Optional[CallbackManager] = None
 ) -> LLM:
     """Resolve LLM from string or LLM instance."""
-    from llama_index.core.settings import Settings
+    from bound.adapter.llama.settings import Settings
 
     try:
         # For langchain v1.x.x
@@ -43,7 +43,7 @@ def resolve_llm(
     if llm == "default":
         # if testing return mock llm
         if os.getenv("IS_TESTING"):
-            from llama_index.core.llms.mock import MockLLM
+            from bound.adapter.llama.llms.mock import MockLLM
 
             llm = MockLLM()
             llm.callback_manager = callback_manager or Settings.callback_manager
@@ -113,7 +113,7 @@ def resolve_llm(
                 "please run `pip install llama-index-llms-langchain`"
             )
     elif llm is None:
-        from llama_index.core.llms.mock import MockLLM
+        from bound.adapter.llama.llms.mock import MockLLM
 
         print("LLM is explicitly disabled. Using MockLLM.")
         llm = MockLLM()

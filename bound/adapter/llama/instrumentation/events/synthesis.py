@@ -3,10 +3,10 @@
 ## @lineage: anchor.adapter.instrumentation.events.synthesis
 from typing import List
 
-from llama_index.core.base.llms.types import ChatMessage
-from llama_index.core.instrumentation.events.base import BaseEvent
-from llama_index.core.base.response.schema import RESPONSE_TYPE
-from llama_index.core.schema import QueryType
+from bound.adapter.llama.base.llms.types import ChatMessage
+from bound.adapter.llama.instrumentation.events.base import BaseEvent
+from bound.adapter.llama.base.response.schema import RESPONSE_TYPE
+from bound.adapter.llama.schema import QueryType
 
 
 class SynthesizeStartEvent(BaseEvent):

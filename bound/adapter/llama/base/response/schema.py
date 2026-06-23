@@ -7,11 +7,11 @@ import asyncio
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Union
 
-from llama_index.core.async_utils import asyncio_run
-from llama_index.core.bridge.pydantic import BaseModel
-from llama_index.core.schema import NodeWithScore
-from llama_index.core.types import TokenGen, TokenAsyncGen
-from llama_index.core.utils import truncate_text
+from bound.adapter.llama.async_utils import asyncio_run
+from bound.adapter.llama.bridge.pydantic import BaseModel
+from bound.adapter.llama.schema import NodeWithScore
+from bound.adapter.llama.types import TokenGen, TokenAsyncGen
+from bound.adapter.llama.utils import truncate_text
 
 
 @dataclass

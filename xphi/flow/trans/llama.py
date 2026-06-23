@@ -118,13 +118,8 @@ class GitHubExtractor:
 
         self._fallback_git_sparse_checkout()
 
-
-# =====================================================================
-# 2. Infrastructure: Isolated Process Runner
-# =====================================================================
 class IsolatedProcessRunner:
     """독립된 서브프로세스 실행 및 로그 스트리밍을 담당하는 유틸리티 클래스"""
-    
     @staticmethod
     def execute_subtask(command_name: str, args: list):
         log.signal(f"[Sub-Task] Resolving contract for isolated execution: {command_name}")
@@ -165,10 +160,6 @@ class IsolatedProcessRunner:
         
         return True
 
-
-# =====================================================================
-# 3. Business Logic: Main Orchestrator
-# =====================================================================
 class LlamaTransductor:
     """LlamaIndex 통합 모듈 추출 및 의존성 변환을 지휘하는 메인 파이프라인"""
     
@@ -190,8 +181,6 @@ class LlamaTransductor:
 
         new_path_parts = DEST_PATH.split(".")
         self.dest_dir = SELF_ROOT / TARGET_REPO / Path(*new_path_parts) / category_pkg / name_pkg
-        
-        # 인프라 도구 할당
         self.extractor = GitHubExtractor(self.target_subpath, self.dest_dir, self.tag)
 
     def mutate_dependencies(self):

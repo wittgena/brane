@@ -6,9 +6,9 @@
 import json
 from typing import Any, Generic, List, Optional, Type
 
-from llama_index.core.output_parsers import BaseOutputParser
-from llama_index.core.output_parsers.utils import extract_json_str
-from llama_index.core.types import Model
+from bound.adapter.llama.output_parsers import BaseOutputParser
+from bound.adapter.llama.output_parsers.utils import extract_json_str
+from bound.adapter.llama.types import Model
 
 PYDANTIC_FORMAT_TMPL = """
 Here's a JSON schema to follow:

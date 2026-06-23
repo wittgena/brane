@@ -25,7 +25,7 @@ class SimpleLLMHandler(PythonicallyPrintingBaseHandler):
         return
 
     def _print_llm_event(self, payload: dict) -> None:
-        from llama_index.core.llms import ChatMessage
+        from bound.adapter.llama.llms import ChatMessage
 
         if EventPayload.PROMPT in payload:
             prompt = str(payload.get(EventPayload.PROMPT))

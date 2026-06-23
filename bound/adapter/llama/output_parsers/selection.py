@@ -6,12 +6,12 @@ from dataclasses import dataclass
 from typing import Any, List
 
 from dataclasses_json import DataClassJsonMixin
-from llama_index.core.output_parsers.base import (
+from bound.adapter.llama.output_parsers.base import (
     OutputParserException,
     StructuredOutput,
 )
-from llama_index.core.output_parsers.utils import _marshal_llm_to_json
-from llama_index.core.types import BaseOutputParser
+from bound.adapter.llama.output_parsers.utils import _marshal_llm_to_json
+from bound.adapter.llama.types import BaseOutputParser
 
 
 def _escape_curly_braces(input_string: str) -> str:

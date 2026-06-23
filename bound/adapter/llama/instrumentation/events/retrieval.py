@@ -2,8 +2,8 @@
 ## @lineage: bound.adapter.instrumentation.events.retrieval
 ## @lineage: anchor.adapter.instrumentation.events.retrieval
 from typing import List
-from llama_index.core.instrumentation.events.base import BaseEvent
-from llama_index.core.schema import QueryType, NodeWithScore
+from bound.adapter.llama.instrumentation.events.base import BaseEvent
+from bound.adapter.llama.schema import QueryType, NodeWithScore
 
 
 class RetrievalStartEvent(BaseEvent):

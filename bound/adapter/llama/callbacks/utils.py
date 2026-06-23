@@ -6,7 +6,7 @@ import inspect
 import logging
 from typing import Any, Callable, cast
 
-from llama_index.core.callbacks.base import CallbackManager
+from bound.adapter.llama.callbacks.base import CallbackManager
 
 logger = logging.getLogger(__name__)
 

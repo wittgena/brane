@@ -3,7 +3,7 @@ import os
 from typing import Any, Callable, Dict, Optional, Sequence
 
 import requests
-from llama_index.core.base.llms.types import (
+from bound.adapter.llama.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseGen,
@@ -11,21 +11,21 @@ from llama_index.core.base.llms.types import (
     CompletionResponseGen,
     LLMMetadata,
 )
-from llama_index.core.bridge.pydantic import Field, PrivateAttr
-from llama_index.core.callbacks import CallbackManager
-from llama_index.core.constants import (
+from bound.adapter.llama.bridge.pydantic import Field, PrivateAttr
+from bound.adapter.llama.callbacks import CallbackManager
+from bound.adapter.llama.constants import (
     DEFAULT_CONTEXT_WINDOW,
     DEFAULT_NUM_OUTPUTS,
     DEFAULT_TEMPERATURE,
 )
-from llama_index.core.llms.callbacks import llm_chat_callback, llm_completion_callback
-from llama_index.core.llms.custom import CustomLLM
-from llama_index.core.base.llms.generic_utils import (
+from bound.adapter.llama.llms.callbacks import llm_chat_callback, llm_completion_callback
+from bound.adapter.llama.llms.custom import CustomLLM
+from bound.adapter.llama.base.llms.generic_utils import (
     completion_response_to_chat_response,
     stream_completion_response_to_chat_response,
 )
-from llama_index.core.types import BaseOutputParser, PydanticProgramMode
-from llama_index.core.utils import get_cache_dir
+from bound.adapter.llama.types import BaseOutputParser, PydanticProgramMode
+from bound.adapter.llama.utils import get_cache_dir
 from tqdm import tqdm
 
 from llama_cpp import Llama

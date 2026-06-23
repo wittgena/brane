@@ -21,7 +21,7 @@ from bound.adapter.llama.utils import get_tokenizer
 import logging
 
 if TYPE_CHECKING:
-    from llama_index.core.llms import ChatResponse, CompletionResponse
+    from bound.adapter.llama.llms import ChatResponse, CompletionResponse
 
 
 @dataclass
@@ -80,7 +80,7 @@ def get_tokens_from_response(
 def get_llm_token_counts(
     token_counter: TokenCounter, payload: Dict[str, Any], event_id: str = ""
 ) -> TokenCountingEvent:
-    from llama_index.core.llms import ChatMessage
+    from bound.adapter.llama.llms import ChatMessage
 
     if EventPayload.PROMPT in payload:
         prompt = payload.get(EventPayload.PROMPT)

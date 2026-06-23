@@ -1,7 +1,7 @@
 # bound.adapter.llama.instrumentation.events.exception
 ## @lineage: bound.adapter.instrumentation.events.exception
 ## @lineage: anchor.adapter.instrumentation.events.exception
-from llama_index.core.instrumentation.events import BaseEvent
+from bound.adapter.llama.instrumentation.events import BaseEvent
 
 
 class ExceptionEvent(BaseEvent):

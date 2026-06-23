@@ -22,14 +22,14 @@ from typing import (
     Union,
 )
 
-from llama_index.core.base.llms.types import ChatMessage, MessageRole, TextBlock
-from llama_index.core.bridge.pydantic import (
+from bound.adapter.llama.base.llms.types import ChatMessage, MessageRole, TextBlock
+from bound.adapter.llama.bridge.pydantic import (
     BaseModel,
     GetCoreSchemaHandler,
     GetJsonSchemaHandler,
 )
-from llama_index.core.bridge.pydantic_core import CoreSchema, core_schema
-from llama_index.core.instrumentation import DispatcherSpanMixin
+from bound.adapter.llama.bridge.pydantic_core import CoreSchema, core_schema
+from bound.adapter.llama.instrumentation import DispatcherSpanMixin
 
 Model = TypeVar("Model", bound=BaseModel)
 
@@ -38,7 +38,7 @@ TokenAsyncGen = AsyncGenerator[str, None]
 RESPONSE_TEXT_TYPE = Union[BaseModel, str, TokenGen, TokenAsyncGen]
 
 if TYPE_CHECKING:
-    from llama_index.core.program.utils import FlexibleModel
+    from bound.adapter.llama.program.utils import FlexibleModel
 
 
 # TODO: move into a `core` folder

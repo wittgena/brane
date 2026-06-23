@@ -5,9 +5,9 @@
 
 from typing import Any, List
 
-from llama_index.core.base.embeddings.base import BaseEmbedding
-from llama_index.core.embeddings.multi_modal_base import MultiModalEmbedding
-from llama_index.core.schema import ImageType
+from bound.adapter.llama.base.embeddings.base import BaseEmbedding
+from bound.adapter.llama.embeddings.multi_modal_base import MultiModalEmbedding
+from bound.adapter.llama.schema import ImageType
 
 
 class MockEmbedding(BaseEmbedding):
