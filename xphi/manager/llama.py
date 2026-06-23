@@ -10,8 +10,12 @@ import subprocess
 import urllib.request
 from urllib.error import URLError, HTTPError
 from pathlib import Path
-from phase.bind.resolver import find_current_self
+
+import bound.adapter.llama as llama_adapter
+import bound.inter as inter_path
+
 from arch.contract.registry.unified import contract, registry
+from phase.bind.resolver import find_current_self
 from phase.runtime.cli.executor import CliTaskAdapter, parse_local, dispatch_cli
 from watcher.plane.emitter import get_emitter
 
@@ -23,8 +27,8 @@ GITHUB_API_BASE = "https://api.github.com/repos/run-llama/llama_index/contents"
 GITHUB_REPO_URL = "https://github.com/run-llama/llama_index.git"
 
 TARGET_REPO = "brane"
-ADAPTER_PATH = "bound.adapter"
-DEST_PATH = "bound.adapter.llama"
+ADAPTER_PATH = llama_adapter.__name__
+DEST_PATH = inter_path.__name__
 DEFAULT_TAG =  "v0.14.22"
 
 class MutationRunner:
