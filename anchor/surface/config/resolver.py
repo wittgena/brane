@@ -1,4 +1,5 @@
-# anchor.base.config.resolver
+# anchor.surface.config.resolver
+## @lineage: anchor.base.config.resolver
 ## @lineage: anchor.config.resolver
 ## @lineage: bound.config.resolver
 import os

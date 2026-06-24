@@ -1,4 +1,5 @@
-# anchor.base.lm.dummy
+# anchor.model.lm.dummy
+## @lineage: anchor.base.lm.dummy
 ## @lineage: bound.xor.lm.dummy
 ## @lineage: anchor.xor.lm.dummy
 ## @lineage: meta.xor.adapter.lm.dummy

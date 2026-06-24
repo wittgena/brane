@@ -1,4 +1,5 @@
-# anchor.base.model
+# anchor.model.info.format
+## @lineage: anchor.base.model
 ## @lineage: anchor.model
 ## @lineage: anchor.base.utils
 ## @lineage: channel.llms.base.utils
