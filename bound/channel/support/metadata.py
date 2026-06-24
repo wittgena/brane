@@ -15,7 +15,7 @@ import datetime
 from typing import Any, Optional, Union
 from anchor.surface.config.constants import LITELLM_DETAILED_TIMING
 from bound.channel.support.helpers import process_response_headers
-from bound.channel.api.get_api_base import get_api_base
+from bound.channel.support.api.base import get_api_base
 
 # from gate.litellm.voider import Logging as LiteLLMLoggingObject
 LiteLLMLoggingObject = Any

@@ -13,7 +13,7 @@ import openai
 from openai import AsyncOpenAI, OpenAI
 from pydantic import BaseModel
 
-from anchor.action.chat.transform import BaseConfig
+from anchor.surface.config.base import BaseConfig
 from anchor.surface.exception import BaseLLMException
 from anchor.surface.config.resolver import config
 from anchor.surface.config.constants import DEFAULT_MAX_RETRIES
@@ -23,8 +23,8 @@ from anchor.model.provider.types import ProviderTypes
 from anchor.surface.legacy.llm.types.utils import EmbeddingResponse
 from bound.channel.support.convert import convert_to_model_response_object
 from anchor.model.provider.manager import ProviderConfigManager
-from bound.transport.stream.wrapper import CustomStreamWrapper
-from bound.channel.action.base import BaseLLM
+from bound.channel.transport.stream.wrapper import CustomStreamWrapper
+from anchor.surface.legacy.llm.base import BaseLLM
 from anchor.surface.legacy.llm.openai.common_utils import (
     BaseOpenAILLM,
     OpenAIError,
@@ -55,8 +55,6 @@ class OpenAIContext:
     
     client: Optional[Union[OpenAI, AsyncOpenAI]] = None
     shared_session: Optional[Any] = None
-    
-    # 세팅 과정을 통해 채워지는 내부 데이터
     provider_config: BaseConfig = field(default_factory=OpenAIConfig)
     request_data: dict = field(default_factory=dict)
     stream_options: Optional[dict] = None

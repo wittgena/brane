@@ -8,9 +8,9 @@
 from typing import AsyncGenerator, Generator
 from bound.adapter.llama.base.llms.types import ChatMessage, MessageRole
 from xphi.trans.llm.router import LLMRouter
-from bound.transport.stream.wrapper import CustomStreamWrapper
+from bound.channel.transport.stream.wrapper import CustomStreamWrapper
 from bound.adapter.provider.base import BaseProviderAdapter
-from anchor.action.preprocessor import CompletionContext
+from bound.bridge.action.preprocessor import CompletionContext
 
 class InterLLMAdapter(BaseProviderAdapter):
     """

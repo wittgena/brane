@@ -8,13 +8,13 @@ import pydantic
 from anyio.streams.memory import MemoryObjectSendStream
 from asyncer import syncify
 
-from anchor.action.completion import acompletion
+from bound.bridge.action.completion import acompletion
 from anchor.switch.dspy.settings import settings
 from anchor.surface.exception import ContextWindowExceededError as LitellmContextWindowExceededError
 from anchor.model.lm.base import BaseLM
 
 from bound.xor.dsp.handler.cache import request_cache
-from bound.transport.stream.chunk.builder import stream_chunk_builder
+from bound.channel.transport.stream.chunk.builder import stream_chunk_builder
 
 from anchor.model.info.support import supports_function_calling, supports_reasoning, supports_response_schema, get_supported_openai_params
 from bound.xor.dsp.stream.callback import BaseCallback

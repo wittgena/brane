@@ -13,11 +13,11 @@ from typing import (
 )
 
 import httpx
-from bound.channel.action.handler.http import AsyncHTTPHandler, HTTPHandler
+from bound.channel.handler.http import AsyncHTTPHandler, HTTPHandler
 from anchor.surface.legacy.llm.types.utils import GenericStreamingChunk
 from anchor.surface.legacy.llm.types.utils import EmbeddingResponse, ImageResponse, ModelResponse
-from bound.channel.action.base import BaseLLM
-from bound.transport.stream.wrapper import CustomStreamWrapper
+from anchor.surface.legacy.llm.base import BaseLLM
+from bound.channel.transport.stream.wrapper import CustomStreamWrapper
 
 class CustomLLMError(Exception):  # use this for all your exceptions
     def __init__(

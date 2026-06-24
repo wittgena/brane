@@ -41,7 +41,7 @@ from anchor.surface.legacy.llm.openai.types import (
 from anchor.surface.legacy.llm.types.utils import SelectTokenizerResponse
 from anchor.switch.params import Message
 
-from bound.channel.action.handler.http import _get_httpx_client
+from bound.channel.handler.http import _get_httpx_client
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter(__name__)

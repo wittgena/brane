@@ -33,8 +33,8 @@ from typing_extensions import overload
 
 from anchor.surface.config.resolver import config
 from anchor.surface.config.constants import DEFAULT_MAX_RETRIES
-from anchor.action.response.iterator import BaseModelResponseIterator
-from anchor.action.chat.transform import BaseConfig
+from bound.channel.support.response.iterator import BaseModelResponseIterator
+from anchor.surface.config.base import BaseConfig
 from anchor.surface.exception import BaseLLMException
 from anchor.switch.params import ModelResponse, ModelResponseStream
 from anchor.model.provider.types import ProviderTypes
@@ -43,8 +43,8 @@ from anchor.surface.legacy.llm.openai.types import *
 
 from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
 from bound.channel.support.convert import convert_to_model_response_object
-from bound.transport.stream.wrapper import CustomStreamWrapper
-from bound.channel.action.base import BaseLLM
+from bound.channel.transport.stream.wrapper import CustomStreamWrapper
+from anchor.surface.legacy.llm.base import BaseLLM
 from anchor.surface.legacy.llm.openai.common_utils import (
     BaseOpenAILLM,
     OpenAIError,

@@ -12,7 +12,7 @@ from typing import Any, Optional
 import httpx
 
 from anchor.surface.config.resolver import config
-from bound.channel.api.get_api_base import get_api_base
+from bound.channel.support.api.base import get_api_base
 from bound.xor.secret.redact import redact_string
 from anchor.model.provider.types import ProviderTypes
 from anchor.surface.exception import (

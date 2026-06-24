@@ -2,9 +2,9 @@
 ## @lineage: anchor.model.provider.adapter.base
 from typing import Any, Dict, List, Optional, Union
 from anchor.switch.params import ModelResponse
-from anchor.action.preprocessor import CompletionContext
-from bound.channel.action.handler.completor import CompletionHandler
-from bound.transport.stream.wrapper import CustomStreamWrapper
+from bound.bridge.action.preprocessor import CompletionContext
+from bound.adapter.provider.completor import CompletionHandler
+from bound.channel.transport.stream.wrapper import CustomStreamWrapper
 from bound.xor.secret.manager import get_secret_bool
 from anchor.surface.legacy.llm.openai.completion import OpenAIChatCompletion
 

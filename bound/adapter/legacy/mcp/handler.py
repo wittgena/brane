@@ -23,7 +23,7 @@ from anchor.surface.legacy.proxy.reverse import global_mcp_server_manager, Legac
 from anchor.surface.legacy.proxy.logger import LegacyLogManager
 from anchor.surface.legacy.mcp.tool import transform_mcp_tool_to_openai_responses_api_tool, transform_mcp_tool_to_openai_tool
 from anchor.surface.legacy.mcp.payload import MCPPayloadUtils
-from bound.transport.stream.iterator import BaseResponsesAPIStreamingIterator
+from bound.channel.transport.stream.iterator import BaseResponsesAPIStreamingIterator
 
 if TYPE_CHECKING:
     from mcp.types import Tool as MCPTool
@@ -410,7 +410,7 @@ class LegacyMCPHandler:
         response_id: str,
         **call_params: Any,
     ) -> Union[ResponsesAPIResponse, BaseResponsesAPIStreamingIterator]:
-        from anchor.action.api.aresponse import aresponses
+        from bound.bridge.api.aresponse import aresponses
         return await aresponses(
             input=follow_up_input,
             model=model,
