@@ -3,7 +3,7 @@
 ## @lineage: channel.secret.credential
 ## @lineage: channel.bridge.litellm.credential_accessor
 from typing import List
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 from anchor.surface.legacy.llm.types.utils import CredentialItem
 
 class CredentialAccessor:

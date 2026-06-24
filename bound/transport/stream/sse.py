@@ -4,7 +4,7 @@
 ## @lineage: bound.handler.support.sse_output_recovery
 import json
 from typing import Any, Dict, Optional
-from anchor.base.config.constants import STREAM_SSE_DONE_STRING
+from anchor.surface.config.constants import STREAM_SSE_DONE_STRING
 
 _MAX_CONTENT_INDEX = 1024
 

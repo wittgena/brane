@@ -6,9 +6,9 @@
 from typing import Optional
 from functools import lru_cache, wraps
 
-from anchor.base.model import BaseLLMModelInfo, type_to_response_format_param
-from anchor.base.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
-from anchor.base.config.resolver import config
+from anchor.model.info.format import BaseLLMModelInfo, type_to_response_format_param
+from anchor.surface.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
+from anchor.surface.config.resolver import config
 
 from anchor.model.provider.manager import get_provider_info
 from anchor.surface.legacy.llm.types.utils import ModelInfo

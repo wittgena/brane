@@ -6,7 +6,7 @@ import traceback
 from litellm.proxy.proxy_server import proxy_logging_obj
 
 from anchor.surface.legacy.proxy.rule import Rules
-from anchor.base.config.constants import MAXIMUM_TRACEBACK_LINES_TO_LOG
+from anchor.surface.config.constants import MAXIMUM_TRACEBACK_LINES_TO_LOG
 from bound.channel.wrapper import function_setup
 from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
 from watcher.plane.emitter import get_emitter

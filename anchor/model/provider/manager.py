@@ -4,9 +4,9 @@ from functools import lru_cache
 from typing import Callable, Optional, Union
 from enum import Enum
 
-from anchor.base.config.resolver import config
-from anchor.base.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
-from anchor.base.model import BaseLLMModelInfo
+from anchor.surface.config.resolver import config
+from anchor.surface.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
+from anchor.model.info.format import BaseLLMModelInfo
 from anchor.model.provider.types import ProviderTypes, ProviderTypesSet
 from anchor.surface.legacy.llm.types.support import ProviderSpecificModelInfo
 

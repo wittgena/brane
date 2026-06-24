@@ -7,7 +7,7 @@ import traceback
 from typing import Dict, Iterable, List, Literal, Optional, Tuple, Union, cast
 from typing_extensions import Required, TypedDict
 
-from anchor.base.config.constants import RESPONSE_FORMAT_TOOL_NAME
+from anchor.surface.config.constants import RESPONSE_FORMAT_TOOL_NAME
 from bound.channel.support.header import get_response_headers
 from anchor.surface.legacy.llm.openai.types import (
     ChatCompletionThinkingBlock,
@@ -40,7 +40,7 @@ from anchor.switch.params import (
     Choices, 
     Delta
 )
-from anchor.base.exception import APIError
+from anchor.surface.exception import APIError
 
 from anchor.surface.legacy.llm.types.utils import Logprobs as TextCompletionLogprobs
 

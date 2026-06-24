@@ -20,19 +20,49 @@ DEFAULT_LLM_REGISTRY = {
         "module": "bound.inter.llms.openai.base",
         "class": "OpenAI",
         "tags": ["gpt-4", "gpt-3.5", "o1"],
-        "is_native": True
+        "is_native": True,
+        "capabilities": {
+            "is_function_calling": True,
+            "is_openai_like": True,
+            "is_multimodal": True,
+            "supports_structured_outputs": True
+        },
+        "accepted_kwargs": [
+            "model", "temperature", "max_tokens", "additional_kwargs", 
+            "max_retries", "timeout", "api_key", "api_base", "system_prompt"
+        ]
     },
     "anthropic": {
         "module": "bound.inter.llms.anthropic.base",
         "class": "Anthropic",
         "tags": ["claude"],
-        "is_native": True
+        "is_native": True,
+        "capabilities": {
+            "is_function_calling": True,
+            "is_openai_like": False,
+            "is_multimodal": True, # Claude 3부터 지원
+            "supports_structured_outputs": True
+        },
+        "accepted_kwargs": [
+            "model", "temperature", "max_tokens", "additional_kwargs", 
+            "max_retries", "timeout", "api_key", "system_prompt"
+        ]
     },
     "gemini": {
         "module": "bound.inter.llms.google_genai.base",
         "class": "Gemini",
         "tags": ["gemini"],
-        "is_native": True
+        "is_native": True,
+        "capabilities": {
+            "is_function_calling": True,
+            "is_openai_like": False,
+            "is_multimodal": True,
+            "supports_structured_outputs": True
+        },
+        "accepted_kwargs": [
+            "model", "temperature", "max_tokens", "additional_kwargs", 
+            "max_retries", "api_key", "system_prompt"
+        ]
     }
 }
 
@@ -58,12 +88,14 @@ class LLMRouter:
                 if "bound.inter.llms" in info["module"] and provider in DEFAULT_LLM_REGISTRY:
                     continue
             
-            ## @inject: Map the discovered external topology
+            ## @inject: Map the discovered external topology & Absorb Rich Metadata
             self.registry[provider] = {
                 "module": info["module"],
                 "class": info["class"],
                 "tags": info.get("tags", [provider]),
-                "is_native": False
+                "is_native": False,
+                "capabilities": info.get("capabilities", {}),
+                "accepted_kwargs": info.get("accepted_kwargs", [])
             }
             dynamic_count += 1
             
@@ -117,6 +149,15 @@ class LLMRouter:
             raise RuntimeError(f"[Router] No valid executable LLM class found within '{module_path}'.")
 
         ## @bind: Instantiate and project the kwargs into the LlamaIndex boundary
+        accepted_kwargs = meta.get("accepted_kwargs", [])
+        if accepted_kwargs:
+            valid_kwargs = {k: v for k, v in kwargs.items() if k in accepted_kwargs}
+            dropped_kwargs = set(kwargs.keys()) - set(valid_kwargs.keys())
+            
+            if dropped_kwargs:
+                log.warning(f"[Router] Filtered unsupported kwargs for {provider} ({model_name}): {dropped_kwargs}")
+            
+            return LLMClass(model=model_name, **valid_kwargs)
         return LLMClass(model=model_name, **kwargs)
 
     def get_llm_tool_schema(self) -> Dict[str, Any]:

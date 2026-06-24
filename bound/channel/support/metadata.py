@@ -13,7 +13,7 @@
 ## @lineage: gate.litellm_core_utils.llm_response_utils.response_metadata
 import datetime
 from typing import Any, Optional, Union
-from anchor.base.config.constants import LITELLM_DETAILED_TIMING
+from anchor.surface.config.constants import LITELLM_DETAILED_TIMING
 from bound.channel.support.helpers import process_response_headers
 from bound.channel.api.get_api_base import get_api_base
 

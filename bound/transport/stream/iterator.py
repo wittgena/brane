@@ -10,10 +10,10 @@ from typing import Any, Dict, List, Literal, Optional
 import httpx
 from openai._streaming import SSEDecoder
 
-from anchor.base.config.resolver import config
-from anchor.base.response.transformation import BaseResponsesAPIConfig
-from anchor.base.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
-from anchor.base.executor import executor
+from anchor.surface.config.resolver import config
+from anchor.action.response.config import BaseResponsesAPIConfig
+from anchor.surface.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
+from anchor.surface.executor import executor
 
 import anchor.surface.legacy.llm.openai.types as openai_types
 from anchor.surface.legacy.llm.openai.types import ResponsesAPIStreamEvents

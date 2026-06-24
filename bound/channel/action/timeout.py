@@ -9,7 +9,7 @@ from __future__ import annotations
 from typing import Callable, Optional, Union
 import httpx
 
-from anchor.base.config.constants import COMPLETION_HTTP_FALLBACK_SECONDS, DEFAULT_REQUEST_TIMEOUT_SECONDS
+from anchor.surface.config.constants import COMPLETION_HTTP_FALLBACK_SECONDS, DEFAULT_REQUEST_TIMEOUT_SECONDS
 
 class CompletionTimeout:
     """Resolves HTTP timeout for ``completion()`` from model vs global settings."""

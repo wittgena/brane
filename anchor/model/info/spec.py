@@ -1,15 +1,4 @@
 # anchor.model.info.spec
-## @lineage: anchor.router.model.info.spec
-## @lineage: bound.router.model.info.spec
-## @lineage: bound.channel.model.info.spec
-## @lineage: channel.model.info.spec
-## @lineage: gov.gateway.call.info.model.spec
-## @lineage: gov.gate.call.info.model.spec
-## @lineage: gate.call.info.model.spec
-## @lineage: agent.call.info.model.spec
-## @lineage: channel.call.info.model.spec
-## @lineage: agent.manager.model.spec
-## @lineage: agent.manager.spec
 from __future__ import annotations
 from pydantic import BaseModel, ConfigDict
 

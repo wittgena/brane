@@ -15,7 +15,7 @@ from typing import (
 )
 from fastapi import HTTPException
 
-from anchor.base.exception import BlockedPiiEntityError, GuardrailRaisedException
+from anchor.surface.exception import BlockedPiiEntityError, GuardrailRaisedException
 from anchor.switch.params import ResponsesAPIResponse
 from anchor.surface.legacy.llm.types.utils import CallTypes, StandardLoggingMCPToolCall
 

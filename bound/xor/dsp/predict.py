@@ -13,7 +13,7 @@ from pydantic import BaseModel
 from pydantic_core import PydanticUndefined
 from typeguard import TypeCheckError, check_type
 from bound.xor.chat import ChatAdapter
-from anchor.base.lm.base import BaseLM
+from anchor.model.lm.base import BaseLM
 from bound.xor.dsp.instance import LM
 from anchor.switch.dspy.settings import settings
 from bound.xor.manifold.parameter import Parameter

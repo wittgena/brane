@@ -11,11 +11,11 @@ from typing import Any, Optional
 import httpx
 from litellm.llms.azure.exception_mapping import AzureOpenAIExceptionMapping
 
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 from bound.channel.api.get_api_base import get_api_base
 from bound.xor.secret.redact import redact_string
 from anchor.model.provider.types import ProviderTypes
-from anchor.base.exception import (
+from anchor.surface.exception import (
     APIConnectionError,
     APIError,
     AuthenticationError,

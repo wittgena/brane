@@ -13,10 +13,10 @@ import openai
 from openai import AsyncOpenAI, OpenAI
 from pydantic import BaseModel
 
-from anchor.base.chat.transform import BaseConfig
-from anchor.base.exception import BaseLLMException
-from anchor.base.config.resolver import config
-from anchor.base.config.constants import DEFAULT_MAX_RETRIES
+from anchor.action.chat.transform import BaseConfig
+from anchor.surface.exception import BaseLLMException
+from anchor.surface.config.resolver import config
+from anchor.surface.config.constants import DEFAULT_MAX_RETRIES
 from anchor.switch.params import ModelResponse, ModelResponseStream
 
 from anchor.model.provider.types import ProviderTypes

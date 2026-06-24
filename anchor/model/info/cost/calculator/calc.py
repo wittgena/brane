@@ -5,10 +5,10 @@ from httpx import Response
 from pydantic import BaseModel
 from functools import lru_cache
 
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 from anchor.model.token.counter import token_counter
 from anchor.model.info.cost.map import model_cost, _get_model_info_helper
-from anchor.base.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE, DEFAULT_REPLICATE_GPU_PRICE_PER_SECOND
+from anchor.surface.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE, DEFAULT_REPLICATE_GPU_PRICE_PER_SECOND
 from anchor.model.info.cost.track.toolcall import StandardBuiltInToolCostTracking
 from anchor.model.info.cost.calculator.transform import TranscriptionUsageObjectTransformation
 from anchor.model.info.cost.calculator.utils import CostCalculatorUtils, generic_cost_per_token

@@ -21,12 +21,12 @@ from typing import (
     cast,
     get_args,
 )
-from anchor.base.config.resolver import config
-from anchor.base.config.constants import (
+from anchor.surface.config.resolver import config
+from anchor.surface.config.constants import (
     DEFAULT_EMBEDDING_PARAM_VALUES,
     OPENAI_EMBEDDING_PARAMS,
 )
-from anchor.base.exception import (
+from anchor.surface.exception import (
     AuthenticationError,
     BadRequestError,
     UnsupportedParamsError,

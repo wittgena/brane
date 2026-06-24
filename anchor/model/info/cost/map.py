@@ -3,7 +3,7 @@ import os
 import litellm
 from typing import Union, cast, Optional, Dict
 
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 from anchor.model.info.entry import get_model_info
 from anchor.model.provider.registry import get_model_cost_map
 from anchor.model.provider.types import ProviderTypes

@@ -31,11 +31,11 @@ from openai.types.file_deleted import FileDeleted
 from pydantic import BaseModel
 from typing_extensions import overload
 
-from anchor.base.config.resolver import config
-from anchor.base.config.constants import DEFAULT_MAX_RETRIES
-from anchor.base.response.iterator import BaseModelResponseIterator
-from anchor.base.chat.transform import BaseConfig
-from anchor.base.exception import BaseLLMException
+from anchor.surface.config.resolver import config
+from anchor.surface.config.constants import DEFAULT_MAX_RETRIES
+from anchor.action.response.iterator import BaseModelResponseIterator
+from anchor.action.chat.transform import BaseConfig
+from anchor.surface.exception import BaseLLMException
 from anchor.switch.params import ModelResponse, ModelResponseStream
 from anchor.model.provider.types import ProviderTypes
 from anchor.surface.legacy.llm.types.utils import EmbeddingResponse, ImageResponse, LiteLLMBatch

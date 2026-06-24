@@ -31,9 +31,9 @@ if TYPE_CHECKING:
     from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
 
 from anchor.surface.legacy.llm.types.utils import TextChoices, TextCompletionResponse
-from anchor.base.exception import APIError
+from anchor.surface.exception import APIError
 
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 from anchor.model.token.counter import token_counter
 from bound.transport.stream.chunk.processor import ChunkProcessor
 from anchor.switch.params import Choices, Message, ModelResponse, Usage

@@ -15,8 +15,8 @@ from typing import (
 )
 import tiktoken
 
-from anchor.base.config.resolver import config
-from anchor.base.config.constants import (
+from anchor.surface.config.resolver import config
+from anchor.surface.config.constants import (
     DEFAULT_IMAGE_HEIGHT,
     DEFAULT_IMAGE_TOKEN_COUNT,
     DEFAULT_IMAGE_WIDTH,

@@ -2,7 +2,7 @@
 ## @lineage: bound.bridge.api.get_api_base
 ## @lineage: bound.client.api.get_api_base
 from typing import Optional, Union
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 from anchor.model.provider.resolver import get_llm_provider
 from anchor.surface.legacy.llm.types.router import LiteLLM_Params
 from watcher.plane.emitter import get_emitter

@@ -26,12 +26,12 @@ from pydantic import BaseModel
 from tiktoken import Encoding
 from typing import TYPE_CHECKING, Any, Dict, List, Mapping, Optional, TypeVar, Union
 
-from anchor.base.exception import UnsupportedParamsError
-from anchor.base.model import type_to_response_format_param
-from anchor.base.chat.transform import BaseConfig
+from anchor.surface.exception import UnsupportedParamsError
+from anchor.model.info.format import type_to_response_format_param
+from anchor.action.chat.transform import BaseConfig
 
-from anchor.base.config.resolver import config
-from anchor.base.config.constants import DEFAULT_CHAT_COMPLETION_PARAM_VALUES
+from anchor.surface.config.resolver import config
+from anchor.surface.config.constants import DEFAULT_CHAT_COMPLETION_PARAM_VALUES
 
 from anchor.surface.legacy.llm.anthropic import AnthropicThinkingParam
 from anchor.surface.legacy.llm.openai.types import AllMessageValues, OpenAIWebSearchOptions

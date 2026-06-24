@@ -1,6 +1,4 @@
 # anchor.action.preprocessor
-## @lineage: anchor.surface.legacy.action.preprocessor
-## @lineage: anchor.surface.legacy.action.completion
 import asyncio
 import contextvars
 import datetime
@@ -14,11 +12,12 @@ import traceback
 from copy import deepcopy
 from functools import partial
 from typing import Any, Dict, List, Literal, Optional, Tuple, Type, Union, cast
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
+from anchor.surface.legacy.llm.types.utils import EmbeddingResponse
 from anchor.switch.params import ModelResponse
 from anchor.surface.legacy.llm.types.utils import all_litellm_params
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 from anchor.model.info.support import supports_httpx_timeout
 from anchor.model.provider.manager import ProviderConfigManager
 from anchor.model.provider.resolver import get_llm_provider
@@ -278,3 +277,61 @@ def map_system_message_pt(messages: list) -> list:
         else:
             new_messages.append(m)
     return new_messages
+
+@dataclass
+class EmbeddingContext:
+    """@manifold: Normalized Embedding State Boundary"""
+    model: str
+    input: Union[str, List[str]]
+    custom_llm_provider: str
+    api_key: Optional[str] = None
+    api_base: Optional[str] = None
+    timeout: Union[float, int] = 60.0
+    aembedding: bool = False
+    optional_params: Dict[str, Any] = field(default_factory=dict)
+    model_response: EmbeddingResponse = field(default_factory=EmbeddingResponse)
+    logging_obj: Any = None
+    original_kwargs: Dict[str, Any] = field(default_factory=dict)
+
+class EmbeddingPreprocessor:
+    """@flow: Raw kwargs -> Normalized EmbeddingContext"""
+    def __init__(self, model: str, input: Union[str, List[str]], kwargs: dict):
+        self.model = model
+        self.input = input
+        self.kwargs = kwargs
+
+    def build(self) -> EmbeddingContext:
+        from anchor.model.provider.resolver import get_llm_provider
+        
+        # 1. Provider 식별
+        custom_llm_provider = self.kwargs.get("custom_llm_provider")
+        api_base = self.kwargs.get("api_base")
+        api_key = self.kwargs.get("api_key")
+        
+        _, resolved_provider, resolved_key, resolved_base = get_llm_provider(
+            model=self.model,
+            custom_llm_provider=custom_llm_provider,
+            api_base=api_base,
+            api_key=api_key
+        )
+
+        # 2. 파라미터 분리 (LiteLLM legacy params vs Model params)
+        from bound.channel.action.handler.param.embedding import get_optional_params_embeddings
+        optional_params = get_optional_params_embeddings(
+            model=self.model,
+            custom_llm_provider=resolved_provider,
+            **self.kwargs
+        )
+
+        return EmbeddingContext(
+            model=self.model,
+            input=self.input,
+            custom_llm_provider=resolved_provider or "openai",
+            api_key=resolved_key,
+            api_base=resolved_base,
+            timeout=self.kwargs.get("timeout", 60.0),
+            aembedding=self.kwargs.get("aembedding", False),
+            optional_params=optional_params,
+            logging_obj=self.kwargs.get("litellm_logging_obj"),
+            original_kwargs=self.kwargs
+        )

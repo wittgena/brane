@@ -18,24 +18,35 @@ async def async_core_completion(
     if model is None:
         raise ValueError("model param not passed in.")
 
-    ## 전처리 실행
     preprocessor = CompletionPreprocessor(model=model, messages=messages, kwargs=kwargs)
     ctx = preprocessor.build()
     log.debug(f"[bound.completion] 코어 진입: model={ctx.model}, provider={ctx.custom_llm_provider}")
 
     try:
-        adapter = AdapterRegistry.get_adapter(ctx.custom_llm_provider)
-        response = adapter.execute(ctx)
+        adapter = AdapterRegistry.get_adapter(task_type="llm", provider_name=ctx.custom_llm_provider)
+        if hasattr(adapter, "execute") and callable(adapter.execute):
+            import inspect
+            if inspect.iscoroutinefunction(adapter.execute):
+                response = await adapter.execute(ctx)
+            else:
+                response = adapter.execute(ctx)
+        else:
+            raise RuntimeError("유효한 어댑터 실행 함수를 찾을 수 없습니다.")
+
         if ctx.stream is True and isinstance(response, ModelResponseStream):
             return CustomStreamWrapper(
-                completion_stream=response, model=ctx.model, custom_llm_provider=ctx.custom_llm_provider, logging_obj=ctx.logging_obj,
+                completion_stream=response, 
+                model=ctx.model, 
+                custom_llm_provider=ctx.custom_llm_provider, 
+                logging_obj=ctx.logging_obj,
             )
         return response
+        
     except Exception as e:
         log.error(f"[bound.completion] 코어 엔진 예외 발생: {str(e)}")
         if ctx.logging_obj:
             ctx.logging_obj.post_call(
-                input=ctx.messages, api_key=ctx.api_key, original_response=str(e), additional_args={"headers": ctx.headers},
+                input=ctx.messages, api_key=ctx.api_key, original_response=str(e), additional_args={"headers": getattr(ctx, 'headers', {})}
             )
         
         error_completion_kwargs = {"model": model, "messages": messages, **ctx.original_kwargs}

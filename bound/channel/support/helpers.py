@@ -9,7 +9,7 @@ import copy
 from typing import TYPE_CHECKING, Any, Iterable, List, Literal, Optional, Union
 import httpx
 
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 from anchor.surface.legacy.llm.openai.types import AllMessageValues, OpenAIChatCompletionFinishReason
 if TYPE_CHECKING:
     from opentelemetry.trace import Span as _Span

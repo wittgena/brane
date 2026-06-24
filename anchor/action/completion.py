@@ -16,7 +16,7 @@ from copy import deepcopy
 from functools import partial
 from typing import Any, Dict, List, Literal, Optional, Tuple, Type, Union, cast
 
-from anchor.base.exception import Timeout
+from anchor.surface.exception import Timeout
 from anchor.switch.params import ModelResponse
 from anchor.surface.legacy.llm.types.mapping.exception import exception_type
 from anchor.action.core import async_core_completion

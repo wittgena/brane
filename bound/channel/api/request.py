@@ -18,8 +18,8 @@ from typing import (
     overload,
 )
 from pydantic import BaseModel
-from anchor.base.response.transformation import BaseResponsesAPIConfig
-from anchor.base.config.resolver import config
+from anchor.action.response.config import BaseResponsesAPIConfig
+from anchor.surface.config.resolver import config
 from bound.channel.action.handler.param.optional import PreProcessNonDefaultParams
 from anchor.surface.legacy.llm.openai.types import (
     ResponsesAPIOptionalRequestParams,
@@ -578,7 +578,7 @@ class ResponsesAPIRequestUtils:
         text: Optional["ResponseText"] = None,
     ) -> Optional["ResponseText"]:
         if text_format is not None and text is None:
-            from anchor.base.model import type_to_response_format_param
+            from anchor.model.info.format import type_to_response_format_param
 
             # Convert Pydantic model to response format
             response_format = type_to_response_format_param(text_format)

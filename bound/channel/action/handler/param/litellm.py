@@ -1,17 +1,24 @@
 # bound.channel.action.handler.param.litellm
-## @lineage: bound.bridge.action.handler.param.litellm
-## @lineage: bound.client.handler.param.litellm
-## @lineage: bound.param.litellm
-## @lineage: bound.channel.handler.param.litellm
-## @lineage: bound.handler.param.litellm
-## @lineage: channel.bridge.litellm.params
-## @lineage: channel.bridge.litellm.get_litellm_params
-## @lineage: bridge.litellm.get_litellm_params
-## @lineage: channel.litellm.get_litellm_params
-## @lineage: channel.bound.litellm.get_litellm_params
-## @lineage: gate.litellm.get_litellm_params
-from typing import Optional
-from anchor.surface.legacy.llm.openai.data_residency import infer_openai_data_residency
+from typing import Dict, Optional
+from urllib.parse import urlparse
+
+_OPENAI_REGIONAL_HOSTS: Dict[str, str] = {
+    "eu.api.openai.com": "eu",
+    "us.api.openai.com": "us",
+}
+
+def infer_openai_data_residency(
+    custom_llm_provider: Optional[str], api_base: Optional[str]
+) -> Optional[str]:
+    if custom_llm_provider != "openai" or not api_base:
+        return None
+    try:
+        host = urlparse(api_base).hostname
+    except (TypeError, ValueError):
+        return None
+    if not host:
+        return None
+    return _OPENAI_REGIONAL_HOSTS.get(host.lower())
 
 _OPTIONAL_KWARGS_KEYS = frozenset(
     {

@@ -16,7 +16,7 @@ from anchor.surface.legacy.llm.openai.types import (
 from anchor.surface.legacy.llm.types.response import DeleteResponseResult
 from anchor.surface.legacy.llm.types.router import GenericLiteLLMParams
 from anchor.model.provider.types import ProviderTypes
-from anchor.base.exception import BaseLLMException
+from anchor.surface.exception import BaseLLMException
 
 class BaseResponsesAPIConfig(ABC):
     def __init__(self):

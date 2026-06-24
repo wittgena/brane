@@ -15,7 +15,7 @@ import orjson
 import pydantic
 from cachetools import LRUCache
 from diskcache import FanoutCache
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 from watcher.plane.emitter import get_emitter
 from anchor.switch.dspy.settings import settings
 

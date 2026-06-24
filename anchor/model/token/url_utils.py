@@ -9,7 +9,7 @@ from typing import Any, List, Optional, Set, Tuple
 from urllib.parse import quote, urlparse, urlunparse
 import httpx
 
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 
 # Globally-routable IPs that are cloud-internal. Everything else
 # non-public is caught by ``not ip.is_global`` (RFC 6890, as implemented by

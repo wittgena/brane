@@ -4,9 +4,9 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, Optional, Tuple, Union
 import httpx
 
-from anchor.base.chat.transform import BaseConfig
+from anchor.action.chat.transform import BaseConfig
 from anchor.switch.params import ModelResponse
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 
 from bound.channel.action.handler.http import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
 from bound.transport.stream.wrapper import CustomStreamWrapper
@@ -273,7 +273,7 @@ class CompletionHandler:
             error_text = getattr(error_response, "text", error_text)
 
         if provider_config is None:
-            from anchor.base.chat.transform import BaseLLMException
+            from anchor.action.chat.transform import BaseLLMException
             log.error(f"[ErrorHandler] Provider config 없음. BaseLLMException 발생: {error_text}")
             raise BaseLLMException(status_code=status_code, message=error_text, headers=error_headers)
 

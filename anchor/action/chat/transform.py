@@ -24,9 +24,9 @@ from pydantic import BaseModel
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from anchor.switch.params import ModelResponse
 
-from anchor.base.model import map_developer_role_to_system_role, type_to_response_format_param
+from anchor.model.info.format import map_developer_role_to_system_role, type_to_response_format_param
 
-from anchor.base.config.constants import DEFAULT_MAX_TOKENS, RESPONSE_FORMAT_TOOL_NAME
+from anchor.surface.config.constants import DEFAULT_MAX_TOKENS, RESPONSE_FORMAT_TOOL_NAME
 from bound.channel.action.handler.http import AsyncHTTPHandler, HTTPHandler
 from anchor.surface.legacy.llm.openai.types import (
     AllMessageValues,

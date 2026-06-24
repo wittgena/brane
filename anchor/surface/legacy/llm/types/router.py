@@ -1,6 +1,4 @@
 # anchor.surface.legacy.llm.types.router
-## @lineage: anchor.surface.legacy.types.router
-## @lineage: anchor.model.types.router
 import datetime
 import enum
 from dataclasses import dataclass
@@ -10,7 +8,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 from typing_extensions import Required, TypedDict
 from arch.proto.phase.gate import uuid
 from anchor.surface.legacy.llm.types.completion import CompletionRequest
-from anchor.surface.legacy.llm.types.embedding import EmbeddingRequest
+from anchor.surface.legacy.llm.types.vector_stores import EmbeddingRequest
 from anchor.surface.legacy.llm.openai.types import OpenAIFileObject
 from anchor.surface.legacy.llm.types.utils import CustomPricingLiteLLMParams, ModelResponse, SearchProviders
 

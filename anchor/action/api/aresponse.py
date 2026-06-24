@@ -1,6 +1,4 @@
 # anchor.action.api.aresponse
-## @lineage: anchor.surface.legacy.action.api.aresponse
-## @lineage: anchor.surface.legacy.api.aresponse
 import asyncio
 import contextvars
 from functools import partial
@@ -20,8 +18,8 @@ from typing import (
 import httpx
 from pydantic import BaseModel
 
-from anchor.base.config.resolver import config
-from anchor.base.response.transformation import BaseResponsesAPIConfig
+from anchor.surface.config.resolver import config
+from anchor.action.response.config import BaseResponsesAPIConfig
 
 from anchor.surface.legacy.mcp.payload import MCPPayloadUtils
 from bound.channel.action.handler.api import ResponseApiHandler
@@ -47,14 +45,13 @@ from anchor.surface.legacy.llm.openai.types import (
     ToolChoice,
     ToolParam,
 )
-from bound.channel.action.handler.param.litellm import get_litellm_params
 from bound.xor.secret.manager import get_secret_str
-from anchor.surface.legacy.llm.openai.data_residency import infer_openai_data_residency
+from bound.channel.action.handler.param.litellm import get_litellm_params, infer_openai_data_residency
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
 
-log = get_emitter("handler.aresponse")
+log = get_emitter("api.aresponse")
 
 LiteLLMLoggingObj = Any
 ws_handler = ResponseWebsocketHandler()

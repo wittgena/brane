@@ -1,17 +1,10 @@
 # anchor.base.response.iterator
-## @lineage: anchor.response.iterator
-## @lineage: anchor.base.iterator
-## @lineage: channel.llms.base.iterator
-## @lineage: gate.llms.base.iterator
-## @lineage: gate.llms.base_llm.base_model_iterator
-## @lineage: blm.llms.base_llm.base_model_iterator
 import json
 from abc import abstractmethod
 from typing import List, Optional, Union, cast
 from anchor.surface.legacy.llm.types.utils import GenericStreamingChunk
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from anchor.switch.params import Choices, Delta, ModelResponse, ModelResponseStream, StreamingChoices
-
 
 def convert_model_response_to_streaming(
     model_response: ModelResponse,

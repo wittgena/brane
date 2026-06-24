@@ -11,7 +11,7 @@ from collections import defaultdict
 from typing import Any
 import numpy as np
 from bound.xor.chat import FieldInfoWithName, field_header_pattern
-from anchor.base.lm.base import BaseLM
+from anchor.model.lm.base import BaseLM
 from arch.topos.bind.block.residue import dotdict
 from arch.xor.manifold.sign.field import OutputField
 

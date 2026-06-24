@@ -1,9 +1,9 @@
 # anchor.model.info.openai_params
 from typing import Optional, Literal, List, Dict
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 from anchor.model.provider.resolver import get_llm_provider
 from anchor.model.provider.manager import ProviderConfigManager
-from anchor.base.exception import BadRequestError
+from anchor.surface.exception import BadRequestError
 from anchor.model.provider.types import ProviderTypes, ProviderTypesSet
 from watcher.plane.emitter import get_emitter
 

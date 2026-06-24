@@ -17,14 +17,14 @@ from typing import (
 )
 import httpx
 from aiohttp import ClientSession
-from anchor.base.response.transformation import BaseResponsesAPIConfig
+from anchor.action.response.config import BaseResponsesAPIConfig
 
 # from gate.litellm.voider import Logging as LiteLLMLoggingObj
 LiteLLMLoggingObj = Any
 
 from bound.channel.support.helpers import process_response_headers
 from anchor.model.provider.types import ProviderTypes
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 from bound.channel.action.handler.http import (
     AsyncHTTPHandler,
     HTTPHandler,

@@ -28,8 +28,8 @@ from websockets.asyncio.client import ClientConnection
 LiteLLMLoggingObj = Any
 
 from bound.xor.secret.redact import redact_string
-from anchor.base.response.transformation import BaseResponsesAPIConfig
-from anchor.base.config.constants import REALTIME_WEBSOCKET_MAX_MESSAGE_SIZE_BYTES
+from anchor.action.response.config import BaseResponsesAPIConfig
+from anchor.surface.config.constants import REALTIME_WEBSOCKET_MAX_MESSAGE_SIZE_BYTES
 from bound.transport.stream.iterator import ResponsesWebSocketStreaming, ManagedResponsesWebSocketHandler
 from anchor.surface.legacy.llm.types.router import GenericLiteLLMParams
 from bound.channel.action.handler.http import get_shared_realtime_ssl_context

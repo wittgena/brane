@@ -28,10 +28,10 @@ import anyio
 import httpx
 from pydantic import BaseModel
 
-from anchor.base.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
-from anchor.base.config.resolver import config
-from anchor.base.executor import executor
-from anchor.base.exception import OpenAIError
+from anchor.surface.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
+from anchor.surface.config.resolver import config
+from anchor.surface.executor import executor
+from anchor.surface.exception import OpenAIError
 from anchor.surface.legacy.proxy.rule import Rules
 from anchor.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
 from anchor.surface.legacy.llm.types.mapping.exception import exception_type
@@ -2267,7 +2267,7 @@ class CustomStreamWrapper:
         429 (rate-limit) is explicitly exempted from the 4xx filter because
         it is transient and the Router should switch to another model group.
         """
-        from anchor.base.exception import MidStreamFallbackError
+        from anchor.surface.exception import MidStreamFallbackError
 
         # Map to OpenAI exception format
         if isinstance(e, OpenAIError):

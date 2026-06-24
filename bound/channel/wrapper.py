@@ -50,11 +50,11 @@ from openai.lib import _parsing
 import inspect
 from weakref import WeakKeyDictionary
 
-from anchor.base.config.constants import COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY
-from anchor.base.config.resolver import config
-from anchor.base.model import type_to_response_format_param
-from anchor.base.executor import executor
-from anchor.base.exception import (
+from anchor.surface.config.constants import COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY
+from anchor.surface.config.resolver import config
+from anchor.model.info.format import type_to_response_format_param
+from anchor.surface.executor import executor
+from anchor.surface.exception import (
     APIConnectionError,
     APIError,
     AuthenticationError,

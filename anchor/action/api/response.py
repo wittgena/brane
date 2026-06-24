@@ -1,9 +1,4 @@
 # anchor.action.api.response
-## @lineage: anchor.surface.legacy.action.api.response
-## @lineage: anchor.surface.legacy.api.response
-## @lineage: bound.bridge.api.response
-## @lineage: bound.client.response
-## @lineage: bound.handler.response
 import asyncio
 import contextvars
 from functools import partial
@@ -26,9 +21,9 @@ from pydantic import BaseModel
 from litellm.completion_extras.litellm_responses_transformation.transformation import LiteLLMResponsesTransformationHandler
 from litellm.responses.litellm_completion_transformation.handler import LiteLLMCompletionTransformationHandler
 
-from anchor.base.config.resolver import config
-from anchor.base.config.constants import request_timeout
-from anchor.base.response.transformation import BaseResponsesAPIConfig
+from anchor.surface.config.resolver import config
+from anchor.surface.config.constants import request_timeout
+from anchor.action.response.config import BaseResponsesAPIConfig
 
 from anchor.model.provider.resolver import get_llm_provider
 from anchor.surface.legacy.llm.openai.types import (
@@ -49,16 +44,17 @@ from anchor.surface.legacy.llm.openai.types import ResponseText
 
 from bound.channel.action.handler.api import ResponseApiHandler
 from bound.channel.action.handler.asyncify import run_async_function
+from bound.channel.action.handler.param.litellm import infer_openai_data_residency
 from bound.channel.wrapper import client
 from bound.channel.support.template import update_responses_input_with_model_file_ids, update_responses_tools_with_model_file_ids
 from bound.channel.api.request import ResponsesAPIRequestUtils
 from bound.channel.support.identity import ResponseIdentityManager
-from anchor.surface.legacy.llm.openai.data_residency import infer_openai_data_residency
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
 
-log = get_emitter("handler.response")
+log = get_emitter("api.response")
+
 LiteLLMLoggingObj = Any
 
 api_handler = ResponseApiHandler()
@@ -946,21 +942,16 @@ def list_input_items(
 @client
 def cancel_responses(
     response_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Optional[Dict[str, Any]] = None,
     extra_query: Optional[Dict[str, Any]] = None,
     extra_body: Optional[Dict[str, Any]] = None,
     timeout: Optional[Union[float, httpx.Timeout]] = None,
-    # LiteLLM specific params,
     custom_llm_provider: Optional[str] = None,
     **kwargs,
 ) -> Union[ResponsesAPIResponse, Coroutine[Any, Any, ResponsesAPIResponse]]:
     """
     Synchronous version of the POST Responses API
-
     POST /v1/responses/{response_id}/cancel endpoint in the responses API
-
     """
     local_vars = locals()
     try:

@@ -1,7 +1,7 @@
 # anchor.model.info.support
 from typing import Optional, Literal, List, Dict
 
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 
 from anchor.model.info.cost.map import model_cost, _get_model_info_helper
 from anchor.model.provider.resolver import get_llm_provider

@@ -7,9 +7,9 @@ import json
 from typing import Any, Dict, List, Union
 from jsonschema import ValidationError, validate
 from typing import Optional
-from anchor.base.config.resolver import config
-from anchor.base.config.constants import DEFAULT_MAX_RECURSE_DEPTH
-from anchor.base.exception import JSONSchemaValidationError, APIResponseValidationError
+from anchor.surface.config.resolver import config
+from anchor.surface.config.constants import DEFAULT_MAX_RECURSE_DEPTH
+from anchor.surface.exception import JSONSchemaValidationError, APIResponseValidationError
 
 class Rules:
     def __init__(self) -> None:

@@ -7,7 +7,7 @@
 from typing import TYPE_CHECKING, Any, Optional, Union
 import httpx
 
-from anchor.base.config.resolver import config
+from anchor.surface.config.resolver import config
 
 if TYPE_CHECKING:
     from bound.transport.stream.wrapper import CustomStreamWrapper
