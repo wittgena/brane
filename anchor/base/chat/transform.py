@@ -28,7 +28,7 @@ from anchor.base.model import map_developer_role_to_system_role, type_to_respons
 
 from anchor.base.config.constants import DEFAULT_MAX_TOKENS, RESPONSE_FORMAT_TOOL_NAME
 from bound.channel.action.handler.http import AsyncHTTPHandler, HTTPHandler
-from anchor.model.llm.types.openai import (
+from anchor.surface.legacy.llm.openai.types import (
     AllMessageValues,
     ChatCompletionToolChoiceFunctionParam,
     ChatCompletionToolChoiceObjectParam,

@@ -5,7 +5,7 @@
 ## @lineage: bound.channel.model.cost.calculator.utils
 ## @lineage: channel.model.cost.calculator.utils
 from typing import Literal, Optional, Tuple, TypedDict, cast
-from anchor.surface.legacy.types.utils import (
+from anchor.surface.legacy.llm.types.utils import (
     CacheCreationTokenDetails,
     CallTypes,
     CompletionTokensDetailsWrapper,

@@ -9,7 +9,7 @@ from mcp.types import Tool as MCPTool
 from openai.types.chat import ChatCompletionToolParam
 from openai.types.responses.function_tool_param import FunctionToolParam
 from openai.types.shared_params.function_definition import FunctionDefinition
-from anchor.surface.legacy.types.utils import ChatCompletionMessageToolCall
+from anchor.surface.legacy.llm.types.utils import ChatCompletionMessageToolCall
 
 def transform_mcp_tool_to_openai_tool(mcp_tool: MCPTool) -> ChatCompletionToolParam:
     """Convert an MCP tool to an OpenAI tool."""

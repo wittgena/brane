@@ -11,7 +11,7 @@
 ## @lineage: channel.bound.litellm.get_litellm_params
 ## @lineage: gate.litellm.get_litellm_params
 from typing import Optional
-from anchor.surface.legacy.openai.data_residency import infer_openai_data_residency
+from anchor.surface.legacy.llm.openai.data_residency import infer_openai_data_residency
 
 _OPTIONAL_KWARGS_KEYS = frozenset(
     {

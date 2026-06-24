@@ -5,9 +5,9 @@
 import json
 import time
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union, cast
-from anchor.surface.legacy.action.api.aresponse import aresponses
-from anchor.model.llm.types.openai import ResponseOutputItem, ResponsesAPIResponse
-from anchor.surface.legacy.types.vector_stores import VectorStoreSearchResult
+from anchor.action.api.aresponse import aresponses
+from anchor.surface.legacy.llm.openai.types import ResponseOutputItem, ResponsesAPIResponse
+from anchor.surface.legacy.llm.types.vector_stores import VectorStoreSearchResult
 from arch.proto.phase.gate import uuid4 
 from watcher.plane.emitter import get_emitter, flow_scope
 

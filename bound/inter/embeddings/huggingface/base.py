@@ -1,8 +1,4 @@
 # bound.inter.embeddings.huggingface.base
-## @lineage: bound.adapter.llama.embeddings.huggingface.base
-## @lineage: bound.channel.bridge.embeddings.huggingface.base
-## @lineage: channel.bridge.embeddings.huggingface.base
-## @lineage: bridge.llama.embeddings.huggingface.base
 import asyncio
 from io import BytesIO
 import logging

@@ -11,7 +11,7 @@ from anchor.base.config.resolver import config
 
 if TYPE_CHECKING:
     from bound.transport.stream.wrapper import CustomStreamWrapper
-    from anchor.surface.legacy.types.utils import ModelResponse, TextCompletionResponse
+    from anchor.surface.legacy.llm.types.utils import ModelResponse, TextCompletionResponse
 
 class BaseLLM:
     _client_session: Optional[httpx.Client] = None

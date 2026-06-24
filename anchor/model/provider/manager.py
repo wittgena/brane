@@ -8,7 +8,7 @@ from anchor.base.config.resolver import config
 from anchor.base.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from anchor.base.model import BaseLLMModelInfo
 from anchor.model.provider.types import ProviderTypes, ProviderTypesSet
-from anchor.surface.legacy.types.support import ProviderSpecificModelInfo
+from anchor.surface.legacy.llm.types.support import ProviderSpecificModelInfo
 
 class ProviderConfigManager:
     _PROVIDER_CONFIG_MAP: Optional[dict[ProviderTypes, tuple[Callable, bool]]] = None

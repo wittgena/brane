@@ -1,10 +1,11 @@
 # bound.channel.action.handler.http
+import ssl
+from enum import Enum
 import asyncio
 import concurrent.futures
 import inspect
 import os
 import socket
-import ssl
 import sys
 import time
 from typing import (
@@ -44,7 +45,6 @@ from anchor.base.config.constants import (
     HTTP_HANDLER_CONNECT_TIMEOUT_SECONDS,
 )
 
-from anchor.model.llm.types.custom_http import VerifyTypes, httpxSpecialProvider
 from anchor.model.provider.types import ProviderTypes
 
 if TYPE_CHECKING:
@@ -52,18 +52,34 @@ if TYPE_CHECKING:
 else:
     LiteLLMAiohttpTransport = Any
 
-log = get_emitter("gate.http_handler")
+log = get_emitter("handler.http")
 
-# 버전을 config에서 가져오거나 기본값 사용
 version = getattr(config, "version", "1.0.0")
-
-# aiohttp 3.10+ exposes a `socket_factory` kwarg on TCPConnector. Older
-# versions don't — detect once and skip the keep-alive wiring there.
 _AIOHTTP_SUPPORTS_SOCKET_FACTORY = (
     "socket_factory" in inspect.signature(TCPConnector.__init__).parameters
 )
 
-# [추가됨] litellm.secret_managers.main.str_to_bool 의존성 제거를 위한 헬퍼 함수
+class httpxSpecialProvider(str, Enum):
+    LoggingCallback = "logging_callback"
+    GuardrailCallback = "guardrail_callback"
+    Caching = "caching"
+    Oauth2Check = "oauth2_check"
+    Oauth2Register = "oauth2_register"
+    SecretManager = "secret_manager"
+    PassThroughEndpoint = "pass_through_endpoint"
+    PromptFactory = "prompt_factory"
+    SSO_HANDLER = "sso_handler"
+    Search = "search"
+    MCP = "mcp"
+    RAG = "rag"
+    A2AProvider = "a2a_provider"
+    AgentHealthCheck = "agent_health_check"
+    A2A = "a2a"
+    PromptManagement = "prompt_management"
+    UI = "ui"
+
+VerifyTypes = Union[str, bool, ssl.SSLContext]
+
 def _str_to_bool(val: Union[str, bool]) -> bool:
     if isinstance(val, bool):
         return val

@@ -2,7 +2,7 @@
 ## @lineage: anchor.model.types.secret_managers.main
 import enum
 from typing import Dict, List, Literal, Optional
-from anchor.model.llm.types.base import LiteLLMPydanticObjectBase
+from anchor.surface.legacy.llm.base import LiteLLMPydanticObjectBase
 
 class KeyManagementSystem(enum.Enum):
     GOOGLE_KMS = "google_kms"

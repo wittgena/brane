@@ -19,6 +19,7 @@ from arch.contract.registry.unified import contract
 from phase.runtime.cli.executor import CliTaskAdapter, parse_local, dispatch_cli
 from watcher.plane.emitter import get_emitter
 
+EXT_REPO = "ext-phase"
 log = get_emitter("llm.scanner", phase="SYSTEM")
 
 class LLMScanner:
@@ -29,7 +30,7 @@ class LLMScanner:
         "FunctionCallingLLM", "OpenAILike", "MultiModalLLM"
     }
 
-    GITHUB_LLMS_API = "https://api.github.com/repos/run-llama/llama_index/contents/llama-index-integrations/llms"
+    GITHUB_LLMS_API = f"https://api.github.com/repos/{EXT_REPO}/llama_index/contents/llama-index-integrations/llms"
 
     def __init__(self, base_path: str):
         self.base_path = Path(base_path)

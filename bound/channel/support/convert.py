@@ -5,12 +5,11 @@ import json
 import time
 import traceback
 from typing import Dict, Iterable, List, Literal, Optional, Tuple, Union, cast
+from typing_extensions import Required, TypedDict
 
 from anchor.base.config.constants import RESPONSE_FORMAT_TOOL_NAME
 from bound.channel.support.header import get_response_headers
-
-from anchor.model.llm.types.databricks import DatabricksTool
-from anchor.model.llm.types.openai import (
+from anchor.surface.legacy.llm.openai.types import (
     ChatCompletionThinkingBlock,
     ImageURLListItem,
     OpenAIModerationResponse,
@@ -43,7 +42,7 @@ from anchor.switch.params import (
 )
 from anchor.base.exception import APIError
 
-from anchor.surface.legacy.types.utils import Logprobs as TextCompletionLogprobs
+from anchor.surface.legacy.llm.types.utils import Logprobs as TextCompletionLogprobs
 
 from watcher.plane.emitter import get_emitter 
 
@@ -55,6 +54,15 @@ _MODEL_RESPONSE_FIELDS: frozenset = frozenset(ModelResponse.model_fields.keys())
     "usage"
 }
 
+class DatabricksFunction(TypedDict, total=False):
+    name: Required[str]
+    description: Union[dict, str]
+    parameters: dict
+    strict: bool
+
+class DatabricksTool(TypedDict):
+    function: DatabricksFunction
+    type: Literal["function"]
 
 def _normalize_images_for_message(
     images: Optional[List[dict]],

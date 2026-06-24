@@ -17,7 +17,7 @@ from fastapi import HTTPException
 
 from anchor.base.exception import BlockedPiiEntityError, GuardrailRaisedException
 from anchor.switch.params import ResponsesAPIResponse
-from anchor.surface.legacy.types.utils import CallTypes, StandardLoggingMCPToolCall
+from anchor.surface.legacy.llm.types.utils import CallTypes, StandardLoggingMCPToolCall
 
 from anchor.surface.legacy.proxy.reverse import global_mcp_server_manager, LegacyLitellmToolsManager
 from anchor.surface.legacy.proxy.logger import LegacyLogManager
@@ -410,7 +410,7 @@ class LegacyMCPHandler:
         response_id: str,
         **call_params: Any,
     ) -> Union[ResponsesAPIResponse, BaseResponsesAPIStreamingIterator]:
-        from anchor.surface.legacy.action.api.aresponse import aresponses
+        from anchor.action.api.aresponse import aresponses
         return await aresponses(
             input=follow_up_input,
             model=model,

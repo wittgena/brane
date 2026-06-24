@@ -31,16 +31,16 @@ from bound.channel.action.handler.http import (
     _get_httpx_client,
     get_async_httpx_client,
 )
-from anchor.surface.legacy.types.response import DeleteResponseResult
-from anchor.surface.legacy.types.router import GenericLiteLLMParams
-from anchor.surface.legacy.types.utils import CallTypes
+from anchor.surface.legacy.llm.types.response import DeleteResponseResult
+from anchor.surface.legacy.llm.types.router import GenericLiteLLMParams
+from anchor.surface.legacy.llm.types.utils import CallTypes
 from bound.transport.stream.iterator import (
     BaseResponsesAPIStreamingIterator,
     MockResponsesAPIStreamingIterator,
     ResponsesAPIStreamingIterator,
     SyncResponsesAPIStreamingIterator,
 )
-from anchor.model.llm.types.openai import ResponseInputParam, ResponsesAPIResponse
+from anchor.surface.legacy.llm.openai.types import ResponseInputParam, ResponsesAPIResponse
 from watcher.plane.emitter import get_emitter 
 
 log = get_emitter("handler.api")

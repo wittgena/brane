@@ -26,8 +26,9 @@ log = get_emitter("trans.llama", phase="SYSTEM")
 
 SELF_ROOT = find_current_self()
 
-GITHUB_API_BASE = "https://api.github.com/repos/run-llama/llama_index/contents"
-GITHUB_REPO_URL = "https://github.com/run-llama/llama_index.git"
+EXT_REPO = "ext-phase"
+GITHUB_API_BASE = f"https://api.github.com/repos/{EXT_REPO}/llama_index/contents"
+GITHUB_REPO_URL = f"https://github.com/{EXT_REPO}/llama_index.git"
 
 TARGET_REPO = "brane"
 DEST_PATH = inter_path.__name__

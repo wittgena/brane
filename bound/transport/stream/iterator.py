@@ -1,9 +1,4 @@
 # bound.transport.stream.iterator
-## @lineage: bound.bridge.stream.iterator
-## @lineage: bound.client.handler.stream.iterator
-## @lineage: bound.handler.support.stream.iterator
-## @lineage: bound.channel.handler.support.stream.iterator
-## @lineage: bound.handler.support.response.streaming_iterator
 from __future__ import annotations
 import asyncio
 import json
@@ -20,9 +15,9 @@ from anchor.base.response.transformation import BaseResponsesAPIConfig
 from anchor.base.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
 from anchor.base.executor import executor
 
-from anchor.model.llm.types import openai as openai_types
-from anchor.model.llm.types.openai import ResponsesAPIStreamEvents
-from anchor.surface.legacy.types.utils import CallTypes
+import anchor.surface.legacy.llm.openai.types as openai_types
+from anchor.surface.legacy.llm.openai.types import ResponsesAPIStreamEvents
+from anchor.surface.legacy.llm.types.utils import CallTypes
 from bound.channel.action.handler.asyncify import run_async_function
 
 from bound.channel.support.helpers import process_response_headers
@@ -36,11 +31,6 @@ from watcher.plane.emitter import get_emitter
 log = get_emitter("streaming.iterator")
 # from gate.litellm.voider import Logging as LiteLLMLoggingObj
 LiteLLMLoggingObj = Any
-
-@lru_cache(maxsize=1)
-def _get_openai_response_types():
-    from anchor.model.llm.types import openai as openai_types
-    return openai_types
 
 def _log_background_task_failure(task: "asyncio.Task[Any]", *, task_name: str) -> None:
     if task.cancelled():
@@ -959,7 +949,6 @@ def _add_text_like_part_events(
     part_payload: Dict[str, Any],
     chunk_size: int,
 ) -> None:
-    openai_types = _get_openai_response_types()
     part_type = part_payload.get("type")
     if part_type == "output_text":
         text = str(part_payload.get("text") or "")
@@ -1352,8 +1341,8 @@ class ResponsesWebSocketStreaming:
                 pass
 
 _RESPONSE_CREATE_PARAMS: frozenset = (
-    _get_openai_response_types().ResponsesAPIRequestParams.__required_keys__
-    | _get_openai_response_types().ResponsesAPIRequestParams.__optional_keys__
+    openai_types.ResponsesAPIRequestParams.__required_keys__
+    | openai_types.ResponsesAPIRequestParams.__optional_keys__
 )
 
 _MANAGED_WS_SKIP_KWARGS: frozenset = frozenset(

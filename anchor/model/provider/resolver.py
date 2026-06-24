@@ -4,7 +4,7 @@ from typing import Optional, Tuple, Dict, Callable
 from urllib.parse import urlparse
 from anchor.base.config.resolver import config
 from anchor.base.config.constants import REPLICATE_MODEL_NAME_WITH_ID_LENGTH
-from anchor.surface.legacy.types.router import LiteLLM_Params
+from anchor.surface.legacy.llm.types.router import LiteLLM_Params
 from bound.xor.secret.manager import get_secret_str, get_secret 
 from watcher.plane.emitter import get_emitter
 from anchor.model.provider.logic import (

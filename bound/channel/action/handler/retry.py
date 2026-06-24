@@ -57,7 +57,7 @@ async def acompletion_with_retries(*args, **kwargs):
     return await retryer(original_function, *args, **kwargs)
 
 def responses_with_retries(*args, **kwargs):
-    from anchor.surface.legacy.action.api.response import responses
+    from anchor.action.api.response import responses
     try:
         import tenacity
     except Exception as e:
@@ -84,7 +84,7 @@ def responses_with_retries(*args, **kwargs):
 
 
 async def aresponses_with_retries(*args, **kwargs):
-    from anchor.surface.legacy.action.api.aresponse import aresponses
+    from anchor.action.api.aresponse import aresponses
     try:
         import tenacity
     except Exception as e:

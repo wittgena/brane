@@ -34,11 +34,11 @@ from anchor.base.executor import executor
 from anchor.base.exception import OpenAIError
 from anchor.surface.legacy.proxy.rule import Rules
 from anchor.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
-from anchor.surface.legacy.types.mapping.exception import exception_type
-from anchor.model.llm.types.openai import OpenAIChatCompletionChunk
+from anchor.surface.legacy.llm.types.mapping.exception import exception_type
+from anchor.surface.legacy.llm.openai.types import OpenAIChatCompletionChunk
 from anchor.model.provider.types import ProviderTypes
-from anchor.surface.legacy.types.router import GenericLiteLLMParams
-from anchor.surface.legacy.types.utils import Delta, CallTypes, GenericStreamingChunk as GChunk
+from anchor.surface.legacy.llm.types.router import GenericLiteLLMParams
+from anchor.surface.legacy.llm.types.utils import Delta, CallTypes, GenericStreamingChunk as GChunk
 
 from bound.transport.stream.chunk.builder import stream_chunk_builder
 from bound.channel.api.get_api_base import get_api_base
@@ -1130,7 +1130,7 @@ class CustomStreamWrapper:
         try:
             # return this for all models
             completion_obj: Dict[str, Any] = {"content": ""}
-            from anchor.surface.legacy.types.utils import GenericStreamingChunk as GChunk
+            from anchor.surface.legacy.llm.types.utils import GenericStreamingChunk as GChunk
 
             if (
                 isinstance(chunk, ModelResponseStream)
@@ -2401,7 +2401,7 @@ def generic_chunk_has_all_required_fields(chunk: dict) -> bool:
 def convert_generic_chunk_to_model_response_stream(
     chunk: GChunk,
 ) -> ModelResponseStream:
-    from anchor.surface.legacy.types.utils import Delta
+    from anchor.surface.legacy.llm.types.utils import Delta
 
     model_response_stream = ModelResponseStream(
         id=str(uuid.uuid4()),

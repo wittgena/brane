@@ -9,9 +9,9 @@ else:
 from anchor.surface.legacy.mcp.header import MCPHeaderParser
 from bound.adapter.legacy.mcp.handler import LegacyMCPHandler
 from anchor.surface.legacy.mcp.payload import MCPPayloadUtils
-from anchor.model.llm.types.openai import OutputItemDoneEvent
-from anchor.model.llm.types.openai import ResponsesAPIStreamEvents
-from anchor.model.llm.types.openai import (
+from anchor.surface.legacy.llm.openai.types import OutputItemDoneEvent
+from anchor.surface.legacy.llm.openai.types import ResponsesAPIStreamEvents
+from anchor.surface.legacy.llm.openai.types import (
     BaseLiteLLMOpenAIResponseObject,
     MCPCallArgumentsDeltaEvent,
     MCPCallArgumentsDoneEvent,
@@ -551,7 +551,7 @@ class MCPEnhancedStreamingIterator(BaseResponsesAPIStreamingIterator):
         return chunk
 
     async def _create_initial_response_iterator(self) -> None:
-        from anchor.surface.legacy.action.api.aresponse import aresponses
+        from anchor.action.api.aresponse import aresponses
         """Create the initial response iterator by making the first LLM call"""
         try:
             # Make the initial response API call - but avoid the MCP wrapper
@@ -704,7 +704,7 @@ class MCPEnhancedStreamingIterator(BaseResponsesAPIStreamingIterator):
             self.tool_results = []
 
     async def _create_follow_up_iterator(self) -> None:
-        from anchor.surface.legacy.action.api.aresponse import aresponses
+        from anchor.action.api.aresponse import aresponses
         """Create the follow-up response iterator with tool results"""
         if not self.collected_response or not hasattr(self, "tool_results"):
             return

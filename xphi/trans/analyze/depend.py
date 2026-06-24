@@ -26,6 +26,7 @@ from watcher.plane.emitter import get_emitter
 log = get_emitter("analyze.depend", phase="SYSTEM")
 
 SELF_ROOT = find_current_self()
+EXT_REPO = "ext-phase"
 TARGET_REPO = "brane"
 DEFAULT_TAG = "v0.14.22"
 
@@ -38,7 +39,7 @@ class WebDependencyFetcher:
         category_dir = category.replace("_", "-")
         name_dir = integration_name.replace("_", "-")
         base_subpath = f"llama-index-integrations/{category}/llama-index-{category_dir}-{name_dir}"
-        raw_base_url = f"https://raw.githubusercontent.com/run-llama/llama_index/{self.tag}/{base_subpath}"
+        raw_base_url = f"https://raw.githubusercontent.com/{EXT_REPO}/llama_index/{self.tag}/{base_subpath}"
         
         try:
             req = urllib.request.Request(f"{raw_base_url}/pyproject.toml")

@@ -9,8 +9,8 @@ from typing import Any, Dict, List, Optional, Type, Union, cast
 from pydantic import BaseModel
 from typing import Literal, Optional
 
-from anchor.model.llm.types.openai import AllMessageValues
-from anchor.model.llm.types.openai import ValidUserMessageContentTypes
+from anchor.surface.legacy.llm.openai.types import AllMessageValues
+from anchor.surface.legacy.llm.openai.types import ValidUserMessageContentTypes
 
 from watcher.plane.emitter import get_emitter
 

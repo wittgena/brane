@@ -1,9 +1,4 @@
 # anchor.model.token.counter
-## @lineage: anchor.router.model.token.counter
-## @lineage: bound.router.model.token.counter
-## @lineage: bound.channel.model.token.counter
-## @lineage: channel.model.token.counter
-## @lineage: bound.token.counter
 import base64
 import io
 import struct
@@ -19,6 +14,7 @@ from typing import (
     cast,
 )
 import tiktoken
+
 from anchor.base.config.resolver import config
 from anchor.base.config.constants import (
     DEFAULT_IMAGE_HEIGHT,
@@ -31,21 +27,21 @@ from anchor.base.config.constants import (
     MAX_TILE_WIDTH,
 )
 from anchor.model.token.encoding import get_default_encoding
-from bound.channel.action.handler.http import _get_httpx_client
 from anchor.model.token.url_utils import safe_get
-from anchor.model.llm.types.anthropic import (
+from anchor.surface.legacy.llm.anthropic import (
     AnthropicMessagesToolResultParam,
     AnthropicMessagesToolUseParam,
 )
-from anchor.model.llm.types.openai import (
+from anchor.surface.legacy.llm.openai.types import (
     AllMessageValues,
     ChatCompletionNamedToolChoiceParam,
     ChatCompletionToolParam,
     OpenAIMessageContent,
 )
-from anchor.surface.legacy.types.utils import SelectTokenizerResponse
-
+from anchor.surface.legacy.llm.types.utils import SelectTokenizerResponse
 from anchor.switch.params import Message
+
+from bound.channel.action.handler.http import _get_httpx_client
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter(__name__)

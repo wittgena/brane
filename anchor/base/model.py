@@ -9,9 +9,9 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional, Type, Union
 from openai.lib import _parsing, _pydantic
 from pydantic import BaseModel
-from anchor.model.llm.types.openai import AllMessageValues, ChatCompletionToolCallChunk
-from anchor.surface.legacy.types.utils import TokenCountResponse
-from anchor.surface.legacy.types.support import ProviderSpecificModelInfo
+from anchor.surface.legacy.llm.openai.types import AllMessageValues, ChatCompletionToolCallChunk
+from anchor.surface.legacy.llm.types.utils import TokenCountResponse
+from anchor.surface.legacy.llm.types.support import ProviderSpecificModelInfo
 from anchor.switch.params import Message
 from watcher.plane.emitter import get_emitter
 

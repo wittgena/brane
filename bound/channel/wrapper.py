@@ -74,7 +74,7 @@ from anchor.base.exception import (
 
 
 from anchor.model.token.counter import get_modified_max_tokens
-from anchor.model.llm.types.openai import (
+from anchor.surface.legacy.llm.openai.types import (
     AllMessageValues,
     AllPromptValues,
     ChatCompletionAssistantToolCall,
@@ -86,7 +86,7 @@ from anchor.model.llm.types.openai import (
 )
 from anchor.model.provider.resolver import get_llm_provider
 from anchor.surface.legacy.proxy.rule import Rules
-from anchor.surface.legacy.types.utils import CallTypes, Embedding, ProviderTypes
+from anchor.surface.legacy.llm.types.utils import CallTypes, Embedding, ProviderTypes
 
 from bound.channel.action.handler.retry import completion_with_retries, acompletion_with_retries
 from bound.channel.action.handler.worklet.logging import GLOBAL_LOGGING_WORKER
