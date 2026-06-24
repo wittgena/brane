@@ -22,8 +22,8 @@ from bound.adapter.llama.base.llms.types import (
     TextBlock,
 )
 from bound.adapter.llama.bridge.pydantic import Field, model_validator, ConfigDict
-from bound.adapter.llama.callbacks import CallbackManager
-from bound.adapter.llama.instrumentation import DispatcherSpanMixin
+from xphi.loop.callback import CallbackManager
+from xphi.loop.inst import DispatcherSpanMixin
 from bound.adapter.llama.schema import BaseComponent
 
 

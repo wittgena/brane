@@ -21,9 +21,9 @@ from bound.adapter.llama.base.embeddings.base import (
     Embedding,
 )
 from bound.adapter.llama.bridge.pydantic import Field, PrivateAttr
-from bound.adapter.llama.callbacks import CallbackManager
+from xphi.loop.callback import CallbackManager
 from llama_index.embeddings.huggingface.pooling import Pooling
-from bound.adapter.llama.embeddings.multi_modal_base import MultiModalEmbedding
+from xphi.flow.embedding.multi_modal_base import MultiModalEmbedding
 from bound.adapter.llama.utils import get_cache_dir, infer_torch_device
 from llama_index.embeddings.huggingface.utils import (
     DEFAULT_HUGGINGFACE_EMBEDDING_MODEL,

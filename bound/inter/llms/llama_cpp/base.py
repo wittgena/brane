@@ -12,14 +12,14 @@ from bound.adapter.llama.base.llms.types import (
     LLMMetadata,
 )
 from bound.adapter.llama.bridge.pydantic import Field, PrivateAttr
-from bound.adapter.llama.callbacks import CallbackManager
+from xphi.loop.callback import CallbackManager
 from bound.adapter.llama.constants import (
     DEFAULT_CONTEXT_WINDOW,
     DEFAULT_NUM_OUTPUTS,
     DEFAULT_TEMPERATURE,
 )
-from bound.adapter.llama.llms.callbacks import llm_chat_callback, llm_completion_callback
-from bound.adapter.llama.llms.custom import CustomLLM
+from xphi.flow.llm.callbacks import llm_chat_callback, llm_completion_callback
+from xphi.flow.llm.custom import CustomLLM
 from bound.adapter.llama.base.llms.generic_utils import (
     completion_response_to_chat_response,
     stream_completion_response_to_chat_response,

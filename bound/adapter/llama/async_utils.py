@@ -10,7 +10,7 @@ import concurrent.futures
 from itertools import zip_longest
 from typing import Any, Coroutine, Iterable, List, Optional, TypeVar
 
-import bound.adapter.llama.instrumentation as instrument
+import xphi.loop.inst as instrument
 
 dispatcher = instrument.get_dispatcher(__name__)
 

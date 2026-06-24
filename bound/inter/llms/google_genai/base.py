@@ -28,7 +28,7 @@ from typing import (
 )
 
 
-import bound.adapter.llama.instrumentation as instrument
+import xphi.loop.inst as instrument
 from bound.adapter.llama.base.llms.generic_utils import (
     chat_to_completion_decorator,
     achat_to_completion_decorator,
@@ -48,13 +48,13 @@ from bound.adapter.llama.base.llms.types import (
     ToolCallBlock,
 )
 from bound.adapter.llama.bridge.pydantic import BaseModel, Field, PrivateAttr
-from bound.adapter.llama.callbacks import CallbackManager
+from xphi.loop.callback import CallbackManager
 from bound.adapter.llama.constants import DEFAULT_TEMPERATURE, DEFAULT_NUM_OUTPUTS
-from bound.adapter.llama.llms.callbacks import llm_chat_callback, llm_completion_callback
-from bound.adapter.llama.llms.function_calling import FunctionCallingLLM
-from bound.adapter.llama.llms.llm import ToolSelection, Model
+from xphi.flow.llm.callbacks import llm_chat_callback, llm_completion_callback
+from xphi.flow.llm.function_calling import FunctionCallingLLM
+from xphi.flow.llm.llm import ToolSelection, Model
 from bound.adapter.llama.prompts import PromptTemplate
-from bound.adapter.llama.program.utils import FlexibleModel, create_flexible_model
+from xphi.loop.prog.utils import FlexibleModel, create_flexible_model
 from bound.adapter.llama.types import PydanticProgramMode
 from bound.inter.llms.google_genai.utils import (
     chat_from_gemini_response,

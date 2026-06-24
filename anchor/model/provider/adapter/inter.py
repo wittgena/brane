@@ -6,7 +6,7 @@
 """
 from typing import AsyncGenerator, Generator
 from bound.adapter.llama.base.llms.types import ChatMessage, MessageRole
-from xphi.flow.llm.router import LLMRouter
+from xphi.trans.llm.router import LLMRouter
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from anchor.model.provider.adapter.base import BaseProviderAdapter
 from anchor.surface.legacy.action.preprocessor import CompletionContext

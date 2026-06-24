@@ -29,7 +29,7 @@ from bound.adapter.llama.bridge.pydantic import (
     GetJsonSchemaHandler,
 )
 from bound.adapter.llama.bridge.pydantic_core import CoreSchema, core_schema
-from bound.adapter.llama.instrumentation import DispatcherSpanMixin
+from xphi.loop.inst import DispatcherSpanMixin
 
 Model = TypeVar("Model", bound=BaseModel)
 
@@ -38,7 +38,7 @@ TokenAsyncGen = AsyncGenerator[str, None]
 RESPONSE_TEXT_TYPE = Union[BaseModel, str, TokenGen, TokenAsyncGen]
 
 if TYPE_CHECKING:
-    from bound.adapter.llama.program.utils import FlexibleModel
+    from xphi.loop.prog.utils import FlexibleModel
 
 
 # TODO: move into a `core` folder

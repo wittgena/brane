@@ -48,7 +48,7 @@ from anchor.model.llm.types.openai import (
 )
 from bound.channel.action.handler.param.litellm import get_litellm_params
 from bound.xor.secret.manager import get_secret_str
-from bound.inter.llms.openai.data_residency import infer_openai_data_residency
+from anchor.surface.legacy.openai.data_residency import infer_openai_data_residency
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter

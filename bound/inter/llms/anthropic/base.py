@@ -5,7 +5,7 @@
 ## @lineage: bridge.llama.llms.anthropic.base
 import json
 import logging
-import bound.adapter.llama.instrumentation as instrument
+import xphi.loop.inst as instrument
 from importlib.metadata import version as get_version
 from typing import (
     TYPE_CHECKING,
@@ -23,7 +23,7 @@ from typing import (
     Union,
     cast,
 )
-from bound.adapter.llama.llms.utils import parse_partial_json
+from xphi.flow.llm.utils import parse_partial_json
 from bound.adapter.llama.base.llms.types import (
     ChatMessage,
     ChatResponse,
@@ -38,13 +38,13 @@ from bound.adapter.llama.base.llms.types import TextBlock as LITextBlock
 from bound.adapter.llama.base.llms.types import CitationBlock as LICitationBlock
 from bound.adapter.llama.base.llms.types import ThinkingBlock as LIThinkingBlock
 from bound.adapter.llama.bridge.pydantic import Field, PrivateAttr
-from bound.adapter.llama.callbacks import CallbackManager
+from xphi.loop.callback import CallbackManager
 from bound.adapter.llama.constants import DEFAULT_TEMPERATURE
-from bound.adapter.llama.llms.callbacks import (
+from xphi.flow.llm.callbacks import (
     llm_chat_callback,
     llm_completion_callback,
 )
-from bound.adapter.llama.llms.function_calling import FunctionCallingLLM, ToolSelection
+from xphi.flow.llm.function_calling import FunctionCallingLLM, ToolSelection
 from bound.adapter.llama.types import BaseOutputParser, PydanticProgramMode, Model
 from bound.adapter.llama.prompts import PromptTemplate
 from bound.adapter.llama.utils import Tokenizer
@@ -85,7 +85,7 @@ from anthropic.types import (
 
 if TYPE_CHECKING:
     from bound.adapter.llama.tools.types import BaseTool
-    from bound.adapter.llama.program.utils import FlexibleModel
+    from xphi.loop.prog.utils import FlexibleModel
 
 
 logger = logging.getLogger(__name__)

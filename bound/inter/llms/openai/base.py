@@ -24,7 +24,7 @@ from typing import (
 import httpx
 import tiktoken
 
-import bound.adapter.llama.instrumentation as instrument
+import xphi.loop.inst as instrument
 from bound.adapter.llama.base.llms.generic_utils import (
     achat_to_completion_decorator,
     acompletion_to_chat_decorator,
@@ -53,19 +53,19 @@ from bound.adapter.llama.bridge.pydantic import (
     Field,
     PrivateAttr,
 )
-from bound.adapter.llama.callbacks import CallbackManager
+from xphi.loop.callback import CallbackManager
 from bound.adapter.llama.constants import (
     DEFAULT_TEMPERATURE,
 )
-from bound.adapter.llama.llms.callbacks import (
+from xphi.flow.llm.callbacks import (
     llm_chat_callback,
     llm_completion_callback,
 )
-from bound.adapter.llama.llms.function_calling import FunctionCallingLLM
-from bound.adapter.llama.llms.llm import ToolSelection, Model
-from bound.adapter.llama.llms.utils import parse_partial_json
+from xphi.flow.llm.function_calling import FunctionCallingLLM
+from xphi.flow.llm.llm import ToolSelection, Model
+from xphi.flow.llm.utils import parse_partial_json
 from bound.adapter.llama.prompts import PromptTemplate
-from bound.adapter.llama.program.utils import FlexibleModel
+from xphi.loop.prog.utils import FlexibleModel
 from bound.adapter.llama.types import BaseOutputParser, PydanticProgramMode
 from bound.inter.llms.openai.utils import (
     O1_MODELS,
@@ -1191,7 +1191,7 @@ class OpenAI(FunctionCallingLLM):
         Union[Model, List[Model], "FlexibleModel", List["FlexibleModel"]], None, None
     ]:
         if self._should_use_structure_outputs():
-            from bound.adapter.llama.program.streaming_utils import (
+            from xphi.loop.prog.streaming_utils import (
                 process_streaming_content_incremental,
             )
 
@@ -1227,7 +1227,7 @@ class OpenAI(FunctionCallingLLM):
             ) -> AsyncGenerator[
                 Union[Model, List[Model], FlexibleModel, List[FlexibleModel]], None
             ]:
-                from bound.adapter.llama.program.streaming_utils import (
+                from xphi.loop.prog.streaming_utils import (
                     process_streaming_content_incremental,
                 )
 

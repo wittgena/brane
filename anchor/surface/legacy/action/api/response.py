@@ -52,7 +52,7 @@ from bound.channel.wrapper import client
 from bound.channel.support.template import update_responses_input_with_model_file_ids, update_responses_tools_with_model_file_ids
 from bound.channel.api.request import ResponsesAPIRequestUtils
 from bound.channel.support.identity import ResponseIdentityManager
-from bound.inter.llms.openai.data_residency import infer_openai_data_residency
+from anchor.surface.legacy.openai.data_residency import infer_openai_data_residency
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter

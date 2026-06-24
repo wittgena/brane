@@ -41,7 +41,7 @@ from bound.adapter.llama.base.llms.types import (
     ToolCallBlock,
     ContentBlock,
 )
-from bound.adapter.llama.program.utils import _repair_incomplete_json
+from xphi.loop.prog.utils import _repair_incomplete_json
 from tenacity import (
     before_sleep_log,
     retry,

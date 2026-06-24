@@ -1,8 +1,4 @@
 # bound.inter.llms.openai.responses
-## @lineage: bound.adapter.llama.llms.openai.responses
-## @lineage: bound.channel.bridge.llms.openai.responses
-## @lineage: channel.bridge.llms.openai.responses
-## @lineage: bridge.llama.llms.openai.responses
 import functools
 import httpx
 import tiktoken
@@ -52,7 +48,7 @@ from typing import (
     cast,
 )
 
-import bound.adapter.llama.instrumentation as instrument
+import xphi.loop.inst as instrument
 from bound.adapter.llama.base.llms.generic_utils import (
     achat_to_completion_decorator,
     astream_chat_to_completion_decorator,
@@ -82,15 +78,15 @@ from bound.adapter.llama.bridge.pydantic import (
 from bound.adapter.llama.constants import (
     DEFAULT_TEMPERATURE,
 )
-from bound.adapter.llama.llms.callbacks import (
+from xphi.flow.llm.callbacks import (
     llm_chat_callback,
     llm_completion_callback,
 )
-from bound.adapter.llama.llms.function_calling import FunctionCallingLLM
-from bound.adapter.llama.llms.llm import ToolSelection, Model
-from bound.adapter.llama.llms.utils import parse_partial_json
+from xphi.flow.llm.function_calling import FunctionCallingLLM
+from xphi.flow.llm.llm import ToolSelection, Model
+from xphi.flow.llm.utils import parse_partial_json
 from bound.adapter.llama.prompts import PromptTemplate
-from bound.adapter.llama.program.utils import FlexibleModel
+from xphi.loop.prog.utils import FlexibleModel
 from bound.inter.llms.openai.utils import (
     O1_MODELS,
     create_retry_decorator,

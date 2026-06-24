@@ -50,7 +50,7 @@ from bound.channel.action.handler.param.validator import (
     validate_chat_completion_tool_choice,
     validate_openai_optional_params
 )
-from bound.inter.llms.openai.completion import OpenAIChatCompletion
+from anchor.surface.legacy.openai.completion import OpenAIChatCompletion
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from bound.xor.secret.manager import get_secret_bool, get_secret_str
 
