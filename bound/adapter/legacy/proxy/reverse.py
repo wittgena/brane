@@ -1,127 +1,97 @@
 # bound.adapter.legacy.proxy.reverse
 ## @lineage: anchor.surface.legacy.proxy.reverse
-from typing import Any, Iterable, List, Optional, Tuple, Dict
-from litellm.proxy._types import LiteLLM_ObjectPermissionTable
-from litellm.proxy._experimental.mcp_server.mcp_server_manager import global_mcp_server_manager
-from litellm.proxy._experimental.mcp_server.server import (
-    _get_allowed_mcp_servers_from_mcp_server_names,
-    _get_tools_from_mcp_servers,
-)
-from litellm.proxy.management_endpoints.common_utils import _user_has_admin_view
+from typing import Any, Dict, List, Optional, Protocol, Tuple
+from pydantic import BaseModel, ConfigDict
+
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("proxy.reverse")
 
-class LegacyLitellmToolsManager:
-    """
-    litellm의 복잡한 도구 조회 및 권한 필터링 로직을 캡슐화한 어댑터.
-    이 클래스가 MCPProxyHandler에서 _get_mcp_tools_from_manager 역할을 대체합니다.
-    """
+class BraneAuthContext(BaseModel):
+    """기존 LiteLLM의 user_api_key_auth 및 ObjectPermissionTable을 대체하는 Brane 시스템 전용 순수 인증 객체"""
+    model_config = ConfigDict(frozen=True)
+    user_id: str
+    is_admin: bool = False
+    
+    ## 정적 권한 (RBAC) - 이 사용자가 접근 가능한 개별 서버 및 툴셋(그룹)
+    allowed_mcp_servers: List[str] = []
+    allowed_toolsets: List[str] = []
 
-    @staticmethod
-    async def apply_toolset_permissions(
-        resolved_toolset_ids: List[str],
-        resolved_mcp_servers: List[str],
-        user_api_key_auth: Any,
-    ) -> Any:
-        # 기존 MCPProxyHandler._apply_toolset_permissions 코드를 그대로 가져옵니다.
-        try:
-            tool_permissions = await global_mcp_server_manager.resolve_toolset_tool_permissions(
-                toolset_ids=resolved_toolset_ids
-            )
-            all_server_ids = list(set(tool_permissions.keys()) | set(resolved_mcp_servers))
-            existing_op = getattr(user_api_key_auth, "object_permission", None)
-            
-            if existing_op is not None:
-                merged_tool_perms = dict(existing_op.mcp_tool_permissions or {})
-                for server_id, tool_names in tool_permissions.items():
-                    existing_tools = merged_tool_perms.get(server_id, [])
-                    merged_tool_perms[server_id] = list(set(existing_tools) | set(tool_names))
-                updated_op = existing_op.model_copy(
-                    update={
-                        "mcp_servers": all_server_ids,
-                        "mcp_tool_permissions": merged_tool_perms,
-                        "mcp_toolsets": [],
-                    }
-                )
-            else:
-                updated_op = LiteLLM_ObjectPermissionTable(
-                    object_permission_id="toolset-scope",
-                    mcp_servers=all_server_ids,
-                    mcp_tool_permissions=tool_permissions,
-                )
-            return user_api_key_auth.model_copy(update={"object_permission": updated_op})
-        except Exception as _e:
-            log.debug(f"Could not apply toolset permissions: {_e}")
-            return user_api_key_auth
+class ToolsetDefinition(BaseModel):
+    """툴셋(도구 모음) 메타데이터"""
+    id: str
+    name: str
 
-    @staticmethod
-    async def get_tools_from_manager(
-        user_api_key_auth: Any,
-        mcp_servers: List[str], # 이미 파싱된 서버 이름 리스트를 받습니다.
-        litellm_trace_id: Optional[str] = None,
-        mcp_auth_header: Optional[str] = None,
-        mcp_server_auth_headers: Optional[Dict[str, Dict[str, str]]] = None,
-    ) -> Tuple[List[Any], List[str]]:
-        # 기존 _get_mcp_tools_from_manager의 핵심 로직 (DB 조회 등)
-        resolved_mcp_servers: List[str] = []
-        resolved_toolset_ids: List[str] = []
+class ToolRegistryProtocol(Protocol):
+    """MCP 서버와 툴셋의 메타데이터 및 실제 도구를 제공하는 인터페이스."""
+    async def get_server_by_name(self, name: str) -> Optional[Any]:
+        """이름으로 단일 MCP 서버의 존재 여부 및 메타데이터를 반환"""
+        ...
         
-        for name in mcp_servers:
-            if not global_mcp_server_manager.get_mcp_server_by_name(name):
-                # 파일 상단에 두지 않고 지연 임포트했던 prisma_client는 
-                # 어댑터 내부에서만 안전하게 캡슐화합니다.
-                from litellm.proxy.proxy_server import prisma_client 
-                try:
-                    if prisma_client is not None:
-                        toolset = await global_mcp_server_manager.get_toolset_by_name_cached(prisma_client, name)
-                        if toolset is not None:
-                            if user_api_key_auth is not None:
-                                is_admin = _user_has_admin_view(user_api_key_auth)
-                                if not is_admin:
-                                    op = getattr(user_api_key_auth, "object_permission", None)
-                                    granted = getattr(op, "mcp_toolsets", None) if op else None
-                                    if granted is None or toolset.toolset_id not in granted:
-                                        log.debug(f"Key does not have access to toolset '{name}', skipping.")
-                                        continue
-                            resolved_toolset_ids.append(toolset.toolset_id)
-                            continue
-                except Exception as _e:
-                    log.debug(f"Could not resolve '{name}' as toolset: {_e}")
-            resolved_mcp_servers.append(name)
+    async def get_toolset_by_name(self, name: str) -> Optional[ToolsetDefinition]:
+        """이름으로 툴셋 그룹을 반환"""
+        ...
+        
+    async def get_servers_for_toolset(self, toolset_id: str) -> List[str]:
+        """특정 툴셋에 속한 MCP 서버들의 이름(id) 목록을 반환"""
+        ...
+        
+    async def fetch_tools_from_servers(self, server_names: List[str]) -> List[Any]:
+        """(Low-level Server 클라이언트를 통해) 실제 가용한 도구 목록을 반환"""
+        ...
 
-        if resolved_toolset_ids and user_api_key_auth is not None:
-            user_api_key_auth = await LegacyLitellmToolsManager.apply_toolset_permissions(
-                resolved_toolset_ids=resolved_toolset_ids,
-                resolved_mcp_servers=resolved_mcp_servers,
-                user_api_key_auth=user_api_key_auth,
-            )
+class BraneToolCatalogManager:
+    """LLM에게 도구를 노출하기 전, 정적 권한(RBAC)을 검증하고 필터링하는 매니저"""
+    
+    def __init__(self, registry: ToolRegistryProtocol):
+        self.registry = registry
 
-        effective_server_filter = None if resolved_toolset_ids else (resolved_mcp_servers or None)
+    async def get_authorized_tools(
+        self,
+        auth_context: BraneAuthContext,
+        requested_names: List[str]
+    ) -> Tuple[List[Any], List[str]]:
+        """요청받은 서버/툴셋 이름 목록을 분석하여, 사용자 권한에 맞는 실제 서버 이름 목록을 도출하고, 그에 해당하는 도구 리스트를 반환"""
+        if not auth_context:
+            log.warning("No auth_context provided. Returning empty tools.")
+            return [], []
 
-        tools = await _get_tools_from_mcp_servers(
-            user_api_key_auth=user_api_key_auth,
-            mcp_auth_header=mcp_auth_header,
-            mcp_servers=effective_server_filter,
-            mcp_server_auth_headers=mcp_server_auth_headers,
-            log_list_tools_to_spendlogs=True,
-            list_tools_log_source="responses",
-            litellm_trace_id=litellm_trace_id,
-        )
+        resolved_server_names: set[str] = set()
 
-        allowed_mcp_server_ids = await global_mcp_server_manager.get_allowed_mcp_servers(user_api_key_auth)
-        allowed_mcp_servers_objs = global_mcp_server_manager.get_mcp_servers_from_ids(allowed_mcp_server_ids)
+        ## 요청된 이름들을 순회하며 Server와 Toolset을 분류 및 권한 검증
+        for name in requested_names:
+            ## (A) 툴셋인지 먼저 확인
+            toolset = await self.registry.get_toolset_by_name(name)
+            if toolset:
+                if auth_context.is_admin or toolset.id in auth_context.allowed_toolsets:
+                    ## 툴셋에 접근 권한이 있다면, 해당 툴셋 안의 서버들을 모두 추가
+                    servers_in_toolset = await self.registry.get_servers_for_toolset(toolset.id)
+                    resolved_server_names.update(servers_in_toolset)
+                else:
+                    log.debug(f"User '{auth_context.user_id}' lacks access to toolset '{name}'. Skipping.")
+                continue
 
-        allowed_mcp_servers_filtered = await _get_allowed_mcp_servers_from_mcp_server_names(
-            mcp_servers=effective_server_filter,
-            allowed_mcp_servers=allowed_mcp_servers_objs,
-        )
+            ## (B) 툴셋이 아니라면 단일 서버인지 확인
+            server = await self.registry.get_server_by_name(name)
+            if server:
+                if auth_context.is_admin or name in auth_context.allowed_mcp_servers:
+                    resolved_server_names.add(name)
+                else:
+                    log.debug(f"User '{auth_context.user_id}' lacks access to MCP server '{name}'. Skipping.")
+                continue
 
-        server_names: List[str] = []
-        for server in allowed_mcp_servers_filtered:
-            if server is None: continue
-            server_name = getattr(server, "server_name", None) or getattr(server, "alias", None) or getattr(server, "name", None)
-            if isinstance(server_name, str):
-                server_names.append(server_name)
+            ## 둘 다 아닌 경우
+            log.warning(f"Could not resolve '{name}' as either a toolset or an MCP server.")
 
-        return tools, server_names
+        ## 최종 승인된 서버가 없으면 빠른 반환 (Fail-fast)
+        effective_server_names = list(resolved_server_names)
+        if not effective_server_names:
+            return [], []
+
+        ## 레지스트리를 통해 실제 도구(Tool) 명세서 페칭
+        try:
+            tools = await self.registry.fetch_tools_from_servers(effective_server_names)
+        except Exception as e:
+            log.error(f"Failed to fetch tools from registry: {e}")
+            tools = []
+        return tools, effective_server_names

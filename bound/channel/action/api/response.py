@@ -19,10 +19,6 @@ from typing import (
 )
 import httpx
 from pydantic import BaseModel
-
-from litellm.completion_extras.litellm_responses_transformation.transformation import LiteLLMResponsesTransformationHandler
-from litellm.responses.litellm_completion_transformation.handler import LiteLLMCompletionTransformationHandler
-
 from anchor.surface.config.resolver import config
 from anchor.surface.config.constants import request_timeout
 from bound.adapter.legacy.llm.openai.types import (
@@ -60,7 +56,6 @@ log = get_emitter("api.response")
 LiteLLMLoggingObj = Any
 
 api_handler = ResponseApiHandler()
-litellm_completion_transformation_handler = LiteLLMCompletionTransformationHandler()
 
 _OPENAI_CHAT_COMPLETIONS_RESPONSES_MODEL_PREFIX = "openai/chat_completions/"
 
@@ -238,37 +233,35 @@ class ResponsesPreprocessor:
         self.merged_vars["tools"] = self.tools
 
     def _map_reasoning_effort(self):
-        if self.explicit_args.get("reasoning") is None and "reasoning_effort" in self.merged_vars:
-            mapped = LiteLLMResponsesTransformationHandler()._map_reasoning_effort(
-                self.merged_vars.pop("reasoning_effort")
-            )
-            if mapped:
-                self.explicit_args["reasoning"] = mapped
-                self.merged_vars["reasoning"] = mapped
+        if self.explicit_args.get("reasoning") is not None:
+            return
 
+        reasoning_effort = self.merged_vars.pop("reasoning_effort", None)
+        if reasoning_effort:
+            effort_level = str(reasoning_effort).strip().lower()
+            valid_levels = {"low", "medium", "high"}
+            if effort_level in valid_levels:
+                mapped_reasoning = {
+                    "type": "effort",
+                    "level": effort_level
+                }
+                self.explicit_args["reasoning"] = mapped_reasoning
+                self.merged_vars["reasoning"] = mapped_reasoning
+            else:
+                log.warning(f"[Responses] Invalid reasoning_effort value: '{reasoning_effort}'. Ignored.")
 
-# =====================================================================
-# 3. Dispatcher (라우터)
-# =====================================================================
 class ResponsesDispatcher:
     """생성된 ResponsesContext를 기반으로 적절한 핸들러로 라우팅하는 역할"""
     def __init__(self, context: ResponsesContext):
         self.ctx = context
 
     def execute(self) -> Any:
-        # 1. MCP Gateway 확인
         if mcp_res := self._dispatch_mcp():
             return mcp_res
             
-        # 2. File Search 에뮬레이션 확인
         if fs_res := self._dispatch_file_search():
             return fs_res
             
-        # 3. Chat Completions 우회 확인
-        if self.ctx.responses_api_provider_config is None or self.ctx.use_chat_completions_api is True:
-            return self._dispatch_chat_completions()
-            
-        # 4. Native Responses API 최종 호출
         return self._dispatch_final_api()
 
     def _dispatch_mcp(self) -> Optional[Any]:
@@ -318,20 +311,6 @@ class ResponsesDispatcher:
         return run_async_function(
             aresponses_with_emulated_file_search,
             input=self.ctx.input, model=self.ctx.model, tools=self.ctx.tools, **emulated_kwargs
-        )
-
-    def _dispatch_chat_completions(self) -> Any:
-        return litellm_completion_transformation_handler.api_handler(
-            model=self.ctx.model,
-            input=self.ctx.input,
-            responses_api_request=self.ctx.response_api_optional_params,
-            custom_llm_provider=self.ctx.custom_llm_provider,
-            _is_async=self.ctx.is_async,
-            stream=self.ctx.explicit_args.get("stream"),
-            extra_headers=self.ctx.explicit_args.get("extra_headers"),
-            extra_body=self.ctx.explicit_args.get("extra_body"),
-            timeout=self.ctx.timeout,
-            **self.ctx.kwargs,
         )
 
     def _dispatch_final_api(self) -> Any:

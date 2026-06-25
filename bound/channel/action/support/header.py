@@ -1,32 +1,7 @@
 # bound.channel.action.support.header
-## @lineage: bound.channel.support.header
-## @lineage: bound.adapter.litellm.support.header
-## @lineage: bound.legacy.support.header
-## @lineage: bound.client.support.header
-## @lineage: bound.handler.support.header
-## @lineage: bound.channel.handler.support.header
-## @lineage: bound.handler.support.response.header
-## @lineage: bound.handler.response.header
-## @lineage: channel.litellm.response.header
-## @lineage: channel.bound.litellm.response.header
-## @lineage: gate.litellm.response.header
 from typing import Optional
 
-
 def get_response_headers(_response_headers: Optional[dict] = None) -> dict:
-    """
-
-    Sets the Appropriate OpenAI headers for the response and forward all headers as llm_provider-{header}
-
-    Note: _response_headers Passed here should be OpenAI compatible headers
-
-    Args:
-        _response_headers (Optional[dict], optional): _response_headers. Defaults to None.
-
-    Returns:
-        dict: _response_headers with OpenAI headers and llm_provider-{header}
-
-    """
     if _response_headers is None:
         return {}
 
@@ -52,12 +27,6 @@ def get_response_headers(_response_headers: Optional[dict] = None) -> dict:
 
 
 def _get_llm_provider_headers(response_headers: dict) -> dict:
-    """
-    Adds a llm_provider-{header} to all headers that are not already prefixed with llm_provider
-
-    Forward all headers as llm_provider-{header}
-
-    """
     llm_provider_headers = {}
     for k, v in response_headers.items():
         if "llm_provider" not in k:

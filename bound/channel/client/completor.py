@@ -1,9 +1,4 @@
 # bound.channel.client.completor
-## @lineage: bound.bridge.client.completor
-## @lineage: bound.channel.completor
-## @lineage: bound.bridge.completor
-## @lineage: bound.client.bridge.completor
-## @lineage: gov.bridge.mcps.completor
 """
 @phase: MCP Autocomplete Bridge
 @desc: Provides dynamic context resolution for Agent inputs.

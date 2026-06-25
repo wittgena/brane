@@ -10,6 +10,7 @@ from typing import (
     List,
     Literal,
     Optional,
+    Protocol,
     Tuple,
     Union,
 )
@@ -17,13 +18,34 @@ from fastapi import HTTPException
 
 from anchor.surface.exception import BlockedPiiEntityError, GuardrailRaisedException
 from anchor.switch.params import ResponsesAPIResponse
-from bound.adapter.legacy.llm.types.utils import CallTypes, StandardLoggingMCPToolCall
 
-from bound.adapter.legacy.proxy.reverse import global_mcp_server_manager, LegacyLitellmToolsManager
-from bound.adapter.legacy.proxy.logger import LegacyLogManager
+from bound.adapter.legacy.llm.types.utils import CallTypes, StandardLoggingMCPToolCall
 from bound.adapter.legacy.mcp.tool import transform_mcp_tool_to_openai_responses_api_tool, transform_mcp_tool_to_openai_tool
 from bound.adapter.legacy.mcp.payload import MCPPayloadUtils
 from bound.broker.transport.stream.iterator import BaseResponsesAPIStreamingIterator
+
+# =====================================================================
+# [BRANE] 인터페이스 및 DI (Dependency Injection) 포인트
+# LiteLLM 싱글톤을 대체하기 위한 순수 추상화 인터페이스들입니다.
+# 실제 런타임 시 앱 초기화 단계에서 구현체가 여기에 주입되어야 합니다.
+# =====================================================================
+from bound.adapter.legacy.proxy.reverse import BraneAuthContext, BraneToolCatalogManager
+
+class MCPExecutionProtocol(Protocol):
+    """MCP 서버 도구 실행을 추상화한 인터페이스 (향후 MCP 2.0 Client로 연결)"""
+    async def call_tool(self, server_name: str, name: str, arguments: dict, **kwargs) -> Any: ...
+    def get_mcp_server_by_name(self, name: str) -> Any: ...
+
+class MCPLoggerProtocol(Protocol):
+    """LiteLLM LegacyLogManager를 대체하는 순수 로깅 인터페이스"""
+    async def log_pre_call(self, **kwargs) -> Tuple[Any, dict]: ...
+    async def log_post_call_success(self, **kwargs) -> None: ...
+    async def log_failure(self, user_api_key_auth: Any, request_data: dict, error: Exception) -> None: ...
+
+# 전역 의존성 주입 슬롯 (앱 시작 시 초기화 됨)
+global_brane_catalog: Optional[BraneToolCatalogManager] = None
+global_brane_executor: Optional[MCPExecutionProtocol] = None
+global_brane_logger: Optional[MCPLoggerProtocol] = None
 
 if TYPE_CHECKING:
     from mcp.types import Tool as MCPTool
@@ -100,6 +122,30 @@ class LegacyMCPHandler:
         return False
 
     @staticmethod
+    def _convert_to_brane_auth_context(user_api_key_auth: Any) -> BraneAuthContext:
+        """기존 LiteLLM auth 객체를 BraneAuthContext로 안전하게 매핑 (과도기적 헬퍼)"""
+        if user_api_key_auth is None:
+            return BraneAuthContext(user_id="anonymous")
+            
+        user_id = getattr(user_api_key_auth, "user_id", None) or getattr(user_api_key_auth, "end_user_id", "unknown")
+        
+        # 권한 테이블 추출
+        op = getattr(user_api_key_auth, "object_permission", None)
+        mcp_servers = getattr(op, "mcp_servers", []) if op else []
+        mcp_toolsets = getattr(op, "mcp_toolsets", []) if op else []
+        
+        # 관리자 여부 확인 로직 (LiteLLM의 _user_has_admin_view 대체)
+        user_role = getattr(user_api_key_auth, "user_role", None)
+        is_admin = user_role in ["admin", "proxy_admin"]
+        
+        return BraneAuthContext(
+            user_id=user_id,
+            is_admin=is_admin,
+            allowed_mcp_servers=mcp_servers,
+            allowed_toolsets=mcp_toolsets
+        )
+
+    @staticmethod
     async def _get_mcp_tools_from_manager(
         user_api_key_auth: Any,
         mcp_tools_with_litellm_proxy: Optional[Iterable[ToolParam]],
@@ -107,6 +153,10 @@ class LegacyMCPHandler:
         mcp_auth_header: Optional[str] = None,
         mcp_server_auth_headers: Optional[Dict[str, Dict[str, str]]] = None,
     ) -> tuple[List[MCPTool], List[str]]:
+        if not global_brane_catalog:
+            log.warning("global_brane_catalog is not initialized. Returning empty tools.")
+            return [], []
+            
         mcp_servers: List[str] = []
         if mcp_tools_with_litellm_proxy:
             for _tool in mcp_tools_with_litellm_proxy:
@@ -114,12 +164,12 @@ class LegacyMCPHandler:
                 if isinstance(server_url, str) and server_url.startswith(LITELLM_PROXY_MCP_SERVER_URL_PREFIX):
                     mcp_servers.append(server_url.split("/")[-1])
 
-        tools, server_names = await LegacyLitellmToolsManager.get_tools_from_manager(
-            user_api_key_auth=user_api_key_auth,
-            mcp_servers=mcp_servers,
-            litellm_trace_id=litellm_trace_id,
-            mcp_auth_header=mcp_auth_header,
-            mcp_server_auth_headers=mcp_server_auth_headers
+        brane_auth = LegacyMCPHandler._convert_to_brane_auth_context(user_api_key_auth)
+        
+        # BraneToolCatalogManager 인터페이스 호출
+        tools, server_names = await global_brane_catalog.get_authorized_tools(
+            auth_context=brane_auth,
+            requested_names=mcp_servers
         )
         return tools, server_names
 
@@ -267,8 +317,12 @@ class LegacyMCPHandler:
         litellm_call_id: Optional[str] = None,
         litellm_trace_id: Optional[str] = None,
     ) -> List[Dict[str, Any]]:
-        """Execute tool calls and return results."""
+        """Execute tool calls and return results via Brane Executor Protocol."""
         tool_results = []
+        
+        # 안전한 로거/실행기 호출을 위한 Fallback 헬퍼
+        async def _safe_log_failure(auth, req_data, err):
+            if global_brane_logger: await global_brane_logger.log_failure(auth, req_data, err)
         
         for tool_call in tool_calls:
             try:
@@ -283,7 +337,7 @@ class LegacyMCPHandler:
                     continue
 
                 parsed_arguments = MCPPayloadUtils._parse_tool_arguments(tool_arguments)
-                server_name = tool_server_map[tool_name]
+                server_name = tool_server_map.get(tool_name, "unknown")
 
                 sanitized_tool_name = tool_name
                 unprefixed_name, prefixed_server_name = split_server_prefix_from_name(tool_name)
@@ -325,21 +379,22 @@ class LegacyMCPHandler:
                         logging_request_data["user"] = user_identifier
 
                 # === 1. 어댑터 호출: 로깅 셋업 및 pre_call ===
-                litellm_logging_obj, logging_request_data = await LegacyLogManager.log_pre_call(
-                    tool_name=tool_name,
-                    logging_request_data=logging_request_data,
-                    logging_input=logging_input,
-                    start_time=start_time
-                )
+                litellm_logging_obj = None
+                if global_brane_logger:
+                    litellm_logging_obj, logging_request_data = await global_brane_logger.log_pre_call(
+                        tool_name=tool_name,
+                        logging_request_data=logging_request_data,
+                        logging_input=logging_input,
+                        start_time=start_time
+                    )
 
-                if litellm_logging_obj:
-                    # Tool Metadata 세팅
+                if litellm_logging_obj and global_brane_executor:
                     standard_logging_mcp_tool_call: StandardLoggingMCPToolCall = {
                         "name": sanitized_tool_name,
                         "arguments": parsed_arguments,
                         "namespaced_tool_name": tool_name,
                     }
-                    mcp_server = global_mcp_server_manager._get_mcp_server_from_tool_name(tool_name)
+                    mcp_server = global_brane_executor.get_mcp_server_by_name(server_name)
                     if mcp_server:
                         mcp_info = getattr(mcp_server, "mcp_info", {}) or {}
                         standard_logging_mcp_tool_call["mcp_server_name"] = mcp_info.get("server_name") or getattr(mcp_server, "server_name", None) or server_name
@@ -352,8 +407,11 @@ class LegacyMCPHandler:
                     litellm_logging_obj.model = f"MCP: {tool_name}"
                     litellm_logging_obj.call_type = CallTypes.call_mcp_tool.value
 
-                # === 2. 실제 MCP 툴 실행 ===
-                result = await global_mcp_server_manager.call_tool(
+                # === 2. 실제 MCP 툴 실행 (Brane Executor 통과) ===
+                if not global_brane_executor:
+                    raise RuntimeError("global_brane_executor is not initialized. Cannot execute tool calls.")
+
+                result = await global_brane_executor.call_tool(
                     server_name=server_name,
                     name=sanitized_tool_name,
                     arguments=parsed_arguments,
@@ -362,41 +420,41 @@ class LegacyMCPHandler:
                     mcp_server_auth_headers=mcp_server_auth_headers,
                     oauth2_headers=oauth2_headers,
                     raw_headers=raw_headers,
-                    # proxy_logging_obj=proxy_logging_obj (매니저 내부에서 처리되거나 더 이상 직접 넘기지 않음)
                 )
 
                 # === 3. 어댑터 호출: 성공 로깅 ===
-                await LegacyLogManager.log_post_call_success(
-                    litellm_logging_obj=litellm_logging_obj,
-                    result=result,
-                    start_time=start_time,
-                    tool_name=tool_name
-                )
+                if global_brane_logger and litellm_logging_obj:
+                    await global_brane_logger.log_post_call_success(
+                        litellm_logging_obj=litellm_logging_obj,
+                        result=result,
+                        start_time=start_time,
+                        tool_name=tool_name
+                    )
 
                 result_text = MCPPayloadUtils._parse_mcp_result(result)
                 tool_results.append({"tool_call_id": tool_call_id, "result": result_text, "name": tool_name})
 
-            # === 4. 어댑터 호출: 에러 로깅 (반복되는 catch 블록 통합) ===
+            # === 4. 에러 로깅 (기존 형태 유지) ===
             except BlockedPiiEntityError as e:
-                await LegacyLogManager.log_failure(user_api_key_auth, logging_request_data, e)
+                await _safe_log_failure(user_api_key_auth, logging_request_data, e)
                 log.error(f"BlockedPiiEntityError in MCP tool call: {str(e)}")
                 error_msg = f"Tool call blocked: PII entity '{getattr(e, 'entity_type', 'unknown')}' detected by guardrail '{getattr(e, 'guardrail_name', 'unknown')}'. {str(e)}"
                 tool_results.append({"tool_call_id": tool_call_id, "result": error_msg, "name": tool_name})
                 
             except GuardrailRaisedException as e:
-                await LegacyLogManager.log_failure(user_api_key_auth, logging_request_data, e)
+                await _safe_log_failure(user_api_key_auth, logging_request_data, e)
                 log.error(f"GuardrailRaisedException in MCP tool call: {str(e)}")
                 error_msg = f"Tool call blocked: Guardrail '{getattr(e, 'guardrail_name', 'unknown')}' violation. {str(e)}"
                 tool_results.append({"tool_call_id": tool_call_id, "result": error_msg, "name": tool_name})
                 
             except HTTPException as e:
-                await LegacyLogManager.log_failure(user_api_key_auth, logging_request_data, e)
+                await _safe_log_failure(user_api_key_auth, logging_request_data, e)
                 log.error(f"HTTPException in MCP tool call: {str(e)}")
                 error_msg = f"Tool call failed: {str(e.detail) if hasattr(e, 'detail') else str(e)}"
                 tool_results.append({"tool_call_id": tool_call_id, "result": error_msg, "name": tool_name})
                 
             except Exception as e:
-                await LegacyLogManager.log_failure(user_api_key_auth, logging_request_data, e)
+                await _safe_log_failure(user_api_key_auth, logging_request_data, e)
                 log.exception(f"Error executing MCP tool call: {e}")
                 tool_results.append({"tool_call_id": tool_call_id, "result": f"Error executing tool: {str(e)}", "name": tool_name})
 

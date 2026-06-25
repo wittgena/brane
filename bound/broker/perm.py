@@ -1,12 +1,4 @@
 # bound.broker.perm
-## @lineage: bound.adapter.broker.perm
-## @lineage: acps.broker.perm
-## @lineage: acps.bound.broker.perm
-## @lineage: channel.acps.bound.broker.perm
-## @lineage: bound.server.acps.bound.broker.perm
-## @lineage: anchor.spec.acp.bound.broker.perm
-## @lineage: xphi.spec.acp.bound.broker.perm
-## @lineage: acps.contrib.permissions
 from __future__ import annotations
 
 from collections.abc import Awaitable, Callable, Sequence

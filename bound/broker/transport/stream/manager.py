@@ -1,8 +1,4 @@
 # bound.broker.transport.stream.manager
-## @lineage: bound.channel.transport.stream.manager
-## @lineage: bound.transport.stream.manager
-## @lineage: bound.bridge.stream.manager
-## @lineage: bound.client.bridge.stream
 """
 @phase: MCP Stream Bridge
 @desc: Provides unified, high-level context managers for the Agent to establish 
