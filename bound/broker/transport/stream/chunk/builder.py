@@ -32,7 +32,7 @@ import tiktoken
 if TYPE_CHECKING:
     from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
 
-from anchor.surface.legacy.llm.types.utils import TextChoices, TextCompletionResponse
+from bound.adapter.legacy.llm.types.utils import TextChoices, TextCompletionResponse
 from anchor.surface.exception import APIError
 
 from anchor.surface.config.resolver import config

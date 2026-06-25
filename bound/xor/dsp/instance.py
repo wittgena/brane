@@ -8,7 +8,7 @@ import pydantic
 from anyio.streams.memory import MemoryObjectSendStream
 from asyncer import syncify
 
-from bound.channel.bridge.action.completion import acompletion
+from bound.channel.action.completion import acompletion
 from anchor.switch.dspy.settings import settings
 from anchor.surface.exception import ContextWindowExceededError as LitellmContextWindowExceededError
 from anchor.model.lm.base import BaseLM

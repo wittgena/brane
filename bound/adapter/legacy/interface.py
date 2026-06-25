@@ -1,9 +1,4 @@
 # bound.adapter.legacy.interface
-## @lineage: anchor.surface.legacy.mcp.interface
-## @lineage: bound.adapter.litellm.mcp.interface
-## @lineage: bound.legacy.mcp.interface
-## @lineage: anchor.spec.mcp.legacy.interface
-## @lineage: bound.client.mcp.interface
 from typing import Protocol, List, Dict, Any, Optional
 
 class MCPAuthManager(Protocol):

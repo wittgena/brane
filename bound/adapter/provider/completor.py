@@ -9,7 +9,7 @@ from anchor.surface.config.base import BaseConfig
 from anchor.switch.params import ModelResponse
 from anchor.surface.config.resolver import config
 
-from bound.channel.handler.http import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
+from bound.channel.client.http import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
 from bound.broker.transport.stream.wrapper import CustomStreamWrapper
 from anchor.model.provider.manager import ProviderConfigManager
 from anchor.model.provider.types import ProviderTypes

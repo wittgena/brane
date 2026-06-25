@@ -1,14 +1,5 @@
 # bound.broker.message.dispatcher
-## @lineage: bound.adapter.broker.message.dispatcher
-## @lineage: acps.broker.conn.message.dispatcher
-## @lineage: acps.message.task.dispatcher
-## @lineage: channel.acps.message.task.dispatcher
-## @lineage: bound.server.acps.message.task.dispatcher
-## @lineage: anchor.spec.acp.message.task.dispatcher
-## @lineage: xphi.spec.acp.message.task.dispatcher
-## @lineage: acps.task.dispatcher
 from __future__ import annotations
-
 import asyncio
 from collections.abc import Awaitable, Callable
 from contextlib import suppress

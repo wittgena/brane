@@ -14,7 +14,7 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any
 from bound.channel.client.mcp import Client
-from bound.adapter.mcps.client._transport import Transport
+from bound.channel.client.adapter._transport import Transport
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("bridge.stream")

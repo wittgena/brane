@@ -1,11 +1,4 @@
 # bound.broker.transport.stream.wrapper
-## @lineage: bound.channel.transport.stream.wrapper
-## @lineage: bound.transport.stream.wrapper
-## @lineage: bound.bridge.stream.wrapper
-## @lineage: bound.client.handler.stream.wrapper
-## @lineage: bound.handler.support.stream.wrapper
-## @lineage: bound.channel.handler.support.stream.wrapper
-## @lineage: bound.handler.stream.wrapper
 import asyncio
 import collections.abc
 import datetime
@@ -32,20 +25,20 @@ from pydantic import BaseModel
 
 from anchor.surface.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
 from anchor.surface.config.resolver import config
-from bound.channel.bridge.task.executor import executor
 from anchor.surface.exception import OpenAIError
-from anchor.surface.legacy.proxy.rule import Rules
+from bound.adapter.legacy.proxy.rule import Rules
 from anchor.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
-from anchor.surface.legacy.llm.types.mapping.exception import exception_type
-from anchor.surface.legacy.llm.openai.types import OpenAIChatCompletionChunk
+from bound.adapter.legacy.llm.types.mapping.exception import exception_type
+from bound.adapter.legacy.llm.openai.types import OpenAIChatCompletionChunk
 from anchor.model.provider.types import ProviderTypes
-from anchor.surface.legacy.llm.types.router import GenericLiteLLMParams
-from anchor.surface.legacy.llm.types.utils import Delta, CallTypes, GenericStreamingChunk as GChunk
+from bound.adapter.legacy.llm.types.router import GenericLiteLLMParams
+from bound.adapter.legacy.llm.types.utils import Delta, CallTypes, GenericStreamingChunk as GChunk
 
 from bound.broker.transport.stream.chunk.builder import stream_chunk_builder
-from bound.channel.support.api.base import get_api_base
-from bound.broker.transport.stream.response.check import is_model_response_stream_empty
-from bound.channel.support.helpers import map_finish_reason, process_response_headers
+from bound.broker.transport.stream.check import is_model_response_stream_empty
+from bound.channel.action.task.executor import executor
+from bound.channel.action.support.base import get_api_base
+from bound.channel.action.support.helpers import map_finish_reason, process_response_headers
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
@@ -952,7 +945,7 @@ class CustomStreamWrapper:
         model_response: ModelResponseStream,
         response_obj: Dict[str, Any],
     ):
-        from bound.channel.support.helpers import (
+        from bound.channel.action.support.helpers import (
             preserve_upstream_non_openai_attributes,
         )
 
@@ -1132,7 +1125,7 @@ class CustomStreamWrapper:
         try:
             # return this for all models
             completion_obj: Dict[str, Any] = {"content": ""}
-            from anchor.surface.legacy.llm.types.utils import GenericStreamingChunk as GChunk
+            from bound.adapter.legacy.llm.types.utils import GenericStreamingChunk as GChunk
 
             if (
                 isinstance(chunk, ModelResponseStream)
@@ -2403,7 +2396,7 @@ def generic_chunk_has_all_required_fields(chunk: dict) -> bool:
 def convert_generic_chunk_to_model_response_stream(
     chunk: GChunk,
 ) -> ModelResponseStream:
-    from anchor.surface.legacy.llm.types.utils import Delta
+    from bound.adapter.legacy.llm.types.utils import Delta
 
     model_response_stream = ModelResponseStream(
         id=str(uuid.uuid4()),

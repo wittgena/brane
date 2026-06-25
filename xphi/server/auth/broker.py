@@ -9,8 +9,8 @@ from starlette.exceptions import HTTPException
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 from starlette.routing import Route
-from bound.adapter.mcps.server.auth.routes import cors_middleware, create_auth_routes
-from bound.adapter.mcps.server.auth.settings import AuthSettings, ClientRegistrationOptions
+from bound.server.auth.routes import cors_middleware, create_auth_routes
+from bound.server.auth.settings import AuthSettings, ClientRegistrationOptions
 
 from xphi.server.auth.provider import SimpleOAuthProvider
 from xphi.server.auth.setting import AuthServerSettings, default_auth_settings

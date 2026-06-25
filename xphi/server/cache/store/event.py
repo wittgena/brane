@@ -1,12 +1,9 @@
 # xphi.server.cache.store.event
-## @lineage: bound.server.cache.store.event
-## @lineage: anchor.spec.mcp.store.event
-## @lineage: anchor.mcp.store.event
 from collections import deque
 from dataclasses import dataclass
 from uuid import uuid4
 
-from bound.adapter.mcps.stdio.streamable_http import EventCallback, EventId, EventMessage, EventStore, StreamId
+from bound.server.stream.http import EventCallback, EventId, EventMessage, EventStore, StreamId
 from anchor.surface.mcps.types import JSONRPCMessage
 
 from watcher.plane.emitter import get_emitter

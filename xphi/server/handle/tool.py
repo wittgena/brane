@@ -4,8 +4,8 @@
 ## @lineage: anchor.mcp.server.handle.tool
 import anyio
 
-from bound.adapter.mcps.server.lowlevel.server import Server
-from bound.adapter.mcps.stdio.context import ServerRequestContext
+from bound.server.lowlevel.server import Server
+from bound.server.conn.context import ServerRequestContext
 from xphi.server.cache.store.event import InMemoryEventStore
 from anchor.surface.mcps.types import (
     PaginatedRequestParams,

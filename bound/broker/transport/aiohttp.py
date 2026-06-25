@@ -1,14 +1,4 @@
 # bound.broker.transport.aiohttp
-## @lineage: bound.channel.transport.aiohttp
-## @lineage: bound.transport.aiohttp
-## @lineage: bound.bridge.transport.aiohttp
-## @lineage: bound.client.transport.aiohttp_transport
-## @lineage: bound.handler.transport.aiohttp_transport
-## @lineage: bound.channel.handler.transport.aiohttp_transport
-## @lineage: anchor.model.llms.custom.aiohttp_transport
-## @lineage: channel.llms.custom.aiohttp_transport
-## @lineage: gate.llms.custom.aiohttp_transport
-## @lineage: gate.llms.custom_httpx.aiohttp_transport
 import asyncio
 import contextlib
 import os
@@ -135,7 +125,7 @@ class AiohttpTransport(httpx.AsyncBaseTransport):
             await self.client.close()
 
 
-class LiteLLMAiohttpTransport(AiohttpTransport):
+class AiohttpTransport(AiohttpTransport):
     """
     Pure AiohttpTransport wrapper to handle %-encodings in URLs
     and event loop lifecycle issues in CI/CD environments

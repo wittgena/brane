@@ -13,20 +13,20 @@ import httpx
 from openai._streaming import SSEDecoder
 
 from anchor.surface.config.resolver import config
-from bound.channel.support.response.config import BaseResponsesAPIConfig
+from bound.channel.response.config import BaseResponsesAPIConfig
 from anchor.surface.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
-from bound.channel.bridge.task.executor import executor
+from bound.channel.action.task.executor import executor
 
-import anchor.surface.legacy.llm.openai.types as openai_types
-from anchor.surface.legacy.llm.openai.types import ResponsesAPIStreamEvents
-from anchor.surface.legacy.llm.types.utils import CallTypes
-from bound.channel.support.asyncify import run_async_function
+import bound.adapter.legacy.llm.openai.types as openai_types
+from bound.adapter.legacy.llm.openai.types import ResponsesAPIStreamEvents
+from bound.adapter.legacy.llm.types.utils import CallTypes
+from bound.channel.action.support.asyncify import run_async_function
 
-from bound.channel.support.helpers import process_response_headers
-from bound.channel.support.api.base import get_api_base
-from bound.channel.support.metadata import update_response_metadata
-from bound.channel.support.api.request import ResponsesAPIRequestUtils
-from bound.channel.support.identity import ResponseIdentityManager
+from bound.channel.action.support.helpers import process_response_headers
+from bound.channel.action.support.base import get_api_base
+from bound.channel.response.metadata import update_response_metadata
+from bound.channel.action.support.request import ResponsesAPIRequestUtils
+from bound.channel.response.identity import ResponseIdentityManager
 
 from watcher.plane.emitter import get_emitter
 
@@ -1704,25 +1704,6 @@ class ManagedResponsesWebSocketHandler:
     # ------------------------------------------------------------------
 
     async def _process_response_create(self, raw_message: str) -> None:
-        """
-        Parse one ``response.create`` event, call ``litellm.aresponses(stream=True)``,
-        and forward every streaming event to the client.
-
-        Multi-turn support via in-memory session history
-        ------------------------------------------------
-        When ``previous_response_id`` is present in the event:
-        1. Look up the accumulated message history in ``self._session_history``
-           (keyed by the decoded provider response ID).
-        2. Prepend those messages to the current ``input`` so the model has full
-           conversation context.
-        3. After the stream completes, extract the new response ID and output
-           messages from ``response.completed`` and store them in
-           ``self._session_history`` for the next turn.
-
-        This in-memory approach avoids the async DB-write race condition that
-        occurs when spend logs haven't been committed by the time the second
-        ``response.create`` arrives over the same WebSocket connection.
-        """
         msg_obj = await self._parse_message(raw_message)
         if msg_obj is None:
             return

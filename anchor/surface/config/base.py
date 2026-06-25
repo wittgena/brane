@@ -29,8 +29,8 @@ from anchor.switch.params import ModelResponse
 from anchor.model.info.format import map_developer_role_to_system_role, type_to_response_format_param
 
 from anchor.surface.config.constants import DEFAULT_MAX_TOKENS, RESPONSE_FORMAT_TOOL_NAME
-from bound.channel.handler.http import AsyncHTTPHandler, HTTPHandler
-from anchor.surface.legacy.llm.openai.types import (
+from bound.channel.client.http import AsyncHTTPHandler, HTTPHandler
+from bound.adapter.legacy.llm.openai.types import (
     AllMessageValues,
     ChatCompletionToolChoiceFunctionParam,
     ChatCompletionToolChoiceObjectParam,

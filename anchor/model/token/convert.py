@@ -26,7 +26,7 @@ from typing import (
     get_args,
 )
 from pydantic import BaseModel
-from anchor.surface.legacy.llm.openai.types import AllMessageValues
+from bound.adapter.legacy.llm.openai.types import AllMessageValues
 
 def convert_list_message_to_dict(messages: List):
     new_messages = []

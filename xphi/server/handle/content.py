@@ -17,8 +17,8 @@ from anchor.surface.mcps.types import (
     GetPromptResult, 
     GetPromptRequestParams
 )
-from bound.adapter.mcps.server.lowlevel.server import Server
-from bound.adapter.mcps.stdio.context import ServerRequestContext
+from bound.server.lowlevel.server import Server
+from bound.server.conn.context import ServerRequestContext
 
 mcp_config = {"transport": "stdio"}
 SAMPLE_RESOURCES = {

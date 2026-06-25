@@ -7,10 +7,10 @@ from contextlib import AsyncExitStack
 from dataclasses import KW_ONLY, dataclass, field
 from typing import Any
 
-from bound.adapter.mcps.client._memory import InMemoryTransport
-from bound.adapter.mcps.client._transport import Transport
-from bound.adapter.mcps.client.session import ClientSession, ElicitationFnT, ListRootsFnT, LoggingFnT, MessageHandlerFnT, SamplingFnT
-from bound.adapter.mcps.client.streamable_http import streamable_http_client
+from bound.channel.client.adapter._memory import InMemoryTransport
+from bound.channel.client.adapter._transport import Transport
+from bound.channel.client.adapter.session import ClientSession, ElicitationFnT, ListRootsFnT, LoggingFnT, MessageHandlerFnT, SamplingFnT
+from bound.channel.client.adapter.streamable_http import streamable_http_client
 
 from anchor.surface.mcps.shared.dispatcher import ProgressFnT
 from anchor.surface.mcps.types import (

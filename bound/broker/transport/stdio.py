@@ -15,7 +15,7 @@ import os
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any
-from bound.adapter.mcps.client.stdio import stdio_client, StdioServerParameters
+from bound.channel.client.adapter.stdio import stdio_client, StdioServerParameters
 
 from watcher.plane.emitter import get_emitter
 

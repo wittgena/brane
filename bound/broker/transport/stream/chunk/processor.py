@@ -15,8 +15,8 @@ import time
 from typing_extensions import TypedDict
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union, cast
 
-from anchor.surface.legacy.llm.openai.types import ChatCompletionAssistantContentValue, ChatCompletionAudioDelta
-from anchor.surface.legacy.llm.types.utils import (
+from bound.adapter.legacy.llm.openai.types import ChatCompletionAssistantContentValue, ChatCompletionAudioDelta
+from bound.adapter.legacy.llm.types.utils import (
     ChatCompletionAudioResponse,
     ChatCompletionMessageToolCall,
     Choices,
@@ -32,7 +32,7 @@ from anchor.surface.legacy.llm.types.utils import (
     CompletionTokensDetails, 
 )
 
-from anchor.surface.legacy.llm.openai.types import ChatCompletionRedactedThinkingBlock, ChatCompletionThinkingBlock
+from bound.adapter.legacy.llm.openai.types import ChatCompletionRedactedThinkingBlock, ChatCompletionThinkingBlock
 from anchor.model.token.counter import token_counter
 from watcher.plane.emitter import get_emitter 
 

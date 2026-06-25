@@ -55,7 +55,7 @@ from weakref import WeakKeyDictionary
 from anchor.surface.config.constants import COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY
 from anchor.surface.config.resolver import config
 from anchor.model.info.format import type_to_response_format_param
-from bound.channel.bridge.task.executor import executor
+from bound.channel.action.task.executor import executor
 from anchor.surface.exception import (
     APIConnectionError,
     APIError,
@@ -76,7 +76,7 @@ from anchor.surface.exception import (
 
 
 from anchor.model.token.counter import get_modified_max_tokens
-from anchor.surface.legacy.llm.openai.types import (
+from bound.adapter.legacy.llm.openai.types import (
     AllMessageValues,
     AllPromptValues,
     ChatCompletionAssistantToolCall,
@@ -87,12 +87,12 @@ from anchor.surface.legacy.llm.openai.types import (
     OpenAIWebSearchOptions,
 )
 from anchor.model.provider.resolver import get_llm_provider
-from anchor.surface.legacy.proxy.rule import Rules
-from anchor.surface.legacy.llm.types.utils import CallTypes, Embedding, ProviderTypes
+from bound.adapter.legacy.proxy.rule import Rules
+from bound.adapter.legacy.llm.types.utils import CallTypes, Embedding, ProviderTypes
 
-from bound.channel.bridge.task.logging import GLOBAL_LOGGING_WORKER
+from bound.channel.action.task.logging import GLOBAL_LOGGING_WORKER
 from bound.broker.transport.stream.chunk.builder import stream_chunk_builder
-from bound.channel.support.metadata import update_response_metadata
+from bound.channel.response.metadata import update_response_metadata
 from bound.xor.secret.credential import CredentialAccessor
 
 from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObject
@@ -607,7 +607,7 @@ async def acompletion_with_retries(*args, **kwargs):
     return await retryer(original_function, *args, **kwargs)
 
 def responses_with_retries(*args, **kwargs):
-    from bound.channel.bridge.api.response import responses
+    from bound.channel.action.api.response import responses
     try:
         import tenacity
     except Exception as e:
@@ -634,7 +634,7 @@ def responses_with_retries(*args, **kwargs):
 
 
 async def aresponses_with_retries(*args, **kwargs):
-    from bound.channel.bridge.api.aresponse import aresponses
+    from bound.channel.action.api.aresponse import aresponses
     try:
         import tenacity
     except Exception as e:

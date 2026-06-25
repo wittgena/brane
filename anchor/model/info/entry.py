@@ -11,7 +11,7 @@ from anchor.surface.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from anchor.surface.config.resolver import config
 
 from anchor.model.provider.manager import get_provider_info
-from anchor.surface.legacy.llm.types.utils import ModelInfo
+from bound.adapter.legacy.llm.types.utils import ModelInfo
 
 def get_model_info(
     model: str,

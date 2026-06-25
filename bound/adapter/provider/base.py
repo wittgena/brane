@@ -2,11 +2,11 @@
 ## @lineage: anchor.model.provider.adapter.base
 from typing import Any, Dict, List, Optional, Union
 from anchor.switch.params import ModelResponse
-from bound.channel.bridge.action.preprocessor import CompletionContext
+from bound.channel.action.preprocessor import CompletionContext
 from bound.adapter.provider.completor import CompletionHandler
 from bound.broker.transport.stream.wrapper import CustomStreamWrapper
 from bound.xor.secret.manager import get_secret_bool
-from anchor.surface.legacy.llm.openai.completion import OpenAIChatCompletion
+from bound.adapter.legacy.llm.openai.completion import OpenAIChatCompletion
 
 from watcher.plane.emitter import get_emitter
 

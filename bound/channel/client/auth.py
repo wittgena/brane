@@ -15,10 +15,10 @@ import httpx
 from typing import Any, Callable, Awaitable
 
 from anchor.surface.mcps.shared.auth import OAuthClientInformationFull, OAuthClientMetadata, OAuthToken
-from bound.adapter.mcps.client._transport import Transport
-from bound.adapter.mcps.client.sse import sse_client
-from bound.adapter.mcps.client.streamable_http import streamable_http_client
-from bound.adapter.mcps.auth.oauth2 import OAuthClientProvider, TokenStorage
+from bound.channel.client.adapter._transport import Transport
+from bound.channel.client.adapter.sse import sse_client
+from bound.channel.client.adapter.streamable_http import streamable_http_client
+from xphi.server.auth.oauth2 import OAuthClientProvider, TokenStorage
 
 from watcher.plane.emitter import get_emitter
 

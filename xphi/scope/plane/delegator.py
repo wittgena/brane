@@ -5,7 +5,7 @@
 ## @lineage: bound.plane
 ## @lineage: channel.bound.plane
 from typing import Any, Dict, List, Optional, Tuple, Union
-from anchor.surface.legacy.llm.types.utils import LiteLLMLoggingBaseClass
+from bound.adapter.legacy.llm.types.utils import LiteLLMLoggingBaseClass
 from xphi.scope.plane.telemetry import Telemetry
 from xphi.scope.plane.metrics import Metrics
 from watcher.plane.emitter import get_emitter

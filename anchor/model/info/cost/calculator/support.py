@@ -14,7 +14,7 @@ from anchor.surface.config.constants import (
 from anchor.model.info.cost.calculator.transform import TranscriptionUsageObjectTransformation
 from anchor.model.info.cost.calculator.utils import generic_cost_per_token
 from anchor.model.provider.resolver import get_llm_provider
-from anchor.surface.legacy.llm.openai.types import (
+from bound.adapter.legacy.llm.openai.types import (
     HttpxBinaryResponseContent,
     OpenAIModerationResponse,
     OpenAIRealtimeStreamList,
@@ -23,9 +23,9 @@ from anchor.surface.legacy.llm.openai.types import (
     ResponseAPIUsage,
     ResponsesAPIResponse,
 )
-from anchor.surface.legacy.llm.types.rerank import RerankBilledUnits, RerankResponse
-from anchor.surface.legacy.llm.types.utils import CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject, StandardBuiltInToolsParams, Usage
-from anchor.surface.legacy.llm.types.utils import CallTypes, CostPerToken, EmbeddingResponse, ImageResponse, TextCompletionResponse, TranscriptionResponse
+from bound.adapter.legacy.llm.types.rerank import RerankBilledUnits, RerankResponse
+from bound.adapter.legacy.llm.types.utils import CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject, StandardBuiltInToolsParams, Usage
+from bound.adapter.legacy.llm.types.utils import CallTypes, CostPerToken, EmbeddingResponse, ImageResponse, TextCompletionResponse, TranscriptionResponse
 from anchor.switch.params import ModelResponse, ModelResponseStream
 from watcher.plane.emitter import get_emitter
 
@@ -426,7 +426,7 @@ class BaseTokenUsageProcessor:
         """
         Combine multiple Usage objects into a single Usage object, checking model keys for nested values.
         """
-        from anchor.surface.legacy.llm.types.utils import (
+        from bound.adapter.legacy.llm.types.utils import (
             CompletionTokensDetailsWrapper,
             PromptTokensDetailsWrapper,
             Usage,

@@ -1,12 +1,4 @@
 # bound.broker.message.store
-## @lineage: bound.adapter.broker.message.store
-## @lineage: acps.broker.conn.message.store
-## @lineage: acps.message.store
-## @lineage: channel.acps.message.store
-## @lineage: bound.server.acps.message.store
-## @lineage: anchor.spec.acp.message.store
-## @lineage: xphi.spec.acp.message.store
-## @lineage: acps.task.state
 from __future__ import annotations
 
 import asyncio

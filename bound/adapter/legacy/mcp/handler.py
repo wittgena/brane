@@ -17,12 +17,12 @@ from fastapi import HTTPException
 
 from anchor.surface.exception import BlockedPiiEntityError, GuardrailRaisedException
 from anchor.switch.params import ResponsesAPIResponse
-from anchor.surface.legacy.llm.types.utils import CallTypes, StandardLoggingMCPToolCall
+from bound.adapter.legacy.llm.types.utils import CallTypes, StandardLoggingMCPToolCall
 
-from anchor.surface.legacy.proxy.reverse import global_mcp_server_manager, LegacyLitellmToolsManager
-from anchor.surface.legacy.proxy.logger import LegacyLogManager
-from anchor.surface.legacy.mcp.tool import transform_mcp_tool_to_openai_responses_api_tool, transform_mcp_tool_to_openai_tool
-from anchor.surface.legacy.mcp.payload import MCPPayloadUtils
+from bound.adapter.legacy.proxy.reverse import global_mcp_server_manager, LegacyLitellmToolsManager
+from bound.adapter.legacy.proxy.logger import LegacyLogManager
+from bound.adapter.legacy.mcp.tool import transform_mcp_tool_to_openai_responses_api_tool, transform_mcp_tool_to_openai_tool
+from bound.adapter.legacy.mcp.payload import MCPPayloadUtils
 from bound.broker.transport.stream.iterator import BaseResponsesAPIStreamingIterator
 
 if TYPE_CHECKING:
@@ -74,7 +74,7 @@ class LegacyMCPHandler:
                     tool_arguments = args or "{}"
                     break
 
-            from anchor.surface.legacy.mcp.stream import create_mcp_call_events
+            from bound.adapter.legacy.mcp.stream import create_mcp_call_events
             execution_events = create_mcp_call_events(
                 tool_name=tool_name,
                 tool_call_id=tool_call_id,
@@ -410,7 +410,7 @@ class LegacyMCPHandler:
         response_id: str,
         **call_params: Any,
     ) -> Union[ResponsesAPIResponse, BaseResponsesAPIStreamingIterator]:
-        from bound.channel.bridge.api.aresponse import aresponses
+        from bound.channel.action.api.aresponse import aresponses
         return await aresponses(
             input=follow_up_input,
             model=model,
@@ -440,7 +440,7 @@ class LegacyMCPHandler:
             **kwargs,
         )
 
-        from anchor.surface.legacy.mcp.stream import MCPEnhancedStreamingIterator
+        from bound.adapter.legacy.mcp.stream import MCPEnhancedStreamingIterator
         return MCPEnhancedStreamingIterator(
             base_iterator=None,  
             mcp_events=mcp_discovery_events,  

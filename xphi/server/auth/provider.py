@@ -12,7 +12,7 @@ from starlette.exceptions import HTTPException
 from starlette.requests import Request
 from starlette.responses import HTMLResponse, RedirectResponse, Response
 
-from bound.adapter.mcps.server.auth.provider import (
+from bound.server.auth.provider import (
     AccessToken,
     AuthorizationCode,
     AuthorizationParams,

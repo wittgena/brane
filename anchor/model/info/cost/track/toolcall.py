@@ -12,8 +12,8 @@
 from typing import Any, Dict, List, Literal, Optional, Tuple
 from anchor.surface.config.resolver import config
 from anchor.surface.config.constants import OPENAI_FILE_SEARCH_COST_PER_1K_CALLS
-from anchor.surface.legacy.llm.openai.types import FileSearchTool, ResponsesAPIResponse, WebSearchOptions
-from anchor.surface.legacy.llm.types.utils import ModelInfo, SearchContextCostPerQuery, StandardBuiltInToolsParams, PromptTokensDetailsWrapper
+from bound.adapter.legacy.llm.openai.types import FileSearchTool, ResponsesAPIResponse, WebSearchOptions
+from bound.adapter.legacy.llm.types.utils import ModelInfo, SearchContextCostPerQuery, StandardBuiltInToolsParams, PromptTokensDetailsWrapper
 from anchor.switch.params import Message, ModelResponse, Usage
 
 class StandardBuiltInToolCostTracking:

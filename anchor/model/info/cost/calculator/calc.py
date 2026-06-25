@@ -13,7 +13,7 @@ from anchor.model.info.cost.track.toolcall import StandardBuiltInToolCostTrackin
 from anchor.model.info.cost.calculator.transform import TranscriptionUsageObjectTransformation
 from anchor.model.info.cost.calculator.utils import CostCalculatorUtils, generic_cost_per_token
 from anchor.model.provider.resolver import get_llm_provider
-from anchor.surface.legacy.llm.openai.types import (
+from bound.adapter.legacy.llm.openai.types import (
     HttpxBinaryResponseContent,
     OpenAIModerationResponse,
     OpenAIRealtimeStreamList,
@@ -22,8 +22,8 @@ from anchor.surface.legacy.llm.openai.types import (
     ResponseAPIUsage,
     ResponsesAPIResponse,
 )
-from anchor.surface.legacy.llm.types.rerank import RerankBilledUnits, RerankResponse
-from anchor.surface.legacy.llm.types.utils import (
+from bound.adapter.legacy.llm.types.rerank import RerankBilledUnits, RerankResponse
+from bound.adapter.legacy.llm.types.utils import (
     CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject,
     StandardBuiltInToolsParams, Usage, CallTypes, CostPerToken, 
     EmbeddingResponse, ImageResponse, TextCompletionResponse, TranscriptionResponse

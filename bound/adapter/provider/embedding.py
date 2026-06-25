@@ -6,7 +6,7 @@
 """
 from typing import List, Union
 from bound.adapter.provider.base import BaseProviderAdapter
-from bound.channel.bridge.action.preprocessor import EmbeddingContext # 가정: Brane의 임베딩 컨텍스트
+from bound.channel.action.preprocessor import EmbeddingContext # 가정: Brane의 임베딩 컨텍스트
 from xphi.trans.embedding.router import EmbeddingRouter # 가정: LLMRouter와 유사한 임베딩 라우터
 
 class InterEmbeddingAdapter(BaseProviderAdapter):

@@ -1,14 +1,5 @@
 # bound.broker.message.supervisor
-## @lineage: bound.adapter.broker.message.supervisor
-## @lineage: acps.broker.conn.message.supervisor
-## @lineage: acps.message.task.supervisor
-## @lineage: channel.acps.message.task.supervisor
-## @lineage: bound.server.acps.message.task.supervisor
-## @lineage: anchor.spec.acp.message.task.supervisor
-## @lineage: xphi.spec.acp.message.task.supervisor
-## @lineage: acps.task.supervisor
 from __future__ import annotations
-
 import asyncio
 import logging
 from collections.abc import Awaitable, Callable

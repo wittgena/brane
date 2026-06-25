@@ -10,7 +10,7 @@
 ## @lineage: gate.bound.cost.usage_object_transformation
 ## @lineage: gate.litellm.llm_cost_calc.usage_object_transformation
 from typing import Any, Optional, Union
-from anchor.surface.legacy.llm.types.utils import (
+from bound.adapter.legacy.llm.types.utils import (
     PromptTokensDetailsWrapper,
     TranscriptionUsageDurationObject,
     TranscriptionUsageTokensObject,
