@@ -3,7 +3,7 @@
 import json
 import time
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union, cast
-from bound.bridge.api.aresponse import aresponses
+from bound.channel.bridge.api.aresponse import aresponses
 from anchor.surface.legacy.llm.openai.types import ResponseOutputItem, ResponsesAPIResponse
 from anchor.surface.legacy.llm.types.vector_stores import VectorStoreSearchResult
 from arch.proto.phase.gate import uuid4 

@@ -5,7 +5,7 @@ import json
 from abc import abstractmethod
 from typing import List, Optional, Union, cast
 from anchor.surface.legacy.llm.types.utils import GenericStreamingChunk
-from bound.channel.transport.stream.wrapper import CustomStreamWrapper
+from bound.broker.transport.stream.wrapper import CustomStreamWrapper
 from anchor.switch.params import Choices, Delta, ModelResponse, ModelResponseStream, StreamingChoices
 
 def convert_model_response_to_streaming(

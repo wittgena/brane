@@ -27,7 +27,7 @@ from anchor.switch.params import (
     ResponsesAPIStreamingResponse,
     ToolParam,
 )
-from bound.channel.transport.stream.iterator import BaseResponsesAPIStreamingIterator
+from bound.broker.transport.stream.iterator import BaseResponsesAPIStreamingIterator
 
 if TYPE_CHECKING:
     from mcp.types import Tool as MCPTool
@@ -551,7 +551,7 @@ class MCPEnhancedStreamingIterator(BaseResponsesAPIStreamingIterator):
         return chunk
 
     async def _create_initial_response_iterator(self) -> None:
-        from bound.bridge.api.aresponse import aresponses
+        from bound.channel.bridge.api.aresponse import aresponses
         """Create the initial response iterator by making the first LLM call"""
         try:
             # Make the initial response API call - but avoid the MCP wrapper
@@ -704,7 +704,7 @@ class MCPEnhancedStreamingIterator(BaseResponsesAPIStreamingIterator):
             self.tool_results = []
 
     async def _create_follow_up_iterator(self) -> None:
-        from bound.bridge.api.aresponse import aresponses
+        from bound.channel.bridge.api.aresponse import aresponses
         """Create the follow-up response iterator with tool results"""
         if not self.collected_response or not hasattr(self, "tool_results"):
             return

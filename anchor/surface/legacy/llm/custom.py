@@ -17,7 +17,7 @@ from bound.channel.handler.http import AsyncHTTPHandler, HTTPHandler
 from anchor.surface.legacy.llm.types.utils import GenericStreamingChunk
 from anchor.surface.legacy.llm.types.utils import EmbeddingResponse, ImageResponse, ModelResponse
 from anchor.surface.legacy.llm.base import BaseLLM
-from bound.channel.transport.stream.wrapper import CustomStreamWrapper
+from bound.broker.transport.stream.wrapper import CustomStreamWrapper
 
 class CustomLLMError(Exception):  # use this for all your exceptions
     def __init__(

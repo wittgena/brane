@@ -43,7 +43,7 @@ from anchor.surface.legacy.llm.openai.types import *
 
 from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
 from bound.channel.support.convert import convert_to_model_response_object
-from bound.channel.transport.stream.wrapper import CustomStreamWrapper
+from bound.broker.transport.stream.wrapper import CustomStreamWrapper
 from anchor.surface.legacy.llm.base import BaseLLM
 from anchor.surface.legacy.llm.openai.common_utils import (
     BaseOpenAILLM,

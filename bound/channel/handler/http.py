@@ -49,7 +49,7 @@ from anchor.surface.config.constants import (
 from anchor.model.provider.types import ProviderTypes
 
 if TYPE_CHECKING:
-    from bound.channel.transport.aiohttp import LiteLLMAiohttpTransport
+    from bound.broker.transport.aiohttp import LiteLLMAiohttpTransport
 else:
     LiteLLMAiohttpTransport = Any
 

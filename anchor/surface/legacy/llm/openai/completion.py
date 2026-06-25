@@ -23,7 +23,7 @@ from anchor.model.provider.types import ProviderTypes
 from anchor.surface.legacy.llm.types.utils import EmbeddingResponse
 from bound.channel.support.convert import convert_to_model_response_object
 from anchor.model.provider.manager import ProviderConfigManager
-from bound.channel.transport.stream.wrapper import CustomStreamWrapper
+from bound.broker.transport.stream.wrapper import CustomStreamWrapper
 from anchor.surface.legacy.llm.base import BaseLLM
 from anchor.surface.legacy.llm.openai.common_utils import (
     BaseOpenAILLM,

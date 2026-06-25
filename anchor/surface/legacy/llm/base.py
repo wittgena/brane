@@ -6,7 +6,7 @@ import httpx
 
 from anchor.surface.config.resolver import config
 if TYPE_CHECKING:
-    from bound.channel.transport.stream.wrapper import CustomStreamWrapper
+    from bound.broker.transport.stream.wrapper import CustomStreamWrapper
     from anchor.surface.legacy.llm.types.utils import ModelResponse, TextCompletionResponse
 
 class LiteLLMPydanticObjectBase(BaseModel):
