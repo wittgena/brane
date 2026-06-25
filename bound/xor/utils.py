@@ -15,7 +15,7 @@ from pydantic import TypeAdapter
 from pydantic.fields import FieldInfo
 from bound.xor.basetype import Type as SpiType
 from bound.xor.manifold.code import Code
-from bound.xor.dsp.reasoning import Reasoning
+from bound.xor.dsp.model.reasoning import Reasoning
 from arch.xor.manifold.sign.utils import get_spi_field_type
 
 def _annotation_is_subclass(annotation: Any, expected_base: type) -> bool:

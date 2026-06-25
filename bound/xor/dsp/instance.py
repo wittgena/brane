@@ -20,7 +20,7 @@ from anchor.model.info.support import supports_function_calling, supports_reason
 from bound.xor.dsp.stream.callback import BaseCallback
 from bound.xor.dsp.provider.openai import OpenAIProvider
 from bound.xor.dsp.provider.base import Provider, ReinforceJob, TrainingJob
-from bound.xor.dsp.finetune import TrainDataFormat
+from bound.xor.dsp.handler.train import TrainDataFormat
 from bound.xor.dsp.exceptions import ContextWindowExceededError
 
 from watcher.plane.emitter import get_emitter

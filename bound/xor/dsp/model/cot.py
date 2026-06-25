@@ -1,4 +1,5 @@
-# bound.xor.dsp.cot
+# bound.xor.dsp.model.cot
+## @lineage: bound.xor.dsp.cot
 ## @lineage: bound.channel.bridge.dsp.cot
 ## @lineage: channel.bridge.dsp.cot
 ## @lineage: meta.ops.predictor.cot
@@ -9,7 +10,7 @@ from pydantic.fields import FieldInfo
 from arch.xor.manifold.sign.field import InputField, OutputField
 from arch.xor.manifold.sign.signature import Signature, ensure_signature
 from xphi.scope.module.meta import Module
-from bound.xor.dsp.predict import Predict
+from bound.xor.dsp.opt.predict import Predict
 
 class ChainOfThought(Module):
     def __init__(

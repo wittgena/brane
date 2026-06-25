@@ -13,8 +13,8 @@ from anchor.model.lm.base import BaseLM
 from bound.xor.manifold.history import History
 from bound.xor.manifold.tool import Tool, ToolCalls
 
-from bound.xor.dsp.reasoning import Reasoning
-from bound.xor.dsp.citation import Citations
+from bound.xor.dsp.model.reasoning import Reasoning
+from bound.xor.manifold.citation import Citations
 
 from bound.xor.dsp.stream.callback import BaseCallback, with_callbacks
 from bound.xor.dsp.exceptions import AdapterParseError

@@ -165,7 +165,7 @@ class BaseModule:
         return {name: param.dump_state(json_mode=json_mode) for name, param in self.named_parameters()}
 
     def load_state(self, state, *, allow_unsafe_lm_state=False):
-        from bound.xor.dsp.predict import Predict
+        from bound.xor.dsp.opt.predict import Predict
 
         for name, param in self.named_parameters():
             if isinstance(param, Predict):

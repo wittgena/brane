@@ -1,4 +1,5 @@
-# bound.xor.dsp.citation
+# bound.xor.manifold.citation
+## @lineage: bound.xor.dsp.citation
 ## @lineage: bound.channel.bridge.dsp.citation
 ## @lineage: channel.bridge.dsp.citation
 ## @lineage: meta.xor.manifold.citation

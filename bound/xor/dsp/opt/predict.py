@@ -1,4 +1,5 @@
-# bound.xor.dsp.predict
+# bound.xor.dsp.opt.predict
+## @lineage: bound.xor.dsp.predict
 ## @lineage: bound.channel.bridge.dsp.predict
 ## @lineage: channel.bridge.dsp.predict
 ## @lineage: meta.xor.adapter.dsp.predict
@@ -12,15 +13,18 @@ from typing import Any, Literal, get_args, get_origin
 from pydantic import BaseModel
 from pydantic_core import PydanticUndefined
 from typeguard import TypeCheckError, check_type
-from bound.xor.chat import ChatAdapter
-from anchor.model.lm.base import BaseLM
-from bound.xor.dsp.instance import LM
+
 from anchor.switch.dspy.settings import settings
+from anchor.model.lm.base import BaseLM
+
+from bound.xor.chat import ChatAdapter
+from bound.xor.dsp.instance import LM
 from bound.xor.manifold.parameter import Parameter
-from xphi.scope.module.meta import Module
 from bound.xor.exam.prediction import Prediction
-from arch.xor.manifold.sign.signature import Signature, ensure_signature
 from bound.xor.dsp.stream.callback import BaseCallback
+
+from xphi.scope.module.meta import Module
+from arch.xor.manifold.sign.signature import Signature, ensure_signature
 
 logger = logging.getLogger(__name__)
 UNSAFE_LM_STATE_KEYS = {"api_base", "base_url", "model_list"}

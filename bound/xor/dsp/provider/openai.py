@@ -8,7 +8,7 @@ from datetime import datetime
 from typing import Any
 import openai
 from bound.xor.dsp.provider.base import Provider, TrainingJob
-from bound.xor.dsp.finetune import TrainDataFormat, TrainingStatus, save_data
+from bound.xor.dsp.handler.train import TrainDataFormat, TrainingStatus, save_data
 
 class TrainingJobOpenAI(TrainingJob):
     def __init__(self, *args, **kwargs):

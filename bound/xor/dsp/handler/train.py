@@ -1,9 +1,5 @@
-# bound.xor.dsp.finetune
-## @lineage: bound.channel.bridge.dsp.finetune
-## @lineage: channel.bridge.dsp.finetune
-## @lineage: meta.xor.adapter.dsp.finetune
-## @lineage: meta.ops.dataset.train.finetune
-## @lineage: meta.ops.trainer.dataset.train.finetune
+# bound.xor.dsp.handler.train
+## @lineage: bound.xor.dsp.finetune
 import os
 from pathlib import Path
 from enum import Enum

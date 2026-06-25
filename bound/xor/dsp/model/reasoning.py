@@ -1,4 +1,5 @@
-# bound.xor.dsp.reasoning
+# bound.xor.dsp.model.reasoning
+## @lineage: bound.xor.dsp.reasoning
 ## @lineage: bound.channel.bridge.dsp.reasoning
 ## @lineage: channel.bridge.dsp.reasoning
 ## @lineage: meta.xor.manifold.reasoning

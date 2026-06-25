@@ -104,7 +104,7 @@ class Module(BaseModule, metaclass=ProgramMeta):
             return await self.aforward(*args, **kwargs)
 
     def named_predictors(self):
-        from bound.xor.dsp.predict import Predict
+        from bound.xor.dsp.opt.predict import Predict
         return [(name, param) for name, param in self.named_parameters() if isinstance(param, Predict)]
 
     def predictors(self):

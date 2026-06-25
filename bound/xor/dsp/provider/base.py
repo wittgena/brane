@@ -8,7 +8,7 @@ from abc import abstractmethod
 from concurrent.futures import Future
 from threading import Thread
 from typing import TYPE_CHECKING, Any
-from bound.xor.dsp.finetune import TrainDataFormat
+from bound.xor.dsp.handler.train import TrainDataFormat
 if TYPE_CHECKING:
     from bound.xor.dsp.instance import LM
 

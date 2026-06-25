@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING, Any
 import orjson
 import requests
 from bound.xor.dsp.provider.base import Provider, TrainingJob
-from bound.xor.dsp.finetune import TrainDataFormat, get_finetune_directory
+from bound.xor.dsp.handler.train import TrainDataFormat, get_finetune_directory
 
 if TYPE_CHECKING:
     from databricks.sdk import WorkspaceClient
