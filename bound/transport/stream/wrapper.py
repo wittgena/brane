@@ -1,6 +1,4 @@
 # bound.transport.stream.wrapper
-## @lineage: bound.bridge.transport.stream.wrapper
-## @lineage: bound.broker.transport.stream.wrapper
 import asyncio
 import collections.abc
 import datetime

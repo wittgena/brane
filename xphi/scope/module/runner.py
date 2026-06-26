@@ -6,7 +6,7 @@ from typing import Any
 
 from anchor.switch.dspy.settings import settings
 from anchor.switch.dspy.context import get_dspy_context_propagator
-from xor.exam.example import Example
+from bound.xor.exam.example import Example
 from arch.proto.wrapper.opt import OptExecutor
 
 class ParallelRunner:

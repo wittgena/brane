@@ -1,9 +1,4 @@
 # bound.transport.spawn
-## @lineage: bound.bridge.transport.spawn
-## @lineage: bound.broker.transport.spawn
-## @lineage: bound.adapter.broker.transport.spawn
-## @lineage: acps.broker.conn.transport.spawn
-## @lineage: acps.bound.stdio.transport
 from __future__ import annotations
 
 import asyncio

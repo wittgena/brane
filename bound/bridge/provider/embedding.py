@@ -8,7 +8,7 @@
 from typing import List, Union
 from anchor.channel.action.preprocessor import EmbeddingContext
 from bound.bridge.provider.base import BaseProviderAdapter
-from bound.bridge.adapter.embedding import EmbeddingRouter
+from bound.router.adapter.embedding import EmbeddingRouter
 
 class InterEmbeddingAdapter(BaseProviderAdapter):
     """

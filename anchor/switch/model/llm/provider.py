@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 from anchor.switch.config.resolver import config
 from anchor.switch.config.constants import REPLICATE_MODEL_NAME_WITH_ID_LENGTH
 from anchor.surface.model.legacy.types.router import LiteLLM_Params
-from xor.secret.manager import get_secret_str, get_secret 
+from bound.xor.secret.manager import get_secret_str, get_secret 
 from watcher.plane.emitter import get_emitter
 from anchor.surface.model.provider.identifier import (
     _matches_claude_model_pattern,

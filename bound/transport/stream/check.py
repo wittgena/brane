@@ -1,13 +1,8 @@
 # bound.transport.stream.check
-## @lineage: bound.bridge.transport.stream.check
-## @lineage: bound.broker.transport.stream.check
-## @lineage: bound.broker.transport.stream.response.check
 from typing import Any
 from anchor.surface.model.legacy.types.utils import Delta, ModelResponseBase, ModelResponseStream
 
 def is_model_response_stream_empty(model_response: ModelResponseStream) -> bool:
-    # Fields that are always set in ModelResponseBase and should be ignored
-    # These are structural fields that don't indicate content
     BASE_FIELDS = ModelResponseBase.model_fields.keys()
 
     # Check if usage exists - this indicates meaningful data

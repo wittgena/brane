@@ -1,14 +1,4 @@
 # bound.transport.process
-## @lineage: bound.bridge.transport.process
-## @lineage: bound.broker.transport.process
-## @lineage: bound.adapter.broker.transport.process
-## @lineage: acps.broker.conn.transport.process
-## @lineage: acps.bound.stdio.process
-## @lineage: channel.acps.bound.stdio.process
-## @lineage: bound.server.acps.bound.stdio.process
-## @lineage: anchor.spec.acp.bound.stdio.process
-## @lineage: xphi.spec.acp.bound.stdio.process
-## @lineage: acps.stdio
 from __future__ import annotations
 
 import asyncio
@@ -24,9 +14,9 @@ from pathlib import Path
 from typing import Any, cast
 
 from anchor.surface.acps.interfaces import Agent, Client
-from bound.conn.side.agent import AgentSideConnection
-from bound.conn.side.client import ClientSideConnection
-from bound.conn.base import Connection, MethodHandler, StreamObserver
+from bound.router.conn.side.agent import AgentSideConnection
+from bound.router.conn.side.client import ClientSideConnection
+from bound.router.conn.base import Connection, MethodHandler, StreamObserver
 from bound.transport.spawn import spawn_stdio_transport
 
 __all__ = [

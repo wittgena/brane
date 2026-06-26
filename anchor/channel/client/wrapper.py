@@ -92,7 +92,7 @@ from bound.transport.stream.chunk.builder import stream_chunk_builder
 from anchor.channel.action.task.logging import GLOBAL_LOGGING_WORKER
 from anchor.channel.client.rule import Rules
 from anchor.channel.response.metadata import update_response_metadata
-from xor.secret.credential import CredentialAccessor
+from bound.xor.secret.credential import CredentialAccessor
 
 from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObject
 

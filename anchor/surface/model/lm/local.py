@@ -1,6 +1,6 @@
 # anchor.surface.model.lm.local
 ## @lineage: anchor.model.lm.local
-from xor.dsp.instance import LM
+from bound.xor.dsp.instance import LM
 from phase.bind.client.engine.local import LLMEngine
 from watcher.plane.emitter import get_emitter
 

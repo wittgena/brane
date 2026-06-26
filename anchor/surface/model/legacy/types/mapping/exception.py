@@ -15,7 +15,7 @@ import httpx
 
 from anchor.switch.config.resolver import config
 from anchor.channel.action.support.base import get_api_base
-from xor.secret.redact import redact_string
+from bound.xor.secret.redact import redact_string
 from anchor.surface.model.provider.types import ProviderTypes
 from anchor.surface.exception import (
     APIConnectionError,

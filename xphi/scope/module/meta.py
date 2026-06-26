@@ -6,13 +6,13 @@ from typing import Any, TextIO, TYPE_CHECKING
 
 from anchor.switch.dspy.settings import settings
 from anchor.switch.dspy.usage import track_usage
-from xor.exam.example import Example
-from xor.exam.prediction import Prediction
+from bound.xor.exam.example import Example
+from bound.xor.exam.prediction import Prediction
 
 from xphi.scope.module.base import BaseModule
 from xphi.scope.plane.tracker.history import pretty_print_history
 
-from xor.dsp.stream.callback import with_callbacks
+from bound.xor.dsp.stream.callback import with_callbacks
 
 from xphi.scope.module.runner import ParallelRunner
 
@@ -104,7 +104,7 @@ class Module(BaseModule, metaclass=ProgramMeta):
             return await self.aforward(*args, **kwargs)
 
     def named_predictors(self):
-        from xor.dsp.opt.predict import Predict
+        from bound.xor.dsp.opt.predict import Predict
         return [(name, param) for name, param in self.named_parameters() if isinstance(param, Predict)]
 
     def predictors(self):

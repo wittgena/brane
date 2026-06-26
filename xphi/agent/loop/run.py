@@ -20,9 +20,9 @@ from typing import Any
 
 from anchor.surface.acps.exceptions import RequestError
 from anchor.surface.acps.interfaces import Agent, Client
-from bound.conn.side.agent import AgentSideConnection
-from bound.conn.side.client import ClientSideConnection
-from bound.conn.base import Connection, JsonValue, MethodHandler
+from bound.router.conn.side.agent import AgentSideConnection
+from bound.router.conn.side.client import ClientSideConnection
+from bound.router.conn.base import Connection, JsonValue, MethodHandler
 
 __all__ = [
     "DEFAULT_STDIO_BUFFER_LIMIT_BYTES",

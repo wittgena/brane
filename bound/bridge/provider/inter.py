@@ -9,7 +9,7 @@
 """
 from typing import AsyncGenerator, Generator
 from xphi.adapter.llama.base.llms.types import ChatMessage, MessageRole
-from bound.bridge.adapter.llm import LLMRouter
+from bound.router.adapter.llm import LLMRouter
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from bound.bridge.provider.base import BaseProviderAdapter
 from anchor.channel.action.preprocessor import CompletionContext
