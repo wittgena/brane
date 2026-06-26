@@ -16,7 +16,7 @@ from anchor.switch.model.cost.unit import CostCalculatorUtils, generic_cost_per_
 from anchor.switch.model.llm.provider import get_llm_provider
 from anchor.switch.params import ModelResponse, ModelResponseStream
 
-from bound.adapter.legacy.llm.openai.types import (
+from anchor.surface.model.legacy.openai.types import (
     HttpxBinaryResponseContent,
     OpenAIModerationResponse,
     OpenAIRealtimeStreamList,
@@ -25,8 +25,8 @@ from bound.adapter.legacy.llm.openai.types import (
     ResponseAPIUsage,
     ResponsesAPIResponse,
 )
-from bound.adapter.legacy.llm.types.rerank import RerankBilledUnits, RerankResponse
-from bound.adapter.legacy.llm.types.utils import (
+from anchor.surface.model.legacy.types.rerank import RerankBilledUnits, RerankResponse
+from anchor.surface.model.legacy.types.utils import (
     CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject,
     StandardBuiltInToolsParams, Usage, CallTypes, CostPerToken, 
     EmbeddingResponse, ImageResponse, TextCompletionResponse, TranscriptionResponse

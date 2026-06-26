@@ -18,11 +18,11 @@ from xphi.loop.callback.schema import (
     CBEventType,
     EventPayload,
 )
-from bound.adapter.llama.bridge.pydantic import (
+from xphi.adapter.llama.bridge.pydantic import (
     GetCoreSchemaHandler,
     GetJsonSchemaHandler,
 )
-from bound.adapter.llama.bridge.pydantic_core import CoreSchema, core_schema
+from xphi.adapter.llama.bridge.pydantic_core import CoreSchema, core_schema
 
 logger = logging.getLogger(__name__)
 global_stack_trace = ContextVar("trace", default=[BASE_TRACE_EVENT])
@@ -78,7 +78,7 @@ class CallbackManager(BaseCallbackHandler, ABC):
 
         # if we passed in no handlers, use the global default
         if len(handlers) == 0:
-            from bound.adapter.llama.settings import Settings
+            from xphi.adapter.llama.settings import Settings
 
             # hidden var access to prevent recursion in getter
             cb_manager = Settings._callback_manager

@@ -8,7 +8,7 @@
 from functools import lru_cache, wraps
 from typing import Dict, List, Optional, Type
 from tokenizers import Tokenizer
-from bound.adapter.legacy.llm.types.utils import CustomHuggingfaceTokenizer, SelectTokenizerResponse
+from anchor.surface.model.legacy.types.utils import CustomHuggingfaceTokenizer, SelectTokenizerResponse
 from anchor.surface.model.token.encoding import get_default_encoding
 from anchor.switch.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from watcher.plane.emitter import get_emitter

@@ -1,4 +1,5 @@
-# anchor.surface.config.base
+# anchor.switch.config.base
+## @lineage: anchor.surface.config.base
 import types
 from abc import ABC, abstractmethod
 from typing import (
@@ -17,14 +18,14 @@ from typing import (
 import httpx
 from pydantic import BaseModel
 
-from bound.broker.transport.stream.wrapper import CustomStreamWrapper
+from bound.bridge.transport.stream.wrapper import CustomStreamWrapper
 from anchor.switch.params import ModelResponse
 
-from bound.channel.action.param.format import map_developer_role_to_system_role, type_to_response_format_param
+from anchor.channel.action.param.format import map_developer_role_to_system_role, type_to_response_format_param
 
 from anchor.switch.config.constants import DEFAULT_MAX_TOKENS, RESPONSE_FORMAT_TOOL_NAME
-from bound.channel.client.http import AsyncHTTPHandler, HTTPHandler
-from bound.adapter.legacy.llm.openai.types import (
+from anchor.channel.client.http import AsyncHTTPHandler, HTTPHandler
+from anchor.surface.model.legacy.openai.types import (
     AllMessageValues,
     ChatCompletionToolChoiceFunctionParam,
     ChatCompletionToolChoiceObjectParam,

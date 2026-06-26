@@ -15,8 +15,8 @@ from typing import (
     List,
 )
 
-from bound.adapter.llama.bridge.pydantic import ConfigDict, Field
-from bound.adapter.llama.schema import BaseComponent, Document
+from xphi.adapter.llama.bridge.pydantic import ConfigDict, Field
+from xphi.adapter.llama.schema import BaseComponent, Document
 
 
 class BaseReader(ABC):  # pragma: no cover

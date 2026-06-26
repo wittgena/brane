@@ -23,8 +23,8 @@ from tenacity.stop import stop_base
 from tenacity.wait import wait_base
 
 import openai
-from bound.adapter.llama.base.llms.generic_utils import get_from_param_or_env
-from bound.adapter.llama.base.llms.types import (
+from xphi.adapter.llama.base.llms.generic_utils import get_from_param_or_env
+from xphi.adapter.llama.base.llms.types import (
     AudioBlock,
     ChatMessage,
     ContentBlock,
@@ -36,7 +36,7 @@ from bound.adapter.llama.base.llms.types import (
     ThinkingBlock,
     ToolCallBlock,
 )
-from bound.adapter.llama.bridge.pydantic import BaseModel
+from xphi.adapter.llama.bridge.pydantic import BaseModel
 from openai.types.chat import ChatCompletionMessageParam, ChatCompletionMessageToolCall
 from openai.types.chat.chat_completion_chunk import ChoiceDeltaToolCall
 from openai.types.chat.chat_completion_message import ChatCompletionMessage

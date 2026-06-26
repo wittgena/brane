@@ -93,8 +93,8 @@ from bound.server.auth.middleware.bearer_auth import BearerAuthBackend, RequireA
 from bound.server.auth.provider import OAuthAuthorizationServerProvider, TokenVerifier
 from bound.server.auth.routes import build_resource_metadata_url, create_auth_routes, create_protected_resource_routes
 from bound.server.auth.settings import AuthSettings
-from bound.server.conn.context import HandlerResult, ServerMiddleware, ServerRequestContext
-from bound.server.conn.runner import ServerRunner, otel_middleware, InitializationOptions
+from bound.conn.server.context import HandlerResult, ServerMiddleware, ServerRequestContext
+from bound.conn.server.runner import ServerRunner, otel_middleware, InitializationOptions
 from bound.server.stream.http import EventStore
 from bound.server.stream.manager import StreamableHTTPASGIApp, StreamableHTTPSessionManager
 from bound.server.transport.security import TransportSecuritySettings

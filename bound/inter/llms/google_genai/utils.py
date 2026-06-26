@@ -28,8 +28,8 @@ import httpx
 from google.genai import _transformers, Client
 from google.genai import errors
 
-from bound.adapter.llama.bridge.pydantic import BaseModel, ValidationError
-from bound.adapter.llama.base.llms.types import (
+from xphi.adapter.llama.bridge.pydantic import BaseModel, ValidationError
+from xphi.adapter.llama.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ImageBlock,
@@ -55,7 +55,7 @@ from tenacity import (
 from tenacity.stop import stop_base
 
 if TYPE_CHECKING:
-    from bound.adapter.llama.tools.types import BaseTool
+    from xphi.adapter.llama.tools.types import BaseTool
 
 logger = logging.getLogger(__name__)
 

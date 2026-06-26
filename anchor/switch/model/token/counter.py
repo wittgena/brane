@@ -29,20 +29,20 @@ from anchor.switch.config.constants import (
 )
 from anchor.surface.model.token.encoding import get_default_encoding
 from anchor.surface.model.token.url_utils import safe_get
-from bound.adapter.legacy.llm.anthropic import (
+from anchor.surface.model.legacy.anthropic import (
     AnthropicMessagesToolResultParam,
     AnthropicMessagesToolUseParam,
 )
-from bound.adapter.legacy.llm.openai.types import (
+from anchor.surface.model.legacy.openai.types import (
     AllMessageValues,
     ChatCompletionNamedToolChoiceParam,
     ChatCompletionToolParam,
     OpenAIMessageContent,
 )
-from bound.adapter.legacy.llm.types.utils import SelectTokenizerResponse
+from anchor.surface.model.legacy.types.utils import SelectTokenizerResponse
 from anchor.switch.params import Message
 
-from bound.channel.client.http import _get_httpx_client
+from anchor.channel.client.http import _get_httpx_client
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter(__name__)

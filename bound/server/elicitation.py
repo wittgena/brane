@@ -14,7 +14,7 @@ from pydantic import BaseModel, ValidationError
 from pydantic.json_schema import GenerateJsonSchema, JsonSchemaValue
 from pydantic_core import core_schema
 
-from bound.server.conn.session import ServerSession
+from bound.conn.server.session import ServerSession
 from anchor.surface.mcps.types import RequestId
 
 # Internal surface package; imported as the gate's source of truth for spec-valid property schemas.

@@ -1,9 +1,9 @@
 # bound.inter.llms.openai_like.responses
 from typing import Any, Optional, Union
 
-from bound.adapter.llama.base.llms.types import LLMMetadata
-from bound.adapter.llama.bridge.pydantic import Field
-from bound.adapter.llama.constants import DEFAULT_CONTEXT_WINDOW
+from xphi.adapter.llama.base.llms.types import LLMMetadata
+from xphi.adapter.llama.bridge.pydantic import Field
+from xphi.adapter.llama.constants import DEFAULT_CONTEXT_WINDOW
 from llama_index.llms.openai.responses import OpenAIResponses, Tokenizer
 
 

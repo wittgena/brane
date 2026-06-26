@@ -1,4 +1,5 @@
-# anchor.switch.bootstrap
+# anchor.switch.bootstrap.ignite
+## @lineage: anchor.switch.bootstrap
 ## @lineage: anchor.router.switch.bootstrap
 """
 - 모듈이 import 됨과 동시에 즉각적으로 실행되도록 처리할 수도 있고,

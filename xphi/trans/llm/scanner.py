@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Dict, Any, Set
 
 import bound.inter.llms as base_path
-from bound.adapter.llama.base.llms.base import BaseLLM 
+from xphi.adapter.llama.base.llms.base import BaseLLM 
 from arch.contract.registry.unified import contract
 from phase.runtime.cli.executor import CliTaskAdapter, parse_local, dispatch_cli
 from watcher.plane.emitter import get_emitter

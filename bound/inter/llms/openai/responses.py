@@ -49,13 +49,13 @@ from typing import (
 )
 
 import xphi.loop.inst as instrument
-from bound.adapter.llama.base.llms.generic_utils import (
+from xphi.adapter.llama.base.llms.generic_utils import (
     achat_to_completion_decorator,
     astream_chat_to_completion_decorator,
     chat_to_completion_decorator,
     stream_chat_to_completion_decorator,
 )
-from bound.adapter.llama.base.llms.types import (
+from xphi.adapter.llama.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseAsyncGen,
@@ -71,11 +71,11 @@ from bound.adapter.llama.base.llms.types import (
     ThinkingBlock,
     ToolCallBlock,
 )
-from bound.adapter.llama.bridge.pydantic import (
+from xphi.adapter.llama.bridge.pydantic import (
     Field,
     PrivateAttr,
 )
-from bound.adapter.llama.constants import (
+from xphi.adapter.llama.constants import (
     DEFAULT_TEMPERATURE,
 )
 from xphi.flow.llm.callbacks import (
@@ -85,7 +85,7 @@ from xphi.flow.llm.callbacks import (
 from xphi.flow.llm.function_calling import FunctionCallingLLM
 from xphi.flow.llm.llm import ToolSelection, Model
 from xphi.flow.llm.utils import parse_partial_json
-from bound.adapter.llama.prompts import PromptTemplate
+from xphi.adapter.llama.prompts import PromptTemplate
 from xphi.loop.prog.utils import FlexibleModel
 from bound.inter.llms.openai.utils import (
     O1_MODELS,
@@ -101,7 +101,7 @@ from bound.inter.llms.openai.utils import (
 dispatcher = instrument.get_dispatcher(__name__)
 
 if TYPE_CHECKING:
-    from bound.adapter.llama.tools.types import BaseTool
+    from xphi.adapter.llama.tools.types import BaseTool
 
 DEFAULT_OPENAI_MODEL = "gpt-4o-mini"
 

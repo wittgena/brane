@@ -10,10 +10,10 @@ from anchor.surface.mcps.types import ServerRequest, ClientResult, ServerNotific
 from anchor.surface.mcps.shared.message import SessionMessage
 from anchor.surface.mcps.shared.session import RequestResponder
 
-from bound.channel.client.adapter._transport import ReadStream, WriteStream
-from bound.channel.client.adapter.session import ClientSession
-from bound.channel.client.adapter.sse import sse_client
-from bound.channel.client.adapter.stdio import StdioServerParameters, stdio_client
+from anchor.channel.client.adapter._transport import ReadStream, WriteStream
+from anchor.channel.client.adapter.session import ClientSession
+from anchor.channel.client.adapter.sse import sse_client
+from anchor.channel.client.adapter.stdio import StdioServerParameters, stdio_client
 
 
 from watcher.plane.emitter import get_emitter

@@ -1,6 +1,6 @@
 # bound.inter.llms.llama_cpp.llama_utils
 from typing import List, Optional, Sequence
-from bound.adapter.llama.base.llms.types import ChatMessage, MessageRole
+from xphi.adapter.llama.base.llms.types import ChatMessage, MessageRole
 
 BOS, EOS = "<s>", "</s>"
 B_INST, E_INST = "[INST]", "[/INST]"

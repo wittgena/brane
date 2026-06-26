@@ -1,7 +1,7 @@
 # bound.inter.llms.openai_like.base
 from typing import Any, Optional, Sequence, Union
 
-from bound.adapter.llama.base.llms.types import (
+from xphi.adapter.llama.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseAsyncGen,
@@ -11,9 +11,9 @@ from bound.adapter.llama.base.llms.types import (
     CompletionResponseGen,
     LLMMetadata,
 )
-from bound.adapter.llama.bridge.pydantic import Field
-from bound.adapter.llama.constants import DEFAULT_CONTEXT_WINDOW
-from bound.adapter.llama.base.llms.generic_utils import (
+from xphi.adapter.llama.bridge.pydantic import Field
+from xphi.adapter.llama.constants import DEFAULT_CONTEXT_WINDOW
+from xphi.adapter.llama.base.llms.generic_utils import (
     async_stream_completion_response_to_chat_response,
     completion_response_to_chat_response,
     stream_completion_response_to_chat_response,

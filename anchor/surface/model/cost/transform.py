@@ -1,7 +1,7 @@
 # anchor.surface.model.cost.transform
 ## @lineage: anchor.model.info.cost.calculator.transform
 from typing import Any, Optional, Union
-from bound.adapter.legacy.llm.types.utils import (
+from anchor.surface.model.legacy.types.utils import (
     PromptTokensDetailsWrapper,
     TranscriptionUsageDurationObject,
     TranscriptionUsageTokensObject,

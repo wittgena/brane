@@ -1,6 +1,6 @@
 # anchor.switch.chat.adapter
 from typing import AsyncGenerator, Protocol, Any
-from bound.channel.action.completion import acompletion
+from anchor.channel.action.completion import acompletion
 from anchor.switch.params import ModelResponse
 
 class SimpleMessage(dict):

@@ -3,8 +3,8 @@
 from typing import Any, Dict, List, Literal, Optional, Tuple
 from anchor.switch.config.resolver import config
 from anchor.switch.config.constants import OPENAI_FILE_SEARCH_COST_PER_1K_CALLS
-from bound.adapter.legacy.llm.openai.types import FileSearchTool, ResponsesAPIResponse, WebSearchOptions
-from bound.adapter.legacy.llm.types.utils import ModelInfo, SearchContextCostPerQuery, StandardBuiltInToolsParams, PromptTokensDetailsWrapper
+from anchor.surface.model.legacy.openai.types import FileSearchTool, ResponsesAPIResponse, WebSearchOptions
+from anchor.surface.model.legacy.types.utils import ModelInfo, SearchContextCostPerQuery, StandardBuiltInToolsParams, PromptTokensDetailsWrapper
 from anchor.switch.params import Message, ModelResponse, Usage
 
 class BuiltInToolCostTracker:

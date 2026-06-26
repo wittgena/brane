@@ -6,9 +6,9 @@ from enum import Enum
 
 from anchor.switch.config.resolver import config
 from anchor.switch.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
-from bound.channel.action.param.format import BaseLLMModelInfo
+from anchor.channel.action.param.format import BaseLLMModelInfo
 from anchor.surface.model.provider.types import ProviderTypes, ProviderTypesSet
-from bound.adapter.legacy.llm.types.support import ProviderSpecificModelInfo
+from anchor.surface.model.legacy.types.support import ProviderSpecificModelInfo
 
 class ProviderConfigManager:
     _PROVIDER_CONFIG_MAP: Optional[dict[ProviderTypes, tuple[Callable, bool]]] = None

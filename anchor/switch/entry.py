@@ -19,10 +19,10 @@ if LITELLM_CONVERT_SWITCH:
 
 if not LITELLM_CONVERT_SWITCH:
     try:
-        from bound.channel.action.completion import completion, acompletion
-        from bound.channel.action.embedding import embedding, aembedding
-        from bound.channel.action.api.response import responses
-        from bound.channel.action.api.aresponse import aresponses
+        from anchor.channel.action.completion import completion, acompletion
+        from anchor.channel.action.embedding import embedding, aembedding
+        from anchor.channel.action.api.response import responses
+        from anchor.channel.action.api.aresponse import aresponses
     except ImportError as e:
         raise ImportError(
             f"Failed to load execution boundaries from internal bound modules. "

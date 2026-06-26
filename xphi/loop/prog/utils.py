@@ -5,7 +5,7 @@
 """Program utils."""
 import logging
 from typing import Any, List, Type, Sequence, Union, Optional, Dict
-from bound.adapter.llama.bridge.pydantic import (
+from xphi.adapter.llama.bridge.pydantic import (
     BaseModel,
     ConfigDict,
     Field,
@@ -14,10 +14,10 @@ from bound.adapter.llama.bridge.pydantic import (
 )
 from xphi.flow.llm.llm import LLM, ToolSelection
 from xphi.flow.llm.function_calling import FunctionCallingLLM
-from bound.adapter.llama.output_parsers.pydantic import PydanticOutputParser
-from bound.adapter.llama.prompts.base import BasePromptTemplate
-from bound.adapter.llama.types import BasePydanticProgram, Model, PydanticProgramMode
-from bound.adapter.llama.base.llms.types import ChatResponse, CompletionResponse
+from xphi.adapter.llama.output_parsers.pydantic import PydanticOutputParser
+from xphi.adapter.llama.prompts.base import BasePromptTemplate
+from xphi.adapter.llama.types import BasePydanticProgram, Model, PydanticProgramMode
+from xphi.adapter.llama.base.llms.types import ChatResponse, CompletionResponse
 
 _logger = logging.getLogger(__name__)
 

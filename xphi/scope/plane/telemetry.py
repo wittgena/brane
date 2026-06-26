@@ -15,7 +15,7 @@ from arch.proto.phase.gate import uuid4
 from anchor.switch.model.cost.calculator import completion_cost as litellm_completion_cost
 from anchor.switch.params import ResponseAPIUsage, ResponsesAPIResponse
 from anchor.switch.params import ModelResponse
-from bound.adapter.legacy.llm.types.utils import CostPerToken, Usage
+from anchor.surface.model.legacy.types.utils import CostPerToken, Usage
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
 from xphi.scope.plane.metrics import Metrics
 from watcher.plane.emitter import get_emitter, _flow_context

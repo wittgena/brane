@@ -32,10 +32,10 @@ from typing import (
 import fsspec
 from fsspec.implementations.local import LocalFileSystem
 
-from bound.adapter.llama.async_utils import get_asyncio_module, run_jobs
+from xphi.adapter.llama.async_utils import get_asyncio_module, run_jobs
 from xphi.flow.reader.base import BaseReader, ResourcesReaderMixin
-from bound.adapter.llama.schema import Document
-from bound.adapter.llama.utils import get_tqdm_iterable
+from xphi.adapter.llama.schema import Document
+from xphi.adapter.llama.utils import get_tqdm_iterable
 
 
 logger = logging.getLogger(__name__)

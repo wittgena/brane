@@ -4,7 +4,7 @@ import sys
 import warnings
 import anyio
 from bound.server.lowlevel.server import Server
-from bound.server.server import stdio_server
+from anchor.channel.stdio.server import stdio_server
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("mcps.server")

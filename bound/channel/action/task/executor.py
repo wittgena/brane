@@ -1,5 +1,0 @@
-# bound.channel.action.task.executor
-from concurrent.futures import ThreadPoolExecutor
-
-MAX_THREADS = 100
-executor = ThreadPoolExecutor(max_workers=MAX_THREADS)
