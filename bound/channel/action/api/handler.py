@@ -26,8 +26,8 @@ from bound.channel.response.config import BaseResponsesAPIConfig
 LiteLLMLoggingObj = Any
 
 from bound.channel.action.support.helpers import process_response_headers
-from anchor.model.provider.types import ProviderTypes
-from anchor.surface.config.resolver import config
+from anchor.surface.model.provider.types import ProviderTypes
+from anchor.switch.config.resolver import config
 from bound.channel.client.http import (
     AsyncHTTPHandler,
     HTTPHandler,

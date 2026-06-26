@@ -8,8 +8,8 @@ import json
 from typing import Any, Dict, List, Union
 from jsonschema import ValidationError, validate
 from typing import Optional
-from anchor.surface.config.resolver import config
-from anchor.surface.config.constants import DEFAULT_MAX_RECURSE_DEPTH
+from anchor.switch.config.resolver import config
+from anchor.switch.config.constants import DEFAULT_MAX_RECURSE_DEPTH
 from anchor.surface.exception import JSONSchemaValidationError, APIResponseValidationError
 
 class Rules:

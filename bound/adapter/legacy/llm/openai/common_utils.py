@@ -27,7 +27,7 @@ from bound.broker.transport.mock import MockOpenAITransport
 if TYPE_CHECKING:
     from aiohttp import ClientSession
 
-from anchor.surface.config.resolver import config
+from anchor.switch.config.resolver import config
 from anchor.surface.exception import BaseLLMException
 from bound.channel.client.http import (
     _DEFAULT_TTL_FOR_HTTPX_CLIENTS,

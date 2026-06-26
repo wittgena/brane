@@ -1,4 +1,5 @@
-# bound.server.adapter.auth.middleware.auth_context
+# bound.server.auth.middleware.auth_context
+## @lineage: bound.server.adapter.auth.middleware.auth_context
 ## @lineage: bound.adapter.mcps.server.auth.middleware.auth_context
 ## @lineage: anchor.surface.mcps.server.auth.middleware.auth_context
 ## @lineage: bound.server.mcps.auth.middleware.auth_context

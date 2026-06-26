@@ -1,4 +1,5 @@
-# bound.server.adapter.auth.handlers.revoke
+# bound.server.auth.handlers.revoke
+## @lineage: bound.server.adapter.auth.handlers.revoke
 ## @lineage: bound.adapter.mcps.server.auth.handlers.revoke
 ## @lineage: anchor.surface.mcps.server.auth.handlers.revoke
 ## @lineage: bound.server.mcps.auth.handlers.revoke

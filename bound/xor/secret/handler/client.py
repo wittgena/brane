@@ -7,7 +7,7 @@ import os
 from typing import Any, Optional
 from bound.xor.secret.handler.base import BaseSecretManager
 from bound.xor.secret.kms import KeyManagementSystem
-from anchor.surface.config.resolver import config
+from anchor.switch.config.resolver import config
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("secret.handler.client")

@@ -1,4 +1,5 @@
-# bound.server.adapter.lowlevel.helper_types
+# bound.server.lowlevel.helper_types
+## @lineage: bound.server.adapter.lowlevel.helper_types
 ## @lineage: bound.adapter.mcps.server.lowlevel.helper_types
 ## @lineage: anchor.surface.mcps.server.lowlevel.helper_types
 ## @lineage: bound.server.mcps.lowlevel.helper_types

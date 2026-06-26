@@ -11,12 +11,12 @@ from asyncer import syncify
 from bound.channel.action.completion import acompletion
 from anchor.switch.dspy.settings import settings
 from anchor.surface.exception import ContextWindowExceededError as LitellmContextWindowExceededError
-from anchor.model.lm.base import BaseLM
+from anchor.surface.model.lm.base import BaseLM
 
 from bound.xor.dsp.handler.cache import request_cache
 from bound.broker.transport.stream.chunk.builder import stream_chunk_builder
 
-from anchor.model.info.support import supports_function_calling, supports_reasoning, supports_response_schema, get_supported_openai_params
+from anchor.switch.model.support import supports_function_calling, supports_reasoning, supports_response_schema, get_supported_openai_params
 from bound.xor.dsp.stream.callback import BaseCallback
 from bound.xor.dsp.provider.openai import OpenAIProvider
 from bound.xor.dsp.provider.base import Provider, ReinforceJob, TrainingJob

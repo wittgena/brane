@@ -1,12 +1,4 @@
 # xphi.scope.plane.tracker.shingle
-## @lineage: bound.xor.scope.plane.tracker.shingle
-## @lineage: bound.scope.plane.tracker.shingle
-## @lineage: bound.plane.tracker.shingle
-## @lineage: meta.watcher.tracker.shingle
-## @lineage: gov.watcher.tracker.shingle
-## @lineage: bound.watcher.tracker.shingle
-## @lineage: bound.observer.tracker.shingle
-## @lineage: bound.observer.shingle.tracker
 from __future__ import annotations
 import time
 import functools
@@ -14,6 +6,9 @@ from typing import Any, Callable, Dict
 from arch.contract.exp.promise import future, Promise
 from arch.proto.event.next import LogEvent
 from watcher.plane.emitter import get_emitter, register_interceptor
+from xphi.scope.plane.tracker.history import append_trace_event
+
+emitter = get_emitter(__name__, phase="observer", boundary="shingle_tracker")
 
 decoupling_promise = Promise(
     contract="The Shingle tracking core must not depend on any specific external infrastructure.",
@@ -27,13 +22,10 @@ shingle_mapping_promise = Promise(
     consequence="The nature of words and the calculation method mismatch, collapsing the philosophical foundation of the internal domain.",
 )
 
-## Dedicated emitter for the Shingle Tracker (Internal Bus Integration)
-emitter = get_emitter(__name__, phase="observer", boundary="shingle_tracker")
-
 class ShingleUsageTracker:
     """
     @role: Contextual Shingle Meter
-    @desc: Core domain that verifies cache status and converts token segments into contextual Shingle units.
+    @desc: Core domain that verifies cache status and converts token segments into contextual Shingle units
     """
 
     @future("Raw token estimation logic based on text length for streaming environments lacking usage metadata")
@@ -78,20 +70,23 @@ class ShingleUsageTracker:
         }
 
 
-## Singleton tracker instance
 shingle_tracker = ShingleUsageTracker()
 
 def shingle_tracker_interceptor(event: LogEvent) -> None:
-    """@desc: Anti-Corruption Layer (ACL) attached to the watcher.plane.emitter bus to intercept Telemetry signals"""
-    ## Target only the LLM completion signals emitted by Telemetry
+    """
+    @desc: 
+    - Anti-Corruption Layer (ACL) attached to the watcher.plane.emitter bus
+    - Intercepts Telemetry signals for Usage tracking AND captures topology shifts (Errors/Fallbacks) for Dynamic Simulation assertions
+    """
+    ## Extract trace_id to link events to the simulation runner's query context
+    trace_id = event.context.get("trace_id", "default_trace")
+
+    ## @tracking: Usage Metrics & Shingle Calculation
     if event.level == "SIGNAL" and "LLM_COMPLETION_TRACKED" in event.message:
         payload = event.context.get("payload", {})
         
-        ## 🚀 [MODIFIED] Safely parse tokens from the normalized usage_metrics
-        ## We now rely on usage_metrics for clean, standardized internal data,
-        ## while ignoring the raw legacy 'usage' payload.
+        ## usage_metrics for clean, standardized internal data, while ignoring the raw legacy 'usage' payload
         metrics = payload.get("usage_metrics", {})
-        
         prompt_tokens = metrics.get("prompt_tokens", 0)
         completion_tokens = metrics.get("completion_tokens", 0)
         cache_read = metrics.get("cache_read_tokens", 0)
@@ -125,13 +120,31 @@ def shingle_tracker_interceptor(event: LogEvent) -> None:
             metrics=event.context["shingle_telemetry"]["metrics"]
         )
 
+        ## Record the successful completion in the history store
+        append_trace_event(trace_id, "completion_success", event.context["shingle_telemetry"])
+    elif event.level == "WARNING" and "LLM_EXCEPTION_TRACKED" in event.message:
+        ## Captures API errors (e.g., from mock_api_error injection)
+        append_trace_event(trace_id, "api_error_encountered", {
+            "error_type": event.context.get("error_type", "UnknownError"),
+            "status_code": event.context.get("status_code"),
+            "model": event.context.get("model")
+        })
+    elif event.level == "SIGNAL" and "FALLBACK_TRIGGERED" in event.message:
+        ## Captures the event where traffic is successfully routed to a secondary model
+        append_trace_event(trace_id, "fallback_to_secondary", {
+            "primary_model": event.context.get("primary_model"),
+            "fallback_model_used": event.context.get("fallback_model")
+        })
+
+
 ## Automatically register the interceptor upon system initialization or package load
 register_interceptor(shingle_tracker_interceptor)
 
 def track_non_llm_shingle_usage(module_name: str, window_size: int = 2):
     """
-    @desc: AOP decorator for non-LLM modules processing pure text operations.
-           Integrates the execution flow with the pipeline scope context.
+    @desc: 
+    - AOP decorator for non-LLM modules processing pure text operations
+    - Integrates the execution flow with the pipeline scope context
     """
     def decorator(func: Callable):
         @functools.wraps(func)
@@ -154,7 +167,6 @@ def track_non_llm_shingle_usage(module_name: str, window_size: int = 2):
                 "latency_ms": latency_ms,
                 **shingle_data
             })
-            
             return result
         return async_wrapper
     return decorator

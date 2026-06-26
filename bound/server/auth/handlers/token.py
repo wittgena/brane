@@ -1,4 +1,5 @@
-# bound.server.adapter.auth.handlers.token
+# bound.server.auth.handlers.token
+## @lineage: bound.server.adapter.auth.handlers.token
 ## @lineage: bound.adapter.mcps.server.auth.handlers.token
 ## @lineage: anchor.surface.mcps.server.auth.handlers.token
 ## @lineage: bound.server.mcps.auth.handlers.token

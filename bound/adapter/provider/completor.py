@@ -5,14 +5,14 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, Optional, Tuple, Union
 import httpx
 
-from anchor.surface.config.base import BaseConfig
+from anchor.switch.config.base import BaseConfig
 from anchor.switch.params import ModelResponse
-from anchor.surface.config.resolver import config
+from anchor.switch.config.resolver import config
 
 from bound.channel.client.http import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
 from bound.broker.transport.stream.wrapper import CustomStreamWrapper
-from anchor.model.provider.manager import ProviderConfigManager
-from anchor.model.provider.types import ProviderTypes
+from anchor.surface.model.provider.manager import ProviderConfigManager
+from anchor.surface.model.provider.types import ProviderTypes
 
 from watcher.plane.emitter import get_emitter
 
@@ -274,7 +274,7 @@ class CompletionHandler:
             error_text = getattr(error_response, "text", error_text)
 
         if provider_config is None:
-            from anchor.surface.config.base import BaseLLMException
+            from anchor.switch.config.base import BaseLLMException
             log.error(f"[ErrorHandler] Provider config 없음. BaseLLMException 발생: {error_text}")
             raise BaseLLMException(status_code=status_code, message=error_text, headers=error_headers)
 

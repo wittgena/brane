@@ -2,7 +2,7 @@
 ## @lineage: bound.channel.support.metadata
 import datetime
 from typing import Any, Optional, Union
-from anchor.surface.config.constants import LITELLM_DETAILED_TIMING
+from anchor.switch.config.constants import LITELLM_DETAILED_TIMING
 from bound.channel.action.support.helpers import process_response_headers
 from bound.channel.action.support.base import get_api_base
 

@@ -9,7 +9,7 @@ import json_repair
 
 from bound.xor.basetype import Type
 from bound.xor.basetype import split_message_content_for_custom_types
-from anchor.model.lm.base import BaseLM
+from anchor.surface.model.lm.base import BaseLM
 from bound.xor.manifold.history import History
 from bound.xor.manifold.tool import Tool, ToolCalls
 

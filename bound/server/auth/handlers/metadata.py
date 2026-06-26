@@ -1,4 +1,5 @@
-# bound.server.adapter.auth.handlers.metadata
+# bound.server.auth.handlers.metadata
+## @lineage: bound.server.adapter.auth.handlers.metadata
 ## @lineage: bound.adapter.mcps.server.auth.handlers.metadata
 ## @lineage: anchor.surface.mcps.server.auth.handlers.metadata
 ## @lineage: bound.server.mcps.auth.handlers.metadata

@@ -11,7 +11,7 @@ import cloudpickle
 from arch.topos.bind.block.residue import dotdict
 from watcher.plane.emitter import get_emitter
 
-log = get_emitter("scope.dsp")
+log = get_emitter("dspy.settings")
 
 DEFAULT_CONFIG = dotdict(
     lm=None,

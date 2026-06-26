@@ -52,9 +52,9 @@ from openai.lib import _parsing
 import inspect
 from weakref import WeakKeyDictionary
 
-from anchor.surface.config.constants import COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY
-from anchor.surface.config.resolver import config
-from anchor.model.info.format import type_to_response_format_param
+from anchor.switch.config.constants import COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY
+from anchor.switch.config.resolver import config
+from bound.channel.action.param.format import type_to_response_format_param
 from bound.channel.action.task.executor import executor
 from anchor.surface.exception import (
     APIConnectionError,
@@ -75,7 +75,7 @@ from anchor.surface.exception import (
 )
 
 
-from anchor.model.token.counter import get_modified_max_tokens
+from anchor.switch.model.token.counter import get_modified_max_tokens
 from bound.adapter.legacy.llm.openai.types import (
     AllMessageValues,
     AllPromptValues,
@@ -86,7 +86,7 @@ from bound.adapter.legacy.llm.openai.types import (
     OpenAITextCompletionUserMessage,
     OpenAIWebSearchOptions,
 )
-from anchor.model.provider.resolver import get_llm_provider
+from anchor.switch.model.llm.provider import get_llm_provider
 from bound.adapter.legacy.proxy.rule import Rules
 from bound.adapter.legacy.llm.types.utils import CallTypes, Embedding, ProviderTypes
 

@@ -1,4 +1,5 @@
-# bound.server.adapter.auth.errors
+# bound.server.auth.errors
+## @lineage: bound.server.adapter.auth.errors
 ## @lineage: bound.adapter.mcps.server.auth.errors
 ## @lineage: anchor.surface.mcps.server.auth.errors
 ## @lineage: bound.server.mcps.auth.errors

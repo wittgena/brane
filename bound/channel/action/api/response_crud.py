@@ -9,10 +9,10 @@ from typing import Any, Coroutine, Dict, List, Literal, Optional, Union
 import httpx
 from pydantic import BaseModel
 
-from anchor.surface.config.resolver import config
-from anchor.surface.config.constants import request_timeout
+from anchor.switch.config.resolver import config
+from anchor.switch.config.constants import request_timeout
 from bound.channel.response.config import BaseResponsesAPIConfig
-from anchor.model.provider.resolver import get_llm_provider
+from anchor.switch.model.llm.provider import get_llm_provider
 from bound.adapter.legacy.llm.openai.types import (
     ResponseInputParam,
     ResponsesAPIOptionalRequestParams,
@@ -20,7 +20,7 @@ from bound.adapter.legacy.llm.openai.types import (
 )
 from bound.adapter.legacy.llm.types.response import *
 from bound.adapter.legacy.llm.types.router import GenericLiteLLMParams
-from anchor.model.provider.manager import ProviderConfigManager
+from anchor.surface.model.provider.manager import ProviderConfigManager
 from bound.channel.action.api.handler import ResponseApiHandler
 from bound.channel.action.param.litellm import infer_openai_data_residency
 from bound.channel.client.wrapper import client

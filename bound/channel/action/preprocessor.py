@@ -19,15 +19,15 @@ from functools import partial
 from typing import Any, Dict, List, Literal, Callable, Optional, Tuple, Type, Union, cast
 from dataclasses import dataclass, field
 
-from anchor.surface.config.constants import COMPLETION_HTTP_FALLBACK_SECONDS, DEFAULT_REQUEST_TIMEOUT_SECONDS
+from anchor.switch.config.constants import COMPLETION_HTTP_FALLBACK_SECONDS, DEFAULT_REQUEST_TIMEOUT_SECONDS
 from bound.adapter.legacy.llm.types.utils import EmbeddingResponse
 from anchor.switch.params import ModelResponse
 from bound.adapter.legacy.llm.types.utils import all_litellm_params
-from anchor.surface.config.resolver import config
-from anchor.model.info.support import supports_httpx_timeout
-from anchor.model.provider.manager import ProviderConfigManager
-from anchor.model.provider.resolver import get_llm_provider
-from anchor.model.provider.types import ProviderTypes
+from anchor.switch.config.resolver import config
+from anchor.switch.model.support import supports_httpx_timeout
+from anchor.surface.model.provider.manager import ProviderConfigManager
+from anchor.switch.model.llm.provider import get_llm_provider
+from anchor.surface.model.provider.types import ProviderTypes
 from bound.adapter.legacy.llm.openai.types import AllMessageValues
 from bound.channel.action.param.optional import get_optional_params
 from bound.channel.action.param.litellm import get_litellm_params
@@ -306,7 +306,7 @@ class EmbeddingPreprocessor:
         self.kwargs = kwargs
 
     def build(self) -> EmbeddingContext:
-        from anchor.model.provider.resolver import get_llm_provider
+        from anchor.switch.model.llm.provider import get_llm_provider
         
         # 1. Provider 식별
         custom_llm_provider = self.kwargs.get("custom_llm_provider")

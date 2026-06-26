@@ -1,18 +1,27 @@
 # xphi.scope.plane.tracker.history
-## @lineage: bound.xor.scope.plane.tracker.history
-## @lineage: bound.scope.plane.tracker.history
-## @lineage: bound.plane.tracker.history
-## @lineage: meta.watcher.tracker.history
 from __future__ import annotations
 import sys
 from typing import Any, TextIO
+import collections
 
+_TRACE_STORE = collections.defaultdict(list)
+
+def append_trace_event(trace_id: str, event_type: str, details: Dict[str, Any]):
+    """시스템의 상태 변화(예: retry, fallback, halt)를 기록"""
+    _TRACE_STORE[trace_id].append({
+        "event": event_type,
+        "details": details,
+        "timestamp": time.time()
+    })
+
+def get_trace_history(trace_id: str) -> List[Dict[str, Any]]:
+    """@desc: 시뮬레이터(_assert_behavior)가 시스템의 실제 행동 궤적을 검증할 수 있도록 트레이스 기록을 반환"""
+    return _TRACE_STORE.get(trace_id, [])
 
 def _green(text: str, end: str = "\n", *, use_colors: bool = True) -> str:
     if use_colors:
         return "\x1b[32m" + str(text).lstrip() + "\x1b[0m" + end
     return str(text).lstrip() + end
-
 
 def _red(text: str, end: str = "\n", *, use_colors: bool = True) -> str:
     if use_colors:
@@ -27,15 +36,7 @@ def _blue(text: str, end: str = "\n", *, use_colors: bool = True) -> str:
 
 
 def pretty_print_history(history: list[dict[str, Any]], n: int = 1, file: TextIO | None = None) -> None:
-    """Print the last n prompts and their completions.
-
-    Args:
-        history: The history list to print from.
-        n: Number of recent entries to display. Defaults to 1.
-        file: An optional file-like object to write output to (must have a
-            `.write()` method). When provided, ANSI color codes are
-            automatically disabled. Defaults to `None` (prints to stdout).
-    """
+    """Print the last n prompts and their completions"""
     out = file or sys.stdout
     use_colors = file is None
 

@@ -15,7 +15,7 @@ from pydantic_core import PydanticUndefined
 from typeguard import TypeCheckError, check_type
 
 from anchor.switch.dspy.settings import settings
-from anchor.model.lm.base import BaseLM
+from anchor.surface.model.lm.base import BaseLM
 
 from bound.xor.chat import ChatAdapter
 from bound.xor.dsp.instance import LM

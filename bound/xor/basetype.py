@@ -10,7 +10,7 @@ import re
 from typing import TYPE_CHECKING, Any, Optional, get_args, get_origin
 import json_repair
 import pydantic
-from anchor.model.lm.base import BaseLM
+from anchor.surface.model.lm.base import BaseLM
 
 if TYPE_CHECKING:
     from anchor.switch.params import ModelResponseStream

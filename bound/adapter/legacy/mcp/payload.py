@@ -24,7 +24,7 @@ import json
 
 from anchor.switch.params import ResponsesAPIResponse, ModelResponse
 from bound.adapter.legacy.llm.types.utils import Choices
-from anchor.model.token.convert import convert_list_message_to_dict
+from anchor.surface.model.token.convert import convert_list_message_to_dict
 from bound.adapter.legacy.llm.types.response import GenericResponseOutputItem, OutputText
 
 from arch.proto.phase.gate import uuid

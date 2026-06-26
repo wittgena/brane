@@ -28,10 +28,10 @@ from aiohttp import ClientSession, TCPConnector
 from httpx import USE_CLIENT_DEFAULT, AsyncHTTPTransport, HTTPTransport
 from httpx._types import RequestFiles
 from watcher.plane.emitter import get_emitter
-from anchor.surface.config.resolver import config
+from anchor.switch.config.resolver import config
 from anchor.surface.exception import Timeout
 
-from anchor.surface.config.constants import (
+from anchor.switch.config.constants import (
     _DEFAULT_TTL_FOR_HTTPX_CLIENTS,
     AIOHTTP_CONNECTOR_LIMIT,
     AIOHTTP_CONNECTOR_LIMIT_PER_HOST,
@@ -47,7 +47,7 @@ from anchor.surface.config.constants import (
     HTTP_HANDLER_CONNECT_TIMEOUT_SECONDS,
 )
 
-from anchor.model.provider.types import ProviderTypes
+from anchor.surface.model.provider.types import ProviderTypes
 from bound.broker.transport.aiohttp import AiohttpTransport
 
 log = get_emitter("handler.http")

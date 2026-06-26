@@ -1,4 +1,5 @@
-# bound.server.adapter.auth.json_response
+# bound.server.auth.json_response
+## @lineage: bound.server.adapter.auth.json_response
 ## @lineage: bound.adapter.mcps.server.auth.json_response
 ## @lineage: anchor.surface.mcps.server.auth.json_response
 ## @lineage: bound.server.mcps.auth.json_response

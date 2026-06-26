@@ -30,7 +30,7 @@ LiteLLMLoggingObj = Any
 
 from bound.xor.secret.redact import redact_string
 from bound.channel.response.config import BaseResponsesAPIConfig
-from anchor.surface.config.constants import REALTIME_WEBSOCKET_MAX_MESSAGE_SIZE_BYTES
+from anchor.switch.config.constants import REALTIME_WEBSOCKET_MAX_MESSAGE_SIZE_BYTES
 from bound.broker.transport.stream.iterator import ResponsesWebSocketStreaming, ManagedResponsesWebSocketHandler
 from bound.adapter.legacy.llm.types.router import GenericLiteLLMParams
 from bound.channel.client.http import get_shared_realtime_ssl_context

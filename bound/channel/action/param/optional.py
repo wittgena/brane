@@ -29,17 +29,17 @@ from tiktoken import Encoding
 from typing import TYPE_CHECKING, Any, Dict, List, Mapping, Optional, TypeVar, Union
 
 from anchor.surface.exception import UnsupportedParamsError
-from anchor.model.info.format import type_to_response_format_param
-from anchor.surface.config.base import BaseConfig
+from bound.channel.action.param.format import type_to_response_format_param
+from anchor.switch.config.base import BaseConfig
 
-from anchor.surface.config.resolver import config
-from anchor.surface.config.constants import DEFAULT_CHAT_COMPLETION_PARAM_VALUES
+from anchor.switch.config.resolver import config
+from anchor.switch.config.constants import DEFAULT_CHAT_COMPLETION_PARAM_VALUES
 
 from bound.adapter.legacy.llm.anthropic import AnthropicThinkingParam
 from bound.adapter.legacy.llm.openai.types import AllMessageValues, OpenAIWebSearchOptions
 from bound.adapter.legacy.llm.types.utils import Embedding, Function, ProviderTypes
-from anchor.model.provider.manager import ProviderConfigManager
-from anchor.model.info.support import get_supported_openai_params
+from anchor.surface.model.provider.manager import ProviderConfigManager
+from anchor.switch.model.support import get_supported_openai_params
 
 from watcher.plane.emitter import get_emitter
 

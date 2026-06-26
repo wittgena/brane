@@ -1,4 +1,5 @@
-# bound.server.adapter.lowlevel.server
+# bound.server.lowlevel.server
+## @lineage: bound.server.adapter.lowlevel.server
 ## @lineage: bound.adapter.mcps.server.lowlevel.server
 ## @lineage: anchor.surface.mcps.server.lowlevel.server
 ## @lineage: bound.server.mcps.lowlevel.server

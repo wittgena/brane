@@ -1,4 +1,5 @@
-# bound.server.adapter.auth.handlers.register
+# bound.server.auth.handlers.register
+## @lineage: bound.server.adapter.auth.handlers.register
 ## @lineage: bound.adapter.mcps.server.auth.handlers.register
 ## @lineage: anchor.surface.mcps.server.auth.handlers.register
 ## @lineage: bound.server.mcps.auth.handlers.register

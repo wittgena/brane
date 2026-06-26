@@ -17,8 +17,8 @@ from typing import (
     cast,
     get_args,
 )
-from anchor.surface.config.resolver import config
-from anchor.surface.config.constants import (
+from anchor.switch.config.resolver import config
+from anchor.switch.config.constants import (
     DEFAULT_EMBEDDING_PARAM_VALUES,
     OPENAI_EMBEDDING_PARAMS,
 )
@@ -29,7 +29,7 @@ from anchor.surface.exception import (
     MockException
 )
 from bound.channel.action.param.optional import PreProcessNonDefaultParams, add_provider_specific_params_to_optional_params
-from anchor.model.info.openai_params import get_supported_openai_params
+from anchor.switch.model.openai import get_supported_openai_params
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("provider.param_embedding")

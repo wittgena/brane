@@ -14,7 +14,7 @@ from bound.adapter.legacy.llm.openai.types import (
 )
 from bound.adapter.legacy.llm.types.response import DeleteResponseResult
 from bound.adapter.legacy.llm.types.router import GenericLiteLLMParams
-from anchor.model.provider.types import ProviderTypes
+from anchor.surface.model.provider.types import ProviderTypes
 from anchor.surface.exception import BaseLLMException
 
 LiteLLMLoggingObj = Any

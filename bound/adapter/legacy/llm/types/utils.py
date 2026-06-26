@@ -67,7 +67,7 @@ if TYPE_CHECKING:
 else:
     VectorStoreSearchResponse = Any
 
-from anchor.model.provider.types import ProviderTypes
+from anchor.surface.model.provider.types import ProviderTypes
 
 def _generate_id():  # private helper function
     return "chatcmpl-" + str(uuid.uuid4())

@@ -23,14 +23,14 @@ import anyio
 import httpx
 from pydantic import BaseModel
 
-from anchor.surface.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
-from anchor.surface.config.resolver import config
+from anchor.switch.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
+from anchor.switch.config.resolver import config
 from anchor.surface.exception import OpenAIError
 from bound.adapter.legacy.proxy.rule import Rules
 from anchor.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
 from bound.adapter.legacy.llm.types.mapping.exception import exception_type
 from bound.adapter.legacy.llm.openai.types import OpenAIChatCompletionChunk
-from anchor.model.provider.types import ProviderTypes
+from anchor.surface.model.provider.types import ProviderTypes
 from bound.adapter.legacy.llm.types.router import GenericLiteLLMParams
 from bound.adapter.legacy.llm.types.utils import Delta, CallTypes, GenericStreamingChunk as GChunk
 

@@ -4,7 +4,7 @@
 from __future__ import annotations
 from typing import Any
 from anchor.agent.manager.option.common import apply_defaults_if_absent
-from anchor.model.info.features import get_features
+from anchor.switch.model.feature import get_features
 
 def select_chat_options(
     llm, user_kwargs: dict[str, Any], has_tools: bool

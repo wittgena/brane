@@ -6,7 +6,7 @@
 from contextlib import ExitStack
 
 from anchor.switch.dspy.settings import settings
-from anchor.model.lm.local import LocalLM
+from anchor.surface.model.lm.local import LocalLM
 from xphi.scope.surface.config import BaseSurface, SurfaceConfig
 from xphi.scope.thch import thch_scope
 

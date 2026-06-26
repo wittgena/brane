@@ -8,7 +8,7 @@ import traceback
 from typing import Dict, Iterable, List, Literal, Optional, Tuple, Union, cast
 from typing_extensions import Required, TypedDict
 
-from anchor.surface.config.constants import RESPONSE_FORMAT_TOOL_NAME
+from anchor.switch.config.constants import RESPONSE_FORMAT_TOOL_NAME
 from bound.channel.action.support.header import get_response_headers
 from bound.adapter.legacy.llm.openai.types import (
     ChatCompletionThinkingBlock,

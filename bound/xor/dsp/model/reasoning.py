@@ -8,7 +8,7 @@
 from typing import TYPE_CHECKING, Any, Optional
 import pydantic
 from bound.xor.basetype import Type
-from anchor.model.lm.base import BaseLM
+from anchor.surface.model.lm.base import BaseLM
 
 if TYPE_CHECKING:
     from arch.xor.manifold.sign.signature import Signature

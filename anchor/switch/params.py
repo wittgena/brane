@@ -1,4 +1,11 @@
 # anchor.switch.params
+"""
+@phase: Type System Projection
+@desc: Acts as the primary switch to dynamically decouple Brane from external LiteLLM dependencies.
+@flow: System Ignition -> brane Resolution (LITELLM_CONVERT_SWITCH) -> Unified Adapter Binding
+@manifold: Ensures structural schema alignment across heterogeneous topologies (MCP, DSPy, LlamaIndex).
+@tag: strangler-fig, graceful-decoupling, boundary-switch, zero-dependency
+"""
 import os
 from pydantic import BaseModel, ConfigDict
 from typing import Any, Dict, Iterable, List, Optional, Union

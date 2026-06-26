@@ -8,7 +8,7 @@
 import importlib
 import inspect
 from typing import Dict, Any, Optional
-from anchor.model.info.cost.map import get_provider_for_model
+from anchor.surface.model.cost.map import get_provider_for_model
 from watcher.plane.emitter import get_emitter
 from xphi.trans.llm.scanner import LLMScanner
 

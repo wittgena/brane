@@ -33,7 +33,7 @@ from bound.adapter.legacy.llm.types.utils import (
 )
 
 from bound.adapter.legacy.llm.openai.types import ChatCompletionRedactedThinkingBlock, ChatCompletionThinkingBlock
-from anchor.model.token.counter import token_counter
+from anchor.switch.model.token.counter import token_counter
 from watcher.plane.emitter import get_emitter 
 
 log = get_emitter("chunk.processor")

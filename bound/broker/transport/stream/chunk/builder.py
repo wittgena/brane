@@ -35,8 +35,8 @@ if TYPE_CHECKING:
 from bound.adapter.legacy.llm.types.utils import TextChoices, TextCompletionResponse
 from anchor.surface.exception import APIError
 
-from anchor.surface.config.resolver import config
-from anchor.model.token.counter import token_counter
+from anchor.switch.config.resolver import config
+from anchor.switch.model.token.counter import token_counter
 from bound.broker.transport.stream.chunk.processor import ChunkProcessor
 from anchor.switch.params import Choices, Message, ModelResponse, Usage
 from watcher.plane.emitter import get_emitter

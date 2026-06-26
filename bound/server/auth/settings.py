@@ -1,4 +1,5 @@
-# bound.server.adapter.auth.settings
+# bound.server.auth.settings
+## @lineage: bound.server.adapter.auth.settings
 ## @lineage: bound.adapter.mcps.server.auth.settings
 ## @lineage: anchor.surface.mcps.server.auth.settings
 ## @lineage: bound.server.mcps.auth.settings

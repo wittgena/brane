@@ -14,16 +14,16 @@ import openai
 from openai import AsyncOpenAI, OpenAI
 from pydantic import BaseModel
 
-from anchor.surface.config.base import BaseConfig
+from anchor.switch.config.base import BaseConfig
 from anchor.surface.exception import BaseLLMException
-from anchor.surface.config.resolver import config
-from anchor.surface.config.constants import DEFAULT_MAX_RETRIES
+from anchor.switch.config.resolver import config
+from anchor.switch.config.constants import DEFAULT_MAX_RETRIES
 from anchor.switch.params import ModelResponse, ModelResponseStream
 
-from anchor.model.provider.types import ProviderTypes
+from anchor.surface.model.provider.types import ProviderTypes
 from bound.adapter.legacy.llm.types.utils import EmbeddingResponse
 from bound.channel.response.converter import convert_to_model_response_object
-from anchor.model.provider.manager import ProviderConfigManager
+from anchor.surface.model.provider.manager import ProviderConfigManager
 from bound.broker.transport.stream.wrapper import CustomStreamWrapper
 from bound.adapter.legacy.llm.base import BaseLLM
 from bound.adapter.legacy.llm.openai.common_utils import (

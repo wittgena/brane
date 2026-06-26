@@ -1,4 +1,5 @@
-# bound.server.adapter.auth.provider
+# bound.server.auth.provider
+## @lineage: bound.server.adapter.auth.provider
 ## @lineage: bound.adapter.mcps.server.auth.provider
 ## @lineage: anchor.surface.mcps.server.auth.provider
 ## @lineage: bound.server.mcps.auth.provider

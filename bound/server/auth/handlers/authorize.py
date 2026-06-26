@@ -1,4 +1,5 @@
-# bound.server.adapter.auth.handlers.authorize
+# bound.server.auth.handlers.authorize
+## @lineage: bound.server.adapter.auth.handlers.authorize
 ## @lineage: bound.adapter.mcps.server.auth.handlers.authorize
 ## @lineage: anchor.surface.mcps.server.auth.handlers.authorize
 ## @lineage: bound.server.mcps.auth.handlers.authorize

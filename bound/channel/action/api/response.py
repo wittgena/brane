@@ -19,8 +19,8 @@ from typing import (
 )
 import httpx
 from pydantic import BaseModel
-from anchor.surface.config.resolver import config
-from anchor.surface.config.constants import request_timeout
+from anchor.switch.config.resolver import config
+from anchor.switch.config.constants import request_timeout
 from bound.adapter.legacy.llm.openai.types import (
     AllMessageValues,
     PromptObject,
@@ -36,8 +36,8 @@ from bound.adapter.legacy.llm.types.response import *
 from bound.adapter.legacy.llm.types.router import GenericLiteLLMParams
 from bound.adapter.legacy.llm.openai.types import ResponseText
 
-from anchor.model.provider.manager import ProviderConfigManager
-from anchor.model.provider.resolver import get_llm_provider
+from anchor.surface.model.provider.manager import ProviderConfigManager
+from anchor.switch.model.llm.provider import get_llm_provider
 
 from bound.channel.action.api.handler import ResponseApiHandler
 from bound.channel.action.support.asyncify import run_async_function

@@ -7,7 +7,7 @@ from typing import Any, Coroutine, Dict, Iterable, List, Literal, Optional, Type
 import httpx
 from pydantic import BaseModel
 
-from anchor.surface.config.resolver import config
+from anchor.switch.config.resolver import config
 from bound.adapter.legacy.mcp.payload import MCPPayloadUtils
 from bound.adapter.legacy.mcp.stream import create_mcp_list_tools_events, MCPEnhancedStreamingIterator
 from bound.adapter.legacy.llm.types.response import *
@@ -18,9 +18,9 @@ from bound.adapter.legacy.llm.openai.types import (
     ResponsesAPIResponse, ToolChoice, ToolParam,
 )
 
-from anchor.model.provider.manager import ProviderConfigManager
-from anchor.model.provider.types import ProviderTypes
-from anchor.model.provider.resolver import get_llm_provider
+from anchor.surface.model.provider.manager import ProviderConfigManager
+from anchor.surface.model.provider.types import ProviderTypes
+from anchor.switch.model.llm.provider import get_llm_provider
 
 from bound.channel.action.param.litellm import get_litellm_params, infer_openai_data_residency
 from bound.channel.response.config import BaseResponsesAPIConfig

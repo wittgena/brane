@@ -12,7 +12,7 @@ import warnings
 from collections.abc import Callable
 from typing import Any, ClassVar
 from arch.proto.phase.gate import uuid4
-from anchor.model.info.cost.calculator.calc import completion_cost as litellm_completion_cost
+from anchor.switch.model.cost.calculator import completion_cost as litellm_completion_cost
 from anchor.switch.params import ResponseAPIUsage, ResponsesAPIResponse
 from anchor.switch.params import ModelResponse
 from bound.adapter.legacy.llm.types.utils import CostPerToken, Usage

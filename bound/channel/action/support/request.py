@@ -21,7 +21,7 @@ from typing import (
 )
 from pydantic import BaseModel
 from bound.channel.response.config import BaseResponsesAPIConfig
-from anchor.surface.config.resolver import config
+from anchor.switch.config.resolver import config
 from bound.channel.action.param.optional import PreProcessNonDefaultParams
 from bound.adapter.legacy.llm.openai.types import (
     ResponsesAPIOptionalRequestParams,
@@ -580,7 +580,7 @@ class ResponsesAPIRequestUtils:
         text: Optional["ResponseText"] = None,
     ) -> Optional["ResponseText"]:
         if text_format is not None and text is None:
-            from anchor.model.info.format import type_to_response_format_param
+            from bound.channel.action.param.format import type_to_response_format_param
 
             # Convert Pydantic model to response format
             response_format = type_to_response_format_param(text_format)

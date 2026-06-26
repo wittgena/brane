@@ -11,7 +11,7 @@ from typing import Any, Literal
 from dotenv import dotenv_values
 from opentelemetry import trace
 
-from anchor.surface.config.resolver import config
+from anchor.switch.config.resolver import config
 from arch.proto.event.next import LogEvent
 from watcher.plane.emitter import get_emitter, register_interceptor, flow_scope
 

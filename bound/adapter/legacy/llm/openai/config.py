@@ -32,13 +32,13 @@ from openai.types.file_deleted import FileDeleted
 from pydantic import BaseModel
 from typing_extensions import overload
 
-from anchor.surface.config.resolver import config
-from anchor.surface.config.constants import DEFAULT_MAX_RETRIES
+from anchor.switch.config.resolver import config
+from anchor.switch.config.constants import DEFAULT_MAX_RETRIES
 from bound.channel.response.iterator import BaseModelResponseIterator
-from anchor.surface.config.base import BaseConfig
+from anchor.switch.config.base import BaseConfig
 from anchor.surface.exception import BaseLLMException
 from anchor.switch.params import ModelResponse, ModelResponseStream
-from anchor.model.provider.types import ProviderTypes
+from anchor.surface.model.provider.types import ProviderTypes
 from bound.adapter.legacy.llm.types.utils import EmbeddingResponse, ImageResponse, LiteLLMBatch
 from bound.adapter.legacy.llm.openai.types import *
 

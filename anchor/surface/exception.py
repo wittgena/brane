@@ -1,10 +1,4 @@
 # anchor.surface.exception
-## @lineage: anchor.base.exception
-## @lineage: anchor.exceptions
-## @lineage: anchor.base.exceptions
-## @lineage: gov.gate.exceptions
-## @lineage: gate.exceptions
-## @lineage: blm.exceptions
 from typing import Any, Dict, Optional, Union
 import httpx
 import openai

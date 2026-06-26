@@ -1,8 +1,4 @@
 # anchor.switch.dspy.usage
-## @lineage: anchor.router.switch.dspy.usage
-## @lineage: channel.cost.usage
-## @lineage: channel.gov.cost.usage
-## @lineage: channel.bound.cost.usage
 from collections import defaultdict
 from contextlib import contextmanager
 from typing import Any, Generator

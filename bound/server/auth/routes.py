@@ -1,4 +1,5 @@
-# bound.server.adapter.auth.routes
+# bound.server.auth.routes
+## @lineage: bound.server.adapter.auth.routes
 ## @lineage: bound.adapter.mcps.server.auth.routes
 from collections.abc import Awaitable, Callable
 from typing import Any
