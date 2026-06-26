@@ -88,11 +88,11 @@ from anchor.surface.model.legacy.openai.types import (
 from anchor.switch.model.llm.provider import get_llm_provider
 from anchor.surface.model.legacy.types.utils import CallTypes, Embedding, ProviderTypes
 
-from bound.bridge.transport.stream.chunk.builder import stream_chunk_builder
+from bound.transport.stream.chunk.builder import stream_chunk_builder
 from anchor.channel.action.task.logging import GLOBAL_LOGGING_WORKER
 from anchor.channel.client.rule import Rules
 from anchor.channel.response.metadata import update_response_metadata
-from bound.xor.secret.credential import CredentialAccessor
+from xor.secret.credential import CredentialAccessor
 
 from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObject
 

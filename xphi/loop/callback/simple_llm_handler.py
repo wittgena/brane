@@ -26,7 +26,7 @@ class SimpleLLMHandler(PythonicallyPrintingBaseHandler):
         return
 
     def _print_llm_event(self, payload: dict) -> None:
-        from xphi.flow.llm import ChatMessage
+        from xphi.loop.flow.llm import ChatMessage
 
         if EventPayload.PROMPT in payload:
             prompt = str(payload.get(EventPayload.PROMPT))

@@ -29,10 +29,10 @@ from websockets.asyncio.client import ClientConnection
 # from gate.litellm.voider import Logging as LiteLLMLoggingObj
 LiteLLMLoggingObj = Any
 
-from bound.xor.secret.redact import redact_string
+from xor.secret.redact import redact_string
 from anchor.channel.response.config import BaseResponsesAPIConfig
 from anchor.switch.config.constants import REALTIME_WEBSOCKET_MAX_MESSAGE_SIZE_BYTES
-from bound.bridge.transport.stream.iterator import ResponseWSStreaming, ResponseWSHandler
+from bound.transport.stream.iterator import ResponseWSStreaming, ResponseWSHandler
 from anchor.surface.model.legacy.types.router import GenericLiteLLMParams
 from anchor.channel.client.http import get_shared_realtime_ssl_context
 

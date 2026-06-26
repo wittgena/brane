@@ -16,7 +16,7 @@ from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
 from typing import Any, Literal, TypeVar
 from pydantic import BaseModel
-from bound.bridge.model import to_camel_case
+from bound.model.validator import to_camel_case
 from anchor.surface.acps.exceptions import RequestError
 
 __all__ = ["MessageRouter", "Route"]

@@ -8,8 +8,8 @@ from typing import Any, Dict, List, Optional, Union
 from anchor.switch.params import ModelResponse, ModelResponseStream
 from anchor.channel.action.preprocessor import CompletionPreprocessor
 from anchor.surface.model.legacy.types.mapping.exception import exception_type
-from xphi.adapter.provider.registry import AdapterRegistry
-from bound.bridge.transport.stream.wrapper import CustomStreamWrapper
+from bound.bridge.provider.registry import AdapterRegistry
+from bound.transport.stream.wrapper import CustomStreamWrapper
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("action.core")

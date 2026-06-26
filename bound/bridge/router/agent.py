@@ -33,7 +33,7 @@ from anchor.surface.acps.schema import (
     SetSessionConfigOptionSelectRequest,
     SetSessionModeRequest,
 )
-from bound.bridge.model import model_to_kwargs, normalize_result
+from bound.model.validator import model_to_kwargs, normalize_result
 
 __all__ = ["build_agent_router"]
 

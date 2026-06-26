@@ -18,7 +18,7 @@ from typing import (
 import httpx
 from pydantic import BaseModel
 
-from bound.bridge.transport.stream.wrapper import CustomStreamWrapper
+from bound.transport.stream.wrapper import CustomStreamWrapper
 from anchor.switch.params import ModelResponse
 
 from anchor.channel.action.param.format import map_developer_role_to_system_role, type_to_response_format_param

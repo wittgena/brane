@@ -12,7 +12,7 @@ import random
 from collections import defaultdict
 from typing import Any
 import numpy as np
-from bound.xor.chat import FieldInfoWithName, field_header_pattern
+from xor.chat import FieldInfoWithName, field_header_pattern
 from anchor.surface.model.lm.base import BaseLM
 from arch.topos.bind.block.residue import dotdict
 from arch.xor.manifold.sign.field import OutputField
@@ -34,7 +34,7 @@ class DummyLM(BaseLM):
 
         # Set adapter, defaulting to ChatAdapter
         if adapter is None:
-            from bound.xor.chat import ChatAdapter
+            from xor.chat import ChatAdapter
             adapter = ChatAdapter()
         self.adapter = adapter
 

@@ -11,7 +11,7 @@ from xphi.adapter.mcp.handler import MCPHandler
 from xphi.adapter.mcp.parser.header import MCPHeaderParser
 from xphi.adapter.mcp.parser.payload import MCPPayloadParser
 from xphi.adapter.mcp.event.call import create_mcp_call_events
-from bound.bridge.transport.stream.iterator import ResponseStreamIterator
+from bound.transport.stream.iterator import ResponseStreamIterator
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter

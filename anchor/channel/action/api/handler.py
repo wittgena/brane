@@ -34,7 +34,7 @@ from anchor.channel.client.http import (
 from anchor.surface.model.legacy.types.response import DeleteResponseResult
 from anchor.surface.model.legacy.types.router import GenericLiteLLMParams
 from anchor.surface.model.legacy.types.utils import CallTypes
-from bound.bridge.transport.stream.iterator import (
+from bound.transport.stream.iterator import (
     ResponseStreamIterator,
     MockResponsesAPIStreamingIterator,
     ResponsesAPIStreamingIterator,

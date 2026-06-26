@@ -14,9 +14,9 @@ import tqdm
 
 from anchor.switch.dspy.settings import settings
 from anchor.switch.dspy.context import get_dspy_context_propagator
-from bound.xor.exam.prediction import Prediction
-from bound.xor.exam.example import Example
-from bound.xor.dsp.stream.callback import with_callbacks
+from xor.exam.prediction import Prediction
+from xor.exam.example import Example
+from xor.dsp.stream.callback import with_callbacks
 
 from arch.proto.wrapper.opt import OptExecutor
 from watcher.plane.emitter import get_emitter

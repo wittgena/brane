@@ -3,7 +3,7 @@
 import sys
 import warnings
 import anyio
-from bound.server.lowlevel.server import Server
+from xphi.server.lowlevel.server import Server
 from anchor.channel.stdio.server import stdio_server
 from watcher.plane.emitter import get_emitter
 

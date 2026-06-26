@@ -22,7 +22,7 @@ from xphi.adapter.llama.utils import get_tokenizer
 import logging
 
 if TYPE_CHECKING:
-    from xphi.flow.llm import ChatResponse, CompletionResponse
+    from xphi.loop.flow.llm import ChatResponse, CompletionResponse
 
 
 @dataclass
@@ -81,7 +81,7 @@ def get_tokens_from_response(
 def get_llm_token_counts(
     token_counter: TokenCounter, payload: Dict[str, Any], event_id: str = ""
 ) -> TokenCountingEvent:
-    from xphi.flow.llm import ChatMessage
+    from xphi.loop.flow.llm import ChatMessage
 
     if EventPayload.PROMPT in payload:
         prompt = payload.get(EventPayload.PROMPT)

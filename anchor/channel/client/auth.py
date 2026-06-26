@@ -19,7 +19,7 @@ from anchor.surface.mcps.shared.auth import OAuthClientInformationFull, OAuthCli
 from anchor.channel.client.adapter._transport import Transport
 from anchor.channel.client.adapter.sse import sse_client
 from anchor.channel.client.adapter.streamable_http import streamable_http_client
-from bound.server.xphi.auth.oauth2 import OAuthClientProvider, TokenStorage
+from xphi.server.auth.xphi.oauth2 import OAuthClientProvider, TokenStorage
 
 from watcher.plane.emitter import get_emitter
 

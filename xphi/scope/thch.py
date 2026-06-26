@@ -9,7 +9,7 @@ from typing import Any, Type
 from pydantic import BaseModel
 
 from xphi.scope.module.meta import Module
-from bound.xor.dsp.model.cot import ChainOfThought 
+from xor.dsp.model.cot import ChainOfThought 
 
 from arch.xor.manifold.sign.field import InputField, OutputField
 from arch.xor.manifold.sign.signature import Signature
@@ -64,7 +64,7 @@ class ThCh:
 def thch_scope():
     """@inversion.folding: 환경 격리 및 레거시 방어막"""
     try:
-        import bound.xor.dsp.model.cot as cot_module
+        import xor.dsp.model.cot as cot_module
     except ImportError:
         log.warning("[ThCh] 내부 모듈(cot) 부재. 투명하게(Pass-through) 우회합니다.")
         yield

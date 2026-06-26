@@ -12,8 +12,8 @@ from xphi.adapter.llama.bridge.pydantic import (
     ValidationError,
     create_model,
 )
-from xphi.flow.llm.llm import LLM, ToolSelection
-from xphi.flow.llm.function_calling import FunctionCallingLLM
+from xphi.loop.flow.llm.llm import LLM, ToolSelection
+from xphi.loop.flow.llm.function_calling import FunctionCallingLLM
 from xphi.adapter.llama.output_parsers.pydantic import PydanticOutputParser
 from xphi.adapter.llama.prompts.base import BasePromptTemplate
 from xphi.adapter.llama.types import BasePydanticProgram, Model, PydanticProgramMode

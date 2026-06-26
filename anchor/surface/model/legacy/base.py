@@ -8,7 +8,7 @@ import httpx
 
 from anchor.switch.config.resolver import config
 if TYPE_CHECKING:
-    from bound.bridge.transport.stream.wrapper import CustomStreamWrapper
+    from bound.transport.stream.wrapper import CustomStreamWrapper
     from anchor.surface.model.legacy.types.utils import ModelResponse, TextCompletionResponse
 
 class LiteLLMPydanticObjectBase(BaseModel):

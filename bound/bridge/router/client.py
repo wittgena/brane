@@ -26,7 +26,7 @@ from anchor.surface.acps.schema import (
     WaitForTerminalExitRequest,
     WriteTextFileRequest,
 )
-from bound.bridge.model import normalize_result
+from bound.model.validator import normalize_result
 
 __all__ = ["build_client_router"]
 

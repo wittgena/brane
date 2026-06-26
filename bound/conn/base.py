@@ -24,12 +24,12 @@ from pydantic import BaseModel, ValidationError
 
 from anchor.surface.acps.exceptions import RequestError
 
-from bound.bridge.message.dispatcher import DefaultMessageDispatcher, MessageDispatcher, RpcTaskKind, NotificationRunner, RequestRunner
-from bound.bridge.message.supervisor import TaskSupervisor
-from bound.bridge.message.store import MessageStateStore, InMemoryMessageStateStore
+from bound.bridge.dispatcher import DefaultMessageDispatcher, MessageDispatcher, RpcTaskKind, NotificationRunner, RequestRunner
+from bound.bridge.supervisor import TaskSupervisor
+from bound.bridge.store import MessageStateStore, InMemoryMessageStateStore
 from bound.conn.sender import MessageSender, SenderFactory
-from bound.bridge.message.queue import MessageQueue, RpcTask, InMemoryMessageQueue
-from bound.conn.telemetry import span_context
+from bound.bridge.queue import MessageQueue, RpcTask, InMemoryMessageQueue
+from xphi.scope.plane.telemetry.acp import span_context
 
 JsonValue = Any
 MethodHandler = Callable[[str, JsonValue | None, bool], Awaitable[JsonValue | None]]

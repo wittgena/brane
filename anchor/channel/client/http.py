@@ -49,7 +49,7 @@ from anchor.switch.config.constants import (
 )
 
 from anchor.surface.model.provider.types import ProviderTypes
-from bound.bridge.transport.aiohttp import AiohttpTransport
+from bound.transport.aiohttp import AiohttpTransport
 
 log = get_emitter("handler.http")
 
@@ -598,7 +598,7 @@ class AsyncHTTPHandler:
         shared_session: Optional["ClientSession"] = None,
     ) -> AiohttpTransport:
         # [개선됨] 내부 모듈 복사 가정. 복사되지 않았다면 aiohttp_transport 구현체 필요.
-        from bound.custom_httpx.aiohttp_transport import LiteLLMAiohttpTransport
+        from xphi.custom_httpx.aiohttp_transport import LiteLLMAiohttpTransport
 
         connector_kwargs = AsyncHTTPHandler._get_ssl_connector_kwargs(ssl_verify=ssl_verify, ssl_context=ssl_context)
         trust_env: bool = config.aiohttp_trust_env or _str_to_bool(os.getenv("AIOHTTP_TRUST_ENV", "False"))

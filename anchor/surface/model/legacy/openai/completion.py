@@ -25,7 +25,7 @@ from anchor.surface.model.provider.types import ProviderTypes
 from anchor.surface.model.legacy.types.utils import EmbeddingResponse
 from anchor.channel.response.converter import convert_to_model_response_object
 from anchor.surface.model.provider.manager import ProviderConfigManager
-from bound.bridge.transport.stream.wrapper import CustomStreamWrapper
+from bound.transport.stream.wrapper import CustomStreamWrapper
 from anchor.surface.model.legacy.base import BaseLLM
 from anchor.surface.model.legacy.openai.common_utils import (
     BaseOpenAILLM,

@@ -18,7 +18,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-from bound.bridge.message.supervisor import TaskSupervisor
+from bound.bridge.supervisor import TaskSupervisor
 
 __all__ = ["MessageSender", "SenderFactory"]
 

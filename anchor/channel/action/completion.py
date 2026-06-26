@@ -25,7 +25,7 @@ from anchor.switch.params import ModelResponse
 from anchor.surface.model.legacy.types.mapping.exception import exception_type
 from anchor.channel.action.core import async_core_completion
 
-from bound.bridge.transport.stream.wrapper import CustomStreamWrapper
+from bound.transport.stream.wrapper import CustomStreamWrapper
 from anchor.channel.client.wrapper import client
 from anchor.channel.action.support.helpers import safe_deep_copy, filter_internal_params
 from anchor.channel.action.support.asyncify import run_async_function
