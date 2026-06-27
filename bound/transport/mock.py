@@ -1,8 +1,4 @@
 # bound.transport.mock
-## @lineage: bound.bridge.transport.mock
-## @lineage: bound.broker.transport.mock
-## @lineage: bound.channel.transport.mock
-## @lineage: bound.client.transport.mock_transport
 import json
 import time
 import uuid
@@ -38,14 +34,9 @@ def _chat_completion_json(model: str) -> dict:
     }
 
 
-# ---------------------------------------------------------------------------
-# Transport
-# ---------------------------------------------------------------------------
-
 _JSON_HEADERS = {
     "content-type": "application/json",
 }
-
 
 class MockOpenAITransport(httpx.AsyncBaseTransport, httpx.BaseTransport):
     """

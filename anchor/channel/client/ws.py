@@ -33,7 +33,7 @@ from bound.xor.secret.redact import redact_string
 from anchor.channel.response.config import BaseResponsesAPIConfig
 from anchor.switch.config.constants import REALTIME_WEBSOCKET_MAX_MESSAGE_SIZE_BYTES
 from bound.transport.stream.iterator import ResponseWSStreaming, ResponseWSHandler
-from anchor.surface.model.legacy.types.router import GenericLiteLLMParams
+from anchor.surface.model.types.router import GenericLiteLLMParams
 from anchor.channel.client.http import get_shared_realtime_ssl_context
 
 from watcher.plane.emitter import get_emitter

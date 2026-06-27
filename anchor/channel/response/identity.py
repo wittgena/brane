@@ -17,8 +17,8 @@ from typing import (
 )
 from starlette.datastructures import Headers
 from xphi.adapter.mcp.parser.header import MCPHeaderParser
-from anchor.surface.model.legacy.types.response import DecodedResponseId
-from anchor.surface.model.legacy.types.utils import SpecialEnums
+from anchor.surface.model.types.response import DecodedResponseId
+from anchor.surface.model.types.utils import SpecialEnums
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("support.identity")

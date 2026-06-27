@@ -8,7 +8,7 @@ from anchor.channel.action.preprocessor import CompletionContext
 from bound.bridge.provider.completor import CompletionHandler
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from bound.xor.secret.manager import get_secret_bool
-from anchor.surface.model.legacy.openai.completion import OpenAIChatCompletion
+from anchor.surface.model.types.openai.completion import OpenAIChatCompletion
 
 from watcher.plane.emitter import get_emitter
 

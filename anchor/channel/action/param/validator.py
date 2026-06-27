@@ -12,8 +12,8 @@ from typing import Any, Dict, List, Optional, Type, Union, cast
 from pydantic import BaseModel
 from typing import Literal, Optional
 
-from anchor.surface.model.legacy.openai.types import AllMessageValues
-from anchor.surface.model.legacy.openai.types import ValidUserMessageContentTypes
+from anchor.surface.model.types.openai.types import AllMessageValues
+from anchor.surface.model.types.openai.types import ValidUserMessageContentTypes
 
 from watcher.plane.emitter import get_emitter
 

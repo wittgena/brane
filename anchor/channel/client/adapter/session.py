@@ -1,10 +1,4 @@
 # anchor.channel.client.adapter.session
-## @lineage: bound.channel.client.adapter.session
-## @lineage: bound.adapter.mcps.client.session
-## @lineage: xphi.mcps.client.session
-## @lineage: mcps.client.session
-## @lineage: anchor.surface.mcpserver.client.session
-## @lineage: bound.server.client.session
 from __future__ import annotations
 
 import logging

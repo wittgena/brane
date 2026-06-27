@@ -1,7 +1,7 @@
 # anchor.switch.model.cost.unit
 ## @lineage: anchor.model.info.cost.calculator.utils
 from typing import Literal, Optional, Tuple, TypedDict, cast
-from anchor.surface.model.legacy.types.utils import (
+from anchor.surface.model.types.utils import (
     CacheCreationTokenDetails,
     CallTypes,
     CompletionTokensDetailsWrapper,

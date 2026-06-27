@@ -17,7 +17,7 @@ from anchor.switch.model.llm.provider import get_llm_provider
 from anchor.switch.model.token.counter import token_counter
 from anchor.switch.params import ModelResponse, ModelResponseStream
 
-from anchor.surface.model.legacy.openai.types import (
+from anchor.surface.model.types.openai.types import (
     HttpxBinaryResponseContent,
     OpenAIModerationResponse,
     OpenAIRealtimeStreamList,
@@ -26,9 +26,9 @@ from anchor.surface.model.legacy.openai.types import (
     ResponseAPIUsage,
     ResponsesAPIResponse,
 )
-from anchor.surface.model.legacy.types.rerank import RerankBilledUnits, RerankResponse
-from anchor.surface.model.legacy.types.utils import CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject, StandardBuiltInToolsParams, Usage
-from anchor.surface.model.legacy.types.utils import CallTypes, CostPerToken, EmbeddingResponse, ImageResponse, TextCompletionResponse, TranscriptionResponse
+from anchor.surface.model.types.rerank import RerankBilledUnits, RerankResponse
+from anchor.surface.model.types.utils import CallTypesLiteral, LiteLLMRealtimeStreamLoggingObject, StandardBuiltInToolsParams, Usage
+from anchor.surface.model.types.utils import CallTypes, CostPerToken, EmbeddingResponse, ImageResponse, TextCompletionResponse, TranscriptionResponse
 
 from watcher.plane.emitter import get_emitter
 
@@ -427,7 +427,7 @@ class BaseTokenUsageProcessor:
         """
         Combine multiple Usage objects into a single Usage object, checking model keys for nested values.
         """
-        from anchor.surface.model.legacy.types.utils import (
+        from anchor.surface.model.types.utils import (
             CompletionTokensDetailsWrapper,
             PromptTokensDetailsWrapper,
             Usage,

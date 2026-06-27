@@ -10,7 +10,7 @@ from anchor.channel.action.support.base import get_api_base
 # from gate.litellm.voider import Logging as LiteLLMLoggingObject
 LiteLLMLoggingObject = Any
 
-from anchor.surface.model.legacy.types.utils import (
+from anchor.surface.model.types.utils import (
     EmbeddingResponse,
     HiddenParams,
     ModelResponse,

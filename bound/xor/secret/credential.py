@@ -5,7 +5,7 @@
 ## @lineage: channel.bridge.litellm.credential_accessor
 from typing import List
 from anchor.switch.config.resolver import config
-from anchor.surface.model.legacy.types.utils import CredentialItem
+from anchor.surface.model.types.utils import CredentialItem
 
 class CredentialAccessor:
     @staticmethod

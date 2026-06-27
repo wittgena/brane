@@ -36,9 +36,9 @@ from anchor.switch.config.base import BaseConfig
 from anchor.switch.config.resolver import config
 from anchor.switch.config.constants import DEFAULT_CHAT_COMPLETION_PARAM_VALUES
 
-from anchor.surface.model.legacy.anthropic import AnthropicThinkingParam
-from anchor.surface.model.legacy.openai.types import AllMessageValues, OpenAIWebSearchOptions
-from anchor.surface.model.legacy.types.utils import Embedding, Function, ProviderTypes
+from anchor.surface.model.types.anthropic import AnthropicThinkingParam
+from anchor.surface.model.types.openai.types import AllMessageValues, OpenAIWebSearchOptions
+from anchor.surface.model.types.utils import Embedding, Function, ProviderTypes
 from anchor.surface.model.provider.manager import ProviderConfigManager
 from anchor.switch.model.support import get_supported_openai_params
 

@@ -29,17 +29,17 @@ from anchor.switch.config.constants import (
 )
 from anchor.surface.model.token.encoding import get_default_encoding
 from anchor.surface.model.token.url_utils import safe_get
-from anchor.surface.model.legacy.anthropic import (
+from anchor.surface.model.types.anthropic import (
     AnthropicMessagesToolResultParam,
     AnthropicMessagesToolUseParam,
 )
-from anchor.surface.model.legacy.openai.types import (
+from anchor.surface.model.types.openai.types import (
     AllMessageValues,
     ChatCompletionNamedToolChoiceParam,
     ChatCompletionToolParam,
     OpenAIMessageContent,
 )
-from anchor.surface.model.legacy.types.utils import SelectTokenizerResponse
+from anchor.surface.model.types.utils import SelectTokenizerResponse
 from anchor.switch.params import Message
 
 from anchor.channel.client.http import _get_httpx_client

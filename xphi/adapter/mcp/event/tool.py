@@ -1,10 +1,10 @@
 # xphi.adapter.mcp.event.tool
 ## @lineage: bound.adapter.mcp.legacy.stream
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union, cast
-from anchor.surface.model.legacy.openai.types import OutputItemDoneEvent
-from anchor.surface.model.legacy.openai.types import ResponsesAPIStreamEvents
-from anchor.surface.model.legacy.openai.types import (
-    BaseLiteLLMOpenAIResponseObject,
+from anchor.surface.model.types.openai.types import OutputItemDoneEvent
+from anchor.surface.model.types.openai.types import ResponsesAPIStreamEvents
+from anchor.surface.model.types.openai.types import (
+    BaseOpenAIResponse,
     MCPListToolsCompletedEvent,
     MCPListToolsFailedEvent,
     MCPListToolsInProgressEvent,
@@ -95,7 +95,7 @@ async def create_mcp_list_tools_events(
         output_item_done_event = OutputItemDoneEvent(
             type=ResponsesAPIStreamEvents.OUTPUT_ITEM_DONE,
             output_index=0,
-            item=BaseLiteLLMOpenAIResponseObject(
+            item=BaseOpenAIResponse(
                 **{
                     "id": base_item_id,
                     "type": "mcp_list_tools",
@@ -126,7 +126,7 @@ async def create_mcp_list_tools_events(
         output_item_done_event = OutputItemDoneEvent(
             type=ResponsesAPIStreamEvents.OUTPUT_ITEM_DONE,
             output_index=0,
-            item=BaseLiteLLMOpenAIResponseObject(
+            item=BaseOpenAIResponse(
                 **{
                     "id": base_item_id,
                     "type": "mcp_list_tools",

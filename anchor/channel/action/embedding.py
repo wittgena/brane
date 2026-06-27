@@ -10,8 +10,8 @@
 """
 from typing import Any, Coroutine, List, Literal, Optional, Union
 from typing_extensions import overload
-from anchor.surface.model.legacy.types.utils import EmbeddingResponse
-from anchor.surface.model.legacy.types.mapping.exception import exception_type
+from anchor.surface.model.types.utils import EmbeddingResponse
+from anchor.surface.model.types.mapping.exception import exception_type
 from anchor.channel.client.wrapper import client
 from anchor.channel.action.preprocessor import EmbeddingPreprocessor
 from bound.bridge.provider.registry import AdapterRegistry

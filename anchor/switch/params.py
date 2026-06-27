@@ -61,18 +61,18 @@ if LITELLM_CONVERT_SWITCH:
 
 if not LITELLM_CONVERT_SWITCH:
     try:
-        from anchor.surface.model.legacy.openai.types import ResponseAPIUsage, ResponsesAPIResponse
-        from anchor.surface.model.legacy.openai.types import ResponsesAPIStreamingResponse
-        from anchor.surface.model.legacy.openai.types import ToolParam
-        from anchor.surface.model.legacy.openai.types import ChatCompletionToolParam
-        from anchor.surface.model.legacy.openai.types import OutputFunctionToolCall
-        from anchor.surface.model.legacy.openai.types import ResponsesAPIResponse
-        from anchor.surface.model.legacy.openai.types import ChatCompletionToolParamFunctionChunk
-        from anchor.surface.model.legacy.openai.types import ResponsesAPIStreamEvents
+        from anchor.surface.model.types.openai.types import ResponseAPIUsage, ResponsesAPIResponse
+        from anchor.surface.model.types.openai.types import ResponsesAPIStreamingResponse
+        from anchor.surface.model.types.openai.types import ToolParam
+        from anchor.surface.model.types.openai.types import ChatCompletionToolParam
+        from anchor.surface.model.types.openai.types import OutputFunctionToolCall
+        from anchor.surface.model.types.openai.types import ResponsesAPIResponse
+        from anchor.surface.model.types.openai.types import ChatCompletionToolParamFunctionChunk
+        from anchor.surface.model.types.openai.types import ResponsesAPIStreamEvents
         ## ---
-        from anchor.surface.model.legacy.types.response import GenericResponseOutputItem
-        from anchor.surface.model.legacy.types.rerank import RerankResponse
-        from anchor.surface.model.legacy.types.completion import (
+        from anchor.surface.model.types.response import GenericResponseOutputItem
+        from anchor.surface.model.types.rerank import RerankResponse
+        from anchor.surface.model.types.completion import (
             ChatCompletionMessageParam,
             ChatCompletionSystemMessageParam,
             ChatCompletionUserMessageParam,
@@ -82,7 +82,7 @@ if not LITELLM_CONVERT_SWITCH:
             ChatCompletionMessageToolCallParam,
             ChatCompletionContentPartParam
         )
-        from anchor.surface.model.legacy.types.utils import (
+        from anchor.surface.model.types.utils import (
             ChatCompletionDeltaToolCall,
             ChatCompletionRedactedThinkingBlock,
             CompletionTokensDetailsWrapper,
@@ -94,9 +94,9 @@ if not LITELLM_CONVERT_SWITCH:
             TranscriptionUsageDurationObject,
             TranscriptionUsageTokensObject,
         )
-        from anchor.surface.model.legacy.types.utils import Usage
-        from anchor.surface.model.legacy.types.utils import TextChoices, TextCompletionResponse, TranscriptionResponse
-        from anchor.surface.model.legacy.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
-        from anchor.surface.model.legacy.types.utils import ChatCompletionMessageToolCall
+        from anchor.surface.model.types.utils import Usage
+        from anchor.surface.model.types.utils import TextChoices, TextCompletionResponse, TranscriptionResponse
+        from anchor.surface.model.types.utils import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
+        from anchor.surface.model.types.utils import ChatCompletionMessageToolCall
     except ImportError as e:
         raise ImportError(f"Failed to load fallback types from internal modules. Error: {e}")

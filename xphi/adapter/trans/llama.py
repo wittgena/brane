@@ -13,10 +13,10 @@ import urllib.request
 from urllib.error import URLError, HTTPError
 from pathlib import Path
 
+import anchor.inter as inter_path
 import xphi.adapter.llama as llama_bound
 import xphi.loop as xphi_loop
 import xphi.loop.flow as xphi_flow
-import anchor.inter as inter_path
 
 from arch.contract.registry.unified import contract, registry
 from phase.bind.resolver import find_current_self

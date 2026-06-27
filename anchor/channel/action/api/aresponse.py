@@ -13,10 +13,10 @@ from xphi.adapter.mcp.parser.payload import MCPPayloadParser
 from xphi.adapter.mcp.stream import MCPStreamIterator
 from xphi.adapter.mcp.event.tool import create_mcp_list_tools_events
 
-from anchor.surface.model.legacy.types.response import *
-from anchor.surface.model.legacy.types.router import GenericLiteLLMParams
-from anchor.surface.model.legacy.openai.types import ResponseText
-from anchor.surface.model.legacy.openai.types import (
+from anchor.surface.model.types.response import *
+from anchor.surface.model.types.router import GenericLiteLLMParams
+from anchor.surface.model.types.openai.types import ResponseText
+from anchor.surface.model.types.openai.types import (
     AllMessageValues, PromptObject, Reasoning, ResponseIncludable, ResponseInputParam,
     ResponsesAPIResponse, ToolChoice, ToolParam,
 )

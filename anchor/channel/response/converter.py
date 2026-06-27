@@ -11,7 +11,7 @@ from typing_extensions import Required, TypedDict
 
 from anchor.switch.config.constants import RESPONSE_FORMAT_TOOL_NAME
 from anchor.channel.action.support.header import get_response_headers
-from anchor.surface.model.legacy.openai.types import (
+from anchor.surface.model.types.openai.types import (
     ChatCompletionThinkingBlock,
     ImageURLListItem,
     OpenAIModerationResponse,
@@ -44,7 +44,7 @@ from anchor.switch.params import (
 )
 from anchor.surface.exception import APIError
 
-from anchor.surface.model.legacy.types.utils import Logprobs as TextCompletionLogprobs
+from anchor.surface.model.types.utils import Logprobs as TextCompletionLogprobs
 
 from watcher.plane.emitter import get_emitter 
 

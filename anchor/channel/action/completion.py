@@ -22,7 +22,7 @@ from typing import Any, Dict, List, Literal, Optional, Tuple, Type, Union, cast
 
 from anchor.surface.exception import Timeout
 from anchor.switch.params import ModelResponse
-from anchor.surface.model.legacy.types.mapping.exception import exception_type
+from anchor.surface.model.types.mapping.exception import exception_type
 from anchor.channel.action.core import async_core_completion
 
 from bound.transport.stream.wrapper import CustomStreamWrapper

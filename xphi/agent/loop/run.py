@@ -1,23 +1,7 @@
 # xphi.agent.loop.run
-## @lineage: gov.protocol.acps.agent.stdio
-## @lineage: acps.agent.stdio
-## @lineage: acps.bound.stdio.agent
-## @lineage: channel.acps.bound.stdio.agent
-## @lineage: bound.server.acps.bound.stdio.agent
-## @lineage: anchor.spec.acp.bound.stdio.agent
-## @lineage: xphi.spec.acp.bound.stdio.agent
-## @lineage: acps.core
-"""Compatibility re-exports for historical imports.
-
-The project now keeps implementation in dedicated modules mirroring the
-agent-client-protocol Rust structure, but external callers may still import
-from ``acp.core``. Keep the surface API stable by forwarding to the new homes.
-"""
-
 from __future__ import annotations
 
 from typing import Any
-
 from anchor.surface.acps.exceptions import RequestError
 from anchor.surface.acps.interfaces import Agent, Client
 from bound.router.conn.side.agent import AgentSideConnection
@@ -66,7 +50,7 @@ async def run_agent(
         **connection_kwargs: Additional keyword arguments to pass to the
             :class:`AgentSideConnection` constructor.
     """
-    from bound.transport.process import stdio_streams
+    from xphi.agent.loop.process import stdio_streams
 
     if input_stream is None and output_stream is None:
         output_stream, input_stream = await stdio_streams(limit=stdio_buffer_limit_bytes)

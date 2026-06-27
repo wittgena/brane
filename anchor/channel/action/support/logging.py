@@ -15,8 +15,8 @@ from typing import (
     Type,
     Union,
 )
-from anchor.surface.model.legacy.openai.types import ResponseAPIUsage
-from anchor.surface.model.legacy.types.utils import CompletionTokensDetailsWrapper, PromptTokensDetailsWrapper, Usage
+from anchor.surface.model.types.openai.types import ResponseAPIUsage
+from anchor.surface.model.types.utils import CompletionTokensDetailsWrapper, PromptTokensDetailsWrapper, Usage
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("api.logging")

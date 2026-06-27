@@ -22,7 +22,7 @@ import httpx
 from pydantic import BaseModel
 from anchor.switch.config.resolver import config
 from anchor.switch.config.constants import request_timeout
-from anchor.surface.model.legacy.openai.types import (
+from anchor.surface.model.types.openai.types import (
     AllMessageValues,
     PromptObject,
     Reasoning,
@@ -33,9 +33,9 @@ from anchor.surface.model.legacy.openai.types import (
     ToolChoice,
     ToolParam,
 )
-from anchor.surface.model.legacy.types.response import *
-from anchor.surface.model.legacy.types.router import GenericLiteLLMParams
-from anchor.surface.model.legacy.openai.types import ResponseText
+from anchor.surface.model.types.response import *
+from anchor.surface.model.types.router import GenericLiteLLMParams
+from anchor.surface.model.types.openai.types import ResponseText
 
 from anchor.surface.model.provider.manager import ProviderConfigManager
 from anchor.switch.model.llm.provider import get_llm_provider

@@ -14,13 +14,13 @@ from anchor.switch.config.resolver import config
 from anchor.switch.config.constants import request_timeout
 from anchor.channel.response.config import BaseResponsesAPIConfig
 from anchor.switch.model.llm.provider import get_llm_provider
-from anchor.surface.model.legacy.openai.types import (
+from anchor.surface.model.types.openai.types import (
     ResponseInputParam,
     ResponsesAPIOptionalRequestParams,
     ResponsesAPIResponse,
 )
-from anchor.surface.model.legacy.types.response import *
-from anchor.surface.model.legacy.types.router import GenericLiteLLMParams
+from anchor.surface.model.types.response import *
+from anchor.surface.model.types.router import GenericLiteLLMParams
 from anchor.surface.model.provider.manager import ProviderConfigManager
 from anchor.channel.action.api.handler import ResponseApiHandler
 from anchor.channel.action.param.litellm import infer_openai_data_residency

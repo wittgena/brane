@@ -8,7 +8,7 @@
 import uuid
 import time
 from typing import List
-from anchor.surface.model.legacy.openai.types import ResponsesAPIResponse
+from anchor.surface.model.types.openai.types import ResponsesAPIResponse
 
 def create_mock_mcp_response(
     input_text: str,

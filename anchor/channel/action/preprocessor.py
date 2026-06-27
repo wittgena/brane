@@ -21,15 +21,15 @@ from typing import Any, Dict, List, Literal, Callable, Optional, Tuple, Type, Un
 from dataclasses import dataclass, field
 
 from anchor.switch.config.constants import COMPLETION_HTTP_FALLBACK_SECONDS, DEFAULT_REQUEST_TIMEOUT_SECONDS
-from anchor.surface.model.legacy.types.utils import EmbeddingResponse
+from anchor.surface.model.types.utils import EmbeddingResponse
 from anchor.switch.params import ModelResponse
-from anchor.surface.model.legacy.types.utils import all_litellm_params
+from anchor.surface.model.types.utils import all_litellm_params
 from anchor.switch.config.resolver import config
 from anchor.switch.model.support import supports_httpx_timeout
 from anchor.surface.model.provider.manager import ProviderConfigManager
 from anchor.switch.model.llm.provider import get_llm_provider
 from anchor.surface.model.provider.types import ProviderTypes
-from anchor.surface.model.legacy.openai.types import AllMessageValues
+from anchor.surface.model.types.openai.types import AllMessageValues
 from anchor.channel.action.param.optional import get_optional_params
 from anchor.channel.action.param.litellm import get_litellm_params
 from anchor.channel.action.param.validator import (

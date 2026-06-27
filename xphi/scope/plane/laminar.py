@@ -1,7 +1,4 @@
 # xphi.scope.plane.laminar
-## @lineage: bound.xor.scope.plane.laminar
-## @lineage: bound.scope.plane.laminar
-## @lineage: bound.plane.laminar
 import os
 import inspect
 import functools

@@ -1,49 +1,42 @@
 # xphi.scope.plane.delegator
-## @lineage: bound.xor.scope.plane.delegator
-## @lineage: bound.scope.plane.delegator
-## @lineage: bound.plane.delegator
-## @lineage: bound.plane
-## @lineage: channel.bound.plane
-from typing import Any, Dict, List, Optional, Tuple, Union
-from anchor.surface.model.legacy.types.utils import LiteLLMLoggingBaseClass
+import inspect
+from typing import Any, Dict, List, Optional, Tuple
 from xphi.scope.plane.telemetry.llm import Telemetry
 from xphi.scope.plane.metrics import Metrics
 from watcher.plane.emitter import get_emitter
+from opentelemetry import trace
 
-## 외부 로거 및 상태 관리용 전역 변수 (ImportError 방어용 Dummy)
-sentry_sdk_instance = None
-capture_exception = None
-add_breadcrumb = None
-slack_app = None
-alerts_channel = None
-heliconeLogger = None
-athinaLogger = None
-promptLayerLogger = None
-logfireLogger = None
-weightsBiasesLogger = None
-customLogger = None
-langFuseLogger = None
-openMeterLogger = None
-lagoLogger = None
-dataDogLogger = None
-prometheusLogger = None
-dynamoLogger = None
-s3Logger = None
-greenscaleLogger = None
-lunaryLogger = None
-supabaseClient = None
-deepevalLogger = None
-callback_list: Optional[List[str]] = []
-user_logger_fn = None
-additional_details: Optional[Dict[str, str]] = {}
-local_cache: Optional[Dict[str, str]] = {}
-last_fetched_at = None
-last_fetched_at_keys = None
+## PEP 562: 모듈 레벨 속성 접근자
+_LEGACY_GLOBALS = {
+    "sentry_sdk_instance", "capture_exception", "add_breadcrumb", "slack_app",
+    "alerts_channel", "heliconeLogger", "athinaLogger", "promptLayerLogger",
+    "logfireLogger", "weightsBiasesLogger", "customLogger", "langFuseLogger",
+    "openMeterLogger", "lagoLogger", "dataDogLogger", "prometheusLogger",
+    "dynamoLogger", "s3Logger", "greenscaleLogger", "lunaryLogger",
+    "supabaseClient", "deepevalLogger", "user_logger_fn", "last_fetched_at",
+    "last_fetched_at_keys"
+}
 
-class Logging(LiteLLMLoggingBaseClass):
+def __getattr__(name: str) -> Any:
+    if name in _LEGACY_GLOBALS:
+        return None
+    if name == "callback_list":
+        return []
+    if name in ("additional_details", "local_cache"):
+        return {}
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+class LoggingBase:
+    def pre_call(self, input, api_key, model=None, additional_args={}):
+        pass
+
+    def post_call(self, original_response, input=None, api_key=None, additional_args={}):
+        pass
+
+class Logging(LoggingBase):
     """기존 호출 구조를 유지하면서 내부적으로는 Telemetry 시스템으로 이벤트를 위임"""
     stream: bool = False
-    litellm_trace_id: str = "dummy-trace-id"
+    litellm_trace_id: str
     model_call_details: dict = {}
     standard_built_in_tools_params: Any = None
     cost_breakdown: dict = {}
@@ -54,39 +47,61 @@ class Logging(LiteLLMLoggingBaseClass):
             super().__init__(*args, **kwargs)
         except Exception:
             pass
+            
         self.model_call_details = kwargs.get("kwargs", {})
         
-        ## 주의: 향후 Metrics 객체는 상위 Context에서 주입받는 형태로 개선 권장
-        self._telemetry = Telemetry(
+        ## OTel 현재 Span에서 trace_id 추출하여 매핑
+        span = trace.get_current_span()
+        if span.is_recording():
+            self.litellm_trace_id = format(span.get_span_context().trace_id, "032x")
+        else:
+            self.litellm_trace_id = "unknown-trace-id"
+
+        ## 상위에서 주입한 telemetry나 metrics가 있다면 우선 사용
+        injected_telemetry = kwargs.get("telemetry")
+        injected_metrics = kwargs.get("metrics") or Metrics()
+        
+        self._telemetry = injected_telemetry or Telemetry(
             model_name=kwargs.get("model", "unknown"), 
-            metrics=Metrics()
+            metrics=injected_metrics
         )
         self._telemetry.on_request(telemetry_ctx=kwargs)
 
+    def _handle_response(self, result: Any = None) -> None:
+        if result:
+            self._telemetry.on_response(result)
+
+    def _handle_error(self, exception: Exception) -> None:
+        self._telemetry.on_error(exception)
+
+    def _safe_super_call(self, method_name: str, *args, **kwargs) -> Any:
+        """super() 호출 시 발생하는 AttributeError 방어 헬퍼"""
+        if hasattr(super(), method_name):
+            method = getattr(super(), method_name)
+            return method(*args, **kwargs)
+        return None
+
     ## 생명주기 훅 (Telemetry 위임)
     def success_handler(self, result=None, *args, **kwargs):
-        if result:
-            self._telemetry.on_response(result)
-        return super().success_handler(result, *args, **kwargs) if hasattr(super(), 'success_handler') else None
+        self._handle_response(result)
+        return self._safe_super_call('success_handler', result, *args, **kwargs)
 
     async def async_success_handler(self, result=None, *args, **kwargs):
-        if result:
-            self._telemetry.on_response(result)
-        return super().async_success_handler(result, *args, **kwargs) if hasattr(super(), 'async_success_handler') else None
+        self._handle_response(result)
+        return await self._safe_super_call('async_success_handler', result, *args, **kwargs)
 
     def failure_handler(self, exception, traceback_exception=None, *args, **kwargs):
-        self._telemetry.on_error(exception)
+        self._handle_error(exception)
         return exception, traceback_exception
 
     async def async_failure_handler(self, exception, traceback_exception=None, *args, **kwargs):
-        self._telemetry.on_error(exception)
+        self._handle_error(exception)
         return exception, traceback_exception
 
-    ## --- Dummy 방어선 (에러 방지용)
+    ## Dummy 방어선 (에러 방지용)
     def pre_call(self, *args, **kwargs): pass
     def _pre_call(self, *args, **kwargs): pass
     def post_call(self, *args, **kwargs): pass
-    
     def update_environment_variables(self, *args, **kwargs): pass
     def update_from_kwargs(self, *args, **kwargs): pass
     def update_messages(self, messages: List[Any]): pass

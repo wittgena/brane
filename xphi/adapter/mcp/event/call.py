@@ -1,10 +1,10 @@
 # xphi.adapter.mcp.event.call
 ## @lineage: bound.adapter.mcp.legacy.stream
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union, cast
-from anchor.surface.model.legacy.openai.types import OutputItemDoneEvent
-from anchor.surface.model.legacy.openai.types import ResponsesAPIStreamEvents
-from anchor.surface.model.legacy.openai.types import (
-    BaseLiteLLMOpenAIResponseObject,
+from anchor.surface.model.types.openai.types import OutputItemDoneEvent
+from anchor.surface.model.types.openai.types import ResponsesAPIStreamEvents
+from anchor.surface.model.types.openai.types import (
+    BaseOpenAIResponse,
     MCPCallArgumentsDeltaEvent,
     MCPCallArgumentsDoneEvent,
     MCPCallCompletedEvent,
@@ -71,7 +71,7 @@ def create_mcp_call_events(
         output_item_done_event = OutputItemDoneEvent(
             type=ResponsesAPIStreamEvents.OUTPUT_ITEM_DONE,
             output_index=0,
-            item=BaseLiteLLMOpenAIResponseObject(
+            item=BaseOpenAIResponse(
                 **{
                     "id": item_id,
                     "type": "mcp_call",

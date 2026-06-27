@@ -11,7 +11,7 @@ from typing import Any, Dict, List, Optional, Tuple, Iterable
 from fastapi import HTTPException
 
 from anchor.surface.exception import BlockedPiiEntityError, GuardrailRaisedException
-from anchor.surface.model.legacy.types.utils import CallTypes, StandardLoggingMCPToolCall
+from anchor.surface.model.types.utils import CallTypes, StandardLoggingMCPToolCall
 from xphi.adapter.mcp.tool.transform import transform_mcp_tool_to_openai_responses_api_tool, transform_mcp_tool_to_openai_tool
 from xphi.adapter.mcp.parser.payload import MCPPayloadParser
 from xphi.adapter.mcp.tool.manager import ToolCatalogManager

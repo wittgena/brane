@@ -4,8 +4,8 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union, cast
 from starlette.datastructures import Headers
 
 from anchor.switch.params import ResponsesAPIResponse, ResponsesAPIStreamingResponse
-from anchor.surface.model.legacy.openai.types import OutputItemDoneEvent
-from anchor.surface.model.legacy.openai.types import ResponsesAPIStreamEvents, BaseLiteLLMOpenAIResponseObject, MCPCallCompletedEvent
+from anchor.surface.model.types.openai.types import OutputItemDoneEvent
+from anchor.surface.model.types.openai.types import ResponsesAPIStreamEvents, BaseOpenAIResponse, MCPCallCompletedEvent
 
 from xphi.adapter.mcp.handler import MCPHandler
 from xphi.adapter.mcp.parser.header import MCPHeaderParser
@@ -447,7 +447,7 @@ class MCPStreamIterator(ResponseStreamIterator):
                 output_item_done_event = OutputItemDoneEvent(
                     type=ResponsesAPIStreamEvents.OUTPUT_ITEM_DONE,
                     output_index=0,
-                    item=BaseLiteLLMOpenAIResponseObject(
+                    item=BaseOpenAIResponse(
                         **{
                             "id": item_id,
                             "type": "mcp_call",

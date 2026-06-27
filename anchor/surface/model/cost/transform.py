@@ -1,7 +1,7 @@
 # anchor.surface.model.cost.transform
 ## @lineage: anchor.model.info.cost.calculator.transform
 from typing import Any, Optional, Union
-from anchor.surface.model.legacy.types.utils import (
+from anchor.surface.model.types.utils import (
     PromptTokensDetailsWrapper,
     TranscriptionUsageDurationObject,
     TranscriptionUsageTokensObject,

@@ -3,7 +3,7 @@
 ## @lineage: anchor.model.types.secret_managers.main
 import enum
 from typing import Dict, List, Literal, Optional
-from anchor.surface.model.legacy.base import LiteLLMPydanticObjectBase
+from anchor.surface.model.types.base import PydanticObjectBase
 
 class KeyManagementSystem(enum.Enum):
     GOOGLE_KMS = "google_kms"
@@ -16,7 +16,7 @@ class KeyManagementSystem(enum.Enum):
     AWS_KMS = "aws_kms"
     CUSTOM = "custom"
 
-class KeyManagementSettings(LiteLLMPydanticObjectBase):
+class KeyManagementSettings(PydanticObjectBase):
     hosted_keys: Optional[List] = None
     store_virtual_keys: Optional[bool] = False
     """

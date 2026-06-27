@@ -12,11 +12,11 @@ from typing import Any, Dict, List, Literal, Optional
 import httpx
 from openai._streaming import SSEDecoder
 
-import anchor.surface.model.legacy.openai.types as openai_types
+import anchor.surface.model.types.openai.types as openai_types
 from anchor.switch.config.resolver import config
 from anchor.switch.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
-from anchor.surface.model.legacy.openai.types import ResponsesAPIStreamEvents
-from anchor.surface.model.legacy.types.utils import CallTypes
+from anchor.surface.model.types.openai.types import ResponsesAPIStreamEvents
+from anchor.surface.model.types.utils import CallTypes
 
 from anchor.channel.response.config import BaseResponsesAPIConfig
 from anchor.channel.action.task.executor import executor
@@ -910,7 +910,7 @@ def _build_content_part_done_event(
     part: Any
     if part_type == "output_text":
         annotations = [
-            openai_types.BaseLiteLLMOpenAIResponseObject(**annotation)
+            openai_types.BaseOpenAIResponse(**annotation)
             for annotation in part_payload.get("annotations", []) or []
         ]
         part = openai_types.ContentPartDonePartOutputText(
@@ -1047,7 +1047,7 @@ def _build_synthetic_response_events(
             openai_types.OutputItemAddedEvent(
                 type=openai_types.ResponsesAPIStreamEvents.OUTPUT_ITEM_ADDED,
                 output_index=output_index,
-                item=openai_types.BaseLiteLLMOpenAIResponseObject(
+                item=openai_types.BaseOpenAIResponse(
                     **output_item_payload
                 ),
             )
@@ -1064,7 +1064,7 @@ def _build_synthetic_response_events(
                         item_id=item_id,
                         output_index=output_index,
                         content_index=content_index,
-                        part=openai_types.BaseLiteLLMOpenAIResponseObject(
+                        part=openai_types.BaseOpenAIResponse(
                             **part_payload
                         ),
                     )
@@ -1139,7 +1139,7 @@ def _build_synthetic_response_events(
                         output_index=output_index,
                         sequence_number=sequence_number,
                         summary_index=summary_index,
-                        part=openai_types.BaseLiteLLMOpenAIResponseObject(
+                        part=openai_types.BaseOpenAIResponse(
                             **summary_payload
                         ),
                     )
@@ -1151,7 +1151,7 @@ def _build_synthetic_response_events(
                 type=openai_types.ResponsesAPIStreamEvents.OUTPUT_ITEM_DONE,
                 output_index=output_index,
                 sequence_number=sequence_number,
-                item=openai_types.BaseLiteLLMOpenAIResponseObject(
+                item=openai_types.BaseOpenAIResponse(
                     **output_item_payload
                 ),
             )
