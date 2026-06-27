@@ -10,7 +10,7 @@ import functools
 import inspect
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Sequence, Type, Union
 
-from xphi.adapter.llama.base.llms.types import (
+from bound.adapter.llama.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseAsyncGen,
@@ -23,8 +23,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
-    from xphi.adapter.llama.chat_engine.types import AgentChatResponse
-    from xphi.adapter.llama.tools.types import BaseTool
+    from bound.adapter.llama.chat_engine.types import AgentChatResponse
+    from bound.adapter.llama.tools.types import BaseTool
 
 
 class FunctionCallingLLM(LLM):
@@ -217,8 +217,8 @@ class FunctionCallingLLM(LLM):
         **kwargs: Any,
     ) -> "AgentChatResponse":
         """Predict and call the tool."""
-        from xphi.adapter.llama.chat_engine.types import AgentChatResponse
-        from xphi.adapter.llama.tools.calling import (
+        from bound.adapter.llama.chat_engine.types import AgentChatResponse
+        from bound.adapter.llama.tools.calling import (
             call_tool_with_selection,
         )
 
@@ -283,8 +283,8 @@ class FunctionCallingLLM(LLM):
         **kwargs: Any,
     ) -> "AgentChatResponse":
         """Predict and call the tool."""
-        from xphi.adapter.llama.chat_engine.types import AgentChatResponse
-        from xphi.adapter.llama.tools.calling import (
+        from bound.adapter.llama.chat_engine.types import AgentChatResponse
+        from bound.adapter.llama.tools.calling import (
             acall_tool_with_selection,
         )
 

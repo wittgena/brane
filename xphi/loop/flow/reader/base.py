@@ -1,11 +1,4 @@
 # xphi.loop.flow.reader.base
-## @lineage: xphi.flow.reader.base
-## @lineage: bound.adapter.llama.readers.base
-## @lineage: bound.adapter.readers.base
-## @lineage: anchor.adapter.readers.base
-## @lineage: bridge.llama.core.readers.base
-## @lineage: channel.llama.core.readers.base
-"""Base reader class."""
 import asyncio
 from abc import ABC, abstractmethod
 from typing import (
@@ -16,15 +9,11 @@ from typing import (
     List,
 )
 
-from xphi.adapter.llama.bridge.pydantic import ConfigDict, Field
-from xphi.adapter.llama.schema import BaseComponent, Document
-
+from bound.adapter.llama.bridge.pydantic import ConfigDict, Field
+from bound.adapter.llama.schema import BaseComponent, Document
 
 class BaseReader(ABC):  # pragma: no cover
-    """Utilities for loading data from a directory."""
-
     def lazy_load_data(self, *args: Any, **load_kwargs: Any) -> Iterable[Document]:
-        """Load data from the input directory lazily."""
         raise NotImplementedError(
             f"{self.__class__.__name__} does not provide lazy_load_data method currently"
         )
@@ -55,31 +44,17 @@ class BasePydanticReader(BaseReader, BaseComponent):
 
 
 class ResourcesReaderMixin(ABC):  # pragma: no cover
-    """
-    Mixin for readers that provide access to different types of resources.
-
-    Resources refer to specific data entities that can be accessed by the reader.
-    Examples of resources include files for a filesystem reader, channel IDs for a Slack reader, or pages for a Notion reader.
-    """
+    """Mixin for readers that provide access to different types of resource"""
 
     @abstractmethod
     def list_resources(self, *args: Any, **kwargs: Any) -> List[str]:
         """
         List of identifiers for the specific type of resources available in the reader.
-
-        Returns:
-            List[str]: List of identifiers for the specific type of resources available in the reader.
-
         """
 
     async def alist_resources(self, *args: Any, **kwargs: Any) -> List[str]:
         """
         List of identifiers for the specific type of resources available in the reader asynchronously.
-
-        Returns:
-            List[str]: A list of resources based on the reader type, such as files for a filesystem reader,
-            channel IDs for a Slack reader, or pages for a Notion reader.
-
         """
         return await asyncio.to_thread(self.list_resources, *args, **kwargs)
 

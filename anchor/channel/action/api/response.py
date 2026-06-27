@@ -20,8 +20,8 @@ from typing import (
 )
 import httpx
 from pydantic import BaseModel
-from anchor.switch.config.resolver import config
-from anchor.switch.config.constants import request_timeout
+from anchor.channel.config.resolver import config
+from anchor.channel.config.constants import request_timeout
 from anchor.surface.model.types.openai.types import (
     AllMessageValues,
     PromptObject,
@@ -38,14 +38,14 @@ from anchor.surface.model.types.router import GenericLiteLLMParams
 from anchor.surface.model.types.openai.types import ResponseText
 
 from anchor.surface.model.provider.manager import ProviderConfigManager
-from anchor.switch.model.llm.provider import get_llm_provider
+from anchor.channel.switch.model.llm.provider import get_llm_provider
 
-from xphi.adapter.mcp.handler import MCPHandler
+from bound.adapter.mcp.handler import MCPHandler
 from anchor.channel.action.api.handler import ResponseApiHandler
 from anchor.channel.action.support.asyncify import run_async_function
 from anchor.channel.action.param.litellm import infer_openai_data_residency
 from anchor.channel.client.wrapper import client
-from anchor.channel.response.config import BaseResponsesAPIConfig
+from anchor.channel.config.response import BaseResponsesAPIConfig
 from anchor.channel.response.template import update_responses_input_with_model_file_ids, update_responses_tools_with_model_file_ids
 from anchor.channel.action.support.request import ResponsesAPIRequestUtils
 from anchor.channel.response.identity import ResponseIdentityManager

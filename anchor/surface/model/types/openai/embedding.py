@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 import openai
 from openai import AsyncOpenAI, OpenAI
 from pydantic import BaseModel
-from anchor.switch.config.constants import DEFAULT_MAX_RETRIES
+from anchor.channel.config.constants import DEFAULT_MAX_RETRIES
 from anchor.surface.model.types.utils import EmbeddingResponse
 from anchor.channel.response.converter import convert_to_model_response_object
 from anchor.surface.model.types.openai.base import BaseOpenAILLM, OpenAIError

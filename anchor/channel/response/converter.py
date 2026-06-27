@@ -9,14 +9,14 @@ import traceback
 from typing import Dict, Iterable, List, Literal, Optional, Tuple, Union, cast
 from typing_extensions import Required, TypedDict
 
-from anchor.switch.config.constants import RESPONSE_FORMAT_TOOL_NAME
+from anchor.channel.config.constants import RESPONSE_FORMAT_TOOL_NAME
 from anchor.channel.action.support.header import get_response_headers
 from anchor.surface.model.types.openai.types import (
     ChatCompletionThinkingBlock,
     ImageURLListItem,
     OpenAIModerationResponse,
 )
-from anchor.switch.params import (
+from anchor.channel.switch.params import (
     ChatCompletionDeltaToolCall,
     ChatCompletionRedactedThinkingBlock,
     CompletionTokensDetailsWrapper,
@@ -28,7 +28,7 @@ from anchor.switch.params import (
     TranscriptionUsageDurationObject,
     TranscriptionUsageTokensObject,
 )
-from anchor.switch.params import (
+from anchor.channel.switch.params import (
     TextChoices,
     TextCompletionResponse,
     TranscriptionResponse,

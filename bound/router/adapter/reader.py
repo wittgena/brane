@@ -6,7 +6,7 @@ import importlib
 import inspect
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from xphi.adapter.scan.reader import ReaderScanner
+from anchor.cli.adapter.scan.reader import ReaderScanner
 
 DEFAULT_REGISTRY = {
     "pdf": {

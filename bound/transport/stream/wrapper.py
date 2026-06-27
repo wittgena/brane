@@ -23,10 +23,10 @@ import anyio
 import httpx
 from pydantic import BaseModel
 
-from anchor.switch.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
-from anchor.switch.config.resolver import config
+from anchor.channel.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
+from anchor.channel.config.resolver import config
 from anchor.surface.exception import OpenAIError
-from anchor.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
+from anchor.channel.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
 from anchor.surface.model.types.mapping.exception import exception_type
 from anchor.surface.model.types.openai.types import OpenAIChatCompletionChunk
 from anchor.surface.model.provider.types import ProviderTypes

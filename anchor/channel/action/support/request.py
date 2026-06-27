@@ -21,8 +21,8 @@ from typing import (
     overload,
 )
 from pydantic import BaseModel
-from anchor.channel.response.config import BaseResponsesAPIConfig
-from anchor.switch.config.resolver import config
+from anchor.channel.config.response import BaseResponsesAPIConfig
+from anchor.channel.config.resolver import config
 from anchor.channel.action.param.optional import PreProcessNonDefaultParams
 from anchor.surface.model.types.openai.types import (
     ResponsesAPIOptionalRequestParams,

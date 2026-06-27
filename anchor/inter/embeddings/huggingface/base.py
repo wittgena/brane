@@ -12,16 +12,16 @@ from huggingface_hub import (
     model_info,
 )
 from huggingface_hub.hf_api import ModelInfo
-from xphi.adapter.llama.base.embeddings.base import (
+from bound.adapter.llama.base.embeddings.base import (
     DEFAULT_EMBED_BATCH_SIZE,
     BaseEmbedding,
     Embedding,
 )
-from xphi.adapter.llama.bridge.pydantic import Field, PrivateAttr
+from bound.adapter.llama.bridge.pydantic import Field, PrivateAttr
 from xphi.loop.callback import CallbackManager
 from llama_index.embeddings.huggingface.pooling import Pooling
 from xphi.loop.flow.embedding.multi_modal_base import MultiModalEmbedding
-from xphi.adapter.llama.utils import get_cache_dir, infer_torch_device
+from bound.adapter.llama.utils import get_cache_dir, infer_torch_device
 from llama_index.embeddings.huggingface.utils import (
     DEFAULT_HUGGINGFACE_EMBEDDING_MODEL,
     format_query,
@@ -29,7 +29,7 @@ from llama_index.embeddings.huggingface.utils import (
     get_query_instruct_for_model_name,
     get_text_instruct_for_model_name,
 )
-from xphi.adapter.llama.schema import ImageType
+from bound.adapter.llama.schema import ImageType
 from sentence_transformers import SentenceTransformer
 from tenacity import retry, stop_after_attempt, wait_exponential
 

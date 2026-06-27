@@ -4,7 +4,7 @@
 ## @lineage: anchor.adapter.instrumentation.events.retrieval
 from typing import List
 from xphi.loop.inst.events.base import BaseEvent
-from xphi.adapter.llama.schema import QueryType, NodeWithScore
+from bound.adapter.llama.schema import QueryType, NodeWithScore
 
 
 class RetrievalStartEvent(BaseEvent):

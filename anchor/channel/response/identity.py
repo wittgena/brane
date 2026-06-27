@@ -16,7 +16,7 @@ from typing import (
     overload,
 )
 from starlette.datastructures import Headers
-from xphi.adapter.mcp.parser.header import MCPHeaderParser
+from bound.adapter.mcp.parser.header import MCPHeaderParser
 from anchor.surface.model.types.response import DecodedResponseId
 from anchor.surface.model.types.utils import SpecialEnums
 from watcher.plane.emitter import get_emitter

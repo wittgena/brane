@@ -2,7 +2,7 @@
 from typing import Optional
 
 from xphi.loop.inst.events import BaseEvent
-from xphi.adapter.llama.schema import Document
+from bound.adapter.llama.schema import Document
 
 
 # GitHub-specific LlamaIndex events

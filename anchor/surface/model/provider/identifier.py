@@ -3,7 +3,7 @@
 ## @lineage: anchor.model.provider.logic
 import re
 from typing import Optional, Tuple
-from anchor.switch.config.resolver import config
+from anchor.channel.config.resolver import config
 
 _CLAUDE_PATTERN = re.compile(r"^claude-[a-z]+-\d+-\d+(?:-\d{8})?$", re.IGNORECASE)
 

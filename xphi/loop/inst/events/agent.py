@@ -4,14 +4,14 @@
 ## @lineage: anchor.adapter.instrumentation.events.agent
 from typing import Any, Optional
 
-from xphi.adapter.llama.bridge.pydantic import model_validator, field_validator
+from bound.adapter.llama.bridge.pydantic import model_validator, field_validator
 from xphi.loop.inst.events.base import BaseEvent
-from xphi.adapter.llama.chat_engine.types import (
+from bound.adapter.llama.chat_engine.types import (
     AGENT_CHAT_RESPONSE_TYPE,
     AgentChatResponse,
     StreamingAgentChatResponse,
 )
-from xphi.adapter.llama.tools.types import ToolMetadata
+from bound.adapter.llama.tools.types import ToolMetadata
 
 
 class AgentRunStepStartEvent(BaseEvent):

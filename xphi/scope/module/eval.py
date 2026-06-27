@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 import tqdm
 
-from anchor.switch.dspy.settings import settings
-from anchor.switch.dspy.context import get_dspy_context_propagator
-from bound.xor.exam.prediction import Prediction
-from bound.xor.exam.example import Example
-from bound.xor.dsp.stream.callback import with_callbacks
+from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.switch.dsp.context import get_dspy_context_propagator
+from xphi.opt.exam.prediction import Prediction
+from xphi.opt.exam.example import Example
+from xphi.opt.dsp.stream.callback import with_callbacks
 
 from arch.proto.wrapper.opt import OptExecutor
 from watcher.plane.emitter import get_emitter

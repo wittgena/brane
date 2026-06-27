@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from xphi.loop.flow.reader.base import BaseReader
-from xphi.adapter.llama.schema import Document
+from bound.adapter.llama.schema import Document
 
 
 def _get_leaf_nodes_up_to_level(

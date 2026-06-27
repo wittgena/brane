@@ -51,8 +51,8 @@ from openai.lib import _parsing
 import inspect
 from weakref import WeakKeyDictionary
 
-from anchor.switch.config.constants import COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY
-from anchor.switch.config.resolver import config
+from anchor.channel.config.constants import COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY
+from anchor.channel.config.resolver import config
 from anchor.channel.action.param.format import type_to_response_format_param
 from anchor.channel.action.task.executor import executor
 from anchor.surface.exception import (
@@ -74,7 +74,7 @@ from anchor.surface.exception import (
 )
 
 
-from anchor.switch.model.token.counter import get_modified_max_tokens
+from anchor.channel.switch.model.token.counter import get_modified_max_tokens
 from anchor.surface.model.types.openai.types import (
     AllMessageValues,
     AllPromptValues,
@@ -85,14 +85,14 @@ from anchor.surface.model.types.openai.types import (
     OpenAITextCompletionUserMessage,
     OpenAIWebSearchOptions,
 )
-from anchor.switch.model.llm.provider import get_llm_provider
+from anchor.channel.switch.model.llm.provider import get_llm_provider
 from anchor.surface.model.types.utils import CallTypes, Embedding, ProviderTypes
 
 from bound.transport.stream.chunk.builder import stream_chunk_builder
 from anchor.channel.action.task.logging import GLOBAL_LOGGING_WORKER
 from anchor.channel.client.rule import Rules
 from anchor.channel.response.metadata import update_response_metadata
-from bound.xor.secret.credential import CredentialAccessor
+from xphi.xor.secret.credential import CredentialAccessor
 
 from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObject
 

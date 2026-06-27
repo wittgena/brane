@@ -19,7 +19,7 @@ from fsspec import AbstractFileSystem
 
 from xphi.loop.flow.reader.base import BaseReader
 from xphi.loop.flow.reader.file.base import get_default_fs, is_default_fs
-from xphi.adapter.llama.schema import Document
+from bound.adapter.llama.schema import Document
 
 logger = logging.getLogger(__name__)
 

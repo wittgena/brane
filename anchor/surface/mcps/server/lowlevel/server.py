@@ -94,10 +94,10 @@ from anchor.surface.mcps.server.middleware.bearer_auth import BearerAuthBackend,
 from anchor.surface.mcps.server.auth.provider import OAuthAuthorizationServerProvider, TokenVerifier
 from anchor.surface.mcps.server.auth.routes import build_resource_metadata_url, create_auth_routes, create_protected_resource_routes
 from anchor.surface.mcps.server.auth.settings import AuthSettings
-from bound.router.conn.session.context import HandlerResult, ServerMiddleware, ServerRequestContext
-from bound.router.conn.session.runner import ServerRunner, otel_middleware, InitializationOptions
-from bound.router.conn.session.server.http import EventStore
-from bound.router.conn.session.server.manager import StreamableHTTPASGIApp, StreamableHTTPSessionManager
+from bound.transport.session.context import HandlerResult, ServerMiddleware, ServerRequestContext
+from bound.transport.session.runner import ServerRunner, otel_middleware, InitializationOptions
+from bound.transport.session.server.http import EventStore
+from bound.transport.session.server.manager import StreamableHTTPASGIApp, StreamableHTTPSessionManager
 from anchor.surface.mcps.server.middleware.transport_security import TransportSecuritySettings
 from anchor.surface.mcps.shared._stream_protocols import ReadStream, WriteStream
 from anchor.surface.mcps.shared.jsonrpc_dispatcher import JSONRPCDispatcher

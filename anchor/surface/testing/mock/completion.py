@@ -8,7 +8,7 @@
 import uuid
 import time
 from typing import Any, Dict, List, Optional
-from anchor.switch.params import ModelResponse, Choices, Message
+from anchor.channel.switch.params import ModelResponse, Choices, Message
 
 def create_mock_completion(
     content: str, 
@@ -41,7 +41,7 @@ def create_mock_tool_call(
     OpenHands의 Agent Tool Use 루프 검증에 필수적입니다.
     """
     import json
-    from anchor.switch.params import ChatCompletionMessageToolCall, Function
+    from anchor.channel.switch.params import ChatCompletionMessageToolCall, Function
     
     tool_call = ChatCompletionMessageToolCall(
         id=f"call_mock_{uuid.uuid4().hex[:8]}",

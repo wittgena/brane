@@ -12,7 +12,7 @@ from typing import Any, cast
 
 from pydantic import BaseModel, ConfigDict
 
-from bound.router.message.block import text_block, tool_content
+from bound.transport.dispatcher.block import text_block, tool_content
 from anchor.surface.acps.schema import (
     ToolCallLocation,
     ToolCallProgress,

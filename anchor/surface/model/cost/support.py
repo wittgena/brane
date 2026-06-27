@@ -6,16 +6,16 @@ from httpx import Response
 from pydantic import BaseModel
 from functools import lru_cache
 
-from anchor.switch.config.resolver import config
-from anchor.switch.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE, DEFAULT_REPLICATE_GPU_PRICE_PER_SECOND
+from anchor.channel.config.resolver import config
+from anchor.channel.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE, DEFAULT_REPLICATE_GPU_PRICE_PER_SECOND
 from anchor.surface.model.cost.map import model_cost, _get_model_info_helper
 from anchor.surface.model.cost.transform import UsageTransform
 from anchor.surface.model.provider.types import ProviderTypesSet
 
-from anchor.switch.model.cost.unit import generic_cost_per_token
-from anchor.switch.model.llm.provider import get_llm_provider
-from anchor.switch.model.token.counter import token_counter
-from anchor.switch.params import ModelResponse, ModelResponseStream
+from anchor.channel.switch.model.cost.unit import generic_cost_per_token
+from anchor.channel.switch.model.llm.provider import get_llm_provider
+from anchor.channel.switch.model.token.counter import token_counter
+from anchor.channel.switch.params import ModelResponse, ModelResponseStream
 
 from anchor.surface.model.types.openai.types import (
     HttpxBinaryResponseContent,

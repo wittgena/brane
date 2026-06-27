@@ -7,11 +7,11 @@ from typing import Any, Coroutine, Dict, Iterable, List, Literal, Optional, Type
 import httpx
 from pydantic import BaseModel
 
-from anchor.switch.config.resolver import config
-from xphi.adapter.mcp.handler import MCPHandler
-from xphi.adapter.mcp.parser.payload import MCPPayloadParser
-from xphi.adapter.mcp.stream import MCPStreamIterator
-from xphi.adapter.mcp.event.tool import create_mcp_list_tools_events
+from anchor.channel.config.resolver import config
+from bound.adapter.mcp.handler import MCPHandler
+from bound.adapter.mcp.parser.payload import MCPPayloadParser
+from bound.adapter.mcp.stream import MCPStreamIterator
+from bound.adapter.mcp.event.tool import create_mcp_list_tools_events
 
 from anchor.surface.model.types.response import *
 from anchor.surface.model.types.router import GenericLiteLLMParams
@@ -23,10 +23,10 @@ from anchor.surface.model.types.openai.types import (
 
 from anchor.surface.model.provider.manager import ProviderConfigManager
 from anchor.surface.model.provider.types import ProviderTypes
-from anchor.switch.model.llm.provider import get_llm_provider
+from anchor.channel.switch.model.llm.provider import get_llm_provider
 
 from anchor.channel.action.param.litellm import get_litellm_params, infer_openai_data_residency
-from anchor.channel.response.config import BaseResponsesAPIConfig
+from anchor.channel.config.response import BaseResponsesAPIConfig
 from anchor.channel.client.ws import ResponseWebsocketHandler
 from anchor.channel.client.wrapper import client
 from anchor.channel.response.identity import ResponseIdentityManager
@@ -36,7 +36,7 @@ from anchor.channel.action.api.response import responses
 from anchor.channel.action.api.response_crud import delete_responses, get_responses, list_input_items, cancel_responses, compact_responses
 
 from bound.transport.stream.iterator import ResponseStreamIterator
-from bound.xor.secret.manager import get_secret_str
+from xphi.xor.secret.manager import get_secret_str
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter

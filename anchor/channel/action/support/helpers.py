@@ -11,11 +11,11 @@ import copy
 from typing import TYPE_CHECKING, Any, Iterable, List, Literal, Optional, Union
 import httpx
 
-from anchor.switch.config.resolver import config
+from anchor.channel.config.resolver import config
 from anchor.surface.model.types.openai.types import AllMessageValues, OpenAIChatCompletionFinishReason
 if TYPE_CHECKING:
     from opentelemetry.trace import Span as _Span
-    from anchor.switch.params import ModelResponseStream
+    from anchor.channel.switch.params import ModelResponseStream
     Span = Union[_Span, Any]
 else:
     Span = Any

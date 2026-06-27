@@ -10,7 +10,7 @@ from pydantic import BaseModel
 from anchor.surface.model.types.openai.types import AllMessageValues, ChatCompletionToolCallChunk
 from anchor.surface.model.types.utils import TokenCountResponse
 from anchor.surface.model.types.support import ProviderSpecificModelInfo
-from anchor.switch.params import Message
+from anchor.channel.switch.params import Message
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("base.utils")

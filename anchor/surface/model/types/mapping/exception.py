@@ -14,9 +14,9 @@ import traceback
 from typing import Any, Optional
 import httpx
 
-from anchor.switch.config.resolver import config
+from anchor.channel.config.resolver import config
 from anchor.channel.action.support.base import get_api_base
-from bound.xor.secret.redact import redact_string
+from xphi.xor.secret.redact import redact_string
 from anchor.surface.model.provider.types import ProviderTypes
 from anchor.surface.exception import (
     APIConnectionError,

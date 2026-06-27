@@ -31,16 +31,16 @@ from typing import TYPE_CHECKING, Any, Dict, List, Mapping, Optional, TypeVar, U
 
 from anchor.surface.exception import UnsupportedParamsError
 from anchor.channel.action.param.format import type_to_response_format_param
-from anchor.switch.config.base import BaseConfig
+from anchor.channel.config.base import BaseConfig
 
-from anchor.switch.config.resolver import config
-from anchor.switch.config.constants import DEFAULT_CHAT_COMPLETION_PARAM_VALUES
+from anchor.channel.config.resolver import config
+from anchor.channel.config.constants import DEFAULT_CHAT_COMPLETION_PARAM_VALUES
 
 from anchor.surface.model.types.anthropic import AnthropicThinkingParam
 from anchor.surface.model.types.openai.types import AllMessageValues, OpenAIWebSearchOptions
 from anchor.surface.model.types.utils import Embedding, Function, ProviderTypes
 from anchor.surface.model.provider.manager import ProviderConfigManager
-from anchor.switch.model.support import get_supported_openai_params
+from anchor.channel.switch.model.support import get_supported_openai_params
 
 from watcher.plane.emitter import get_emitter
 

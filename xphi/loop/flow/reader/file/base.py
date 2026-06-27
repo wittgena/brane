@@ -1,12 +1,4 @@
 # xphi.loop.flow.reader.file.base
-## @lineage: xphi.flow.reader.file.base
-## @lineage: bound.adapter.llama.readers.file.base
-## @lineage: bound.adapter.readers.file.base
-## @lineage: anchor.adapter.readers.file.base
-## @lineage: bridge.llama.core.readers.file.base
-## @lineage: channel.llama.core.readers.file.base
-"""Simple reader that reads files of different formats from a directory."""
-
 from __future__ import annotations
 
 import asyncio
@@ -33,10 +25,10 @@ from typing import (
 import fsspec
 from fsspec.implementations.local import LocalFileSystem
 
-from xphi.adapter.llama.async_utils import get_asyncio_module, run_jobs
+from bound.adapter.llama.async_utils import get_asyncio_module, run_jobs
 from xphi.loop.flow.reader.base import BaseReader, ResourcesReaderMixin
-from xphi.adapter.llama.schema import Document
-from xphi.adapter.llama.utils import get_tqdm_iterable
+from bound.adapter.llama.schema import Document
+from bound.adapter.llama.utils import get_tqdm_iterable
 
 
 logger = logging.getLogger(__name__)
@@ -86,13 +78,11 @@ def _try_loading_included_file_formats() -> dict[
             PandasCSVReader,
             PandasExcelReader,
             PDFReader,
-            PptxReader,
             VideoAudioReader,
         )  # pants: no-infer-dep
     except ImportError:
         logger.warning(
-            "`llama-index-readers-file` package not found, some file readers will not be available "
-            "if not provided by the `file_extractor` parameter."
+            "some file readers will not be available if not provided by the `file_extractor` parameter"
         )
         return {}
 
@@ -213,46 +203,7 @@ def is_default_fs(fs: fsspec.AbstractFileSystem) -> bool:
 
 
 class SimpleDirectoryReader(BaseReader, ResourcesReaderMixin, FileSystemReaderMixin):
-    """
-    Simple directory reader.
-
-    Load files from file directory.
-    Automatically select the best file reader given file extensions.
-
-    Args:
-        input_dir (Union[Path, str]): Path to the directory.
-        input_files (List): List of file paths to read
-            (Optional; overrides input_dir, exclude)
-        exclude (List): glob of python file paths to exclude (Optional)
-        exclude_hidden (bool): Whether to exclude hidden files (dotfiles).
-        exclude_empty (bool): Whether to exclude empty files (Optional).
-        encoding (str): Encoding of the files.
-            Default is utf-8.
-        errors (str): how encoding and decoding errors are to be handled,
-              see https://docs.python.org/3/library/functions.html#open
-        recursive (bool): Whether to recursively search in subdirectories.
-            False by default.
-        filename_as_id (bool): Whether to use the filename as the document id.
-            False by default.
-        required_exts (Optional[List[str]]): List of required extensions.
-            Default is None.
-        file_extractor (Optional[Dict[str, BaseReader]]): A mapping of file
-            extension to a BaseReader class that specifies how to convert that file
-            to text. If not specified, use default from DEFAULT_FILE_READER_CLS.
-        num_files_limit (Optional[int]): Maximum number of files to read.
-            Default is None.
-        file_metadata (Optional[Callable[[str], Dict]]): A function that takes
-            in a filename and returns a Dict of metadata for the Document.
-            Default is None.
-        raise_on_error (bool): Whether to raise an error if a file cannot be read.
-        fs (Optional[fsspec.AbstractFileSystem]): File system to use. Defaults
-        to using the local file system. Can be changed to use any remote file system
-        exposed via the fsspec interface.
-
-    """
-
     supported_suffix_fn: Callable = _try_loading_included_file_formats
-
     def __init__(
         self,
         input_dir: Optional[Union[Path, str]] = None,
@@ -317,13 +268,6 @@ class SimpleDirectoryReader(BaseReader, ResourcesReaderMixin, FileSystemReaderMi
         return self.fs.isfile(str(path)) and self.fs.info(str(path)).get("size", 0) == 0
 
     def _is_directory(self, path: Path | PurePosixPath) -> bool:
-        """
-        Check if a path is a directory, with special handling for S3 filesystems.
-
-        For S3 filesystems, directories are often represented as 0-byte objects
-        ending with '/'. This method provides more reliable directory detection
-        than fs.isdir() alone.
-        """
         try:
             # First try the standard isdir check
             if self.fs.isdir(path):
@@ -439,18 +383,7 @@ class SimpleDirectoryReader(BaseReader, ResourcesReaderMixin, FileSystemReaderMi
         return new_input_files
 
     def _exclude_metadata(self, documents: list[Document]) -> list[Document]:
-        """
-        Exclude metadata from documents.
-
-        Args:
-            documents (List[Document]): List of documents.
-
-        """
         for doc in documents:
-            # Keep only metadata['file_path'] in both embedding and llm content
-            # str, which contain extreme important context that about the chunks.
-            # Dates is provided for convenience of postprocessor such as
-            # TimeWeightedPostprocessor, but excluded for embedding and LLMprompts
             doc.excluded_embed_metadata_keys.extend(
                 [
                     "file_name",
@@ -569,32 +502,6 @@ class SimpleDirectoryReader(BaseReader, ResourcesReaderMixin, FileSystemReaderMi
         raise_on_error: bool = False,
         fs: fsspec.AbstractFileSystem | None = None,
     ) -> list[Document]:
-        """
-        Static method for loading file.
-
-        NOTE: necessarily as a static method for parallel processing.
-
-        Args:
-            input_file (Path): File path to read
-            file_metadata ([Callable[[str], Dict]]): A function that takes
-                in a filename and returns a Dict of metadata for the Document.
-            file_extractor (Dict[str, BaseReader]): A mapping of file
-                extension to a BaseReader class that specifies how to convert that file
-                to text.
-            filename_as_id (bool): Whether to use the filename as the document id.
-            encoding (str): Encoding of the files.
-                Default is utf-8.
-            errors (str): how encoding and decoding errors are to be handled,
-                see https://docs.python.org/3/library/functions.html#open
-            raise_on_error (bool): Whether to raise an error if a file cannot be read.
-            fs (Optional[fsspec.AbstractFileSystem]): File system to use. Defaults
-                to using the local file system. Can be changed to use any remote file system
-
-        Returns:
-            List[Document]: loaded documents
-
-        """
-        # TODO: make this less redundant
         default_file_reader_cls = SimpleDirectoryReader.supported_suffix_fn()
         default_file_reader_suffix = list(default_file_reader_cls.keys())
         metadata: dict | None = None
@@ -663,8 +570,6 @@ class SimpleDirectoryReader(BaseReader, ResourcesReaderMixin, FileSystemReaderMi
         raise_on_error: bool = False,
         fs: fsspec.AbstractFileSystem | None = None,
     ) -> list[Document]:
-        """Load file asynchronously."""
-        # TODO: make this less redundant
         default_file_reader_cls = SimpleDirectoryReader.supported_suffix_fn()
         default_file_reader_suffix = list(default_file_reader_cls.keys())
         metadata: dict | None = None
@@ -728,19 +633,7 @@ class SimpleDirectoryReader(BaseReader, ResourcesReaderMixin, FileSystemReaderMi
         num_workers: int | None = None,
         fs: fsspec.AbstractFileSystem | None = None,
     ) -> list[Document]:
-        """
-        Load data from the input directory.
-
-        Args:
-            show_progress (bool): Whether to show tqdm progress bars. Defaults to False.
-            num_workers  (Optional[int]): Number of workers to parallelize data-loading over.
-            fs (Optional[fsspec.AbstractFileSystem]): File system to use. If fs was specified
-                in the constructor, it will override the fs parameter here.
-
-        Returns:
-            List[Document]: A list of documents.
-
-        """
+        """Load data from the input directory"""
         documents = []
 
         fs = fs or self.fs

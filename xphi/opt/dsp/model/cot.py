@@ -1,0 +1,37 @@
+# xphi.opt.dsp.model.cot
+## @lineage: bound.xor.dsp.model.cot
+## @lineage: xor.dsp.model.cot
+## @lineage: bound.xor.dsp.cot
+## @lineage: bound.channel.bridge.dsp.cot
+## @lineage: channel.bridge.dsp.cot
+## @lineage: meta.ops.predictor.cot
+## @lineage: gov.frame.predictor.cot
+from typing import Any
+from pydantic.fields import FieldInfo
+
+from arch.xor.manifold.sign.field import InputField, OutputField
+from arch.xor.manifold.sign.signature import Signature, ensure_signature
+from xphi.scope.module.meta import Module
+from xphi.opt.dsp.opt.predict import Predict
+
+class ChainOfThought(Module):
+    def __init__(
+        self,
+        signature: str | type[Signature],
+        rationale_field: FieldInfo | None = None,
+        rationale_field_type: type = str,
+        **config: dict[str, Any],
+    ):
+        super().__init__()
+        signature = ensure_signature(signature)
+        desc = "${reasoning}"
+        rationale_field_type = rationale_field.annotation if rationale_field else rationale_field_type
+        rationale_field = rationale_field if rationale_field else OutputField(desc=desc)
+        extended_signature = signature.prepend(name="reasoning", field=rationale_field, type_=rationale_field_type)
+        self.predict = Predict(extended_signature, **config)
+
+    def forward(self, **kwargs):
+        return self.predict(**kwargs)
+
+    async def aforward(self, **kwargs):
+        return await self.predict.acall(**kwargs)

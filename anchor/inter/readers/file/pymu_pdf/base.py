@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Union
 
 from xphi.loop.flow.reader.base import BaseReader
-from xphi.adapter.llama.schema import Document
+from bound.adapter.llama.schema import Document
 
 
 class PyMuPDFReader(BaseReader):

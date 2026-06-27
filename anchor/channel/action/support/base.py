@@ -5,8 +5,8 @@
 ## @lineage: bound.bridge.api.get_api_base
 ## @lineage: bound.client.api.get_api_base
 from typing import Optional, Union
-from anchor.switch.config.resolver import config
-from anchor.switch.model.llm.provider import get_llm_provider
+from anchor.channel.config.resolver import config
+from anchor.channel.switch.model.llm.provider import get_llm_provider
 from anchor.surface.model.types.router import LiteLLM_Params
 from watcher.plane.emitter import get_emitter
 

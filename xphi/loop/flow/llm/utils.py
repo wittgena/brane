@@ -28,7 +28,7 @@ def resolve_llm(
     llm: Optional[LLMType] = None, callback_manager: Optional[CallbackManager] = None
 ) -> LLM:
     """Resolve LLM from string or LLM instance."""
-    from xphi.adapter.llama.settings import Settings
+    from bound.adapter.llama.settings import Settings
 
     try:
         # For langchain v1.x.x

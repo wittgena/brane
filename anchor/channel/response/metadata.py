@@ -3,7 +3,7 @@
 ## @lineage: bound.channel.support.metadata
 import datetime
 from typing import Any, Optional, Union
-from anchor.switch.config.constants import LITELLM_DETAILED_TIMING
+from anchor.channel.config.constants import LITELLM_DETAILED_TIMING
 from anchor.channel.action.support.helpers import process_response_headers
 from anchor.channel.action.support.base import get_api_base
 

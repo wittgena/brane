@@ -15,7 +15,7 @@ from typing import (
     cast,
 )
 
-from xphi.adapter.llama.base.llms.types import (
+from bound.adapter.llama.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseAsyncGen,

@@ -18,13 +18,13 @@ from typing import (
 
 from ollama import AsyncClient, Client
 
-from xphi.adapter.llama.base.llms.generic_utils import (
+from bound.adapter.llama.base.llms.generic_utils import (
     achat_to_completion_decorator,
     astream_chat_to_completion_decorator,
     chat_to_completion_decorator,
     stream_chat_to_completion_decorator,
 )
-from xphi.adapter.llama.base.llms.types import (
+from bound.adapter.llama.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseAsyncGen,
@@ -39,18 +39,18 @@ from xphi.adapter.llama.base.llms.types import (
     ThinkingBlock,
     ToolCallBlock,
 )
-from xphi.adapter.llama.bridge.pydantic import Field, PrivateAttr
-from xphi.adapter.llama.constants import DEFAULT_CONTEXT_WINDOW, DEFAULT_NUM_OUTPUTS
+from bound.adapter.llama.bridge.pydantic import Field, PrivateAttr
+from bound.adapter.llama.constants import DEFAULT_CONTEXT_WINDOW, DEFAULT_NUM_OUTPUTS
 from xphi.loop.inst import get_dispatcher
 from xphi.loop.flow.llm.callbacks import llm_chat_callback, llm_completion_callback
 from xphi.loop.flow.llm.function_calling import FunctionCallingLLM
 from xphi.loop.flow.llm.llm import ToolSelection, Model
 from xphi.loop.prog.utils import process_streaming_objects, FlexibleModel
-from xphi.adapter.llama.prompts import PromptTemplate
-from xphi.adapter.llama.types import PydanticProgramMode
+from bound.adapter.llama.prompts import PromptTemplate
+from bound.adapter.llama.types import PydanticProgramMode
 
 if TYPE_CHECKING:
-    from xphi.adapter.llama.tools.types import BaseTool
+    from bound.adapter.llama.tools.types import BaseTool
 
 DEFAULT_REQUEST_TIMEOUT = 30.0
 dispatcher = get_dispatcher(__name__)

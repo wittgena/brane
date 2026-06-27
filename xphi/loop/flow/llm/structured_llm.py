@@ -6,9 +6,9 @@
 ## @lineage: bridge.llama.core.llms.structured_llm
 from typing import Any, Type, Sequence
 
-from xphi.adapter.llama.base.llms.types import ChatMessage, MessageRole
+from bound.adapter.llama.base.llms.types import ChatMessage, MessageRole
 from xphi.loop.flow.llm.llm import LLM
-from xphi.adapter.llama.base.llms.types import (
+from bound.adapter.llama.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseAsyncGen,
@@ -18,18 +18,18 @@ from xphi.adapter.llama.base.llms.types import (
     LLMMetadata,
     MessageRole,
 )
-from xphi.adapter.llama.bridge.pydantic import (
+from bound.adapter.llama.bridge.pydantic import (
     BaseModel,
     Field,
     SerializeAsAny,
 )
-from xphi.adapter.llama.base.llms.types import LLMMetadata
+from bound.adapter.llama.base.llms.types import LLMMetadata
 from xphi.loop.flow.llm.callbacks import (
     llm_chat_callback,
     llm_completion_callback,
 )
-from xphi.adapter.llama.prompts.base import ChatPromptTemplate
-from xphi.adapter.llama.base.llms.generic_utils import (
+from bound.adapter.llama.prompts.base import ChatPromptTemplate
+from bound.adapter.llama.base.llms.generic_utils import (
     achat_to_completion_decorator,
     chat_to_completion_decorator,
 )

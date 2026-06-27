@@ -4,7 +4,7 @@ import os
 from typing import Any, Callable, Dict, Optional, Sequence
 
 import requests
-from xphi.adapter.llama.base.llms.types import (
+from bound.adapter.llama.base.llms.types import (
     ChatMessage,
     ChatResponse,
     ChatResponseGen,
@@ -12,21 +12,21 @@ from xphi.adapter.llama.base.llms.types import (
     CompletionResponseGen,
     LLMMetadata,
 )
-from xphi.adapter.llama.bridge.pydantic import Field, PrivateAttr
+from bound.adapter.llama.bridge.pydantic import Field, PrivateAttr
 from xphi.loop.callback import CallbackManager
-from xphi.adapter.llama.constants import (
+from bound.adapter.llama.constants import (
     DEFAULT_CONTEXT_WINDOW,
     DEFAULT_NUM_OUTPUTS,
     DEFAULT_TEMPERATURE,
 )
 from xphi.loop.flow.llm.callbacks import llm_chat_callback, llm_completion_callback
 from xphi.loop.flow.llm.custom import CustomLLM
-from xphi.adapter.llama.base.llms.generic_utils import (
+from bound.adapter.llama.base.llms.generic_utils import (
     completion_response_to_chat_response,
     stream_completion_response_to_chat_response,
 )
-from xphi.adapter.llama.types import BaseOutputParser, PydanticProgramMode
-from xphi.adapter.llama.utils import get_cache_dir
+from bound.adapter.llama.types import BaseOutputParser, PydanticProgramMode
+from bound.adapter.llama.utils import get_cache_dir
 from tqdm import tqdm
 
 from llama_cpp import Llama

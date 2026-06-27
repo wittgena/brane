@@ -10,10 +10,10 @@ from typing import Any, Coroutine, Dict, List, Literal, Optional, Union
 import httpx
 from pydantic import BaseModel
 
-from anchor.switch.config.resolver import config
-from anchor.switch.config.constants import request_timeout
-from anchor.channel.response.config import BaseResponsesAPIConfig
-from anchor.switch.model.llm.provider import get_llm_provider
+from anchor.channel.config.resolver import config
+from anchor.channel.config.constants import request_timeout
+from anchor.channel.config.response import BaseResponsesAPIConfig
+from anchor.channel.switch.model.llm.provider import get_llm_provider
 from anchor.surface.model.types.openai.types import (
     ResponseInputParam,
     ResponsesAPIOptionalRequestParams,

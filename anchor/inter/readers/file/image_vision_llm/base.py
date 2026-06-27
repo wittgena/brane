@@ -3,8 +3,8 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from xphi.loop.flow.reader.base import BaseReader
-from xphi.adapter.llama.schema import Document, ImageDocument
-from xphi.adapter.llama.utils import infer_torch_device
+from bound.adapter.llama.schema import Document, ImageDocument
+from bound.adapter.llama.utils import infer_torch_device
 
 
 class ImageVisionLLMReader(BaseReader):
@@ -66,7 +66,7 @@ class ImageVisionLLMReader(BaseReader):
         self, file: Path, extra_info: Optional[Dict] = None
     ) -> List[Document]:
         """Parse file."""
-        from xphi.adapter.llama.img_utils import img_2_b64
+        from bound.adapter.llama.img_utils import img_2_b64
         from PIL import Image
 
         # load document image

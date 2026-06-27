@@ -18,10 +18,10 @@ import re
 import tempfile
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
-from xphi.adapter.llama.async_utils import asyncio_run
+from bound.adapter.llama.async_utils import asyncio_run
 from xphi.loop.flow.reader.base import BaseReader
 from xphi.loop.flow.reader.file.base import _try_loading_included_file_formats
-from xphi.adapter.llama.schema import Document
+from bound.adapter.llama.schema import Document
 from xphi.loop.inst import get_dispatcher
 from anchor.inter.readers.github.repository.event import (
     GitHubFileFailedEvent,

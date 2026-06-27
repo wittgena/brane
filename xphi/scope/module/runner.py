@@ -4,9 +4,9 @@
 import threading
 from typing import Any
 
-from anchor.switch.dspy.settings import settings
-from anchor.switch.dspy.context import get_dspy_context_propagator
-from bound.xor.exam.example import Example
+from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.switch.dsp.context import get_dspy_context_propagator
+from xphi.opt.exam.example import Example
 from arch.proto.wrapper.opt import OptExecutor
 
 class ParallelRunner:

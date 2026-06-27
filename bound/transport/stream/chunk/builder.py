@@ -36,10 +36,10 @@ if TYPE_CHECKING:
 from anchor.surface.model.types.utils import TextChoices, TextCompletionResponse
 from anchor.surface.exception import APIError
 
-from anchor.switch.config.resolver import config
-from anchor.switch.model.token.counter import token_counter
+from anchor.channel.config.resolver import config
+from anchor.channel.switch.model.token.counter import token_counter
 from bound.transport.stream.chunk.processor import ChunkProcessor
-from anchor.switch.params import Choices, Message, ModelResponse, Usage
+from anchor.channel.switch.params import Choices, Message, ModelResponse, Usage
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("blm.main")

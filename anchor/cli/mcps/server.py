@@ -4,7 +4,7 @@ import sys
 import warnings
 import anyio
 from anchor.surface.mcps.server.lowlevel.server import Server
-from anchor.channel.stdio.server import stdio_server
+from xphi.server.stream.stdio import stdio_server
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("mcps.server")

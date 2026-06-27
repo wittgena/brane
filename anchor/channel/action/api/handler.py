@@ -18,13 +18,13 @@ from typing import (
 )
 import httpx
 from aiohttp import ClientSession
-from anchor.channel.response.config import BaseResponsesAPIConfig
+from anchor.channel.config.response import BaseResponsesAPIConfig
 
 LiteLLMLoggingObj = Any
 
 from anchor.channel.action.support.helpers import process_response_headers
 from anchor.surface.model.provider.types import ProviderTypes
-from anchor.switch.config.resolver import config
+from anchor.channel.config.resolver import config
 from anchor.channel.client.http import (
     AsyncHTTPHandler,
     HTTPHandler,

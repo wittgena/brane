@@ -4,10 +4,10 @@
 ## @lineage: anchor.adapter.instrumentation.events.synthesis
 from typing import List
 
-from xphi.adapter.llama.base.llms.types import ChatMessage
+from bound.adapter.llama.base.llms.types import ChatMessage
 from xphi.loop.inst.events.base import BaseEvent
-from xphi.adapter.llama.base.response.schema import RESPONSE_TYPE
-from xphi.adapter.llama.schema import QueryType
+from bound.adapter.llama.base.response.schema import RESPONSE_TYPE
+from bound.adapter.llama.schema import QueryType
 
 
 class SynthesizeStartEvent(BaseEvent):

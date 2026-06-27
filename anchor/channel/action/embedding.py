@@ -14,7 +14,7 @@ from anchor.surface.model.types.utils import EmbeddingResponse
 from anchor.surface.model.types.mapping.exception import exception_type
 from anchor.channel.client.wrapper import client
 from anchor.channel.action.preprocessor import EmbeddingPreprocessor
-from bound.bridge.provider.registry import AdapterRegistry
+from bound.adapter.provider.registry import AdapterRegistry
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("action.embedding")

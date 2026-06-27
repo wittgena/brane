@@ -4,15 +4,15 @@
 import inspect
 from typing import Any, TextIO, TYPE_CHECKING
 
-from anchor.switch.dspy.settings import settings
-from anchor.switch.dspy.usage import track_usage
-from bound.xor.exam.example import Example
-from bound.xor.exam.prediction import Prediction
+from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.switch.dsp.usage import track_usage
+from xphi.opt.exam.example import Example
+from xphi.opt.exam.prediction import Prediction
 
 from xphi.scope.module.base import BaseModule
 from xphi.scope.plane.tracker.history import pretty_print_history
 
-from bound.xor.dsp.stream.callback import with_callbacks
+from xphi.opt.dsp.stream.callback import with_callbacks
 
 from xphi.scope.module.runner import ParallelRunner
 
@@ -67,7 +67,7 @@ class Module(BaseModule, metaclass=ProgramMeta):
 
     @with_callbacks
     def __call__(self, *args, **kwargs) -> Prediction:
-        from anchor.switch.dspy.settings import thread_local_overrides
+        from anchor.channel.switch.dsp.settings import thread_local_overrides
 
         caller_modules = settings.caller_modules or []
         caller_modules = list(caller_modules)
@@ -86,7 +86,7 @@ class Module(BaseModule, metaclass=ProgramMeta):
 
     @with_callbacks
     async def acall(self, *args, **kwargs) -> Prediction:
-        from anchor.switch.dspy.settings import thread_local_overrides
+        from anchor.channel.switch.dsp.settings import thread_local_overrides
 
         caller_modules = settings.caller_modules or []
         caller_modules = list(caller_modules)
@@ -104,7 +104,7 @@ class Module(BaseModule, metaclass=ProgramMeta):
             return await self.aforward(*args, **kwargs)
 
     def named_predictors(self):
-        from bound.xor.dsp.opt.predict import Predict
+        from xphi.opt.dsp.opt.predict import Predict
         return [(name, param) for name, param in self.named_parameters() if isinstance(param, Predict)]
 
     def predictors(self):

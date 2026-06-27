@@ -12,7 +12,7 @@ from typing import Any, Dict, List, Optional
 from fsspec import AbstractFileSystem
 
 from xphi.loop.flow.reader.base import BaseReader
-from xphi.adapter.llama.schema import Document
+from bound.adapter.llama.schema import Document
 
 logger = logging.getLogger(__name__)
 

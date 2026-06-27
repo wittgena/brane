@@ -21,8 +21,8 @@ from typing import (
 )
 from typing_extensions import Annotated
 
-from xphi.adapter.llama.async_utils import asyncio_run
-from xphi.adapter.llama.base.llms.types import (
+from bound.adapter.llama.async_utils import asyncio_run
+from bound.adapter.llama.base.llms.types import (
     ChatMessage,
     ChatResponseAsyncGen,
     ChatResponseGen,
@@ -30,7 +30,7 @@ from xphi.adapter.llama.base.llms.types import (
     CompletionResponseGen,
     MessageRole,
 )
-from xphi.adapter.llama.bridge.pydantic import (
+from bound.adapter.llama.bridge.pydantic import (
     BaseModel,
     WithJsonSchema,
     Field,
@@ -39,12 +39,12 @@ from xphi.adapter.llama.bridge.pydantic import (
     ValidationError,
 )
 from xphi.loop.callback import CBEventType, EventPayload
-from xphi.adapter.llama.base.llms.base import BaseLLM
-from xphi.adapter.llama.base.llms.generic_utils import (
+from bound.adapter.llama.base.llms.base import BaseLLM
+from bound.adapter.llama.base.llms.generic_utils import (
     messages_to_prompt as generic_messages_to_prompt,
 )
-from xphi.adapter.llama.prompts import BasePromptTemplate, PromptTemplate
-from xphi.adapter.llama.types import (
+from bound.adapter.llama.prompts import BasePromptTemplate, PromptTemplate
+from bound.adapter.llama.types import (
     BaseOutputParser,
     PydanticProgramMode,
     TokenAsyncGen,
@@ -60,16 +60,16 @@ from xphi.loop.inst.events.llm import (
 )
 
 import xphi.loop.inst as instrument
-from xphi.adapter.llama.base.llms.types import (
+from bound.adapter.llama.base.llms.types import (
     ChatMessage,
 )
 
 dispatcher = instrument.get_dispatcher(__name__)
 
 if TYPE_CHECKING:
-    from xphi.adapter.llama.chat_engine.types import AgentChatResponse
+    from bound.adapter.llama.chat_engine.types import AgentChatResponse
     from xphi.loop.prog.utils import FlexibleModel
-    from xphi.adapter.llama.tools.types import BaseTool
+    from bound.adapter.llama.tools.types import BaseTool
     from xphi.loop.flow.llm.structured_llm import StructuredLLM
 
 
@@ -810,12 +810,12 @@ class LLM(BaseLLM):
         but function calling LLMs will implement this differently.
 
         """
-        from xphi.adapter.llama.agent.workflow import ReActAgent
-        from xphi.adapter.llama.agent.workflow.agent_context import SimpleAgentContext
-        from xphi.adapter.llama.chat_engine.types import AgentChatResponse
-        from xphi.adapter.llama.memory import Memory
-        from xphi.adapter.llama.tools import adapt_to_async_tool
-        from xphi.adapter.llama.tools.calling import call_tool_with_selection
+        from bound.adapter.llama.agent.workflow import ReActAgent
+        from bound.adapter.llama.agent.workflow.agent_context import SimpleAgentContext
+        from bound.adapter.llama.chat_engine.types import AgentChatResponse
+        from bound.adapter.llama.memory import Memory
+        from bound.adapter.llama.tools import adapt_to_async_tool
+        from bound.adapter.llama.tools.calling import call_tool_with_selection
 
         agent = ReActAgent(
             tools=tools,
@@ -881,12 +881,12 @@ class LLM(BaseLLM):
         **kwargs: Any,
     ) -> "AgentChatResponse":
         """Predict and call the tool."""
-        from xphi.adapter.llama.agent.workflow import ReActAgent
-        from xphi.adapter.llama.agent.workflow.agent_context import SimpleAgentContext
-        from xphi.adapter.llama.chat_engine.types import AgentChatResponse
-        from xphi.adapter.llama.memory import Memory
-        from xphi.adapter.llama.tools import adapt_to_async_tool
-        from xphi.adapter.llama.tools.calling import acall_tool_with_selection
+        from bound.adapter.llama.agent.workflow import ReActAgent
+        from bound.adapter.llama.agent.workflow.agent_context import SimpleAgentContext
+        from bound.adapter.llama.chat_engine.types import AgentChatResponse
+        from bound.adapter.llama.memory import Memory
+        from bound.adapter.llama.tools import adapt_to_async_tool
+        from bound.adapter.llama.tools.calling import acall_tool_with_selection
 
         agent = ReActAgent(
             tools=tools,
