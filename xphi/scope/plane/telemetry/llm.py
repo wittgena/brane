@@ -20,7 +20,6 @@ emitter = get_emitter(__name__, phase="llm_generation", boundary="llm_scope")
 
 @dataclass
 class ParsedUsage:
-    """LiteLLM의 파편화된 Usage 객체를 정규화하여 담는 컨테이너"""
     prompt: int = 0
     completion: int = 0
     cache_read: int = 0
@@ -38,12 +37,15 @@ class Telemetry(BaseModel):
     output_cost_per_token: float | None = Field(default=None, ge=0, description="Custom Output cost per token (USD)")
     metrics: Metrics = Field(..., description="Metrics collector instance")
 
+    # exclude=True를 설정하여 Emitter로 전송되는 Payload(model_dump 등)에는 포함되지 않도록 차단합니다.
+    log_enabled: bool = Field(default=False, exclude=True, description="Legacy compatibility field")
+
     ## Runtime fields (not serialized)
     _req_start: float = PrivateAttr(default=0.0)
     _req_ctx: dict[str, Any] = PrivateAttr(default_factory=dict)
     _last_latency: float = PrivateAttr(default=0.0)
 
-    model_config: ClassVar[ConfigDict] = ConfigDict(extra="forbid", arbitrary_types_allowed=True)
+    model_config = ConfigDict(extra="forbid", arbitrary_types_allowed=True)
 
     def on_request(self, telemetry_ctx: dict | None = None) -> None:
         self._req_start = time.time()
