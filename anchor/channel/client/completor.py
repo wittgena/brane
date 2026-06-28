@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Any
 from anchor.channel.client.mcp import Client
-from anchor.surface.mcps.types import PromptReference, ResourceTemplateReference
+from mcp_types import PromptReference, ResourceTemplateReference
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("bridge.completor")

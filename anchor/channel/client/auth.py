@@ -15,7 +15,7 @@ from __future__ import annotations
 import httpx
 from typing import Any, Callable, Awaitable
 
-from anchor.surface.mcps.shared.auth import OAuthClientInformationFull, OAuthClientMetadata, OAuthToken
+from mcp.shared.auth import OAuthClientInformationFull, OAuthClientMetadata, OAuthToken
 from anchor.surface.mcps.client._transport import Transport
 from anchor.surface.mcps.client.sse import sse_client
 from anchor.surface.mcps.client.streamable_http import streamable_http_client

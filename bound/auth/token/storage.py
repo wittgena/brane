@@ -9,7 +9,7 @@ from pydantic import AnyUrl
 
 from anchor.surface.mcps.client.session import ClientSession
 from anchor.surface.mcps.client.streamable_http import streamable_http_client
-from anchor.surface.mcps.shared.auth import OAuthClientInformationFull, OAuthClientMetadata, OAuthToken
+from mcp.shared.auth import OAuthClientInformationFull, OAuthClientMetadata, OAuthToken
 from bound.auth.oauth.provider import OAuthClientProvider, TokenStorage
 
 class InMemoryTokenStorage(TokenStorage):

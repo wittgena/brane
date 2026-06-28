@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from uuid import uuid4
 
 from bound.transport.session.server.http import EventCallback, EventId, EventMessage, EventStore, StreamId
-from anchor.surface.mcps.types import JSONRPCMessage
+from mcp_types import JSONRPCMessage
 
 from watcher.plane.emitter import get_emitter
 

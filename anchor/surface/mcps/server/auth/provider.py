@@ -5,7 +5,7 @@ from typing import Any, Generic, Literal, Protocol, TypeVar
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 from pydantic import AnyUrl, BaseModel
 
-from anchor.surface.mcps.shared.auth import OAuthClientInformationFull, OAuthToken
+from mcp.shared.auth import OAuthClientInformationFull, OAuthToken
 
 class AuthorizationParams(BaseModel):
     state: str | None

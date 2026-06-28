@@ -17,7 +17,7 @@ from urllib.parse import unquote
 from starlette.requests import Request
 
 from anchor.surface.mcps.server.auth.provider import OAuthAuthorizationServerProvider
-from anchor.surface.mcps.shared.auth import OAuthClientInformationFull
+from mcp.shared.auth import OAuthClientInformationFull
 
 
 class AuthenticationError(Exception):

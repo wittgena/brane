@@ -35,19 +35,19 @@ from bound.auth.oauth.utils import (
     should_use_client_metadata_url,
 )
 from anchor.surface.mcps.client.streamable_http import MCP_PROTOCOL_VERSION
-from anchor.surface.mcps.shared.auth import (
+from mcp.shared.auth import (
     OAuthClientInformationFull,
     OAuthClientMetadata,
     OAuthMetadata,
     OAuthToken,
     ProtectedResourceMetadata,
 )
-from anchor.surface.mcps.shared.auth_utils import (
+from mcp.shared.auth_utils import (
     calculate_token_expiry,
     check_resource_allowed,
     resource_url_from_server_url,
 )
-from anchor.surface.mcps.shared.version import is_version_at_least
+from mcp_types.version import is_version_at_least
 
 logger = logging.getLogger(__name__)
 

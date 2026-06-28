@@ -7,9 +7,9 @@ from functools import partial
 from urllib.parse import urlparse
 import anyio
 
-from anchor.surface.mcps.types import ServerRequest, ClientResult, ServerNotification, Implementation
-from anchor.surface.mcps.shared.message import SessionMessage
-from anchor.surface.mcps.shared.session import RequestResponder
+from mcp_types import ServerRequest, ClientResult, ServerNotification, Implementation
+from mcp.shared.message import SessionMessage
+from mcp.shared.session import RequestResponder
 
 from anchor.surface.mcps.client._transport import ReadStream, WriteStream
 from anchor.surface.mcps.client.session import ClientSession

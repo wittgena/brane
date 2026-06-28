@@ -13,12 +13,12 @@ from typing_extensions import TypeVar
 
 from bound.transport.session.connection import Connection
 from bound.transport.session.server.request import ServerSession
-from anchor.surface.mcps.shared.context import BaseContext
-from anchor.surface.mcps.shared.dispatcher import DispatchContext
-from anchor.surface.mcps.shared.message import CloseSSEStreamCallback
-from anchor.surface.mcps.shared.peer import Meta
-from anchor.surface.mcps.shared.transport_context import TransportContext
-from anchor.surface.mcps.types import LoggingLevel, RequestId, RequestParamsMeta
+from mcp.shared.context import BaseContext
+from mcp.shared.dispatcher import DispatchContext
+from mcp.shared.message import CloseSSEStreamCallback
+from mcp.shared.peer import Meta
+from mcp.shared.transport_context import TransportContext
+from mcp_types import LoggingLevel, RequestId, RequestParamsMeta
 
 LifespanContextT = TypeVar("LifespanContextT", default=dict[str, Any])
 RequestT = TypeVar("RequestT", default=Any)

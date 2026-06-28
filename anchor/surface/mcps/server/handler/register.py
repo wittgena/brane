@@ -21,7 +21,7 @@ from anchor.surface.mcps.server.auth.errors import stringify_pydantic_error
 from anchor.surface.mcps.server.auth.json_response import PydanticJSONResponse
 from anchor.surface.mcps.server.auth.provider import OAuthAuthorizationServerProvider, RegistrationError, RegistrationErrorCode
 from anchor.surface.mcps.server.auth.settings import ClientRegistrationOptions
-from anchor.surface.mcps.shared.auth import OAuthClientInformationFull, OAuthClientMetadata
+from mcp.shared.auth import OAuthClientInformationFull, OAuthClientMetadata
 
 # this alias is a no-op; it's just to separate out the types exposed to the
 # provider from what we use in the HTTP handler

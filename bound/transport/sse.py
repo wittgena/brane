@@ -57,14 +57,14 @@ from starlette.requests import Request
 from starlette.responses import Response
 from starlette.types import Receive, Scope, Send
 
-from anchor.surface.mcps.types import jsonrpc_message_adapter
+from mcp_types import jsonrpc_message_adapter
 from anchor.surface.mcps.server.middleware.bearer_auth import AuthenticatedUser, AuthorizationContext, authorization_context
 from anchor.surface.mcps.server.middleware.transport_security import (
     TransportSecurityMiddleware,
     TransportSecuritySettings,
 )
-from anchor.surface.mcps.shared._context_streams import ContextSendStream, create_context_streams
-from anchor.surface.mcps.shared.message import ServerMessageMetadata, SessionMessage
+from mcp.shared._context_streams import ContextSendStream, create_context_streams
+from mcp.shared.message import ServerMessageMetadata, SessionMessage
 
 logger = logging.getLogger(__name__)
 

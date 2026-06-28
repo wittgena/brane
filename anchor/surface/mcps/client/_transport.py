@@ -4,8 +4,8 @@
 from __future__ import annotations
 from contextlib import AbstractAsyncContextManager
 from typing import Protocol
-from anchor.surface.mcps.shared._stream_protocols import ReadStream, WriteStream
-from anchor.surface.mcps.shared.message import SessionMessage
+from mcp.shared._stream_protocols import ReadStream, WriteStream
+from mcp.shared.message import SessionMessage
 
 __all__ = ["ReadStream", "WriteStream", "Transport", "TransportStreams"]
 

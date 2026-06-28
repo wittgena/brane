@@ -19,7 +19,7 @@ from copy import deepcopy
 import json
 
 from anchor.channel.switch.params import ResponsesAPIResponse, ModelResponse
-from anchor.surface.mcps.types import EmbeddedResource, ImageContent, TextContent
+from mcp_types import EmbeddedResource, ImageContent, TextContent
 from anchor.surface.model.types.utils import Choices
 from anchor.surface.model.token.convert import convert_list_message_to_dict
 from anchor.surface.model.types.response import GenericResponseOutputItem, OutputText

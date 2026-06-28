@@ -18,11 +18,11 @@ from starlette.responses import Response
 from starlette.types import Receive, Scope, Send
 
 from anchor.surface.mcps.server.middleware.transport_security import TransportSecurityMiddleware, TransportSecuritySettings
-from anchor.surface.mcps.shared._context_streams import ContextReceiveStream, ContextSendStream, create_context_streams
-from anchor.surface.mcps.shared._stream_protocols import ReadStream, WriteStream
-from anchor.surface.mcps.shared.message import ServerMessageMetadata, SessionMessage
-from anchor.surface.mcps.shared.version import SUPPORTED_PROTOCOL_VERSIONS, is_version_at_least
-from anchor.surface.mcps.types import (
+from mcp.shared._context_streams import ContextReceiveStream, ContextSendStream, create_context_streams
+from mcp.shared._stream_protocols import ReadStream, WriteStream
+from mcp.shared.message import ServerMessageMetadata, SessionMessage
+from mcp_types.version import SUPPORTED_PROTOCOL_VERSIONS, is_version_at_least
+from mcp_types import (
     DEFAULT_NEGOTIATED_VERSION,
     INTERNAL_ERROR,
     INVALID_PARAMS,

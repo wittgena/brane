@@ -1,8 +1,5 @@
-# anchor.channel.switch.compat
-## @lineage: anchor.switch.compat
-## @lineage: anchor.router.switch.compat
-## @lineage: channel.switch.compat
-## @lineage: channel.switch
+# anchor.channel.compat.check
+## @lineage: anchor.channel.switch.compat
 from typing import Any, List, Optional, Protocol, runtime_checkable
 
 @runtime_checkable

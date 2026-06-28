@@ -56,7 +56,7 @@ from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.routing import Mount, Route
 from typing_extensions import TypeVar
 
-from anchor.surface.mcps.types import (
+from mcp_types import (
     CallToolRequestParams,
     CallToolResult,
     CompleteRequestParams,
@@ -80,7 +80,7 @@ from anchor.surface.mcps.types import (
     UnsubscribeRequestParams,
 )
 
-from anchor.surface.mcps.types import (
+from mcp_types import (
     ServerCapabilities,
     LoggingCapability,
     CompletionsCapability,
@@ -99,10 +99,10 @@ from bound.transport.session.runner import ServerRunner, otel_middleware, Initia
 from bound.transport.session.server.http import EventStore
 from bound.transport.session.server.manager import StreamableHTTPASGIApp, StreamableHTTPSessionManager
 from anchor.surface.mcps.server.middleware.transport_security import TransportSecuritySettings
-from anchor.surface.mcps.shared._stream_protocols import ReadStream, WriteStream
-from anchor.surface.mcps.shared.jsonrpc_dispatcher import JSONRPCDispatcher
-from anchor.surface.mcps.shared.message import SessionMessage
-from anchor.surface.mcps.shared.transport_context import TransportContext
+from mcp.shared._stream_protocols import ReadStream, WriteStream
+from mcp.shared.jsonrpc_dispatcher import JSONRPCDispatcher
+from mcp.shared.message import SessionMessage
+from mcp.shared.transport_context import TransportContext
 
 logger = logging.getLogger(__name__)
 LifespanResultT = TypeVar("LifespanResultT", default=Any)

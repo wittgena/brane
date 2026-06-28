@@ -18,7 +18,7 @@ from anchor.surface.mcps.server.auth.provider import (
     RefreshToken,
     construct_redirect_uri,
 )
-from anchor.surface.mcps.shared.auth import OAuthClientInformationFull, OAuthToken
+from mcp.shared.auth import OAuthClientInformationFull, OAuthToken
 from xphi.server.setting import SimpleAuthSettings
 
 class SimpleOAuthProvider(OAuthAuthorizationServerProvider[AuthorizationCode, RefreshToken, AccessToken]):

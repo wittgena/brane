@@ -14,7 +14,7 @@ from starlette.responses import Response
 from starlette.routing import Route, request_response  # type: ignore
 from starlette.types import ASGIApp
 
-from anchor.surface.mcps.shared.auth import OAuthMetadata, ProtectedResourceMetadata
+from mcp.shared.auth import OAuthMetadata, ProtectedResourceMetadata
 from bound.transport.session.server.http import MCP_PROTOCOL_VERSION_HEADER
 
 from anchor.surface.mcps.server.handler.authorize import AuthorizationHandler

@@ -1,9 +1,4 @@
 # xphi.opt.dsp.stream.streamify
-## @lineage: bound.xor.dsp.stream.streamify
-## @lineage: xor.dsp.stream.streamify
-## @lineage: bound.channel.bridge.dsp.stream.streamify
-## @lineage: channel.bridge.dsp.stream.streamify
-## @lineage: gov.gateway.call.stream.streamify
 import asyncio
 import contextvars
 import logging
@@ -15,7 +10,7 @@ import orjson
 
 from anyio import create_memory_object_stream, create_task_group
 from anyio.streams.memory import MemoryObjectSendStream
-from anchor.channel.switch.compat import is_model_response_stream
+from anchor.channel.compat.check import is_model_response_stream
 from anchor.channel.switch.dsp.settings import settings
 from xphi.opt.exam.prediction import Prediction
 

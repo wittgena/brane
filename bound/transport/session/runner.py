@@ -21,14 +21,14 @@ from pydantic import BaseModel
 from bound.transport.session.connection import Connection
 from bound.transport.session.context import CallNext, HandlerResult, ServerMiddleware, ServerRequestContext
 from bound.transport.session.server.request import ServerSession
-from anchor.surface.mcps.shared._otel import extract_trace_context, otel_span
-from anchor.surface.mcps.shared.dispatcher import DispatchContext, DispatchMiddleware, OnRequest
-from anchor.surface.mcps.shared.exceptions import MCPError
-from anchor.surface.mcps.shared.jsonrpc_dispatcher import JSONRPCDispatcher
-from anchor.surface.mcps.shared.message import ServerMessageMetadata
-from anchor.surface.mcps.shared.transport_context import TransportContext
-from anchor.surface.mcps.shared.version import SUPPORTED_PROTOCOL_VERSIONS
-from anchor.surface.mcps.types import (
+from mcp.shared._otel import extract_trace_context, otel_span
+from mcp.shared.dispatcher import DispatchContext, DispatchMiddleware, OnRequest
+from mcp.shared.exceptions import MCPError
+from mcp.shared.jsonrpc_dispatcher import JSONRPCDispatcher
+from mcp.shared.message import ServerMessageMetadata
+from mcp.shared.transport_context import TransportContext
+from mcp_types.version import SUPPORTED_PROTOCOL_VERSIONS
+from mcp_types import (
     Icon, 
     ServerCapabilities,
     INTERNAL_ERROR,
@@ -42,7 +42,7 @@ from anchor.surface.mcps.types import (
     RequestParams,
     RequestParamsMeta,
 )
-from anchor.surface.mcps.types import methods as _methods
+from mcp_types import methods as _methods
 
 if TYPE_CHECKING:
     from anchor.surface.mcps.server.lowlevel.server import Server

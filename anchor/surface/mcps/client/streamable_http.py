@@ -21,11 +21,11 @@ from httpx_sse import EventSource, ServerSentEvent, aconnect_sse
 from pydantic import ValidationError
 
 from anchor.surface.mcps.client._transport import TransportStreams
-from anchor.surface.mcps.shared._compat import resync_tracer
-from anchor.surface.mcps.shared._context_streams import ContextReceiveStream, ContextSendStream, create_context_streams
-from anchor.surface.mcps.shared._httpx_utils import create_mcp_http_client
-from anchor.surface.mcps.shared.message import ClientMessageMetadata, SessionMessage
-from anchor.surface.mcps.types import (
+from mcp.shared._compat import resync_tracer
+from mcp.shared._context_streams import ContextReceiveStream, ContextSendStream, create_context_streams
+from mcp.shared._httpx_utils import create_mcp_http_client
+from mcp.shared.message import ClientMessageMetadata, SessionMessage
+from mcp_types import (
     INTERNAL_ERROR,
     INVALID_REQUEST,
     PARSE_ERROR,

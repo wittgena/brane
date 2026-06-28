@@ -1,16 +1,11 @@
 # xphi.opt.dsp.stream.listener
-## @lineage: bound.xor.dsp.stream.listener
-## @lineage: xor.dsp.stream.listener
-## @lineage: bound.channel.bridge.dsp.stream.listener
-## @lineage: channel.bridge.dsp.stream.listener
-## @lineage: gov.gateway.call.stream.listener
 import inspect
 import re
 from collections import defaultdict
 from queue import Queue
 from typing import TYPE_CHECKING, Any
 import jiter
-from anchor.channel.switch.compat import extract_stream_content
+from anchor.channel.compat.check import extract_stream_content
 from xphi.opt.chat import ChatAdapter
 from xphi.opt.json import JSONAdapter
 from xphi.opt.xml import XMLAdapter

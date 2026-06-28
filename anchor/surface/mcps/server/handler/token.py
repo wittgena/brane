@@ -20,7 +20,7 @@ from anchor.surface.mcps.server.auth.errors import stringify_pydantic_error
 from anchor.surface.mcps.server.auth.json_response import PydanticJSONResponse
 from anchor.surface.mcps.server.middleware.client_auth import AuthenticationError, ClientAuthenticator
 from anchor.surface.mcps.server.auth.provider import OAuthAuthorizationServerProvider, TokenError, TokenErrorCode
-from anchor.surface.mcps.shared.auth import OAuthToken
+from mcp.shared.auth import OAuthToken
 
 
 class AuthorizationCodeRequest(BaseModel):

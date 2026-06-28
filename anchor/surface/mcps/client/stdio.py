@@ -32,17 +32,17 @@ from anyio.abc import AsyncResource, Process
 from anyio.streams.text import TextReceiveStream
 from pydantic import BaseModel, Field
 
-from anchor.surface.mcps.types import jsonrpc_message_adapter
+from mcp_types import jsonrpc_message_adapter
 from anchor.surface.mcps.client._transport import TransportStreams
-from anchor.surface.mcps.shared.os.posix.utilities import terminate_posix_process_tree
-from anchor.surface.mcps.shared.os.win32.utilities import (
+from mcp.os.posix.utilities import terminate_posix_process_tree
+from mcp.os.win32.utilities import (
     ServerProcess,
     close_process_job,
     create_windows_process,
     get_windows_executable_command,
     terminate_windows_process_tree,
 )
-from anchor.surface.mcps.shared.message import SessionMessage
+from mcp.shared.message import SessionMessage
 
 logger = logging.getLogger(__name__)
 

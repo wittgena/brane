@@ -30,8 +30,8 @@ from bound.transport.session.server.http import (
     StreamableHTTPServerTransport,
 )
 from anchor.surface.mcps.server.middleware.transport_security import TransportSecuritySettings
-from anchor.surface.mcps.shared._compat import resync_tracer
-from anchor.surface.mcps.types import INVALID_REQUEST, ErrorData, JSONRPCError
+from mcp.shared._compat import resync_tracer
+from mcp_types import INVALID_REQUEST, ErrorData, JSONRPCError
 
 if TYPE_CHECKING:
     from anchor.surface.mcps.server.lowlevel.server import Server

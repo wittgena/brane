@@ -8,9 +8,9 @@ import anyio.lowlevel
 from contextlib import asynccontextmanager
 from io import TextIOWrapper
 
-from anchor.surface.mcps.types import jsonrpc_message_adapter
-from anchor.surface.mcps.shared._context_streams import create_context_streams
-from anchor.surface.mcps.shared.message import SessionMessage
+from mcp_types import jsonrpc_message_adapter
+from mcp.shared._context_streams import create_context_streams
+from mcp.shared.message import SessionMessage
 from anchor.surface.mcps.server.lowlevel.server import Server
 
 from watcher.plane.emitter import get_emitter

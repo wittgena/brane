@@ -28,7 +28,7 @@ import httpx
 from pydantic import BaseModel, Field
 from typing_extensions import Self
 
-from anchor.surface.mcps.types import (
+from mcp_types import (
     CallToolResult,
     Implementation,
     INVALID_PARAMS,
@@ -42,9 +42,9 @@ from anchor.surface.mcps.client.sse import sse_client
 from anchor.surface.mcps.client.stdio import stdio_client
 from anchor.surface.mcps.client.stdio import StdioServerParameters
 from anchor.surface.mcps.client.streamable_http import streamable_http_client
-from anchor.surface.mcps.shared._httpx_utils import create_mcp_http_client
-from anchor.surface.mcps.shared.exceptions import MCPError
-from anchor.surface.mcps.shared.session import ProgressFnT
+from mcp.shared._httpx_utils import create_mcp_http_client
+from mcp.shared.exceptions import MCPError
+from mcp.shared.session import ProgressFnT
 
 
 class SseServerParameters(BaseModel):

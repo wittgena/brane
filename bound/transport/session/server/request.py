@@ -21,7 +21,7 @@ used to live here are now owned by `JSONRPCDispatcher` and `ServerRunner`.
 from typing import Any, TypeVar, overload
 from pydantic import AnyUrl, BaseModel
 
-from anchor.surface.mcps.types import (
+from mcp_types import (
     methods as _methods,
     ClientCapabilities,
     CreateMessageRequest, 
@@ -70,10 +70,10 @@ from anchor.surface.mcps.types import (
 
 from bound.transport.session.connection import Connection
 from bound.transport.dispatcher.validator.tool import validate_sampling_tools, validate_tool_use_result_messages
-from anchor.surface.mcps.shared.dispatcher import CallOptions, ProgressFnT
-from anchor.surface.mcps.shared.exceptions import NoBackChannelError, StatelessModeNotSupported
-from anchor.surface.mcps.shared.jsonrpc_dispatcher import JSONRPCDispatcher
-from anchor.surface.mcps.shared.message import ServerMessageMetadata
+from mcp.shared.dispatcher import CallOptions, ProgressFnT
+from mcp.shared.exceptions import NoBackChannelError
+from mcp.shared.jsonrpc_dispatcher import JSONRPCDispatcher
+from mcp.shared.message import ServerMessageMetadata
 
 __all__ = ["ServerSession"]
 
@@ -276,10 +276,7 @@ class ServerSession:
         Raises:
             MCPError: If tools are provided but client doesn't support them.
             ValueError: If tool_use or tool_result message structure is invalid.
-            StatelessModeNotSupported: If called in stateless HTTP mode.
         """
-        if self._stateless:
-            raise StatelessModeNotSupported(method="sampling")
         client_caps = self.client_params.capabilities if self.client_params else None
         validate_sampling_tools(client_caps, tools, tool_choice)
         validate_tool_use_result_messages(messages)
@@ -314,8 +311,6 @@ class ServerSession:
 
     async def list_roots(self) -> ListRootsResult:
         """Send a roots/list request."""
-        if self._stateless:
-            raise StatelessModeNotSupported(method="list_roots")
         return await self.send_request(
             ListRootsRequest(),
             ListRootsResult,
@@ -358,12 +353,7 @@ class ServerSession:
 
         Returns:
             The client's response with form data.
-
-        Raises:
-            StatelessModeNotSupported: If called in stateless HTTP mode.
         """
-        if self._stateless:
-            raise StatelessModeNotSupported(method="elicitation")
         return await self.send_request(
             ElicitRequest(
                 params=ElicitRequestFormParams(
@@ -395,12 +385,7 @@ class ServerSession:
 
         Returns:
             The client's response indicating acceptance, decline, or cancellation.
-
-        Raises:
-            StatelessModeNotSupported: If called in stateless HTTP mode.
         """
-        if self._stateless:
-            raise StatelessModeNotSupported(method="elicitation")
         return await self.send_request(
             ElicitRequest(
                 params=ElicitRequestURLParams(

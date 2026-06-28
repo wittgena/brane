@@ -11,11 +11,11 @@ import httpx
 from anyio.abc import TaskStatus
 from httpx_sse import SSEError, aconnect_sse
 
-from anchor.surface.mcps.types import jsonrpc_message_adapter
-from anchor.surface.mcps.shared._compat import resync_tracer
-from anchor.surface.mcps.shared._context_streams import create_context_streams
-from anchor.surface.mcps.shared._httpx_utils import McpHttpClientFactory, create_mcp_http_client
-from anchor.surface.mcps.shared.message import SessionMessage
+from mcp_types import jsonrpc_message_adapter
+from mcp.shared._compat import resync_tracer
+from mcp.shared._context_streams import create_context_streams
+from mcp.shared._httpx_utils import McpHttpClientFactory, create_mcp_http_client
+from mcp.shared.message import SessionMessage
 
 logger = logging.getLogger(__name__)
 

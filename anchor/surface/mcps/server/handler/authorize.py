@@ -26,7 +26,7 @@ from anchor.surface.mcps.server.auth.provider import (
     OAuthAuthorizationServerProvider,
     construct_redirect_uri,
 )
-from anchor.surface.mcps.shared.auth import InvalidRedirectUriError, InvalidScopeError
+from mcp.shared.auth import InvalidRedirectUriError, InvalidScopeError
 
 logger = logging.getLogger(__name__)
 

@@ -3,8 +3,8 @@
 ## @lineage: xphi.server.validation
 ## @lineage: bound.server.validation
 ## @lineage: bound.adapter.mcps.stdio.validation
-from anchor.surface.mcps.shared.exceptions import MCPError
-from anchor.surface.mcps.types import INVALID_PARAMS, ClientCapabilities, SamplingMessage, Tool, ToolChoice
+from mcp.shared.exceptions import MCPError
+from mcp_types import INVALID_PARAMS, ClientCapabilities, SamplingMessage, Tool, ToolChoice
 
 def check_sampling_tools_capability(client_caps: ClientCapabilities | None) -> bool:
     if client_caps is None:

@@ -12,7 +12,7 @@ from pydantic import BaseModel, Field
 
 from bound.auth.oauth.provider import OAuthClientProvider, TokenStorage
 from bound.auth.exceptions import OAuthFlowError, OAuthTokenError
-from anchor.surface.mcps.shared.auth import OAuthClientInformationFull, OAuthClientMetadata
+from mcp.shared.auth import OAuthClientInformationFull, OAuthClientMetadata
 
 class ClientCredentialsOAuthProvider(OAuthClientProvider):
     """OAuth provider for client_credentials grant with client_id + client_secret.

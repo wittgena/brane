@@ -18,10 +18,10 @@ from pydantic.json_schema import GenerateJsonSchema, JsonSchemaValue
 from pydantic_core import core_schema
 
 from bound.transport.session.server.request import ServerSession
-from anchor.surface.mcps.types import RequestId
+from mcp_types import RequestId
 
 # Internal surface package; imported as the gate's source of truth for spec-valid property schemas.
-from anchor.surface.mcps.types.v2025_11_25 import PrimitiveSchemaDefinition
+from mcp_types.v2025_11_25 import PrimitiveSchemaDefinition
 
 ElicitSchemaModelT = TypeVar("ElicitSchemaModelT", bound=BaseModel)
 

@@ -13,7 +13,7 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 from anchor.surface.mcps.server.auth.json_response import PydanticJSONResponse
-from anchor.surface.mcps.shared.auth import OAuthMetadata, ProtectedResourceMetadata
+from mcp.shared.auth import OAuthMetadata, ProtectedResourceMetadata
 
 
 @dataclass

@@ -10,8 +10,8 @@ from anchor.surface.mcps.client._transport import Transport
 from anchor.surface.mcps.client.session import ClientSession, ElicitationFnT, ListRootsFnT, LoggingFnT, MessageHandlerFnT, SamplingFnT
 from anchor.surface.mcps.client.streamable_http import streamable_http_client
 
-from anchor.surface.mcps.shared.dispatcher import ProgressFnT
-from anchor.surface.mcps.types import (
+from mcp.shared.dispatcher import ProgressFnT
+from mcp_types import (
     CallToolResult,
     CompleteResult,
     EmptyResult,

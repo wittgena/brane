@@ -1,6 +1,6 @@
 # bound.agent.mcp.log.callback
 ## @lineage: xphi.agent.mcp.log.callback
-from anchor.surface.mcps.types import LoggingMessageNotificationParams
+from mcp_types import LoggingMessageNotificationParams
 from arch.proto.event.next import LogEvent
 from watcher.plane.emitter import get_emitter
 

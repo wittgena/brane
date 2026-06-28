@@ -31,10 +31,10 @@ from typing import Any, TypeVar, overload
 import anyio
 from pydantic import BaseModel
 
-from anchor.surface.mcps.shared.dispatcher import CallOptions, Outbound
-from anchor.surface.mcps.shared.exceptions import NoBackChannelError
-from anchor.surface.mcps.shared.peer import Meta, dump_params
-from anchor.surface.mcps.types import (
+from mcp.shared.dispatcher import CallOptions, Outbound
+from mcp.shared.exceptions import NoBackChannelError
+from mcp.shared.peer import Meta, dump_params
+from mcp_types import (
     ClientCapabilities,
     CreateMessageRequest,
     CreateMessageResult,
@@ -48,7 +48,7 @@ from anchor.surface.mcps.types import (
     PingRequest,
     Request,
 )
-from anchor.surface.mcps.types import methods as _methods
+from mcp_types import methods as _methods
 
 __all__ = ["Connection"]
 

@@ -6,7 +6,7 @@
 ## @lineage: anchor.mcp.server.handle.content
 from urllib.parse import urlparse
 
-from anchor.surface.mcps.types import (
+from mcp_types import (
     PaginatedRequestParams,
     ListResourcesResult,
     ListPromptsResult,

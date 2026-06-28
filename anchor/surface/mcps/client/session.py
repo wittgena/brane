@@ -14,9 +14,9 @@ import anyio.lowlevel
 from pydantic import BaseModel, TypeAdapter, ValidationError
 from typing_extensions import Self, TypeVar
 
-from anchor.surface.mcps.types import INTERNAL_ERROR, METHOD_NOT_FOUND, RequestId, RequestParamsMeta, INVALID_REQUEST, LATEST_PROTOCOL_VERSION
-from anchor.surface.mcps.types import methods as _methods
-from anchor.surface.mcps.types import (
+from mcp_types import INTERNAL_ERROR, METHOD_NOT_FOUND, RequestId, RequestParamsMeta, INVALID_REQUEST, LATEST_PROTOCOL_VERSION
+from mcp_types import methods as _methods
+from mcp_types import (
     CallToolRequest,
     CallToolRequestParams,
     CallToolResult,
@@ -88,7 +88,7 @@ from anchor.surface.mcps.types import (
     CompleteRequestParams,
     CompletionArgument,
 )
-from anchor.surface.mcps.types import (
+from mcp_types import (
     ClientCapabilities,
     ElicitationCapability,
     FormElicitationCapability,
@@ -98,14 +98,14 @@ from anchor.surface.mcps.types import (
 )
 
 from anchor.surface.mcps.client._transport import ReadStream, WriteStream
-from anchor.surface.mcps.shared._compat import resync_tracer
-from anchor.surface.mcps.shared.dispatcher import CallOptions, DispatchContext, Dispatcher, ProgressFnT
-from anchor.surface.mcps.shared.exceptions import MCPError
-from anchor.surface.mcps.shared.jsonrpc_dispatcher import JSONRPCDispatcher
-from anchor.surface.mcps.shared.message import ClientMessageMetadata, SessionMessage
-from anchor.surface.mcps.shared.session import RequestResponder
-from anchor.surface.mcps.shared.transport_context import TransportContext
-from anchor.surface.mcps.shared.version import SUPPORTED_PROTOCOL_VERSIONS
+from mcp.shared._compat import resync_tracer
+from mcp.shared.dispatcher import CallOptions, DispatchContext, Dispatcher, ProgressFnT
+from mcp.shared.exceptions import MCPError
+from mcp.shared.jsonrpc_dispatcher import JSONRPCDispatcher
+from mcp.shared.message import ClientMessageMetadata, SessionMessage
+from mcp.shared.session import RequestResponder
+from mcp.shared.transport_context import TransportContext
+from mcp_types.version import SUPPORTED_PROTOCOL_VERSIONS
 
 DEFAULT_CLIENT_INFO = Implementation(name="mcp", version="0.1.0")
 

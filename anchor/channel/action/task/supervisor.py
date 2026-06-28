@@ -17,7 +17,7 @@ from typing import Any, Callable, Awaitable
 import anyio
 
 from anchor.channel.client.mcp import Client
-from anchor.surface.mcps.types import CallToolResult
+from mcp_types import CallToolResult
 
 from watcher.plane.emitter import get_emitter
 

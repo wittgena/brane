@@ -6,7 +6,7 @@ import logging
 from typing import Any
 
 from anchor.surface.mcps.server.auth.provider import AccessToken, TokenVerifier
-from anchor.surface.mcps.shared.auth_utils import check_resource_allowed, resource_url_from_server_url
+from mcp.shared.auth_utils import check_resource_allowed, resource_url_from_server_url
 
 logger = logging.getLogger(__name__)
 

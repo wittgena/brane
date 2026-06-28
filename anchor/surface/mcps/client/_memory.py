@@ -13,7 +13,7 @@ from types import TracebackType
 from typing import Any, Protocol
 
 from anchor.surface.mcps.client._transport import TransportStreams
-from anchor.surface.mcps.shared.memory import create_client_server_memory_streams
+from mcp.shared.memory import create_client_server_memory_streams
 
 SERVER_SHUTDOWN_GRACE = 2.0
 """Seconds to wait for the in-process server to exit on EOF before cancelling."""

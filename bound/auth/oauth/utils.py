@@ -8,14 +8,14 @@ from httpx import Request, Response
 from pydantic import AnyUrl, ValidationError
 
 from anchor.surface.mcps.client.streamable_http import MCP_PROTOCOL_VERSION
-from anchor.surface.mcps.shared.auth import (
+from mcp.shared.auth import (
     OAuthClientInformationFull,
     OAuthClientMetadata,
     OAuthMetadata,
     OAuthToken,
     ProtectedResourceMetadata,
 )
-from anchor.surface.mcps.types import LATEST_PROTOCOL_VERSION
+from mcp_types import LATEST_PROTOCOL_VERSION
 from bound.auth.exceptions import OAuthRegistrationError, OAuthTokenError
 
 
