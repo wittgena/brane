@@ -13,7 +13,7 @@ import random
 from collections import defaultdict
 from typing import Any
 import numpy as np
-from xphi.opt.chat import FieldInfoWithName, field_header_pattern
+from xphi.xor.opt.chat import FieldInfoWithName, field_header_pattern
 from anchor.provider.llm.base import BaseLM
 from arch.topos.bind.block.residue import dotdict
 from arch.xor.manifold.sign.field import OutputField
@@ -35,7 +35,7 @@ class DummyLM(BaseLM):
 
         # Set adapter, defaulting to ChatAdapter
         if adapter is None:
-            from xphi.opt.chat import ChatAdapter
+            from xphi.xor.opt.chat import ChatAdapter
             adapter = ChatAdapter()
         self.adapter = adapter
 

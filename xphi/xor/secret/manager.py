@@ -11,8 +11,8 @@ import traceback
 import httpx
 from typing import Optional, Union, Dict, Tuple
 
-from anchor.channel.client.http import HTTPHandler
-from anchor.channel.config.resolver import config
+from bound.channel.client.http import HTTPHandler
+from bound.channel.config.resolver import config
 from xphi.xor.secret.handler.client import get_secret_from_vendor
 
 from watcher.plane.emitter import get_emitter

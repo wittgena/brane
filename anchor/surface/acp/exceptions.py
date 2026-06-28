@@ -1,6 +1,6 @@
-# anchor.surface.acps.exceptions
+# anchor.surface.acp.exceptions
+## @lineage: anchor.surface.acps.exceptions
 ## @lineage: anchor.spec.acp.bound.surface.exceptions
-## @lineage: anchor.surface.acp.exceptions
 ## @lineage: acps.exceptions
 from __future__ import annotations
 

@@ -18,8 +18,8 @@ from typing import (
 )
 import tiktoken
 
-from anchor.channel.config.resolver import config
-from anchor.channel.config.constants import (
+from bound.channel.config.resolver import config
+from bound.channel.config.constants import (
     DEFAULT_IMAGE_HEIGHT,
     DEFAULT_IMAGE_TOKEN_COUNT,
     DEFAULT_IMAGE_WIDTH,
@@ -41,8 +41,8 @@ from anchor.surface.model.openai.types import (
     OpenAIMessageContent,
 )
 from anchor.surface.model.types import SelectTokenizerResponse
-from anchor.channel.compat.switch.params import Message
-from anchor.channel.client.http import _get_httpx_client
+from bound.channel.compat.switch.params import Message
+from bound.channel.client.http import _get_httpx_client
 from watcher.plane.emitter import get_emitter
 
 # [NEW] 이전 단계에서 제안된 클래스 기반 안전한 HTTP 클라이언트 사용

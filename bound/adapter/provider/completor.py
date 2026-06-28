@@ -7,11 +7,11 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, Optional, Tuple, Union
 import httpx
 
-from anchor.channel.config.base import BaseConfig
-from anchor.channel.compat.switch.params import ModelResponse
-from anchor.channel.config.resolver import config
+from bound.channel.config.base import BaseConfig
+from bound.channel.compat.switch.params import ModelResponse
+from bound.channel.config.resolver import config
 
-from anchor.channel.client.http import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
+from bound.channel.client.http import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from anchor.provider.manager import ProviderConfigManager
 from anchor.provider.types import ProviderTypes
@@ -276,7 +276,7 @@ class CompletionHandler:
             error_text = getattr(error_response, "text", error_text)
 
         if provider_config is None:
-            from anchor.channel.config.base import BaseLLMException
+            from bound.channel.config.base import BaseLLMException
             log.error(f"[ErrorHandler] Provider config 없음. BaseLLMException 발생: {error_text}")
             raise BaseLLMException(status_code=status_code, message=error_text, headers=error_headers)
 

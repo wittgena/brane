@@ -5,7 +5,7 @@
 ## @lineage: meta.watcher.scope.surface.dphi
 from contextlib import ExitStack
 
-from anchor.channel.compat.switch.dsp.settings import settings
+from bound.channel.compat.switch.dsp.settings import settings
 from anchor.provider.llm.local import LocalLM
 from xphi.scope.surface.config import BaseSurface, SurfaceConfig
 from xphi.scope.thch import thch_scope

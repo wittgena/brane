@@ -5,8 +5,8 @@ import datetime
 import uuid
 from typing import Any, TextIO
 
-from anchor.channel.compat.switch.dsp.settings import settings
-from xphi.opt.dsp.stream.callback import with_callbacks
+from bound.channel.compat.switch.dsp.settings import settings
+from xphi.reflect.dsp.handler.stream.callback import with_callbacks
 from xphi.scope.plane.tracker.history import pretty_print_history
 
 MAX_HISTORY_SIZE = 10_000

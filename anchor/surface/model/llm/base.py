@@ -8,7 +8,7 @@ from openai._models import BaseModel as OpenAIObject
 from pydantic import BaseModel, ConfigDict
 import httpx
 
-from anchor.channel.config.resolver import config
+from bound.channel.config.resolver import config
 if TYPE_CHECKING:
     from bound.transport.stream.wrapper import CustomStreamWrapper
     from anchor.surface.model.types import ModelResponse, TextCompletionResponse

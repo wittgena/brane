@@ -35,18 +35,18 @@ from openai.types.file_deleted import FileDeleted
 from pydantic import BaseModel
 from typing_extensions import overload
 
-from anchor.channel.config.resolver import config
-from anchor.channel.config.constants import DEFAULT_MAX_RETRIES
-from anchor.channel.client.response.iterator import BaseModelResponseIterator
-from anchor.channel.config.base import BaseConfig
+from bound.channel.config.resolver import config
+from bound.channel.config.constants import DEFAULT_MAX_RETRIES
+from bound.channel.client.response.iterator import BaseModelResponseIterator
+from bound.channel.config.base import BaseConfig
 from anchor.surface.exception import BaseLLMException
-from anchor.channel.compat.switch.params import ModelResponse, ModelResponseStream
+from bound.channel.compat.switch.params import ModelResponse, ModelResponseStream
 from anchor.provider.types import ProviderTypes
 from anchor.surface.model.types import EmbeddingResponse, ImageResponse, LiteLLMBatch
 from anchor.surface.model.openai.types import *
 
 from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObj
-from anchor.channel.client.response.converter import convert_to_model_response_object
+from bound.channel.client.response.converter import convert_to_model_response_object
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from anchor.surface.model.llm.base import BaseLLM
 from anchor.surface.model.openai.base import (

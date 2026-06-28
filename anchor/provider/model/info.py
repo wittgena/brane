@@ -3,9 +3,9 @@
 from typing import Optional
 from functools import lru_cache, wraps
 
-from anchor.channel.client.action.param.format import BaseLLMModelInfo, type_to_response_format_param
-from anchor.channel.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
-from anchor.channel.config.resolver import config
+from bound.channel.client.action.param.format import BaseLLMModelInfo, type_to_response_format_param
+from bound.channel.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
+from bound.channel.config.resolver import config
 
 from anchor.provider.manager import get_provider_info
 from anchor.surface.model.types import ModelInfo

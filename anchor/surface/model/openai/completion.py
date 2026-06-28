@@ -17,15 +17,15 @@ import openai
 from openai import AsyncOpenAI, OpenAI
 from pydantic import BaseModel
 
-from anchor.channel.config.base import BaseConfig
+from bound.channel.config.base import BaseConfig
 from anchor.surface.exception import BaseLLMException
-from anchor.channel.config.resolver import config
-from anchor.channel.config.constants import DEFAULT_MAX_RETRIES
-from anchor.channel.compat.switch.params import ModelResponse, ModelResponseStream
+from bound.channel.config.resolver import config
+from bound.channel.config.constants import DEFAULT_MAX_RETRIES
+from bound.channel.compat.switch.params import ModelResponse, ModelResponseStream
 
 from anchor.provider.types import ProviderTypes
 from anchor.surface.model.types import EmbeddingResponse
-from anchor.channel.client.response.converter import convert_to_model_response_object
+from bound.channel.client.response.converter import convert_to_model_response_object
 from anchor.provider.manager import ProviderConfigManager
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from anchor.surface.model.llm.base import BaseLLM

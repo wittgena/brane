@@ -12,7 +12,7 @@ from anchor.surface.model.openai.types import (
     MCPCallFailedEvent,
     MCPCallInProgressEvent,
 )
-from anchor.channel.compat.switch.params import ResponsesAPIStreamingResponse
+from bound.channel.compat.switch.params import ResponsesAPIStreamingResponse
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
 

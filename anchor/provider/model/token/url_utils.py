@@ -7,7 +7,7 @@ from typing import Any, List, Set, Tuple
 from urllib.parse import urlparse, urlunparse
 import httpx
 
-from anchor.channel.config.resolver import config
+from bound.channel.config.resolver import config
 
 class SSRFError(ValueError):
     """Raised when a URL targets a blocked network."""

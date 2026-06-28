@@ -3,8 +3,8 @@
 ## @lineage: xphi.adapter.provider.base
 ## @lineage: anchor.model.provider.adapter.base
 from typing import Any, Dict, List, Optional, Union
-from anchor.channel.compat.switch.params import ModelResponse
-from anchor.channel.client.action.preprocessor import CompletionContext
+from bound.channel.compat.switch.params import ModelResponse
+from bound.channel.client.action.preprocessor import CompletionContext
 from bound.adapter.provider.completor import CompletionHandler
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from xphi.xor.secret.manager import get_secret_bool

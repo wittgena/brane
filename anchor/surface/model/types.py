@@ -37,7 +37,7 @@ EventHookType = Any
 
 from arch.proto.phase.gate import uuid
 from anchor.surface.model.llm.base import BaseOpenAIResponse, PydanticObjectBase
-from anchor.channel.client.action.support.helpers import map_finish_reason
+from bound.channel.client.action.support.helpers import map_finish_reason
 from anchor.surface.model.llm.base import HiddenParams
 from anchor.surface.model.openai.types import (
     AllMessageValues,

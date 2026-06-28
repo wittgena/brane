@@ -13,19 +13,19 @@ import httpx
 from openai._streaming import SSEDecoder
 
 import anchor.surface.model.openai.types as openai_types
-from anchor.channel.config.resolver import config
-from anchor.channel.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
+from bound.channel.config.resolver import config
+from bound.channel.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
 from anchor.surface.model.openai.types import ResponsesAPIStreamEvents
 from anchor.surface.model.types import CallTypes
 
-from anchor.channel.config.response import BaseResponsesAPIConfig
-from anchor.channel.client.action.task.executor import executor
-from anchor.channel.client.action.support.asyncify import run_async_function
-from anchor.channel.client.action.support.helpers import process_response_headers
-from anchor.channel.client.action.support.base import get_api_base
-from anchor.channel.client.response.metadata import update_response_metadata
-from anchor.channel.client.action.support.request import ResponsesAPIRequestUtils
-from anchor.channel.client.response.identity import ResponseIdentityManager
+from bound.channel.config.response import BaseResponsesAPIConfig
+from bound.channel.client.action.task.executor import executor
+from bound.channel.client.action.support.asyncify import run_async_function
+from bound.channel.client.action.support.helpers import process_response_headers
+from bound.channel.client.action.support.base import get_api_base
+from bound.channel.client.response.metadata import update_response_metadata
+from bound.channel.client.action.support.request import ResponsesAPIRequestUtils
+from bound.channel.client.response.identity import ResponseIdentityManager
 
 from watcher.plane.emitter import get_emitter
 

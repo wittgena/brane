@@ -13,8 +13,8 @@ from pydantic import BaseModel, Field
 
 from anchor.tester.mock.completion import create_mock_completion, create_mock_tool_call
 from anchor.tester.mock.exception import mock_api_error
-from anchor.tester.catalog import LEGACY_TEST_CATALOG
-from anchor.channel.client.action.completion import acompletion
+from anchor.tester.proof.catalog import TEST_PROOF_CATALOG
+from bound.channel.client.action.completion import acompletion
 from xphi.scope.thch import ThCh, thch_scope
 from xphi.scope.plane.tracker.history import get_trace_history
 from watcher.plane.emitter import get_emitter
@@ -69,8 +69,8 @@ class ScenarioSynthesizer:
         @mechanism: Native ThCh scope compilation.
         """
         selected_intents = [
-            f"[{name}]: {LEGACY_TEST_CATALOG[name]['intent']}" 
-            for name in test_names if name in LEGACY_TEST_CATALOG
+            f"[{name}]: {TEST_PROOF_CATALOG[name]['intent']}" 
+            for name in test_names if name in TEST_PROOF_CATALOG
         ]
         intents_vector = "\n".join(selected_intents)
 

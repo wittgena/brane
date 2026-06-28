@@ -1,14 +1,11 @@
 # xphi.xor.registry.model
-## @lineage: bound.xor.secret.registry.model
-## @lineage: xor.secret.registry.model
-## @lineage: bound.channel.secret.registry.model
-## @lineage: channel.secret.registry.model
-## @lineage: meta.ops.observer.security.secret.registry
 from collections.abc import Mapping
 from pydantic import Field, PrivateAttr, SecretStr
-from watcher.plane.emitter import get_logger
+
 from xphi.xor.secret.source import SecretSource, SecretValue, StaticSecret
+
 from arch.topos.state.disc import SurgeBaseModel
+from watcher.plane.emitter import get_logger
 
 logger = get_logger(__name__)
 

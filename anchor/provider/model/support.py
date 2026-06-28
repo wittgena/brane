@@ -3,7 +3,7 @@
 from typing import Optional, Literal, List, Dict
 from typing_extensions import TypedDict
 
-from anchor.channel.config.resolver import config
+from bound.channel.config.resolver import config
 
 from anchor.provider.resolver import get_llm_provider
 from anchor.provider.manager import get_provider_info, ProviderConfigManager

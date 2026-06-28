@@ -6,8 +6,8 @@
 import re
 from typing import Optional, Tuple, Dict, Callable
 from urllib.parse import urlparse
-from anchor.channel.config.resolver import config
-from anchor.channel.config.constants import REPLICATE_MODEL_NAME_WITH_ID_LENGTH
+from bound.channel.config.resolver import config
+from bound.channel.config.constants import REPLICATE_MODEL_NAME_WITH_ID_LENGTH
 from anchor.surface.model.param.legacy import LiteLLM_Params
 from xphi.xor.secret.manager import get_secret_str, get_secret 
 from watcher.plane.emitter import get_emitter

@@ -1,7 +1,7 @@
 # anchor.provider.llm.local
 ## @lineage: anchor.surface.model.lm.local
 ## @lineage: anchor.model.lm.local
-from xphi.opt.dsp.instance import LM
+from anchor.provider.dsp.instance import LM
 from phase.bind.client.engine.local import LLMEngine
 from watcher.plane.emitter import get_emitter
 

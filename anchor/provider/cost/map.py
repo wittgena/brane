@@ -5,7 +5,7 @@ import os
 import litellm
 from typing import Union, cast, Optional, Dict
 
-from anchor.channel.config.resolver import config
+from bound.channel.config.resolver import config
 from anchor.provider.model.info import get_model_info
 from anchor.provider.registry import get_model_cost_map
 from anchor.provider.types import ProviderTypes

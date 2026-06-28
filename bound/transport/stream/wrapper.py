@@ -23,10 +23,10 @@ import anyio
 import httpx
 from pydantic import BaseModel
 
-from anchor.channel.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
-from anchor.channel.config.resolver import config
+from bound.channel.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
+from bound.channel.config.resolver import config
 from anchor.surface.exception import OpenAIError
-from anchor.channel.compat.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
+from bound.channel.compat.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
 from anchor.surface.mapping.exception import exception_type
 from anchor.surface.model.openai.types import OpenAIChatCompletionChunk
 from anchor.provider.types import ProviderTypes
@@ -35,10 +35,10 @@ from anchor.surface.model.types import Delta, CallTypes, GenericStreamingChunk a
 
 from bound.transport.stream.chunk.builder import stream_chunk_builder
 from bound.transport.stream.check import is_model_response_stream_empty
-from anchor.channel.client.action.task.executor import executor
-from anchor.channel.client.action.support.base import get_api_base
-from anchor.channel.client.action.support.helpers import map_finish_reason, process_response_headers
-from anchor.channel.bridge.rule import Rules
+from bound.channel.client.action.task.executor import executor
+from bound.channel.client.action.support.base import get_api_base
+from bound.channel.client.action.support.helpers import map_finish_reason, process_response_headers
+from bound.channel.mcp.bridge.rule import Rules
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
@@ -945,7 +945,7 @@ class CustomStreamWrapper:
         model_response: ModelResponseStream,
         response_obj: Dict[str, Any],
     ):
-        from anchor.channel.client.action.support.helpers import (
+        from bound.channel.client.action.support.helpers import (
             preserve_upstream_non_openai_attributes,
         )
 

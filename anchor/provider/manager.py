@@ -5,9 +5,9 @@ from functools import lru_cache
 from typing import Callable, Optional, Union
 from enum import Enum
 
-from anchor.channel.config.resolver import config
-from anchor.channel.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
-from anchor.channel.client.action.param.format import BaseLLMModelInfo
+from bound.channel.config.resolver import config
+from bound.channel.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
+from bound.channel.client.action.param.format import BaseLLMModelInfo
 from anchor.provider.types import ProviderTypes, ProviderTypesSet
 from anchor.provider.model.specific import ProviderSpecificModelInfo
 

@@ -10,7 +10,7 @@ from anchor.surface.model.openai.types import (
     MCPListToolsFailedEvent,
     MCPListToolsInProgressEvent,
 )
-from anchor.channel.compat.switch.params import ResponsesAPIStreamingResponse, ToolParam
+from bound.channel.compat.switch.params import ResponsesAPIStreamingResponse, ToolParam
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("tool.event")

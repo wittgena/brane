@@ -1,6 +1,6 @@
-# anchor.surface.acps.interfaces
+# anchor.surface.acp.interfaces
+## @lineage: anchor.surface.acps.interfaces
 ## @lineage: anchor.spec.acp.bound.surface.interfaces
-## @lineage: anchor.surface.acp.interfaces
 ## @lineage: acps.interfaces
 from __future__ import annotations
 from typing import Any, Protocol

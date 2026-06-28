@@ -1,4 +1,5 @@
-# anchor.surface.acps.meta
+# anchor.surface.acp.meta
+## @lineage: anchor.surface.acps.meta
 ## @lineage: channel.acps.bound.meta
 ## @lineage: bound.server.acps.bound.meta
 ## @lineage: anchor.spec.acp.bound.meta
