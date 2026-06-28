@@ -1,4 +1,5 @@
-# anchor.channel.client.adapter.streamable_http
+# anchor.surface.mcps.client.streamable_http
+## @lineage: anchor.channel.client.adapter.streamable_http
 ## @lineage: bound.channel.client.adapter.streamable_http
 ## @lineage: bound.adapter.mcps.client.streamable_http
 ## @lineage: xphi.mcps.client.streamable_http
@@ -19,7 +20,7 @@ from anyio.abc import TaskGroup
 from httpx_sse import EventSource, ServerSentEvent, aconnect_sse
 from pydantic import ValidationError
 
-from anchor.channel.client.adapter._transport import TransportStreams
+from anchor.surface.mcps.client._transport import TransportStreams
 from anchor.surface.mcps.shared._compat import resync_tracer
 from anchor.surface.mcps.shared._context_streams import ContextReceiveStream, ContextSendStream, create_context_streams
 from anchor.surface.mcps.shared._httpx_utils import create_mcp_http_client

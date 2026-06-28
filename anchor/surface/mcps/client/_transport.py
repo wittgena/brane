@@ -1,19 +1,9 @@
-# anchor.channel.client.adapter._transport
-## @lineage: bound.channel.client.adapter._transport
-## @lineage: bound.adapter.mcps.client._transport
-## @lineage: xphi.mcps.client._transport
-## @lineage: mcps.client._transport
-## @lineage: anchor.surface.mcpserver.client._transport
-## @lineage: bound.server.client._transport
-## @lineage: xphi.spec.mcps.client._transport
-## @lineage: xphi.spec.mcp.client._transport
+# anchor.surface.mcps.client._transport
+## @lineage: anchor.channel.client.adapter._transport
 """Transport protocol for MCP clients."""
-
 from __future__ import annotations
-
 from contextlib import AbstractAsyncContextManager
 from typing import Protocol
-
 from anchor.surface.mcps.shared._stream_protocols import ReadStream, WriteStream
 from anchor.surface.mcps.shared.message import SessionMessage
 

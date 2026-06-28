@@ -1,4 +1,5 @@
-# anchor.surface.testing.mock.exception
+# anchor.tester.mock.exception
+## @lineage: anchor.surface.testing.mock.exception
 ## @lineage: anchor.testing.mock.exception
 """
 @phase: Mock Generation Boundary (Exceptions)

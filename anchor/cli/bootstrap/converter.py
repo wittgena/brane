@@ -1,4 +1,5 @@
-# anchor.bootstrap.converter
+# anchor.cli.bootstrap.converter
+## @lineage: anchor.bootstrap.converter
 ## @lineage: anchor.switch.bootstrap.converter
 import os
 import sys
@@ -8,18 +9,14 @@ import subprocess
 from pathlib import Path
 from typing import List, Dict
 
-from phase.bind.resolver import find_current_self
 from arch.contract.registry.unified import contract, registry
+
 from phase.runtime.cli.executor import CliTaskAdapter, parse_local, dispatch_cli
+from phase.bind.resolver import find_current_self
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("bootstrap.converter", phase="SYSTEM")
-
-try:
-    SELF_ROOT = find_current_self()
-except Exception as e:
-    log.error(f"[error] Cannot find base plane (.self): {e}")
-    sys.exit(1)
+SELF_ROOT = find_current_self()
 
 class BootstrapConverter:
     def __init__(self, target_repo: str, dry_run: bool = False):

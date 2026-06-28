@@ -1,18 +1,16 @@
 # bound.adapter.mcp.tool.transform
-## @lineage: xphi.adapter.mcp.tool.transform
-## @lineage: bound.adapter.mcp.legacy.tool
-## @lineage: bound.adapter.legacy.mcp.tool
-## @lineage: anchor.surface.legacy.mcp.tool
 import json
 from typing import Dict, List, Literal, Union
 
-from mcp import ClientSession
-from mcp.types import CallToolRequestParams as MCPCallToolRequestParams
-from mcp.types import CallToolResult as MCPCallToolResult
-from mcp.types import Tool as MCPTool
 from openai.types.chat import ChatCompletionToolParam
 from openai.types.responses.function_tool_param import FunctionToolParam
 from openai.types.shared_params.function_definition import FunctionDefinition
+
+from anchor.surface.mcps.types import CallToolRequestParams as MCPCallToolRequestParams
+from anchor.surface.mcps.types import CallToolResult as MCPCallToolResult
+from anchor.surface.mcps.types import Tool as MCPTool
+from anchor.surface.mcps.client.session import ClientSession
+
 from anchor.surface.model.types.utils import ChatCompletionMessageToolCall
 
 def transform_mcp_tool_to_openai_tool(mcp_tool: MCPTool) -> ChatCompletionToolParam:

@@ -1,9 +1,4 @@
 # xphi.xor.secret.credential
-## @lineage: bound.xor.secret.credential
-## @lineage: xor.secret.credential
-## @lineage: bound.channel.secret.credential
-## @lineage: channel.secret.credential
-## @lineage: channel.bridge.litellm.credential_accessor
 from typing import List
 from anchor.channel.config.resolver import config
 from anchor.surface.model.types.utils import CredentialItem

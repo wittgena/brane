@@ -21,7 +21,7 @@ def get_free_port(starting_port: int, max_port: int = 8999) -> int:
 @dataclass
 class SurfaceConfig:
     """실행 표면 설정을 위한 데이터 클래스"""
-    use_was: bool = False
+    use_proxy: bool = False
     use_dphi: bool = False
     use_thch: bool = False
     dphi_model: str = "local-gemma-3"

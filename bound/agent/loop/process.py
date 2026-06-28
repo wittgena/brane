@@ -16,10 +16,12 @@ from pathlib import Path
 from typing import Any, cast
 
 from anchor.surface.acps.interfaces import Agent, Client
+
 from bound.transport.conn.side.agent import AgentSideConnection
 from bound.transport.conn.side.client import ClientSideConnection
 from bound.transport.conn.base import Connection, MethodHandler, StreamObserver
-from bound.transport.spawn.stdio import spawn_stdio_transport
+
+from phase.bind.transport.spawn import spawn_stdio_transport
 
 __all__ = [
     "spawn_agent_process",

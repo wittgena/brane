@@ -15,10 +15,12 @@
 from abc import ABC, abstractmethod
 import httpx
 from pydantic import Field, SecretStr, field_serializer, field_validator
-from watcher.plane.emitter import get_emitter
-from arch.topos.state.disc import DiscMixin
+
 from xphi.xor.secret.validator.manager import serialize_secret, validate_secret
 from xphi.xor.secret.redact import is_secret_key
+
+from arch.topos.state.disc import DiscMixin
+from watcher.plane.emitter import get_emitter
 
 logger = get_emitter(__name__)
 

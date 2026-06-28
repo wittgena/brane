@@ -1,20 +1,4 @@
 # bound.transport.session.server.http
-## @lineage: bound.router.conn.session.server.http
-## @lineage: xphi.server.stream.http
-## @lineage: bound.server.stream.http
-## @lineage: bound.adapter.mcps.stdio.streamable_http
-## @lineage: anchor.surface.mcps.stdio.streamable_http
-## @lineage: bound.server.mcps.streamable_http
-## @lineage: xphi.spec.mcps.server.streamable_http
-## @lineage: xphi.spec.mcp.server.streamable_http
-"""StreamableHTTP Server Transport Module
-
-This module implements an HTTP transport layer with Streamable HTTP.
-
-The transport handles bidirectional communication using HTTP requests and
-responses, with streaming support for long-running operations.
-"""
-
 import logging
 import re
 from abc import ABC, abstractmethod

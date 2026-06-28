@@ -11,7 +11,7 @@ from typing import Any, Protocol
 from enum import Enum
 from bound.transport.dispatcher.queue import MessageQueue
 from xphi.xor.store.message import MessageStateStore
-from bound.transport.dispatcher.task.supervisor import TaskSupervisor
+from phase.runtime.task.supervisor import TaskSupervisor
 
 RequestRunner = Callable[[dict[str, Any]], Awaitable[Any]]
 NotificationRunner = Callable[[dict[str, Any]], Awaitable[None]]

@@ -11,8 +11,8 @@ from bound.agent.mcp.config import MCPConfig
 from arch.proto.wrapper.asyncer import AsyncExecutor
 
 from anchor.channel.client.mcp import Client as AnchorClient
-from anchor.channel.client.adapter.session import ClientSession
-from anchor.channel.client.adapter.stdio import stdio_client, StdioServerParameters
+from anchor.surface.mcps.client.session import ClientSession
+from anchor.surface.mcps.client.stdio import stdio_client, StdioServerParameters
 
 class MCPClient(AnchorClient):
     """

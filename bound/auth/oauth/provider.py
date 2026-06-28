@@ -34,7 +34,7 @@ from bound.auth.oauth.utils import (
     is_valid_client_metadata_url,
     should_use_client_metadata_url,
 )
-from anchor.channel.client.adapter.streamable_http import MCP_PROTOCOL_VERSION
+from anchor.surface.mcps.client.streamable_http import MCP_PROTOCOL_VERSION
 from anchor.surface.mcps.shared.auth import (
     OAuthClientInformationFull,
     OAuthClientMetadata,

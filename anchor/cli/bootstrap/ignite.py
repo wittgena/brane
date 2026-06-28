@@ -1,15 +1,12 @@
-# anchor.bootstrap.ignite
-## @lineage: anchor.switch.bootstrap.ignite
-## @lineage: anchor.switch.bootstrap
-## @lineage: anchor.router.switch.bootstrap
+# anchor.cli.bootstrap.ignite
 """
 - 모듈이 import 됨과 동시에 즉각적으로 실행되도록 처리할 수도 있고,
 - 엔트리 포인트(main.py)에서 명시적으로 ignite()을 호출가능
 """
 import sys
-from watcher.plane.emitter import get_emitter
 from phase.bind.redirector import PhaseAirlock, ModuleRedirector
 from phase.bind.resolver import find_current_self
+from watcher.plane.emitter import get_emitter
 
 log = get_emitter("bootstrap.ignite", phase="anchor")
 

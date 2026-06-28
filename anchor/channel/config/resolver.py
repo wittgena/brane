@@ -1,9 +1,4 @@
 # anchor.channel.config.resolver
-## @lineage: anchor.switch.config.resolver
-## @lineage: anchor.surface.config.resolver
-## @lineage: anchor.base.config.resolver
-## @lineage: anchor.config.resolver
-## @lineage: bound.config.resolver
 import os
 import logging
 from typing import Any

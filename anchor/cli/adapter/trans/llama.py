@@ -1,7 +1,4 @@
 # anchor.cli.adapter.trans.llama
-## @lineage: xphi.adapter.trans.llama
-## @lineage: xphi.trans.llama
-## @lineage: xphi.flow.trans.llama
 import os
 import sys
 import shutil
@@ -20,17 +17,19 @@ import xphi.loop as xphi_loop
 import xphi.loop.flow as xphi_flow
 
 from arch.contract.registry.unified import contract, registry
-from phase.bind.resolver import find_current_self
+from phase.bind.resolver import find_current_self, get_invoker
 from phase.runtime.cli.executor import CliTaskAdapter, parse_local, dispatch_cli
 from watcher.plane.emitter import get_emitter
 
-log = get_emitter("trans.llama", phase="SYSTEM")
+_invoker_full, MODULE_NAMESPACE = get_invoker(Path(__file__))
+log = get_emitter(MODULE_NAMESPACE, phase="SYSTEM")
 
 SELF_ROOT = find_current_self()
 
-EXT_REPO = "ext-phase"
-GITHUB_API_BASE = f"https://api.github.com/repos/{EXT_REPO}/llama_index/contents"
-GITHUB_REPO_URL = f"https://github.com/{EXT_REPO}/llama_index.git"
+ACCOUNT = "ext-phase"
+REPO = "inter-llama"
+GITHUB_API_BASE = f"https://api.github.com/repos/{ACCOUNT}/{REPO}/contents"
+GITHUB_REPO_URL = f"https://github.com/{ACCOUNT}/{REPO}.git"
 
 TARGET_REPO = "brane"
 DEST_PATH = inter_path.__name__
@@ -244,7 +243,7 @@ def entry_task(args):
     return CliTaskAdapter(runner.run)
 
 @contract.cli(
-    name="trans.llama",
+    name=MODULE_NAMESPACE,
     args=["--category", "--name", "--tag"],
     tags=["llama", "trans"],
     entry="entry_task" 
@@ -257,7 +256,7 @@ def main(args=None):
     if bound_args.local:
         entry_task(remain).run()
     else:
-        dispatch_cli("trans.llama", entry_task, __file__)
+        dispatch_cli(MODULE_NAMESPACE, entry_task, __file__)
 
 if __name__ == "__main__":
     main()

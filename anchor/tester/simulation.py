@@ -1,4 +1,5 @@
-# anchor.surface.testing.simulation
+# anchor.tester.simulation
+## @lineage: anchor.surface.testing.simulation
 ## @lineage: anchor.testing.simulation
 """
 @phase: Dynamic Simulation Manifold
@@ -10,9 +11,9 @@ import asyncio
 from typing import List, Dict, Any
 from pydantic import BaseModel, Field
 
-from anchor.surface.testing.mock.completion import create_mock_completion, create_mock_tool_call
-from anchor.surface.testing.mock.exception import mock_api_error
-from anchor.surface.testing.catalog import LEGACY_TEST_CATALOG
+from anchor.tester.mock.completion import create_mock_completion, create_mock_tool_call
+from anchor.tester.mock.exception import mock_api_error
+from anchor.tester.catalog import LEGACY_TEST_CATALOG
 from anchor.channel.action.completion import acompletion
 from xphi.scope.thch import ThCh, thch_scope
 from xphi.scope.plane.tracker.history import get_trace_history

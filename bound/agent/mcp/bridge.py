@@ -1,4 +1,6 @@
-# bound.transport.spawn.mcp
+# bound.agent.mcp.bridge
+## @lineage: phase.bind.stdio.bridge
+## @lineage: bound.transport.spawn.mcp
 ## @lineage: bound.transport.mcp
 """
 Surgent MCP Stdio Runner Bridge
@@ -11,7 +13,7 @@ import os
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any
-from anchor.channel.client.adapter.stdio import stdio_client, StdioServerParameters
+from anchor.surface.mcps.client.stdio import stdio_client, StdioServerParameters
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("stdio.bridge")

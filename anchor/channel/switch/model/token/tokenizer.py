@@ -1,16 +1,9 @@
 # anchor.channel.switch.model.token.tokenizer
-## @lineage: anchor.switch.model.token.tokenizer
-## @lineage: anchor.model.token.tokenizer
-## @lineage: anchor.router.model.token.tokenizer
-## @lineage: bound.router.model.token.tokenizer
-## @lineage: bound.channel.model.token.tokenizer
-## @lineage: channel.model.token.tokenizer
-## @lineage: bound.token.tokenizer
 from functools import lru_cache, wraps
 from typing import Dict, List, Optional, Type
 from tokenizers import Tokenizer
 from anchor.surface.model.types.utils import CustomHuggingfaceTokenizer, SelectTokenizerResponse
-from anchor.surface.model.token.encoding import get_default_encoding
+from anchor.surface.model.token.convert import get_default_encoding
 from anchor.channel.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from watcher.plane.emitter import get_emitter
 

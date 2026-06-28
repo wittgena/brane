@@ -1,12 +1,5 @@
-# anchor.channel.client.adapter.sse
-## @lineage: bound.channel.client.adapter.sse
-## @lineage: bound.adapter.mcps.client.sse
-## @lineage: xphi.mcps.client.sse
-## @lineage: mcps.client.sse
-## @lineage: anchor.surface.mcpserver.client.sse
-## @lineage: bound.server.client.sse
-## @lineage: xphi.spec.mcps.client.sse
-## @lineage: xphi.spec.mcp.client.sse
+# anchor.surface.mcps.client.sse
+## @lineage: anchor.channel.client.adapter.sse
 import logging
 from collections.abc import Callable
 from contextlib import asynccontextmanager

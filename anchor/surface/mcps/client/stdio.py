@@ -1,4 +1,5 @@
-# anchor.channel.client.adapter.stdio
+# anchor.surface.mcps.client.stdio
+## @lineage: anchor.channel.client.adapter.stdio
 ## @lineage: bound.channel.client.adapter.stdio
 ## @lineage: bound.adapter.mcps.client.stdio
 ## @lineage: xphi.mcps.client.stdio
@@ -32,7 +33,7 @@ from anyio.streams.text import TextReceiveStream
 from pydantic import BaseModel, Field
 
 from anchor.surface.mcps.types import jsonrpc_message_adapter
-from anchor.channel.client.adapter._transport import TransportStreams
+from anchor.surface.mcps.client._transport import TransportStreams
 from anchor.surface.mcps.shared.os.posix.utilities import terminate_posix_process_tree
 from anchor.surface.mcps.shared.os.win32.utilities import (
     ServerProcess,

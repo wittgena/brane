@@ -1,8 +1,4 @@
 # bound.adapter.llama.utilities.token_counting
-## @lineage: xphi.adapter.llama.utilities.token_counting
-## @lineage: bound.adapter.utilities.token_counting
-## @lineage: anchor.adapter.utilities.token_counting
-## @lineage: bridge.llama.core.utilities.token_counting
 # Modified from:
 # https://github.com/nyno-ai/openai-token-counter
 

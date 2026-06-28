@@ -1,17 +1,14 @@
 # anchor.channel.client.mcp
-## @lineage: bound.channel.client.mcp
-## @lineage: bound.bridge.client.mcp
-## @lineage: bound.channel.xphi.client
 """Unified MCP Client that wraps ClientSession with transport management."""
 from __future__ import annotations
 from contextlib import AsyncExitStack
 from dataclasses import KW_ONLY, dataclass, field
 from typing import Any
 
-from anchor.channel.client.adapter._memory import InMemoryTransport
-from anchor.channel.client.adapter._transport import Transport
-from anchor.channel.client.adapter.session import ClientSession, ElicitationFnT, ListRootsFnT, LoggingFnT, MessageHandlerFnT, SamplingFnT
-from anchor.channel.client.adapter.streamable_http import streamable_http_client
+from anchor.surface.mcps.client._memory import InMemoryTransport
+from anchor.surface.mcps.client._transport import Transport
+from anchor.surface.mcps.client.session import ClientSession, ElicitationFnT, ListRootsFnT, LoggingFnT, MessageHandlerFnT, SamplingFnT
+from anchor.surface.mcps.client.streamable_http import streamable_http_client
 
 from anchor.surface.mcps.shared.dispatcher import ProgressFnT
 from anchor.surface.mcps.types import (
@@ -36,41 +33,9 @@ from anchor.surface.mcps.types import (
 
 @dataclass
 class Client:
-    """A high-level MCP client for connecting to MCP servers.
-
-    Supports in-memory transport for testing (pass a Server or MCPServer instance),
-    Streamable HTTP transport (pass a URL string), or a custom Transport instance.
-
-    Example:
-        ```python
-        from mcp.client import Client
-        from mcp.server.mcpserver import MCPServer
-
-        server = MCPServer("test")
-
-        @server.tool()
-        def add(a: int, b: int) -> int:
-            return a + b
-
-        async def main():
-            async with Client(server) as client:
-                result = await client.call_tool("add", {"a": 1, "b": 2})
-
-        asyncio.run(main())
-        ```
-    """
-
     server: Any | Transport | str
-    """The MCP server to connect to.
-
-    If the server is a `Server` or `MCPServer` instance, it will be wrapped in an `InMemoryTransport`.
-    If the server is a URL string, it will be used as the URL for a `streamable_http_client` transport.
-    If the server is a `Transport` instance, it will be used directly.
-    """
-
     _: KW_ONLY
 
-    # TODO(Marcelo): When do `raise_exceptions=True` actually raises?
     raise_exceptions: bool = False
     """Whether to raise exceptions from the server."""
 
@@ -86,7 +51,6 @@ class Client:
     logging_callback: LoggingFnT | None = None
     """Callback for handling logging notifications."""
 
-    # TODO(Marcelo): Why do we have both "callback" and "handler"?
     message_handler: MessageHandlerFnT | None = None
     """Callback for handling raw messages."""
 
@@ -217,15 +181,6 @@ class Client:
         return await self.session.list_resource_templates(params=PaginatedRequestParams(cursor=cursor, _meta=meta))
 
     async def read_resource(self, uri: str, *, meta: RequestParamsMeta | None = None) -> ReadResourceResult:
-        """Read a resource from the server.
-
-        Args:
-            uri: The URI of the resource to read.
-            meta: Additional metadata for the request.
-
-        Returns:
-            The resource content.
-        """
         return await self.session.read_resource(uri, meta=meta)
 
     async def subscribe_resource(self, uri: str, *, meta: RequestParamsMeta | None = None) -> EmptyResult:
@@ -245,18 +200,6 @@ class Client:
         *,
         meta: RequestParamsMeta | None = None,
     ) -> CallToolResult:
-        """Call a tool on the server.
-
-        Args:
-            name: The name of the tool to call
-            arguments: Arguments to pass to the tool
-            read_timeout_seconds: Timeout for the tool call
-            progress_callback: Callback for progress updates
-            meta: Additional metadata for the request
-
-        Returns:
-            The tool result.
-        """
         return await self.session.call_tool(
             name=name,
             arguments=arguments,
@@ -277,16 +220,6 @@ class Client:
     async def get_prompt(
         self, name: str, arguments: dict[str, str] | None = None, *, meta: RequestParamsMeta | None = None
     ) -> GetPromptResult:
-        """Get a prompt from the server.
-
-        Args:
-            name: The name of the prompt
-            arguments: Arguments to pass to the prompt
-            meta: Additional metadata for the request
-
-        Returns:
-            The prompt content.
-        """
         return await self.session.get_prompt(name=name, arguments=arguments, meta=meta)
 
     async def complete(
@@ -295,16 +228,6 @@ class Client:
         argument: dict[str, str],
         context_arguments: dict[str, str] | None = None,
     ) -> CompleteResult:
-        """Get completions for a prompt or resource template argument.
-
-        Args:
-            ref: Reference to the prompt or resource template
-            argument: The argument to complete
-            context_arguments: Additional context arguments
-
-        Returns:
-            Completion suggestions.
-        """
         return await self.session.complete(ref=ref, argument=argument, context_arguments=context_arguments)
 
     async def list_tools(self, *, cursor: str | None = None, meta: RequestParamsMeta | None = None) -> ListToolsResult:
@@ -313,5 +236,4 @@ class Client:
 
     async def send_roots_list_changed(self) -> None:
         """Send a notification that the roots list has changed."""
-        # TODO(Marcelo): Currently, there is no way for the server to handle this. We should add support.
         await self.session.send_roots_list_changed()

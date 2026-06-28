@@ -1,4 +1,5 @@
-# anchor.channel.client.adapter.session_group
+# anchor.surface.mcps.client.session_group
+## @lineage: anchor.channel.client.adapter.session_group
 ## @lineage: bound.channel.client.adapter.session_group
 ## @lineage: bound.adapter.mcps.client.session_group
 ## @lineage: xphi.mcps.client.session_group
@@ -36,11 +37,11 @@ from anchor.surface.mcps.types import (
     Tool,
     RequestParamsMeta,
 )
-from anchor.channel.client.adapter.session import ElicitationFnT, ListRootsFnT, LoggingFnT, MessageHandlerFnT, SamplingFnT, ClientSession
-from anchor.channel.client.adapter.sse import sse_client
-from anchor.channel.client.adapter.stdio import stdio_client
-from anchor.channel.client.adapter.stdio import StdioServerParameters
-from anchor.channel.client.adapter.streamable_http import streamable_http_client
+from anchor.surface.mcps.client.session import ElicitationFnT, ListRootsFnT, LoggingFnT, MessageHandlerFnT, SamplingFnT, ClientSession
+from anchor.surface.mcps.client.sse import sse_client
+from anchor.surface.mcps.client.stdio import stdio_client
+from anchor.surface.mcps.client.stdio import StdioServerParameters
+from anchor.surface.mcps.client.streamable_http import streamable_http_client
 from anchor.surface.mcps.shared._httpx_utils import create_mcp_http_client
 from anchor.surface.mcps.shared.exceptions import MCPError
 from anchor.surface.mcps.shared.session import ProgressFnT

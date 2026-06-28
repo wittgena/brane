@@ -1,10 +1,4 @@
 # anchor.channel.client.ws
-## @lineage: bound.channel.client.ws
-## @lineage: bound.channel.handler.ws
-## @lineage: bound.channel.action.handler.ws
-## @lineage: bound.bridge.action.handler.ws
-## @lineage: bound.client.handler.ws
-## @lineage: bound.handler.ws
 import json
 import ssl
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse

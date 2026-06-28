@@ -1,26 +1,24 @@
 # bound.agent.option.chat
-## @lineage: xphi.agent.manager.option.chat
-## @lineage: anchor.agent.manager.option.chat
-## @lineage: agent.manager.option.chat
-## @lineage: gov.lango.manager.setting.chat_options
 from __future__ import annotations
 from typing import Any
-from bound.agent.option.common import apply_defaults_if_absent
 from anchor.channel.switch.model.feature import get_features
+
+def apply_defaults_if_absent(
+    user_kwargs: dict[str, Any], defaults: dict[str, Any]
+) -> dict[str, Any]:
+    out = dict(user_kwargs)
+    for key, value in defaults.items():
+        if key not in out and value is not None:
+            out[key] = value
+    return out
 
 def select_chat_options(
     llm, user_kwargs: dict[str, Any], has_tools: bool
 ) -> dict[str, Any]:
-    """Behavior-preserving extraction of _normalize_call_kwargs.
-
-    This keeps the exact provider-aware mappings and precedence.
-    """
-    # First pass: apply simple defaults without touching user-supplied values
     defaults: dict[str, Any] = {
         "top_k": llm.top_k,
         "top_p": llm.top_p,
         "temperature": llm.temperature,
-        # OpenAI-compatible param is `max_completion_tokens`
         "max_completion_tokens": llm.max_output_tokens,
     }
     out = apply_defaults_if_absent(user_kwargs, defaults)
@@ -50,8 +48,6 @@ def select_chat_options(
     # Extended thinking models
     if get_features(llm.model).supports_extended_thinking:
         if llm.extended_thinking_budget:
-            # Anthropic throws errors if thinking budget equals or exceeds max output
-            # tokens -- force the thinking budget lower if there's a conflict
             budget_tokens = min(llm.extended_thinking_budget, llm.max_output_tokens - 1)
             out["thinking"] = {
                 "type": "enabled",

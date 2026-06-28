@@ -1,27 +1,27 @@
-# xphi.server.stream.stdio
-## @lineage: anchor.channel.stdio.server
-## @lineage: bound.server.server
+# anchor.cli.mcp.server
+## @lineage: anchor.cli.mcps.server
+## @lineage: bound.adapter.mcps.server
 import sys
-from contextlib import asynccontextmanager
-from io import TextIOWrapper
-
+import warnings
 import anyio
 import anyio.lowlevel
+from contextlib import asynccontextmanager
+from io import TextIOWrapper
 
 from anchor.surface.mcps.types import jsonrpc_message_adapter
 from anchor.surface.mcps.shared._context_streams import create_context_streams
 from anchor.surface.mcps.shared.message import SessionMessage
+from anchor.surface.mcps.server.lowlevel.server import Server
 
+from watcher.plane.emitter import get_emitter
+
+log = get_emitter("mcp.server")
+
+if not sys.warnoptions:
+    warnings.simplefilter("ignore")
 
 @asynccontextmanager
 async def stdio_server(stdin: anyio.AsyncFile[str] | None = None, stdout: anyio.AsyncFile[str] | None = None):
-    """Server transport for stdio: this communicates with an MCP client by reading
-    from the current process' stdin and writing to stdout.
-    """
-    # Purposely not using context managers for these, as we don't want to close
-    # standard process handles. Encoding of stdin/stdout as text streams on
-    # python is platform-dependent (Windows is particularly problematic), so we
-    # re-wrap the underlying binary stream to ensure UTF-8.
     if not stdin:
         stdin = anyio.wrap_file(TextIOWrapper(sys.stdin.buffer, encoding="utf-8", errors="replace"))
     if not stdout:
@@ -59,3 +59,11 @@ async def stdio_server(stdin: anyio.AsyncFile[str] | None = None, stdout: anyio.
         tg.start_soon(stdin_reader)
         tg.start_soon(stdout_writer)
         yield read_stream, write_stream
+
+async def main() -> None:
+    server: Server[dict[str, object]] = Server("mcp")
+    async with stdio_server() as (read_stream, write_stream):
+        await server.run(read_stream, write_stream, server.create_initialization_options())
+
+if __name__ == "__main__":
+    anyio.run(main, backend="trio")

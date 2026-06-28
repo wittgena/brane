@@ -1,4 +1,5 @@
-# anchor.surface.testing.mock.completion
+# anchor.tester.mock.completion
+## @lineage: anchor.surface.testing.mock.completion
 ## @lineage: anchor.testing.mock.completion
 ## @lineage: anchor.switch.mock.completion
 """

@@ -7,7 +7,7 @@ from urllib.parse import urljoin, urlparse
 from httpx import Request, Response
 from pydantic import AnyUrl, ValidationError
 
-from anchor.channel.client.adapter.streamable_http import MCP_PROTOCOL_VERSION
+from anchor.surface.mcps.client.streamable_http import MCP_PROTOCOL_VERSION
 from anchor.surface.mcps.shared.auth import (
     OAuthClientInformationFull,
     OAuthClientMetadata,

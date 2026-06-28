@@ -1,4 +1,5 @@
-# anchor.channel.client.adapter._memory
+# anchor.surface.mcps.client._memory
+## @lineage: anchor.channel.client.adapter._memory
 ## @lineage: bound.channel.client.adapter._memory
 ## @lineage: bound.adapter.mcps.client._memory
 ## @lineage: xphi.mcps.client._memory
@@ -11,7 +12,7 @@ from contextlib import AbstractAsyncContextManager, asynccontextmanager
 from types import TracebackType
 from typing import Any, Protocol
 
-from anchor.channel.client.adapter._transport import TransportStreams
+from anchor.surface.mcps.client._transport import TransportStreams
 from anchor.surface.mcps.shared.memory import create_client_server_memory_streams
 
 SERVER_SHUTDOWN_GRACE = 2.0

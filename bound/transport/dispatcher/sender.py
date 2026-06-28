@@ -20,7 +20,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-from bound.transport.dispatcher.task.supervisor import TaskSupervisor
+from phase.runtime.task.supervisor import TaskSupervisor
 
 __all__ = ["MessageSender", "SenderFactory"]
 

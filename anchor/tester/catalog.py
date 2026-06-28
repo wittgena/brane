@@ -1,4 +1,5 @@
-# anchor.surface.testing.catalog
+# anchor.tester.catalog
+## @lineage: anchor.surface.testing.catalog
 ## @lineage: anchor.testing.catalog
 
 LEGACY_TEST_CATALOG = {

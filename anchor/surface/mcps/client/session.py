@@ -1,4 +1,5 @@
-# anchor.channel.client.adapter.session
+# anchor.surface.mcps.client.session
+## @lineage: anchor.channel.client.adapter.session
 from __future__ import annotations
 
 import logging
@@ -96,7 +97,7 @@ from anchor.surface.mcps.types import (
     RootsCapability,
 )
 
-from anchor.channel.client.adapter._transport import ReadStream, WriteStream
+from anchor.surface.mcps.client._transport import ReadStream, WriteStream
 from anchor.surface.mcps.shared._compat import resync_tracer
 from anchor.surface.mcps.shared.dispatcher import CallOptions, DispatchContext, Dispatcher, ProgressFnT
 from anchor.surface.mcps.shared.exceptions import MCPError

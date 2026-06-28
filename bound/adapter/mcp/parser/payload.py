@@ -19,6 +19,7 @@ from copy import deepcopy
 import json
 
 from anchor.channel.switch.params import ResponsesAPIResponse, ModelResponse
+from anchor.surface.mcps.types import EmbeddedResource, ImageContent, TextContent
 from anchor.surface.model.types.utils import Choices
 from anchor.surface.model.token.convert import convert_list_message_to_dict
 from anchor.surface.model.types.response import GenericResponseOutputItem, OutputText
@@ -162,16 +163,8 @@ class MCPPayloadParser:
         if not result or not hasattr(result, "content") or not result.content:
             return "Tool executed successfully"
 
-        # Import MCP content types for isinstance checks
-        try:
-            from mcp.types import EmbeddedResource, ImageContent, TextContent
-        except ImportError:
-            # Fallback to generic handling if MCP types not available
-            return "Tool executed successfully"
-
         text_parts = []
         other_content_types = []
-
         for content_item in result.content:
             if isinstance(content_item, TextContent):
                 # Text content - extract the text

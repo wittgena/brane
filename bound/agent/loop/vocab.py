@@ -1,7 +1,4 @@
 # bound.agent.loop.vocab
-## @lineage: xphi.agent.loop.vocab
-## @lineage: anchor.agent.loop.vocab
-## @lineage: agent.loop.dag.vocab
 from enum import Enum
 
 class NodeType(str, Enum):

@@ -1,4 +1,5 @@
-# anchor.cli.mcps.client
+# anchor.cli.mcp.client
+## @lineage: anchor.cli.mcps.client
 import argparse
 import sys
 import warnings
@@ -10,10 +11,10 @@ from anchor.surface.mcps.types import ServerRequest, ClientResult, ServerNotific
 from anchor.surface.mcps.shared.message import SessionMessage
 from anchor.surface.mcps.shared.session import RequestResponder
 
-from anchor.channel.client.adapter._transport import ReadStream, WriteStream
-from anchor.channel.client.adapter.session import ClientSession
-from anchor.channel.client.adapter.sse import sse_client
-from anchor.channel.client.adapter.stdio import StdioServerParameters, stdio_client
+from anchor.surface.mcps.client._transport import ReadStream, WriteStream
+from anchor.surface.mcps.client.session import ClientSession
+from anchor.surface.mcps.client.sse import sse_client
+from anchor.surface.mcps.client.stdio import StdioServerParameters, stdio_client
 
 
 from watcher.plane.emitter import get_emitter
