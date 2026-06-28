@@ -12,20 +12,20 @@ from typing import Any, Dict, List, Literal, Optional
 import httpx
 from openai._streaming import SSEDecoder
 
-import anchor.surface.model.types.openai.types as openai_types
+import anchor.surface.model.openai.types as openai_types
 from anchor.channel.config.resolver import config
 from anchor.channel.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
-from anchor.surface.model.types.openai.types import ResponsesAPIStreamEvents
-from anchor.surface.model.types.utils import CallTypes
+from anchor.surface.model.openai.types import ResponsesAPIStreamEvents
+from anchor.surface.model.types import CallTypes
 
 from anchor.channel.config.response import BaseResponsesAPIConfig
-from anchor.channel.action.task.executor import executor
-from anchor.channel.action.support.asyncify import run_async_function
-from anchor.channel.action.support.helpers import process_response_headers
-from anchor.channel.action.support.base import get_api_base
-from anchor.channel.response.metadata import update_response_metadata
-from anchor.channel.action.support.request import ResponsesAPIRequestUtils
-from anchor.channel.response.identity import ResponseIdentityManager
+from anchor.channel.client.action.task.executor import executor
+from anchor.channel.client.action.support.asyncify import run_async_function
+from anchor.channel.client.action.support.helpers import process_response_headers
+from anchor.channel.client.action.support.base import get_api_base
+from anchor.channel.client.response.metadata import update_response_metadata
+from anchor.channel.client.action.support.request import ResponsesAPIRequestUtils
+from anchor.channel.client.response.identity import ResponseIdentityManager
 
 from watcher.plane.emitter import get_emitter
 
@@ -1583,7 +1583,7 @@ class ResponseWSHandler:
         if not model:
             return None
         try:
-            from anchor.channel.switch.model.llm.provider import get_llm_provider
+            from anchor.channel.compat.switch.model.llm.provider import get_llm_provider
             _, provider, _, _ = get_llm_provider(model=model)
             return provider
         except Exception:

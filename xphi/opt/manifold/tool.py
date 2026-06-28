@@ -11,7 +11,7 @@ import pydantic
 from jsonschema import ValidationError, validate
 from pydantic import BaseModel, TypeAdapter, create_model
 from xphi.opt.basetype import Type
-from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.compat.switch.dsp.settings import settings
 from xphi.opt.dsp.stream.callback import with_callbacks
 
 _TYPE_MAPPING = {"string": str, "integer": int, "number": float, "boolean": bool, "array": list, "object": dict}

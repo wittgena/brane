@@ -7,7 +7,7 @@ import random
 import threading
 import tqdm
 
-from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.compat.switch.dsp.settings import settings
 from xphi.opt.dsp.model.prompter import Prompter
 from xphi.opt.exam.example import Example
 from xphi.opt.dsp.hasher import Hasher

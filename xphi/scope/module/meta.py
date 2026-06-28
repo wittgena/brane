@@ -4,8 +4,8 @@
 import inspect
 from typing import Any, TextIO, TYPE_CHECKING
 
-from anchor.channel.switch.dsp.settings import settings
-from anchor.channel.switch.dsp.usage import track_usage
+from anchor.channel.compat.switch.dsp.settings import settings
+from anchor.channel.compat.switch.dsp.usage import track_usage
 from xphi.opt.exam.example import Example
 from xphi.opt.exam.prediction import Prediction
 
@@ -67,7 +67,7 @@ class Module(BaseModule, metaclass=ProgramMeta):
 
     @with_callbacks
     def __call__(self, *args, **kwargs) -> Prediction:
-        from anchor.channel.switch.dsp.settings import thread_local_overrides
+        from anchor.channel.compat.switch.dsp.settings import thread_local_overrides
 
         caller_modules = settings.caller_modules or []
         caller_modules = list(caller_modules)
@@ -86,7 +86,7 @@ class Module(BaseModule, metaclass=ProgramMeta):
 
     @with_callbacks
     async def acall(self, *args, **kwargs) -> Prediction:
-        from anchor.channel.switch.dsp.settings import thread_local_overrides
+        from anchor.channel.compat.switch.dsp.settings import thread_local_overrides
 
         caller_modules = settings.caller_modules or []
         caller_modules = list(caller_modules)

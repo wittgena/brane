@@ -14,7 +14,7 @@ from pydantic import BaseModel, Field
 from anchor.tester.mock.completion import create_mock_completion, create_mock_tool_call
 from anchor.tester.mock.exception import mock_api_error
 from anchor.tester.catalog import LEGACY_TEST_CATALOG
-from anchor.channel.action.completion import acompletion
+from anchor.channel.client.action.completion import acompletion
 from xphi.scope.thch import ThCh, thch_scope
 from xphi.scope.plane.tracker.history import get_trace_history
 from watcher.plane.emitter import get_emitter

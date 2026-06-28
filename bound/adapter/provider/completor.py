@@ -8,13 +8,13 @@ from typing import Any, Dict, Optional, Tuple, Union
 import httpx
 
 from anchor.channel.config.base import BaseConfig
-from anchor.channel.switch.params import ModelResponse
+from anchor.channel.compat.switch.params import ModelResponse
 from anchor.channel.config.resolver import config
 
 from anchor.channel.client.http import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
 from bound.transport.stream.wrapper import CustomStreamWrapper
-from anchor.surface.model.provider.manager import ProviderConfigManager
-from anchor.surface.model.provider.types import ProviderTypes
+from anchor.provider.manager import ProviderConfigManager
+from anchor.provider.types import ProviderTypes
 
 from watcher.plane.emitter import get_emitter
 

@@ -11,7 +11,7 @@ import orjson
 from anyio import create_memory_object_stream, create_task_group
 from anyio.streams.memory import MemoryObjectSendStream
 from anchor.channel.compat.check import is_model_response_stream
-from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.compat.switch.dsp.settings import settings
 from xphi.opt.exam.prediction import Prediction
 
 from xphi.opt.dsp.stream.messages import StatusMessage, StatusMessageProvider, StatusStreamingCallback

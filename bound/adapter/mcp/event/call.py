@@ -2,9 +2,9 @@
 ## @lineage: xphi.adapter.mcp.event.call
 ## @lineage: bound.adapter.mcp.legacy.stream
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union, cast
-from anchor.surface.model.types.openai.types import OutputItemDoneEvent
-from anchor.surface.model.types.openai.types import ResponsesAPIStreamEvents
-from anchor.surface.model.types.openai.types import (
+from anchor.surface.model.openai.types import OutputItemDoneEvent
+from anchor.surface.model.openai.types import ResponsesAPIStreamEvents
+from anchor.surface.model.openai.types import (
     BaseOpenAIResponse,
     MCPCallArgumentsDeltaEvent,
     MCPCallArgumentsDoneEvent,
@@ -12,7 +12,7 @@ from anchor.surface.model.types.openai.types import (
     MCPCallFailedEvent,
     MCPCallInProgressEvent,
 )
-from anchor.channel.switch.params import ResponsesAPIStreamingResponse
+from anchor.channel.compat.switch.params import ResponsesAPIStreamingResponse
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
 

@@ -10,15 +10,15 @@ import pydantic
 from anyio.streams.memory import MemoryObjectSendStream
 from asyncer import syncify
 
-from anchor.channel.action.completion import acompletion
-from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.client.action.completion import acompletion
+from anchor.channel.compat.switch.dsp.settings import settings
 from anchor.surface.exception import ContextWindowExceededError as LitellmContextWindowExceededError
-from anchor.surface.model.lm.base import BaseLM
+from anchor.provider.llm.base import BaseLM
 
 from xphi.opt.dsp.handler.cache import request_cache
 from bound.transport.stream.chunk.builder import stream_chunk_builder
 
-from anchor.channel.switch.model.support import supports_function_calling, supports_reasoning, supports_response_schema, get_supported_openai_params
+from anchor.channel.compat.switch.model.support import supports_function_calling, supports_reasoning, supports_response_schema, get_supported_openai_params
 from xphi.opt.dsp.stream.callback import BaseCallback
 from xphi.opt.dsp.provider.openai import OpenAIProvider
 from xphi.opt.dsp.provider.base import Provider, ReinforceJob, TrainingJob
@@ -261,7 +261,7 @@ class LM(BaseLM):
         train_data_format: TrainDataFormat | None,
         train_kwargs: dict[str, Any] | None = None,
     ) -> TrainingJob:
-        from anchor.channel.switch.dsp.settings import settings
+        from anchor.channel.compat.switch.dsp.settings import settings
         if not self.provider.finetunable:
             raise ValueError(
                 f"Provider {self.provider} does not support fine-tuning, please specify your provider by explicitly "

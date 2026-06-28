@@ -9,7 +9,7 @@ import concurrent.futures
 from dataclasses import dataclass
 from typing import Any
 from asyncer import syncify
-from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.compat.switch.dsp.settings import settings
 from xphi.opt.dsp.stream.callback import BaseCallback
 
 @dataclass

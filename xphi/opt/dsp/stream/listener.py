@@ -9,7 +9,7 @@ from anchor.channel.compat.check import extract_stream_content
 from xphi.opt.chat import ChatAdapter
 from xphi.opt.json import JSONAdapter
 from xphi.opt.xml import XMLAdapter
-from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.compat.switch.dsp.settings import settings
 from xphi.opt.basetype import Type
 from xphi.opt.dsp.stream.messages import StreamResponse
 

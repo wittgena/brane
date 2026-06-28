@@ -11,7 +11,7 @@ import json_repair
 
 from xphi.opt.basetype import Type
 from xphi.opt.basetype import split_message_content_for_custom_types
-from anchor.surface.model.lm.base import BaseLM
+from anchor.provider.llm.base import BaseLM
 from xphi.opt.manifold.history import History
 from xphi.opt.manifold.tool import Tool, ToolCalls
 

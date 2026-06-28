@@ -19,7 +19,7 @@ from cachetools import LRUCache
 from diskcache import FanoutCache
 from anchor.channel.config.resolver import config
 from watcher.plane.emitter import get_emitter
-from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.compat.switch.dsp.settings import settings
 
 log = get_emitter(__name__)
 

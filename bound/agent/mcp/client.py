@@ -10,7 +10,7 @@ from bound.agent.mcp.exception import MCPError
 from bound.agent.mcp.config import MCPConfig
 from arch.proto.wrapper.asyncer import AsyncExecutor
 
-from anchor.channel.client.mcp import Client as AnchorClient
+from anchor.channel.bridge.client import Client as AnchorClient
 from mcp.client.session import ClientSession
 from mcp.client.stdio import stdio_client, StdioServerParameters
 

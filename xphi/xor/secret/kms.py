@@ -4,7 +4,7 @@
 ## @lineage: anchor.model.types.secret_managers.main
 import enum
 from typing import Dict, List, Literal, Optional
-from anchor.surface.model.types.base import PydanticObjectBase
+from anchor.surface.model.llm.base import PydanticObjectBase
 
 class KeyManagementSystem(enum.Enum):
     GOOGLE_KMS = "google_kms"

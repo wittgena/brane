@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from types import MethodType
 from typing import Any, Callable, TypedDict
 
-from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.compat.switch.dsp.settings import settings
 
 from xphi.opt.exam.example import Example
 from xphi.opt.exam.prediction import Prediction

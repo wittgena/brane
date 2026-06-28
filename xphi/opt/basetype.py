@@ -12,10 +12,10 @@ import re
 from typing import TYPE_CHECKING, Any, Optional, get_args, get_origin
 import json_repair
 import pydantic
-from anchor.surface.model.lm.base import BaseLM
+from anchor.provider.llm.base import BaseLM
 
 if TYPE_CHECKING:
-    from anchor.channel.switch.params import ModelResponseStream
+    from anchor.channel.compat.switch.params import ModelResponseStream
     from arch.xor.manifold.sign.signature import Signature
 
 CUSTOM_TYPE_START_IDENTIFIER = "<<CUSTOM-TYPE-START-IDENTIFIER>>"

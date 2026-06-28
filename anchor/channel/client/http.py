@@ -48,7 +48,7 @@ from anchor.channel.config.constants import (
     HTTP_HANDLER_CONNECT_TIMEOUT_SECONDS,
 )
 
-from anchor.surface.model.provider.types import ProviderTypes
+from anchor.provider.types import ProviderTypes
 from bound.transport.aiohttp import AiohttpTransport
 
 log = get_emitter("handler.http")

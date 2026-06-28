@@ -16,7 +16,7 @@ from pydantic import (
 )
 from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential
 
-from anchor.channel.switch.params import ChatCompletionToolParam
+from anchor.channel.compat.switch.params import ChatCompletionToolParam
 from bound.agent.reflector.template import ChatTemplateRenderer
 
 class UsageTokens(BaseModel):

@@ -20,13 +20,13 @@ import httpx
 from pydantic import BaseModel
 
 from bound.transport.stream.wrapper import CustomStreamWrapper
-from anchor.channel.switch.params import ModelResponse
+from anchor.channel.compat.switch.params import ModelResponse
 
-from anchor.channel.action.param.format import map_developer_role_to_system_role, type_to_response_format_param
+from anchor.channel.client.action.param.format import map_developer_role_to_system_role, type_to_response_format_param
 
 from anchor.channel.config.constants import DEFAULT_MAX_TOKENS, RESPONSE_FORMAT_TOOL_NAME
 from anchor.channel.client.http import AsyncHTTPHandler, HTTPHandler
-from anchor.surface.model.types.openai.types import (
+from anchor.surface.model.openai.types import (
     AllMessageValues,
     ChatCompletionToolChoiceFunctionParam,
     ChatCompletionToolChoiceObjectParam,

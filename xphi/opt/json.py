@@ -20,7 +20,7 @@ from xphi.opt.utils import (
     serialize_for_json,
     translate_field_type,
 )
-from anchor.surface.model.lm.base import BaseLM
+from anchor.provider.llm.base import BaseLM
 from arch.xor.manifold.sign.signature import Signature, SignatureMeta
 from xphi.opt.dsp.stream.callback import BaseCallback
 from xphi.opt.dsp.exceptions import AdapterParseError

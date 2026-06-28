@@ -53,8 +53,8 @@ from weakref import WeakKeyDictionary
 
 from anchor.channel.config.constants import COROUTINE_CHECKER_MAX_SIZE_IN_MEMORY
 from anchor.channel.config.resolver import config
-from anchor.channel.action.param.format import type_to_response_format_param
-from anchor.channel.action.task.executor import executor
+from anchor.channel.client.action.param.format import type_to_response_format_param
+from anchor.channel.client.action.task.executor import executor
 from anchor.surface.exception import (
     APIConnectionError,
     APIError,
@@ -74,8 +74,8 @@ from anchor.surface.exception import (
 )
 
 
-from anchor.channel.switch.model.token.counter import get_modified_max_tokens
-from anchor.surface.model.types.openai.types import (
+from anchor.channel.compat.switch.model.token.counter import get_modified_max_tokens
+from anchor.surface.model.openai.types import (
     AllMessageValues,
     AllPromptValues,
     ChatCompletionAssistantToolCall,
@@ -85,13 +85,13 @@ from anchor.surface.model.types.openai.types import (
     OpenAITextCompletionUserMessage,
     OpenAIWebSearchOptions,
 )
-from anchor.channel.switch.model.llm.provider import get_llm_provider
-from anchor.surface.model.types.utils import CallTypes, Embedding, ProviderTypes
+from anchor.channel.compat.switch.model.llm.provider import get_llm_provider
+from anchor.surface.model.types import CallTypes, Embedding, ProviderTypes
 
 from bound.transport.stream.chunk.builder import stream_chunk_builder
-from anchor.channel.action.task.logging import GLOBAL_LOGGING_WORKER
-from anchor.channel.client.rule import Rules
-from anchor.channel.response.metadata import update_response_metadata
+from anchor.channel.client.action.task.logging import GLOBAL_LOGGING_WORKER
+from anchor.channel.bridge.rule import Rules
+from anchor.channel.client.response.metadata import update_response_metadata
 from xphi.xor.secret.credential import CredentialAccessor
 
 from xphi.scope.plane.delegator import Logging as LiteLLMLoggingObject
@@ -606,7 +606,7 @@ async def acompletion_with_retries(*args, **kwargs):
     return await retryer(original_function, *args, **kwargs)
 
 def responses_with_retries(*args, **kwargs):
-    from anchor.channel.action.api.response import responses
+    from anchor.channel.client.action.api.response import responses
     try:
         import tenacity
     except Exception as e:
@@ -633,7 +633,7 @@ def responses_with_retries(*args, **kwargs):
 
 
 async def aresponses_with_retries(*args, **kwargs):
-    from anchor.channel.action.api.aresponse import aresponses
+    from anchor.channel.client.action.api.aresponse import aresponses
     try:
         import tenacity
     except Exception as e:

@@ -143,7 +143,7 @@ def with_callbacks(fn):
 
     def _get_active_callbacks(instance):
         """Get combined global and instance-level callbacks."""
-        from anchor.channel.switch.dsp.settings import settings
+        from anchor.channel.compat.switch.dsp.settings import settings
         return settings.get("callbacks", []) + getattr(instance, "callbacks", [])
 
     if inspect.iscoroutinefunction(fn):

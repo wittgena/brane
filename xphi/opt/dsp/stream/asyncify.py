@@ -7,7 +7,7 @@
 from typing import TYPE_CHECKING, Any, Awaitable, Callable
 import asyncer
 from anyio import CapacityLimiter
-from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.compat.switch.dsp.settings import settings
 
 if TYPE_CHECKING:
     from xphi.scope.module.meta import Module
@@ -48,12 +48,12 @@ def asyncify(program: "Module") -> Callable[[Any, Any], Awaitable[Any]]:
 
     async def async_program(*args, **kwargs) -> Any:
         # Capture the current overrides at call-time.
-        from anchor.channel.switch.dsp.settings import thread_local_overrides
+        from anchor.channel.compat.switch.dsp.settings import thread_local_overrides
 
         parent_overrides = thread_local_overrides.get().copy()
 
         def wrapped_program(*a, **kw):
-            from anchor.channel.switch.dsp.settings import thread_local_overrides
+            from anchor.channel.compat.switch.dsp.settings import thread_local_overrides
 
             original_overrides = thread_local_overrides.get()
             token = thread_local_overrides.set({**original_overrides, **parent_overrides.copy()})

@@ -18,11 +18,11 @@ from typing import (
 from copy import deepcopy
 import json
 
-from anchor.channel.switch.params import ResponsesAPIResponse, ModelResponse
+from anchor.channel.compat.switch.params import ResponsesAPIResponse, ModelResponse
 from mcp_types import EmbeddedResource, ImageContent, TextContent
-from anchor.surface.model.types.utils import Choices
-from anchor.surface.model.token.convert import convert_list_message_to_dict
-from anchor.surface.model.types.response import GenericResponseOutputItem, OutputText
+from anchor.surface.model.types import Choices
+from anchor.provider.token.convert import convert_list_message_to_dict
+from anchor.surface.model.param.response import GenericResponseOutputItem, OutputText
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter

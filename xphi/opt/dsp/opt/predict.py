@@ -16,8 +16,8 @@ from pydantic import BaseModel
 from pydantic_core import PydanticUndefined
 from typeguard import TypeCheckError, check_type
 
-from anchor.channel.switch.dsp.settings import settings
-from anchor.surface.model.lm.base import BaseLM
+from anchor.channel.compat.switch.dsp.settings import settings
+from anchor.provider.llm.base import BaseLM
 
 from xphi.opt.chat import ChatAdapter
 from xphi.opt.dsp.instance import LM

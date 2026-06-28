@@ -26,19 +26,19 @@ from pydantic import BaseModel
 from anchor.channel.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS
 from anchor.channel.config.resolver import config
 from anchor.surface.exception import OpenAIError
-from anchor.channel.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
-from anchor.surface.model.types.mapping.exception import exception_type
-from anchor.surface.model.types.openai.types import OpenAIChatCompletionChunk
-from anchor.surface.model.provider.types import ProviderTypes
-from anchor.surface.model.types.router import GenericLiteLLMParams
-from anchor.surface.model.types.utils import Delta, CallTypes, GenericStreamingChunk as GChunk
+from anchor.channel.compat.switch.params import ModelResponse, ModelResponseStream, StreamingChoices, Usage
+from anchor.surface.mapping.exception import exception_type
+from anchor.surface.model.openai.types import OpenAIChatCompletionChunk
+from anchor.provider.types import ProviderTypes
+from anchor.provider.info.router import GenericLiteLLMParams
+from anchor.surface.model.types import Delta, CallTypes, GenericStreamingChunk as GChunk
 
 from bound.transport.stream.chunk.builder import stream_chunk_builder
 from bound.transport.stream.check import is_model_response_stream_empty
-from anchor.channel.action.task.executor import executor
-from anchor.channel.action.support.base import get_api_base
-from anchor.channel.action.support.helpers import map_finish_reason, process_response_headers
-from anchor.channel.client.rule import Rules
+from anchor.channel.client.action.task.executor import executor
+from anchor.channel.client.action.support.base import get_api_base
+from anchor.channel.client.action.support.helpers import map_finish_reason, process_response_headers
+from anchor.channel.bridge.rule import Rules
 
 from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
@@ -945,7 +945,7 @@ class CustomStreamWrapper:
         model_response: ModelResponseStream,
         response_obj: Dict[str, Any],
     ):
-        from anchor.channel.action.support.helpers import (
+        from anchor.channel.client.action.support.helpers import (
             preserve_upstream_non_openai_attributes,
         )
 
@@ -1125,7 +1125,7 @@ class CustomStreamWrapper:
         try:
             # return this for all models
             completion_obj: Dict[str, Any] = {"content": ""}
-            from anchor.surface.model.types.utils import GenericStreamingChunk as GChunk
+            from anchor.surface.model.types import GenericStreamingChunk as GChunk
 
             if (
                 isinstance(chunk, ModelResponseStream)
@@ -2396,7 +2396,7 @@ def generic_chunk_has_all_required_fields(chunk: dict) -> bool:
 def convert_generic_chunk_to_model_response_stream(
     chunk: GChunk,
 ) -> ModelResponseStream:
-    from anchor.surface.model.types.utils import Delta
+    from anchor.surface.model.types import Delta
 
     model_response_stream = ModelResponseStream(
         id=str(uuid.uuid4()),

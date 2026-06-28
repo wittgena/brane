@@ -10,7 +10,7 @@
 from typing import TYPE_CHECKING, Any, Optional
 import pydantic
 from xphi.opt.basetype import Type
-from anchor.surface.model.lm.base import BaseLM
+from anchor.provider.llm.base import BaseLM
 
 if TYPE_CHECKING:
     from arch.xor.manifold.sign.signature import Signature

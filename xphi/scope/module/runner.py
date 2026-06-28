@@ -4,8 +4,8 @@
 import threading
 from typing import Any
 
-from anchor.channel.switch.dsp.settings import settings
-from anchor.channel.switch.dsp.context import get_dspy_context_propagator
+from anchor.channel.compat.switch.dsp.settings import settings
+from anchor.channel.compat.switch.dsp.context import get_dspy_context_propagator
 from xphi.opt.exam.example import Example
 from arch.proto.wrapper.opt import OptExecutor
 

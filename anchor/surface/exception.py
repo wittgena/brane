@@ -2,7 +2,7 @@
 from typing import Any, Dict, Optional, Union
 import httpx
 import openai
-from anchor.surface.model.types.utils import LiteLLMCommonStrings
+from anchor.surface.model.types import LiteLLMCommonStrings
 
 _MINIMAL_ERROR_RESPONSE: Optional[httpx.Response] = None
 

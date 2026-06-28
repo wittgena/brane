@@ -12,7 +12,7 @@ from bound.adapter.llama.base.llms.types import ChatMessage, MessageRole
 from bound.router.adapter.llm import LLMRouter
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from bound.adapter.provider.base import BaseProviderAdapter
-from anchor.channel.action.preprocessor import CompletionContext
+from anchor.channel.client.action.preprocessor import CompletionContext
 
 class InterLLMAdapter(BaseProviderAdapter):
     """

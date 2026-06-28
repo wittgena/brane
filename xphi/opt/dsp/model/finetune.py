@@ -5,7 +5,7 @@
 from collections import defaultdict
 from typing import Any, Callable
 
-from anchor.channel.switch.dsp.settings import settings
+from anchor.channel.compat.switch.dsp.settings import settings
 
 from xphi.opt.dsp.adapter import Adapter
 from xphi.opt.chat import ChatAdapter

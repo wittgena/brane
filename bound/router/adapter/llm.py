@@ -11,7 +11,7 @@ import importlib
 import inspect
 from typing import Dict, Any, Optional
 
-from anchor.surface.model.cost.map import get_provider_for_model
+from anchor.provider.cost.map import get_provider_for_model
 from anchor.cli.adapter.scan.llm import LLMScanner
 
 from watcher.plane.emitter import get_emitter
