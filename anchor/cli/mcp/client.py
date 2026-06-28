@@ -11,10 +11,10 @@ from mcp_types import ServerRequest, ClientResult, ServerNotification, Implement
 from mcp.shared.message import SessionMessage
 from mcp.shared.session import RequestResponder
 
-from anchor.surface.mcps.client._transport import ReadStream, WriteStream
-from anchor.surface.mcps.client.session import ClientSession
-from anchor.surface.mcps.client.sse import sse_client
-from anchor.surface.mcps.client.stdio import StdioServerParameters, stdio_client
+from mcp.client._transport import ReadStream, WriteStream
+from mcp.client.session import ClientSession
+from mcp.client.sse import sse_client
+from mcp.client.stdio import StdioServerParameters, stdio_client
 
 
 from watcher.plane.emitter import get_emitter

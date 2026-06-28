@@ -19,7 +19,7 @@ from mcp_types import (
     GetPromptResult, 
     GetPromptRequestParams
 )
-from anchor.surface.mcps.server.lowlevel.server import Server
+from mcp.server.lowlevel.server import Server
 from bound.transport.session.context import ServerRequestContext
 
 mcp_config = {"transport": "stdio"}

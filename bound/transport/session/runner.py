@@ -45,7 +45,7 @@ from mcp_types import (
 from mcp_types import methods as _methods
 
 if TYPE_CHECKING:
-    from anchor.surface.mcps.server.lowlevel.server import Server
+    from mcp.server.lowlevel.server import Server
 
 __all__ = ["CallNext", "ServerMiddleware", "ServerRunner", "otel_middleware"]
 

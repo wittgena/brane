@@ -6,7 +6,7 @@
 ## @lineage: anchor.mcp.server.handle.tool
 import anyio
 
-from anchor.surface.mcps.server.lowlevel.server import Server
+from mcp.server.lowlevel.server import Server
 from bound.transport.session.context import ServerRequestContext
 from xphi.xor.store.event import InMemoryEventStore
 from mcp_types import (

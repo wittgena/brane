@@ -23,18 +23,18 @@ from starlette.requests import Request
 from starlette.responses import Response
 from starlette.types import Receive, Scope, Send
 
-from anchor.surface.mcps.server.middleware.bearer_auth import AuthenticatedUser, AuthorizationContext, authorization_context
+from mcp.server.auth.middleware.bearer_auth import AuthenticatedUser, AuthorizationContext, authorization_context
 from bound.transport.session.server.http import (
     MCP_SESSION_ID_HEADER,
     EventStore,
     StreamableHTTPServerTransport,
 )
-from anchor.surface.mcps.server.middleware.transport_security import TransportSecuritySettings
+from mcp.server.transport_security import TransportSecuritySettings
 from mcp.shared._compat import resync_tracer
 from mcp_types import INVALID_REQUEST, ErrorData, JSONRPCError
 
 if TYPE_CHECKING:
-    from anchor.surface.mcps.server.lowlevel.server import Server
+    from mcp.server.lowlevel.server import Server
 
 logger = logging.getLogger(__name__)
 

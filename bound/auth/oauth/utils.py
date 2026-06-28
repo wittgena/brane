@@ -7,7 +7,7 @@ from urllib.parse import urljoin, urlparse
 from httpx import Request, Response
 from pydantic import AnyUrl, ValidationError
 
-from anchor.surface.mcps.client.streamable_http import MCP_PROTOCOL_VERSION
+from mcp.client.streamable_http import MCP_PROTOCOL_VERSION_HEADER
 from mcp.shared.auth import (
     OAuthClientInformationFull,
     OAuthClientMetadata,
@@ -215,7 +215,7 @@ async def handle_auth_metadata_response(response: Response) -> tuple[bool, OAuth
 
 
 def create_oauth_metadata_request(url: str) -> Request:
-    return Request("GET", url, headers={MCP_PROTOCOL_VERSION: LATEST_PROTOCOL_VERSION})
+    return Request("GET", url, headers={MCP_PROTOCOL_VERSION_HEADER: LATEST_PROTOCOL_VERSION})
 
 
 def create_client_registration_request(

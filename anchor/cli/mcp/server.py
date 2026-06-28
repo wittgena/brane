@@ -11,7 +11,7 @@ from io import TextIOWrapper
 from mcp_types import jsonrpc_message_adapter
 from mcp.shared._context_streams import create_context_streams
 from mcp.shared.message import SessionMessage
-from anchor.surface.mcps.server.lowlevel.server import Server
+from mcp.server.lowlevel.server import Server
 
 from watcher.plane.emitter import get_emitter
 

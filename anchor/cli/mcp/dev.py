@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Annotated, Any
 import typer
 
-from anchor.surface.mcps.server.lowlevel.server import Server as LowLevelServer
+from mcp.server.lowlevel.server import Server as LowLevelServer
 from anchor.cli.claude import mcp_requirement, get_claude_config_path, update_claude_config
 from watcher.plane.emitter import get_emitter
 

@@ -7,8 +7,8 @@ from urllib.parse import parse_qs, urlparse
 import httpx
 from pydantic import AnyUrl
 
-from anchor.surface.mcps.client.session import ClientSession
-from anchor.surface.mcps.client.streamable_http import streamable_http_client
+from mcp.client.session import ClientSession
+from mcp.client.streamable_http import streamable_http_client
 from mcp.shared.auth import OAuthClientInformationFull, OAuthClientMetadata, OAuthToken
 from bound.auth.oauth.provider import OAuthClientProvider, TokenStorage
 

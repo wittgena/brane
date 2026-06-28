@@ -16,9 +16,9 @@ import httpx
 from typing import Any, Callable, Awaitable
 
 from mcp.shared.auth import OAuthClientInformationFull, OAuthClientMetadata, OAuthToken
-from anchor.surface.mcps.client._transport import Transport
-from anchor.surface.mcps.client.sse import sse_client
-from anchor.surface.mcps.client.streamable_http import streamable_http_client
+from mcp.client._transport import Transport
+from mcp.client.sse import sse_client
+from mcp.client.streamable_http import streamable_http_client
 from bound.auth.oauth.provider import OAuthClientProvider, TokenStorage
 
 from watcher.plane.emitter import get_emitter

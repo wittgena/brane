@@ -8,8 +8,8 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 from starlette.routing import Route
 
-from anchor.surface.mcps.server.auth.routes import cors_middleware, create_auth_routes
-from anchor.surface.mcps.server.auth.settings import AuthSettings, ClientRegistrationOptions
+from mcp.server.auth.routes import cors_middleware, create_auth_routes
+from mcp.server.auth.settings import AuthSettings, ClientRegistrationOptions
 from xphi.server.handle.auth import SimpleOAuthProvider
 from xphi.server.setting import AuthServerSettings, default_auth_settings
 

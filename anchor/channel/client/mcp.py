@@ -5,10 +5,10 @@ from contextlib import AsyncExitStack
 from dataclasses import KW_ONLY, dataclass, field
 from typing import Any
 
-from anchor.surface.mcps.client._memory import InMemoryTransport
-from anchor.surface.mcps.client._transport import Transport
-from anchor.surface.mcps.client.session import ClientSession, ElicitationFnT, ListRootsFnT, LoggingFnT, MessageHandlerFnT, SamplingFnT
-from anchor.surface.mcps.client.streamable_http import streamable_http_client
+from mcp.client._memory import InMemoryTransport
+from mcp.client._transport import Transport
+from mcp.client.session import ClientSession, ElicitationFnT, ListRootsFnT, LoggingFnT, MessageHandlerFnT, SamplingFnT
+from mcp.client.streamable_http import streamable_http_client
 
 from mcp.shared.dispatcher import ProgressFnT
 from mcp_types import (

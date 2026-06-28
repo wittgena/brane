@@ -9,7 +9,7 @@ from openai.types.shared_params.function_definition import FunctionDefinition
 from mcp_types import CallToolRequestParams as MCPCallToolRequestParams
 from mcp_types import CallToolResult as MCPCallToolResult
 from mcp_types import Tool as MCPTool
-from anchor.surface.mcps.client.session import ClientSession
+from mcp.client.session import ClientSession
 
 from anchor.surface.model.types.utils import ChatCompletionMessageToolCall
 
