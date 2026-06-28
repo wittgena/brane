@@ -1,4 +1,5 @@
-# anchor.channel.compat.switch.model.token.counter
+# anchor.provider.model.token.counter
+## @lineage: anchor.channel.compat.switch.model.token.counter
 ## @lineage: anchor.channel.switch.model.token.counter
 import base64
 import io
@@ -28,7 +29,7 @@ from anchor.channel.config.constants import (
     MAX_TILE_HEIGHT,
     MAX_TILE_WIDTH,
 )
-from anchor.provider.token.convert import get_default_encoding
+from anchor.provider.model.token.convert import get_default_encoding
 from anchor.surface.model.anthropic import (
     AnthropicMessagesToolResultParam,
     AnthropicMessagesToolUseParam,
@@ -45,7 +46,7 @@ from anchor.channel.client.http import _get_httpx_client
 from watcher.plane.emitter import get_emitter
 
 # [NEW] 이전 단계에서 제안된 클래스 기반 안전한 HTTP 클라이언트 사용
-from anchor.provider.token.url_utils import SafeHttpClient
+from anchor.provider.model.token.url_utils import SafeHttpClient
 
 log = get_emitter(__name__)
 
@@ -97,7 +98,7 @@ class TokenEvaluator:
 
     def _get_count_function(self) -> TokenCounterFunction:
         """현재 모델 상태에 맞는 토큰 계산 함수를 반환합니다."""
-        from anchor.channel.compat.switch.model.token.tokenizer import _select_tokenizer
+        from anchor.provider.model.token.tokenizer import _select_tokenizer
         
         if self.original_model or self.custom_tokenizer:
             tokenizer_json = self.custom_tokenizer or _select_tokenizer(self.original_model)
@@ -558,7 +559,7 @@ def token_counter(
     내부적으로 TokenEvaluator를 생성하여 토큰 수를 계산합니다. 
     (기존 서명 완벽 유지)
     """
-    from anchor.provider.token.convert import convert_list_message_to_dict
+    from anchor.provider.model.token.convert import convert_list_message_to_dict
     
     log.debug(f"messages in token_counter: {messages}, text in token_counter: {text}")
 

@@ -5,6 +5,7 @@ from urllib.parse import quote
 from uuid import UUID, uuid4
 
 import anyio
+from pathlib import Path
 from pydantic import ValidationError
 from sse_starlette import EventSourceResponse
 from starlette.requests import Request
@@ -13,10 +14,7 @@ from starlette.types import Receive, Scope, Send
 
 from mcp_types import jsonrpc_message_adapter
 from mcp.server.auth.middleware.bearer_auth import AuthenticatedUser, AuthorizationContext, authorization_context
-from mcp.server.auth.middleware.transport_security import (
-    TransportSecurityMiddleware,
-    TransportSecuritySettings,
-)
+from mcp.server.transport_security import TransportSecurityMiddleware, TransportSecuritySettings
 from mcp.shared._context_streams import ContextSendStream, create_context_streams
 from mcp.shared.message import ServerMessageMetadata, SessionMessage
 

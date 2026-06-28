@@ -1,4 +1,5 @@
-# anchor.channel.compat.switch.model.cost.unit
+# anchor.provider.cost.unit
+## @lineage: anchor.channel.compat.switch.model.cost.unit
 ## @lineage: anchor.channel.switch.model.cost.unit
 ## @lineage: anchor.switch.model.cost.unit
 ## @lineage: anchor.model.info.cost.calculator.utils
@@ -15,7 +16,7 @@ from anchor.surface.model.types import (
     Usage,
     DataResidency
 )
-from anchor.channel.compat.switch.model.info import get_model_info
+from anchor.provider.model.info import get_model_info
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("calculator.utils")

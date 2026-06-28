@@ -30,7 +30,7 @@ from anchor.channel.compat.switch.params import ModelResponse, ModelResponseStre
 from anchor.surface.mapping.exception import exception_type
 from anchor.surface.model.openai.types import OpenAIChatCompletionChunk
 from anchor.provider.types import ProviderTypes
-from anchor.provider.info.router import GenericLiteLLMParams
+from anchor.surface.model.param.legacy import GenericLiteLLMParams
 from anchor.surface.model.types import Delta, CallTypes, GenericStreamingChunk as GChunk
 
 from bound.transport.stream.chunk.builder import stream_chunk_builder

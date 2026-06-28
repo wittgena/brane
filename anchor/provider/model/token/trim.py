@@ -1,11 +1,12 @@
-# anchor.channel.compat.switch.model.token.trim
+# anchor.provider.model.token.trim
+## @lineage: anchor.channel.compat.switch.model.token.trim
 ## @lineage: anchor.channel.switch.model.token.trim
 ## @lineage: anchor.switch.model.token.trim
 ## @lineage: anchor.model.token.trim
 import os
 import copy
 from typing import Any, Dict, List, Optional, Union
-from anchor.channel.compat.switch.model.token.counter import token_counter
+from anchor.provider.model.token.counter import token_counter
 from anchor.channel.config.constants import (
     DEFAULT_CHAT_COMPLETION_PARAM_VALUES,
     DEFAULT_EMBEDDING_PARAM_VALUES,

@@ -15,7 +15,7 @@ from bound.adapter.mcp.stream import MCPStreamIterator
 from bound.adapter.mcp.event.tool import create_mcp_list_tools_events
 
 from anchor.surface.model.param.response import *
-from anchor.provider.info.router import GenericLiteLLMParams
+from anchor.surface.model.param.legacy import GenericLiteLLMParams
 from anchor.surface.model.openai.types import ResponseText
 from anchor.surface.model.openai.types import (
     AllMessageValues, PromptObject, Reasoning, ResponseIncludable, ResponseInputParam,
@@ -24,7 +24,7 @@ from anchor.surface.model.openai.types import (
 
 from anchor.provider.manager import ProviderConfigManager
 from anchor.provider.types import ProviderTypes
-from anchor.channel.compat.switch.model.llm.provider import get_llm_provider
+from anchor.provider.resolver import get_llm_provider
 
 from anchor.channel.client.action.param.litellm import get_litellm_params, infer_openai_data_residency
 from anchor.channel.config.response import BaseResponsesAPIConfig

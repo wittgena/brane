@@ -74,7 +74,7 @@ from anchor.surface.exception import (
 )
 
 
-from anchor.channel.compat.switch.model.token.counter import get_modified_max_tokens
+from anchor.provider.model.token.counter import get_modified_max_tokens
 from anchor.surface.model.openai.types import (
     AllMessageValues,
     AllPromptValues,
@@ -85,7 +85,7 @@ from anchor.surface.model.openai.types import (
     OpenAITextCompletionUserMessage,
     OpenAIWebSearchOptions,
 )
-from anchor.channel.compat.switch.model.llm.provider import get_llm_provider
+from anchor.provider.resolver import get_llm_provider
 from anchor.surface.model.types import CallTypes, Embedding, ProviderTypes
 
 from bound.transport.stream.chunk.builder import stream_chunk_builder

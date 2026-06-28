@@ -1,4 +1,5 @@
-# anchor.channel.compat.switch.model.llm.provider
+# anchor.provider.resolver
+## @lineage: anchor.channel.compat.switch.model.llm.provider
 ## @lineage: anchor.channel.switch.model.llm.provider
 ## @lineage: anchor.switch.model.llm.provider
 ## @lineage: anchor.model.provider.resolver
@@ -7,10 +8,10 @@ from typing import Optional, Tuple, Dict, Callable
 from urllib.parse import urlparse
 from anchor.channel.config.resolver import config
 from anchor.channel.config.constants import REPLICATE_MODEL_NAME_WITH_ID_LENGTH
-from anchor.provider.info.router import LiteLLM_Params
+from anchor.surface.model.param.legacy import LiteLLM_Params
 from xphi.xor.secret.manager import get_secret_str, get_secret 
 from watcher.plane.emitter import get_emitter
-from anchor.provider.identifier import (
+from anchor.provider.model.identifier import (
     _matches_claude_model_pattern,
     handle_cohere_chat_model_custom_llm_provider,
     handle_anthropic_text_model_custom_llm_provider,

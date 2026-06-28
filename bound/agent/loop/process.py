@@ -15,7 +15,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any, cast
 
-from anchor.surface.acps.interfaces import Agent, Client
+from anchor.surface.acp.interfaces import Agent, Client
 
 from bound.transport.conn.side.agent import AgentSideConnection
 from bound.transport.conn.side.client import ClientSideConnection

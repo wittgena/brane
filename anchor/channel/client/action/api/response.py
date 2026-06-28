@@ -35,11 +35,11 @@ from anchor.surface.model.openai.types import (
     ToolParam,
 )
 from anchor.surface.model.param.response import *
-from anchor.provider.info.router import GenericLiteLLMParams
+from anchor.surface.model.param.legacy import GenericLiteLLMParams
 from anchor.surface.model.openai.types import ResponseText
 
 from anchor.provider.manager import ProviderConfigManager
-from anchor.channel.compat.switch.model.llm.provider import get_llm_provider
+from anchor.provider.resolver import get_llm_provider
 
 from bound.adapter.mcp.handler import MCPHandler
 from anchor.channel.client.action.api.handler import ResponseApiHandler

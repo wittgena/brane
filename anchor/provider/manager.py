@@ -9,7 +9,7 @@ from anchor.channel.config.resolver import config
 from anchor.channel.config.constants import DEFAULT_MAX_LRU_CACHE_SIZE
 from anchor.channel.client.action.param.format import BaseLLMModelInfo
 from anchor.provider.types import ProviderTypes, ProviderTypesSet
-from anchor.provider.info.support import ProviderSpecificModelInfo
+from anchor.provider.model.specific import ProviderSpecificModelInfo
 
 class ProviderConfigManager:
     _PROVIDER_CONFIG_MAP: Optional[dict[ProviderTypes, tuple[Callable, bool]]] = None

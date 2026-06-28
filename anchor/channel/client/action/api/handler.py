@@ -33,7 +33,7 @@ from anchor.channel.client.http import (
     get_async_httpx_client,
 )
 from anchor.surface.model.param.response import DeleteResponseResult
-from anchor.provider.info.router import GenericLiteLLMParams
+from anchor.surface.model.param.legacy import GenericLiteLLMParams
 from anchor.surface.model.types import CallTypes
 from bound.transport.stream.iterator import (
     ResponseStreamIterator,

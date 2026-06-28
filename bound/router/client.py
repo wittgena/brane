@@ -4,11 +4,11 @@
 from __future__ import annotations
 
 from typing import Any
-from anchor.surface.acps.exceptions import RequestError
-from anchor.surface.acps.interfaces import Client
-from anchor.surface.acps.meta import CLIENT_METHODS
+from anchor.surface.acp.exceptions import RequestError
+from anchor.surface.acp.interfaces import Client
+from anchor.surface.acp.meta import CLIENT_METHODS
 from bound.router.message import MessageRouter
-from anchor.surface.acps.schema import (
+from anchor.surface.acp.schema import (
     CreateTerminalRequest,
     KillTerminalRequest,
     ReadTextFileRequest,

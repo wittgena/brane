@@ -1,11 +1,8 @@
-# anchor.provider.info.support
-## @lineage: anchor.surface.model.types.support
-## @lineage: anchor.surface.model.legacy.types.support
-## @lineage: bound.adapter.legacy.llm.types.support
-## @lineage: anchor.surface.legacy.llm.types.support
-## @lineage: anchor.surface.legacy.types.support
+# anchor.provider.model.specific
+## @lineage: anchor.provider.model.support
+## @lineage: anchor.channel.compat.switch.model.support
+from typing import Optional, Literal, List, Dict
 from typing_extensions import TypedDict
-from typing import Literal, Optional
 
 class ProviderSpecificModelInfo(TypedDict, total=False):
     supports_system_messages: Optional[bool]

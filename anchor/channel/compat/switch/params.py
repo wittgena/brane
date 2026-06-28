@@ -1,6 +1,4 @@
 # anchor.channel.compat.switch.params
-## @lineage: anchor.channel.switch.params
-## @lineage: anchor.switch.params
 """
 @phase: Type System Projection
 @desc: Acts as the primary switch to dynamically decouple Brane from external LiteLLM dependencies.
@@ -12,10 +10,15 @@ import os
 from pydantic import BaseModel, ConfigDict
 from typing import Any, Dict, Iterable, List, Optional, Union
 from openai.types.responses.response_function_tool_call import ResponseFunctionToolCall
+from watcher.plane.emitter import get_emitter
 
-LITELLM_CONVERT_SWITCH = False
+_RAW_SWITCH = os.getenv("LITELLM_CONVERT_SWITCH", "False").lower()
+LITELLM_CONVERT_SWITCH = _RAW_SWITCH in ("true", "1", "yes", "t")
+CRISIS_STRICT_MODE = os.getenv("BRANE_CRISIS_STRICT_MODE", "False").lower() in ("true", "1")
+log = get_emitter("switch.params")
 
 if LITELLM_CONVERT_SWITCH:
+    log.info("Providing zero-migration entry point for external downstream runtime.")
     try:
         from litellm.types.llms.openai import ResponseAPIUsage, ResponsesAPIResponse
         from litellm.types.llms.openai import ResponsesAPIStreamingResponse

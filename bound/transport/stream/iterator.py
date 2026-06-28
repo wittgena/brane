@@ -1583,7 +1583,7 @@ class ResponseWSHandler:
         if not model:
             return None
         try:
-            from anchor.channel.compat.switch.model.llm.provider import get_llm_provider
+            from anchor.provider.resolver import get_llm_provider
             _, provider, _, _ = get_llm_provider(model=model)
             return provider
         except Exception:

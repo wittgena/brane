@@ -8,11 +8,11 @@ import asyncio
 from collections.abc import Callable
 from typing import Any, cast, final
 
-from anchor.surface.acps.interfaces import Agent, Client
-from anchor.surface.acps.meta import CLIENT_METHODS
+from anchor.surface.acp.interfaces import Agent, Client
+from anchor.surface.acp.meta import CLIENT_METHODS
 
 from bound.transport.conn.base import Connection
-from anchor.surface.acps.schema import (
+from anchor.surface.acp.schema import (
     AgentMessageChunk,
     AgentPlanContentUpdate,
     AgentPlanRemovedUpdate,

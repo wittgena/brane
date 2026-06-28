@@ -13,9 +13,9 @@ from anchor.provider.cost.map import model_cost, _get_model_info_helper
 from anchor.provider.cost.transform import UsageTransform
 from anchor.provider.types import ProviderTypesSet
 
-from anchor.channel.compat.switch.model.cost.unit import generic_cost_per_token
-from anchor.channel.compat.switch.model.llm.provider import get_llm_provider
-from anchor.channel.compat.switch.model.token.counter import token_counter
+from anchor.provider.cost.unit import generic_cost_per_token
+from anchor.provider.resolver import get_llm_provider
+from anchor.provider.model.token.counter import token_counter
 from anchor.channel.compat.switch.params import ModelResponse, ModelResponseStream
 
 from anchor.surface.model.openai.types import (

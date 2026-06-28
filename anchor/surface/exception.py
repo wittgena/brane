@@ -1,10 +1,14 @@
 # anchor.surface.exception
 from typing import Any, Dict, Optional, Union
+from enum import Enum
 import httpx
 import openai
-from anchor.surface.model.types import LiteLLMCommonStrings
 
 _MINIMAL_ERROR_RESPONSE: Optional[httpx.Response] = None
+
+class LiteLLMCommonStrings(Enum):
+    redacted_by_litellm = "redacted by litellm. 'litellm.turn_off_message_logging=True'"
+    llm_provider_not_provided = "Unmapped LLM provider for this endpoint. You passed model={model}, custom_llm_provider={custom_llm_provider}. Check supported provider and route: https://docs.litellm.ai/docs/providers"
 
 def _get_minimal_error_response() -> httpx.Response:
     """Get a cached minimal httpx.Response object for error cases."""

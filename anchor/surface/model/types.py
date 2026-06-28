@@ -59,7 +59,7 @@ from anchor.surface.model.openai.types import (
     ResponsesAPIResponse,
     WebSearchOptions,
 )
-from anchor.provider.info.support import ProviderSpecificModelInfo
+from anchor.provider.model.specific import ProviderSpecificModelInfo
 
 if TYPE_CHECKING:
     from anchor.surface.model.param.embedding import VectorStoreSearchResponse
@@ -67,6 +67,7 @@ else:
     VectorStoreSearchResponse = Any
 
 from anchor.provider.types import ProviderTypes
+from anchor.surface.model.param.legacy import CustomPricingLiteLLMParams
 
 def _generate_id():  # private helper function
     return "chatcmpl-" + str(uuid.uuid4())
@@ -2987,64 +2988,6 @@ class StandardCallbackDynamicParams(TypedDict, total=False):
     turn_off_message_logging: Optional[bool]  # when true will not log messages
     litellm_disabled_callbacks: Optional[List[str]]
 
-
-class CustomPricingLiteLLMParams(BaseModel):
-    ## CUSTOM PRICING ##
-    input_cost_per_token: Optional[float] = None
-    output_cost_per_token: Optional[float] = None
-    input_cost_per_second: Optional[float] = None
-    output_cost_per_second: Optional[float] = None
-    output_cost_per_second_1080p: Optional[float] = None
-    input_cost_per_pixel: Optional[float] = None
-    output_cost_per_pixel: Optional[float] = None
-
-    # Include all ModelInfoBase fields as optional
-    # This allows any model_info parameter to be set in litellm_params
-    input_cost_per_token_flex: Optional[float] = None
-    input_cost_per_token_priority: Optional[float] = None
-    cache_creation_input_token_cost: Optional[float] = None
-    cache_creation_input_token_cost_above_1hr: Optional[float] = None
-    cache_creation_input_token_cost_above_200k_tokens: Optional[float] = None
-    cache_creation_input_audio_token_cost: Optional[float] = None
-    cache_read_input_token_cost: Optional[float] = None
-    cache_read_input_token_cost_flex: Optional[float] = None
-    cache_read_input_token_cost_priority: Optional[float] = None
-    cache_read_input_token_cost_above_200k_tokens: Optional[float] = None
-    cache_read_input_audio_token_cost: Optional[float] = None
-    input_cost_per_character: Optional[float] = None
-    input_cost_per_character_above_128k_tokens: Optional[float] = None
-    input_cost_per_audio_token: Optional[float] = None
-    input_cost_per_token_cache_hit: Optional[float] = None
-    input_cost_per_token_above_128k_tokens: Optional[float] = None
-    input_cost_per_token_above_200k_tokens: Optional[float] = None
-    input_cost_per_query: Optional[float] = None
-    input_cost_per_image: Optional[float] = None
-    input_cost_per_image_above_128k_tokens: Optional[float] = None
-    input_cost_per_audio_per_second: Optional[float] = None
-    input_cost_per_audio_per_second_above_128k_tokens: Optional[float] = None
-    input_cost_per_video_per_second: Optional[float] = None
-    input_cost_per_video_per_second_above_128k_tokens: Optional[float] = None
-    input_cost_per_video_per_second_above_15s_interval: Optional[float] = None
-    input_cost_per_video_per_second_above_8s_interval: Optional[float] = None
-    input_cost_per_token_batches: Optional[float] = None
-    output_cost_per_token_batches: Optional[float] = None
-    output_cost_per_token_flex: Optional[float] = None
-    output_cost_per_token_priority: Optional[float] = None
-    output_cost_per_character: Optional[float] = None
-    output_cost_per_audio_token: Optional[float] = None
-    output_cost_per_token_above_128k_tokens: Optional[float] = None
-    output_cost_per_token_above_200k_tokens: Optional[float] = None
-    output_cost_per_character_above_128k_tokens: Optional[float] = None
-    output_cost_per_image: Optional[float] = None
-    output_cost_per_image_token: Optional[float] = None
-    output_cost_per_reasoning_token: Optional[float] = None
-    output_cost_per_video_per_second: Optional[float] = None
-    output_cost_per_audio_per_second: Optional[float] = None
-    search_context_cost_per_query: Optional[Dict[str, Any]] = None
-    citation_cost_per_token: Optional[float] = None
-    tiered_pricing: Optional[List[Dict[str, Any]]] = None
-
-
 all_litellm_params = (
     [
         "metadata",
@@ -3233,14 +3176,8 @@ class TokenCountResponse(PydanticObjectBase):
     model_used: str
     tokenizer_type: str
     original_response: Optional[dict] = None
-    """
-    Original Response from upstream API call - if an API call was made for token counting
-    """
     error: bool = False
     error_message: Optional[str] = None
-    """
-    HTTP status code from the token counting API (e.g., 200 for success, 429 for rate limit, 400 for bad request)
-    """
     status_code: Optional[int] = None
 
 

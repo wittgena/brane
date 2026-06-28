@@ -9,7 +9,7 @@ from collections.abc import Awaitable, Callable, Sequence
 from typing import Any
 
 from bound.transport.dispatcher.block import text_block, tool_content
-from anchor.surface.acps.schema import PermissionOption, RequestPermissionRequest, RequestPermissionResponse, ToolCallUpdate
+from anchor.surface.acp.schema import PermissionOption, RequestPermissionRequest, RequestPermissionResponse, ToolCallUpdate
 from xphi.scope.plane.tracker.toolcall import ToolCallTracker, _copy_model_list
 
 

@@ -12,7 +12,7 @@ from contextlib import suppress
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict
-from anchor.surface.acps.schema import (
+from anchor.surface.acp.schema import (
     AgentMessageChunk,
     AgentPlanUpdate,
     AgentThoughtChunk,

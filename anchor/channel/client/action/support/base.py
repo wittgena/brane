@@ -7,8 +7,8 @@
 ## @lineage: bound.client.api.get_api_base
 from typing import Optional, Union
 from anchor.channel.config.resolver import config
-from anchor.channel.compat.switch.model.llm.provider import get_llm_provider
-from anchor.provider.info.router import LiteLLM_Params
+from anchor.provider.resolver import get_llm_provider
+from anchor.surface.model.param.legacy import LiteLLM_Params
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("api.base")

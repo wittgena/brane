@@ -1,4 +1,5 @@
-# anchor.channel.compat.switch.model.spec
+# anchor.provider.model.spec
+## @lineage: anchor.channel.compat.switch.model.spec
 ## @lineage: anchor.channel.switch.model.spec
 ## @lineage: anchor.switch.model.spec
 ## @lineage: anchor.model.info.spec

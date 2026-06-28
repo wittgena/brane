@@ -41,7 +41,7 @@ from anchor.surface.model.anthropic import AnthropicThinkingParam
 from anchor.surface.model.openai.types import AllMessageValues, OpenAIWebSearchOptions
 from anchor.surface.model.types import Embedding, Function, ProviderTypes
 from anchor.provider.manager import ProviderConfigManager
-from anchor.channel.compat.switch.model.support import get_supported_openai_params
+from anchor.provider.model.support import get_supported_openai_params
 
 from watcher.plane.emitter import get_emitter
 

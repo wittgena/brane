@@ -4,7 +4,7 @@
 ## @lineage: acps.interfaces
 from __future__ import annotations
 from typing import Any, Protocol
-from anchor.surface.acps.schema import (
+from anchor.surface.acp.schema import (
     AcpMcpServer,
     AgentMessageChunk,
     AgentPlanContentUpdate,
@@ -74,7 +74,7 @@ from anchor.surface.acps.schema import (
     WriteTextFileRequest,
     WriteTextFileResponse,
 )
-from anchor.surface.acps.utils import param_model, param_models
+from anchor.surface.acp.utils import param_model, param_models
 
 __all__ = ["Agent", "Client"]
 

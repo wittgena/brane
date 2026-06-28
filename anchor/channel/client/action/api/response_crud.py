@@ -14,14 +14,14 @@ from pydantic import BaseModel
 from anchor.channel.config.resolver import config
 from anchor.channel.config.constants import request_timeout
 from anchor.channel.config.response import BaseResponsesAPIConfig
-from anchor.channel.compat.switch.model.llm.provider import get_llm_provider
+from anchor.provider.resolver import get_llm_provider
 from anchor.surface.model.openai.types import (
     ResponseInputParam,
     ResponsesAPIOptionalRequestParams,
     ResponsesAPIResponse,
 )
 from anchor.surface.model.param.response import *
-from anchor.provider.info.router import GenericLiteLLMParams
+from anchor.surface.model.param.legacy import GenericLiteLLMParams
 from anchor.provider.manager import ProviderConfigManager
 from anchor.channel.client.action.api.handler import ResponseApiHandler
 from anchor.channel.client.action.param.litellm import infer_openai_data_residency

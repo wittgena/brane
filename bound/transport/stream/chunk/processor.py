@@ -34,7 +34,7 @@ from anchor.surface.model.types import (
 )
 
 from anchor.surface.model.openai.types import ChatCompletionRedactedThinkingBlock, ChatCompletionThinkingBlock
-from anchor.channel.compat.switch.model.token.counter import token_counter
+from anchor.provider.model.token.counter import token_counter
 from watcher.plane.emitter import get_emitter 
 
 log = get_emitter("chunk.processor")

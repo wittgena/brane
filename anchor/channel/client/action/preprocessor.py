@@ -26,9 +26,9 @@ from anchor.surface.model.types import EmbeddingResponse
 from anchor.channel.compat.switch.params import ModelResponse
 from anchor.surface.model.types import all_litellm_params
 from anchor.channel.config.resolver import config
-from anchor.channel.compat.switch.model.support import supports_httpx_timeout
+from anchor.provider.model.support import supports_httpx_timeout
 from anchor.provider.manager import ProviderConfigManager
-from anchor.channel.compat.switch.model.llm.provider import get_llm_provider
+from anchor.provider.resolver import get_llm_provider
 from anchor.provider.types import ProviderTypes
 from anchor.surface.model.openai.types import AllMessageValues
 from anchor.channel.client.action.param.optional import get_optional_params
@@ -308,7 +308,7 @@ class EmbeddingPreprocessor:
         self.kwargs = kwargs
 
     def build(self) -> EmbeddingContext:
-        from anchor.channel.compat.switch.model.llm.provider import get_llm_provider
+        from anchor.provider.resolver import get_llm_provider
         
         # 1. Provider 식별
         custom_llm_provider = self.kwargs.get("custom_llm_provider")

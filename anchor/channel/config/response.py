@@ -15,7 +15,7 @@ from anchor.surface.model.openai.types import (
     ResponsesAPIStreamingResponse,
 )
 from anchor.surface.model.param.response import DeleteResponseResult
-from anchor.provider.info.router import GenericLiteLLMParams
+from anchor.surface.model.param.legacy import GenericLiteLLMParams
 from anchor.provider.types import ProviderTypes
 from anchor.surface.exception import BaseLLMException
 

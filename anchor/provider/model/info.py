@@ -1,11 +1,5 @@
-# anchor.channel.compat.switch.model.info
-## @lineage: anchor.channel.switch.model.info
-## @lineage: anchor.switch.model.info
-## @lineage: anchor.model.info.entry
-## @lineage: anchor.router.model.info.entry
-## @lineage: bound.router.model.info.entry
-## @lineage: bound.channel.model.info.entry
-## @lineage: channel.model.info.entry
+# anchor.provider.model.info
+## @lineage: anchor.channel.compat.switch.model.info
 from typing import Optional
 from functools import lru_cache, wraps
 

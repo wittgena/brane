@@ -9,12 +9,23 @@ from typing import Any, Dict, List, Optional, Type, Union
 from openai.lib import _parsing, _pydantic
 from pydantic import BaseModel
 from anchor.surface.model.openai.types import AllMessageValues, ChatCompletionToolCallChunk
-from anchor.surface.model.types import TokenCountResponse
-from anchor.provider.info.support import ProviderSpecificModelInfo
+from anchor.surface.model.llm.base import PydanticObjectBase
+from anchor.provider.model.specific import ProviderSpecificModelInfo
 from anchor.channel.compat.switch.params import Message
+
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("base.utils")
+
+class TokenCountResponse(PydanticObjectBase):
+    total_tokens: int
+    request_model: str
+    model_used: str
+    tokenizer_type: str
+    original_response: Optional[dict] = None
+    error: bool = False
+    error_message: Optional[str] = None
+    status_code: Optional[int] = None
 
 class BaseTokenCounter(ABC):
     @abstractmethod

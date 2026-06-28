@@ -6,7 +6,7 @@ import litellm
 from typing import Union, cast, Optional, Dict
 
 from anchor.channel.config.resolver import config
-from anchor.channel.compat.switch.model.info import get_model_info
+from anchor.provider.model.info import get_model_info
 from anchor.provider.registry import get_model_cost_map
 from anchor.provider.types import ProviderTypes
 from watcher.plane.emitter import get_emitter
@@ -150,7 +150,7 @@ def _convert_stringified_numbers(value):
 def _clear_model_info_caches() -> None:
     """Clears LRU caches when model cost data is mutated."""
     try:
-        from anchor.channel.compat.switch.model.info import _cached_get_model_info
+        from anchor.provider.model.info import _cached_get_model_info
         _cached_get_model_info.cache_clear()
     except ImportError:
         pass

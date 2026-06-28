@@ -18,7 +18,7 @@ from anchor.provider.llm.base import BaseLM
 from xphi.opt.dsp.handler.cache import request_cache
 from bound.transport.stream.chunk.builder import stream_chunk_builder
 
-from anchor.channel.compat.switch.model.support import supports_function_calling, supports_reasoning, supports_response_schema, get_supported_openai_params
+from anchor.provider.model.support import supports_function_calling, supports_reasoning, supports_response_schema, get_supported_openai_params
 from xphi.opt.dsp.stream.callback import BaseCallback
 from xphi.opt.dsp.provider.openai import OpenAIProvider
 from xphi.opt.dsp.provider.base import Provider, ReinforceJob, TrainingJob

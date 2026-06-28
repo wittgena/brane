@@ -37,7 +37,7 @@ from anchor.surface.model.types import TextChoices, TextCompletionResponse
 from anchor.surface.exception import APIError
 
 from anchor.channel.config.resolver import config
-from anchor.channel.compat.switch.model.token.counter import token_counter
+from anchor.provider.model.token.counter import token_counter
 from bound.transport.stream.chunk.processor import ChunkProcessor
 from anchor.channel.compat.switch.params import Choices, Message, ModelResponse, Usage
 from watcher.plane.emitter import get_emitter

@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from anchor.surface.acps.exceptions import RequestError
-from anchor.surface.acps.interfaces import Agent, Client
+from anchor.surface.acp.exceptions import RequestError
+from anchor.surface.acp.interfaces import Agent, Client
 from bound.transport.conn.side.agent import AgentSideConnection
 from bound.transport.conn.side.client import ClientSideConnection
 from bound.transport.conn.base import Connection, JsonValue, MethodHandler
