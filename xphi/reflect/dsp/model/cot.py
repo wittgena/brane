@@ -1,12 +1,4 @@
 # xphi.reflect.dsp.model.cot
-## @lineage: xphi.opt.dsp.model.cot
-## @lineage: bound.xor.dsp.model.cot
-## @lineage: xor.dsp.model.cot
-## @lineage: bound.xor.dsp.cot
-## @lineage: bound.channel.bridge.dsp.cot
-## @lineage: channel.bridge.dsp.cot
-## @lineage: meta.ops.predictor.cot
-## @lineage: gov.frame.predictor.cot
 from typing import Any
 from pydantic.fields import FieldInfo
 

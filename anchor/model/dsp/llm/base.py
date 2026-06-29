@@ -63,25 +63,37 @@ class BaseLM:
         if settings.disable_history:
             return outputs
 
-        # Logging, with removed api key & where `cost` is None on cache hit.
+        ## Logging, with removed api key & where `cost` is None on cache hit.
         kwargs = {k: v for k, v in kwargs.items() if not k.startswith("api_")}
+        if isinstance(response, str):
+            usage_data = {}
+            cost_data = None
+            response_model_name = self.model
+        else:
+            usage_data = getattr(response, "usage", {})
+            if hasattr(usage_data, "model_dump"):
+                usage_data = usage_data.model_dump()
+            elif not isinstance(usage_data, dict):
+                usage_data = dict(usage_data) if usage_data else {}
+                
+            cost_data = getattr(response, "_hidden_params", {}).get("response_cost")
+            response_model_name = getattr(response, "model", self.model)
+
         entry = {
             "prompt": prompt,
             "messages": messages,
             "kwargs": kwargs,
             "response": response,
             "outputs": outputs,
-            "usage": dict(response.usage),
-            "cost": getattr(response, "_hidden_params", {}).get("response_cost"),
+            "usage": usage_data,
+            "cost": cost_data,
             "timestamp": datetime.datetime.now().isoformat(),
             "uuid": str(uuid.uuid4()),
             "model": self.model,
-            "response_model": response.model,
+            "response_model": response_model_name,
             "model_type": self.model_type,
         }
-
         self.update_history(entry)
-
         return outputs
 
     @with_callbacks
@@ -182,6 +194,12 @@ class BaseLM:
     def _process_completion(self, response, merged_kwargs):
         """Process the response of OpenAI chat completion API and extract outputs."""
         log.debug("========== [CRITICAL DEBUG: MODEL RESPONSE DUMP] ==========")
+        
+        # [핵심 방어 코드 추가] response가 이미 순수 문자열인 경우, 복잡한 파싱 없이 즉시 반환
+        if isinstance(response, str):
+            log.debug(f"Response is a raw string. Bypassing extraction logic. Length: {len(response)}")
+            return [response]
+            
         try:
             # LiteLLM/Pydantic 호환 객체 덤프
             if hasattr(response, "model_dump_json"):
@@ -200,16 +218,12 @@ class BaseLM:
         choices = getattr(response, "choices", [])
         if not choices and isinstance(response, dict):
             choices = response.get("choices", [])
-            
+
         for c in choices:
             output = {}
-            
-            # =================================================================
-            # 1. 절대 방어: 텍스트(Content) 무적 추출
-            # =================================================================
             content = None
             
-            # A. OpenAI 표준 경로 시도 (가장 일반적)
+            ## A. OpenAI 표준 경로 시도
             if hasattr(c, "message"):
                 content = getattr(c.message, "content", None)
                 if not content and isinstance(c.message, dict):
@@ -219,7 +233,7 @@ class BaseLM:
             elif isinstance(c, dict):
                 content = c.get("text", c.get("message", {}).get("content"))
 
-            # B. [중요] Gemini 네이티브 포맷 누수 1차 방어 (response 루트 탐색)
+            ## B. Gemini 네이티브 포맷 누수 1차 방어 (response 루트 탐색)
             if not content:
                 log.warning("OpenAI standard content is empty. Searching Native Gemini paths.")
                 try:
@@ -236,13 +250,13 @@ class BaseLM:
                 except Exception as e:
                     log.error(f"Failed native path 1: {e}")
 
-            # C. [중요] provider_specific_fields 탐색 (LiteLLM 특성 방어)
+            ## C. provider_specific_fields 탐색 (LiteLLM 특성 방어)
             if not content and hasattr(c, "message"):
                 try:
                     psf = getattr(c.message, "provider_specific_fields", {})
                     if psf and isinstance(psf, dict):
-                        # 특정 프로바이더가 여기에 답을 숨기는 경우가 있음
-                        # 텍스트로 유추될만한 긴 문자열이 있다면 잡아챔
+                        ## 특정 프로바이더가 여기에 답을 숨기는 경우가 있음
+                        ## 텍스트로 유추될만한 긴 문자열이 있다면 잡아챔
                         for v in psf.values():
                             if isinstance(v, str) and len(v) > 20: 
                                 content = v
@@ -250,19 +264,14 @@ class BaseLM:
                 except Exception as e:
                     log.error(f"Failed provider path: {e}")
 
-            # D. 마지막 보루: choices[0] 자체를 문자열 캐스팅
+            ## D. 마지막 보루: choices[0] 자체를 문자열 캐스팅
             if not content:
                  log.warning("All extraction failed. Forcing string casting on choice object.")
                  content = str(c)
 
-            # 빈 값 정규화
+            ## 빈 값 정규화
             output["text"] = content if content is not None else ""
             log.debug(f"[Extraction Result] Length: {len(output['text'])}")
-            
-            # =================================================================
-            # (이하 Reasoning, Logprobs, Tool Calls 로직은 기존과 동일)
-            # =================================================================
-            
             if hasattr(c, "message"):
                 reasoning = getattr(c.message, "reasoning_content", None)
                 if reasoning:
