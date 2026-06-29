@@ -24,7 +24,7 @@ import httpx
 from pydantic import BaseModel
 from bound.channel.config.resolver import config
 from bound.channel.config.constants import request_timeout
-from anchor.surface.model.openai.types import (
+from anchor.surface.model.client.openai.types import (
     AllMessageValues,
     PromptObject,
     Reasoning,
@@ -37,10 +37,10 @@ from anchor.surface.model.openai.types import (
 )
 from anchor.surface.model.param.response import *
 from anchor.surface.model.param.legacy import GenericLiteLLMParams
-from anchor.surface.model.openai.types import ResponseText
+from anchor.surface.model.client.openai.types import ResponseText
 
-from anchor.provider.manager import ProviderConfigManager
-from anchor.provider.resolver import get_llm_provider
+from anchor.surface.provider.config.factory import ProviderConfigManager
+from anchor.surface.provider.routing.locator import get_llm_provider
 
 from bound.adapter.mcp.handler import MCPHandler
 from bound.channel.client.action.api.handler import ResponseApiHandler

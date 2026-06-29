@@ -13,7 +13,7 @@ import re
 from typing import TYPE_CHECKING, Any, Optional, get_args, get_origin
 import json_repair
 import pydantic
-from anchor.provider.llm.base import BaseLM
+from anchor.model.llm.base import BaseLM
 
 if TYPE_CHECKING:
     from bound.channel.compat.switch.params import ModelResponseStream

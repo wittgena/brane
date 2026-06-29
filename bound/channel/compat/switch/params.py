@@ -67,14 +67,14 @@ if LITELLM_CONVERT_SWITCH:
 
 if not LITELLM_CONVERT_SWITCH:
     try:
-        from anchor.surface.model.openai.types import ResponseAPIUsage, ResponsesAPIResponse
-        from anchor.surface.model.openai.types import ResponsesAPIStreamingResponse
-        from anchor.surface.model.openai.types import ToolParam
-        from anchor.surface.model.openai.types import ChatCompletionToolParam
-        from anchor.surface.model.openai.types import OutputFunctionToolCall
-        from anchor.surface.model.openai.types import ResponsesAPIResponse
-        from anchor.surface.model.openai.types import ChatCompletionToolParamFunctionChunk
-        from anchor.surface.model.openai.types import ResponsesAPIStreamEvents
+        from anchor.surface.model.client.openai.types import ResponseAPIUsage, ResponsesAPIResponse
+        from anchor.surface.model.client.openai.types import ResponsesAPIStreamingResponse
+        from anchor.surface.model.client.openai.types import ToolParam
+        from anchor.surface.model.client.openai.types import ChatCompletionToolParam
+        from anchor.surface.model.client.openai.types import OutputFunctionToolCall
+        from anchor.surface.model.client.openai.types import ResponsesAPIResponse
+        from anchor.surface.model.client.openai.types import ChatCompletionToolParamFunctionChunk
+        from anchor.surface.model.client.openai.types import ResponsesAPIStreamEvents
         ## ---
         from anchor.surface.model.param.response import GenericResponseOutputItem
         from anchor.surface.model.param.rerank import RerankResponse
@@ -88,7 +88,7 @@ if not LITELLM_CONVERT_SWITCH:
             ChatCompletionMessageToolCallParam,
             ChatCompletionContentPartParam
         )
-        from anchor.surface.model.types import (
+        from anchor.surface.model.client.types import (
             ChatCompletionDeltaToolCall,
             ChatCompletionRedactedThinkingBlock,
             CompletionTokensDetailsWrapper,
@@ -100,9 +100,9 @@ if not LITELLM_CONVERT_SWITCH:
             TranscriptionUsageDurationObject,
             TranscriptionUsageTokensObject,
         )
-        from anchor.surface.model.types import Usage
-        from anchor.surface.model.types import TextChoices, TextCompletionResponse, TranscriptionResponse
-        from anchor.surface.model.types import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
-        from anchor.surface.model.types import ChatCompletionMessageToolCall
+        from anchor.surface.model.client.types import Usage
+        from anchor.surface.model.client.types import TextChoices, TextCompletionResponse, TranscriptionResponse
+        from anchor.surface.model.client.types import ModelResponse, ModelResponseStream, Delta, StreamingChoices, Choices, Message
+        from anchor.surface.model.client.types import ChatCompletionMessageToolCall
     except ImportError as e:
         raise ImportError(f"Failed to load fallback types from internal modules. Error: {e}")

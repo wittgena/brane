@@ -20,7 +20,7 @@ from typing import (
 from starlette.datastructures import Headers
 from bound.adapter.mcp.parser.header import MCPHeaderParser
 from anchor.surface.model.param.response import DecodedResponseId
-from anchor.surface.model.types import SpecialEnums
+from anchor.surface.model.client.types import SpecialEnums
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("support.identity")

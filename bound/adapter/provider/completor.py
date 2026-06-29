@@ -13,8 +13,8 @@ from bound.channel.config.resolver import config
 
 from bound.channel.client.http import AsyncHTTPHandler, HTTPHandler, _get_httpx_client, get_async_httpx_client
 from bound.transport.stream.wrapper import CustomStreamWrapper
-from anchor.provider.manager import ProviderConfigManager
-from anchor.provider.types import ProviderTypes
+from anchor.surface.provider.config.factory import ProviderConfigManager
+from anchor.surface.provider.types import ProviderTypes
 
 from watcher.plane.emitter import get_emitter
 

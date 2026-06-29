@@ -26,7 +26,7 @@ from pydantic import BaseModel
 from bound.channel.config.response import BaseResponsesAPIConfig
 from bound.channel.config.resolver import config
 from bound.channel.client.action.param.optional import PreProcessNonDefaultParams
-from anchor.surface.model.openai.types import (
+from anchor.surface.model.client.openai.types import (
     ResponsesAPIOptionalRequestParams,
     ResponsesAPIResponse,
     ResponseText,

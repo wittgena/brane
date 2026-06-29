@@ -12,8 +12,8 @@
 """
 from typing import Any, Coroutine, List, Literal, Optional, Union
 from typing_extensions import overload
-from anchor.surface.model.types import EmbeddingResponse
-from anchor.surface.mapping.exception import exception_type
+from anchor.surface.model.client.types import EmbeddingResponse
+from anchor.surface.provider.mapping.exception import exception_type
 from bound.channel.client.wrapper import client
 from bound.channel.client.action.preprocessor import EmbeddingPreprocessor
 from bound.adapter.provider.registry import AdapterRegistry

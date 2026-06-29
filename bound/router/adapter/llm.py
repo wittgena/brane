@@ -8,7 +8,7 @@ import importlib
 import inspect
 from typing import Dict, Any, Optional
 
-from anchor.provider.cost.map import get_provider_for_model
+from anchor.surface.provider.registry import get_provider_for_model
 from anchor.cli.adapter.scan.llm import LLMScanner
 import anchor.inter.llms as llm_pkg 
 

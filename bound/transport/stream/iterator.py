@@ -12,11 +12,11 @@ from typing import Any, Dict, List, Literal, Optional
 import httpx
 from openai._streaming import SSEDecoder
 
-import anchor.surface.model.openai.types as openai_types
+import anchor.surface.model.client.openai.types as openai_types
 from bound.channel.config.resolver import config
 from bound.channel.config.constants import LITELLM_MAX_STREAMING_DURATION_SECONDS, STREAM_SSE_DONE_STRING
-from anchor.surface.model.openai.types import ResponsesAPIStreamEvents
-from anchor.surface.model.types import CallTypes
+from anchor.surface.model.client.openai.types import ResponsesAPIStreamEvents
+from anchor.surface.model.client.types import CallTypes
 
 from bound.channel.config.response import BaseResponsesAPIConfig
 from bound.channel.client.action.task.executor import executor
@@ -1583,7 +1583,7 @@ class ResponseWSHandler:
         if not model:
             return None
         try:
-            from anchor.provider.resolver import get_llm_provider
+            from anchor.surface.provider.routing.locator import get_llm_provider
             _, provider, _, _ = get_llm_provider(model=model)
             return provider
         except Exception:

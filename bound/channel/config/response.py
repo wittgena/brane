@@ -9,7 +9,7 @@ import types
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union, cast, Literal
 import httpx
-from anchor.surface.model.openai.types import (
+from anchor.surface.model.client.openai.types import (
     ResponseInputParam,
     ResponsesAPIOptionalRequestParams,
     ResponsesAPIResponse,
@@ -17,7 +17,7 @@ from anchor.surface.model.openai.types import (
 )
 from anchor.surface.model.param.response import DeleteResponseResult
 from anchor.surface.model.param.legacy import GenericLiteLLMParams
-from anchor.provider.types import ProviderTypes
+from anchor.surface.provider.types import ProviderTypes
 from anchor.surface.exception import BaseLLMException
 
 LiteLLMLoggingObj = Any

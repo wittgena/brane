@@ -9,7 +9,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from typing_extensions import Required, TypedDict
 
 if TYPE_CHECKING:
-    from anchor.surface.model.types import ModelResponse
+    from anchor.surface.model.client.types import ModelResponse
     ModelResponseType = ModelResponse
 else:
     ModelResponseType = Any

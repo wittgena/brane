@@ -2,9 +2,9 @@
 ## @lineage: xphi.adapter.mcp.event.tool
 ## @lineage: bound.adapter.mcp.legacy.stream
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union, cast
-from anchor.surface.model.openai.types import OutputItemDoneEvent
-from anchor.surface.model.openai.types import ResponsesAPIStreamEvents
-from anchor.surface.model.openai.types import (
+from anchor.surface.model.client.openai.types import OutputItemDoneEvent
+from anchor.surface.model.client.openai.types import ResponsesAPIStreamEvents
+from anchor.surface.model.client.openai.types import (
     BaseOpenAIResponse,
     MCPListToolsCompletedEvent,
     MCPListToolsFailedEvent,

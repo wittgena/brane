@@ -12,7 +12,7 @@ from bound.channel.client.action.support.base import get_api_base
 # from gate.litellm.voider import Logging as LiteLLMLoggingObject
 LiteLLMLoggingObject = Any
 
-from anchor.surface.model.types import (
+from anchor.surface.model.client.types import (
     EmbeddingResponse,
     HiddenParams,
     ModelResponse,
