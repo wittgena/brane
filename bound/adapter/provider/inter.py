@@ -1,7 +1,4 @@
 # bound.adapter.provider.inter
-## @lineage: bound.bridge.provider.inter
-## @lineage: xphi.adapter.provider.inter
-## @lineage: anchor.model.provider.adapter.inter
 """
 @manifold: Universal Bridge Adapter
 @flow: CompletionContext (Brane) -> LLMRouter (Projection) -> LlamaIndex (Execution) -> ModelResponse (Resolution)
@@ -9,7 +6,7 @@
 """
 from typing import AsyncGenerator, Generator
 from bound.adapter.llama.base.llms.types import ChatMessage, MessageRole
-from bound.router.adapter.llm import LLMRouter
+from bound.router.adapter.llm import LLMRouter, TopologyMissingError
 from bound.transport.stream.wrapper import CustomStreamWrapper
 from bound.adapter.provider.base import BaseProviderAdapter
 from bound.channel.client.action.preprocessor import CompletionContext
@@ -43,7 +40,14 @@ class InterLLMAdapter(BaseProviderAdapter):
         llama_kwargs = {k: v for k, v in llama_kwargs.items() if v is not None}
 
         try:
-            llm = self.router.route_and_load(model_name=ctx.model, **llama_kwargs)
+            ## @contract: Explicitly pass the provider to strictly bind the topology
+            llm = self.router.route_and_load(
+                model_name=ctx.model, 
+                custom_llm_provider=ctx.custom_llm_provider, 
+                **llama_kwargs
+            )
+        except TopologyMissingError as te:
+            raise te
         except Exception as e:
             raise RuntimeError(f"[LlamaBridge] 모델 인스턴스 생성 실패: {e}")
 

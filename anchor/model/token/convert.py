@@ -1,7 +1,4 @@
 # anchor.model.token.convert
-## @lineage: anchor.provider.model.token.convert
-## @lineage: anchor.provider.token.convert
-## @lineage: anchor.surface.model.token.convert
 from typing import Dict, List, Type, Union, cast
 from pydantic import BaseModel
 import tiktoken

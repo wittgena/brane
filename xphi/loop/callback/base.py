@@ -1,8 +1,4 @@
 # xphi.loop.callback.base
-## @lineage: bound.adapter.llama.callbacks.base
-## @lineage: bound.adapter.callbacks.base
-## @lineage: anchor.adapter.callbacks.base
-## @lineage: bridge.llama.core.callbacks.base
 import logging
 import uuid
 from abc import ABC
@@ -31,52 +27,19 @@ global_stack_trace_ids = ContextVar("trace_ids", default=empty_trace_ids)
 
 
 class CallbackManager(BaseCallbackHandler, ABC):
-    """
-    Callback manager that handles callbacks for events within LlamaIndex.
-
-    The callback manager provides a way to call handlers on event starts/ends.
-
-    Additionally, the callback manager traces the current stack of events.
-    It does this by using a few key attributes.
-    - trace_stack - The current stack of events that have not ended yet.
-                    When an event ends, it's removed from the stack.
-                    Since this is a contextvar, it is unique to each
-                    thread/task.
-    - trace_map - A mapping of event ids to their children events.
-                  On the start of events, the bottom of the trace stack
-                  is used as the current parent event for the trace map.
-    - trace_id - A simple name for the current trace, usually denoting the
-                 entrypoint (query, index_construction, insert, etc.)
-
-    Args:
-        handlers (List[BaseCallbackHandler]): list of handlers to use.
-
-    Usage:
-        with callback_manager.event(CBEventType.QUERY) as event:
-            event.on_start(payload={key, val})
-            ...
-            event.on_end(payload={key, val})
-
-    """
-
     def __init__(self, handlers: Optional[List[BaseCallbackHandler]] = None):
         """Initialize the manager with a list of handlers."""
         handlers = handlers or []
+        ## --- REMOVE OR COMMENT OUT THIS BLOCK ---
+        # if global_handler is not None:
+        #     new_handler = global_handler
+        #     for existing_handler in handlers:
+        #         if isinstance(existing_handler, type(new_handler)):
+        #             raise ValueError(...)
+        #     handlers.append(new_handler)
+        # ----------------------------------------
 
-        # add eval handlers based on global defaults
-        if global_handler is not None:
-            new_handler = global_handler
-            # go through existing handlers, check if any are same type as new handler
-            # if so, error
-            for existing_handler in handlers:
-                if isinstance(existing_handler, type(new_handler)):
-                    raise ValueError(
-                        "Cannot add two handlers of the same type "
-                        f"{type(new_handler)} to the callback manager."
-                    )
-            handlers.append(new_handler)
-
-        # if we passed in no handlers, use the global default
+        # if we passed in no handlers, use the global default settings
         if len(handlers) == 0:
             from bound.adapter.llama.settings import Settings
 

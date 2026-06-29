@@ -1,10 +1,4 @@
 # xphi.reflect.dsp.handler.stream.callback
-## @lineage: xphi.opt.dsp.stream.callback
-## @lineage: bound.xor.dsp.stream.callback
-## @lineage: xor.dsp.stream.callback
-## @lineage: bound.channel.bridge.dsp.stream.callback
-## @lineage: channel.bridge.dsp.stream.callback
-## @lineage: gov.gateway.call.stream.callback
 import functools
 import inspect
 import logging
@@ -148,7 +142,6 @@ def with_callbacks(fn):
         return settings.get("callbacks", []) + getattr(instance, "callbacks", [])
 
     if inspect.iscoroutinefunction(fn):
-
         @functools.wraps(fn)
         async def async_wrapper(instance, *args, **kwargs):
             callbacks = _get_active_callbacks(instance)
@@ -156,10 +149,9 @@ def with_callbacks(fn):
                 return await fn(instance, *args, **kwargs)
 
             call_id = uuid.uuid4().hex
-
             _execute_start_callbacks(instance, fn, call_id, callbacks, args, kwargs)
 
-            # Active ID must be set right before the function is called, not before calling the callbacks.
+            ## Active ID must be set right before the function is called, not before calling the callbacks.
             parent_call_id = ACTIVE_CALL_ID.get()
             ACTIVE_CALL_ID.set(call_id)
 
@@ -176,9 +168,7 @@ def with_callbacks(fn):
                 _execute_end_callbacks(instance, fn, call_id, results, exception, callbacks)
 
         return async_wrapper
-
     else:
-
         @functools.wraps(fn)
         def sync_wrapper(instance, *args, **kwargs):
             callbacks = _get_active_callbacks(instance)
@@ -189,7 +179,7 @@ def with_callbacks(fn):
 
             _execute_start_callbacks(instance, fn, call_id, callbacks, args, kwargs)
 
-            # Active ID must be set right before the function is called, not before calling the callbacks.
+            ## Active ID must be set right before the function is called, not before calling the callbacks.
             parent_call_id = ACTIVE_CALL_ID.get()
             ACTIVE_CALL_ID.set(call_id)
 
@@ -210,8 +200,6 @@ def with_callbacks(fn):
 
 def _get_on_start_handler(callback: BaseCallback, instance: Any, fn: Callable) -> Callable:
     """Selects the appropriate on_start handler of the callback based on the instance and function name."""
-    
-    # [수정됨] 하드코딩된 import 대신 MRO(Method Resolution Order)를 통해 상속 관계 확인
     mro_names = [base.__name__ for base in instance.__class__.__mro__]
 
     if "BaseLM" in mro_names:
@@ -230,16 +218,13 @@ def _get_on_start_handler(callback: BaseCallback, instance: Any, fn: Callable) -
     if "Tool" in mro_names:
         return callback.on_tool_start
 
-    # We treat everything else as a module.
+    ## We treat everything else as a module.
     return callback.on_module_start
 
 
 def _get_on_end_handler(callback: BaseCallback, instance: Any, fn: Callable) -> Callable:
     """Selects the appropriate on_end handler of the callback based on the instance and function name."""
-    
-    # [수정됨] 하드코딩된 import 대신 MRO(Method Resolution Order)를 통해 상속 관계 확인
     mro_names = [base.__name__ for base in instance.__class__.__mro__]
-
     if "BaseLM" in mro_names:
         return callback.on_lm_end
     elif "Evaluate" in mro_names:

@@ -1,10 +1,11 @@
-# anchor.model.dsp.openai
+# anchor.model.dsp.training.openai
+## @lineage: anchor.model.dsp.openai
 ## @lineage: anchor.provider.dsp.openai
 import time
 from datetime import datetime
 from typing import Any
 import openai
-from anchor.model.dsp.base import Provider, TrainingJob
+from anchor.model.dsp.training.base import Provider, TrainingJob
 from xphi.reflect.dsp.handler.train import TrainDataFormat, TrainingStatus, save_data
 
 class TrainingJobOpenAI(TrainingJob):

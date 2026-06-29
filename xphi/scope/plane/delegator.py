@@ -1,6 +1,6 @@
 # xphi.scope.plane.delegator
 import inspect
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Coroutine
 from xphi.scope.plane.telemetry.llm import Telemetry
 from xphi.scope.plane.metrics import Metrics
 from watcher.plane.emitter import get_emitter
@@ -75,7 +75,6 @@ class Logging(LoggingBase):
         self._telemetry.on_error(exception)
 
     def _safe_super_call(self, method_name: str, *args, **kwargs) -> Any:
-        """super() 호출 시 발생하는 AttributeError 방어 헬퍼"""
         if hasattr(super(), method_name):
             method = getattr(super(), method_name)
             return method(*args, **kwargs)
@@ -88,17 +87,26 @@ class Logging(LoggingBase):
 
     async def async_success_handler(self, result=None, *args, **kwargs):
         self._handle_response(result)
-        return await self._safe_super_call('async_success_handler', result, *args, **kwargs)
+        super_result = self._safe_super_call('async_success_handler', result, *args, **kwargs)
+        if inspect.iscoroutine(super_result):
+            return await super_result
+        return super_result
 
     def failure_handler(self, exception, traceback_exception=None, *args, **kwargs):
         self._handle_error(exception)
+        self._safe_super_call('failure_handler', exception, traceback_exception, *args, **kwargs)
         return exception, traceback_exception
 
     async def async_failure_handler(self, exception, traceback_exception=None, *args, **kwargs):
+        """async_success_handler와 동일한 방어 로직 적용"""
         self._handle_error(exception)
+        super_result = self._safe_super_call('async_failure_handler', exception, traceback_exception, *args, **kwargs)
+        
+        if inspect.iscoroutine(super_result):
+            await super_result
         return exception, traceback_exception
 
-    ## Dummy 방어선 (에러 방지용)
+    ## Dummy 방어선 (에러 방지용 인터페이스 컨트랙트 충족)
     def pre_call(self, *args, **kwargs): pass
     def _pre_call(self, *args, **kwargs): pass
     def post_call(self, *args, **kwargs): pass
@@ -109,8 +117,9 @@ class Logging(LoggingBase):
     def _response_cost_calculator(self, *args, **kwargs) -> float: return 0.0
     def should_run_prompt_management_hooks(self, *args, **kwargs) -> bool:
         return False
+        
+    def handle_sync_success_callbacks_for_async_calls(self, *args, **kwargs) -> None: pass
 
-    ## 언패킹 반환 방어 (내부 로직 방어)
     def get_chat_completion_prompt(self, model: str, messages: List[Any], non_default_params: Dict, *args, **kwargs) -> Tuple[str, List[Any], Dict]:
         return model, messages, non_default_params
 

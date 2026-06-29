@@ -1,11 +1,4 @@
 # bound.channel.client.action.completion
-## @lineage: anchor.channel.client.action.completion
-## @lineage: anchor.channel.action.completion
-## @lineage: bound.channel.action.completion
-## @lineage: bound.channel.bridge.action.completion
-## @lineage: bound.bridge.action.completion
-## @lineage: anchor.action.completion
-## @lineage: anchor.surface.legacy.action.completion
 import uuid
 import httpx
 import asyncio
@@ -94,10 +87,8 @@ async def acompletion(
     messages: List = [],
     **kwargs,
 ) -> Union[ModelResponse, CustomStreamWrapper]:
-    """
-    모든 인자는 **kwargs로 위임하고, Fallback 및 Mock 처리 후 비동기 코어 엔진을 호출합니다.
-    """
-    # 1. Fallback 처리 (실패 시 다른 모델로 재시도)
+    """모든 인자는 **kwargs로 위임하고, Fallback 및 Mock 처리 후 비동기 코어 엔진을 호출"""
+    log.info("## acompletion")
     fallbacks = kwargs.get("fallbacks")
     if fallbacks is not None:
         response = await async_completion_with_fallbacks(model=model, messages=messages, **kwargs)
@@ -105,13 +96,11 @@ async def acompletion(
             raise Exception("No response from fallbacks. Got none.")
         return response
 
-    # 2. Mock Timeout 처리
     mock_timeout = kwargs.get("mock_timeout")
     timeout = kwargs.get("timeout")
     if mock_timeout is True:
         await _handle_mock_timeout_async(mock_timeout, timeout, model)
 
-    # 3. 로깅 훅 (비동기 프롬프트 관리 등)
     litellm_logging_obj = kwargs.get("litellm_logging_obj")
     tools = kwargs.get("tools")
     if isinstance(litellm_logging_obj, LiteLLMLoggingObj) and litellm_logging_obj.should_run_prompt_management_hooks(
@@ -125,15 +114,19 @@ async def acompletion(
         if tools is not None and len(tools) == 0:
             kwargs["tools"] = None  # 빈 리스트 처리
 
-    # 4. Mock Delay 처리
     mock_delay = kwargs.get("mock_delay")
     if mock_delay and (kwargs.get("mock_response") or kwargs.get("mock_tool_calls")): 
         await asyncio.sleep(mock_delay)
 
-    # 5. 비동기 코어 엔진 직접 호출 (Thread Pool 제거됨!)
     kwargs["acompletion"] = True
     try:
         response = await async_core_completion(model=model, messages=messages, **kwargs)
+        log.error("========== [DEBUG: RAW API RESPONSE] ==========")
+        try:
+            log.error(f"Response Dump: {response.model_dump()}")
+        except AttributeError:
+            log.error(f"Response Dir: {dir(response)}")
+        log.error("===============================================")
         
         if isinstance(response, CustomStreamWrapper):
             response.set_logging_event_loop(loop=asyncio.get_running_loop())

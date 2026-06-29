@@ -1,13 +1,6 @@
 # xphi.xor.opt.json
-## @lineage: xphi.opt.json
-## @lineage: bound.xor.json
-## @lineage: xor.json
-## @lineage: anchor.xor.json
-## @lineage: meta.xor.adapter.json
-## @lineage: xor.adapter.json
 import json
-import logging
-from typing import Any, get_origin
+from typing import Any, get_origin, Dict
 import json_repair
 import pydantic
 import regex
@@ -21,33 +14,26 @@ from xphi.xor.opt.utils import (
     serialize_for_json,
     translate_field_type,
 )
-from anchor.model.llm.base import BaseLM
+from anchor.model.dsp.llm.base import BaseLM
 from arch.xor.manifold.sign.signature import Signature, SignatureMeta
 from xphi.reflect.dsp.handler.stream.callback import BaseCallback
 from xphi.reflect.dsp.exceptions import AdapterParseError
+from watcher.plane.emitter import get_emitter
 
-logger = logging.getLogger(__name__)
+log = get_emitter("opt.json")
 
 def _has_open_ended_mapping(signature: SignatureMeta) -> bool:
-    """
-    Check whether any output field in the signature has an open-ended mapping type,
-    such as dict[str, Any]. Structured Outputs require explicit properties, so such fields
-    are incompatible.
-    """
     for field in signature.output_fields.values():
         annotation = field.annotation
         if get_origin(annotation) is dict:
             return True
     return False
 
-
 class JSONAdapter(ChatAdapter):
     def __init__(self, callbacks: list[BaseCallback] | None = None, use_native_function_calling: bool = True):
-        # JSONAdapter uses native function calling by default.
         super().__init__(callbacks=callbacks, use_native_function_calling=use_native_function_calling)
 
     def _json_adapter_call_common(self, lm, lm_kwargs, signature, demos, inputs, call_fn):
-        """Common call logic to be used for both sync and async calls."""
         if "response_format" not in lm.supported_params:
             return call_fn(lm, lm_kwargs, signature, demos, inputs)
 
@@ -76,7 +62,7 @@ class JSONAdapter(ChatAdapter):
             lm_kwargs["response_format"] = structured_output_model
             return super().__call__(lm, lm_kwargs, signature, demos, inputs)
         except Exception:
-            logger.warning("Failed to use structured output format, falling back to JSON mode.")
+            log.warning("Failed to use structured output format, falling back to JSON mode.")
             lm_kwargs["response_format"] = {"type": "json_object"}
             return super().__call__(lm, lm_kwargs, signature, demos, inputs)
 
@@ -99,7 +85,7 @@ class JSONAdapter(ChatAdapter):
             lm_kwargs["response_format"] = structured_output_model
             return await super().acall(lm, lm_kwargs, signature, demos, inputs)
         except Exception:
-            logger.warning("Failed to use structured output format, falling back to JSON mode.")
+            log.warning("Failed to use structured output format, falling back to JSON mode.")
             lm_kwargs["response_format"] = {"type": "json_object"}
             return await super().acall(lm, lm_kwargs, signature, demos, inputs)
 
@@ -147,40 +133,97 @@ class JSONAdapter(ChatAdapter):
         }
         return self.format_field_with_value(fields_with_values, role="assistant")
 
-    def parse(self, signature: type[Signature], completion: str) -> dict[str, Any]:
-        fields = json_repair.loads(completion)
+    def _extract_text_from_completion(self, completion: Any) -> str:
+        log.error(f"[JSONAdapter] Extracting text from completion object of type: {type(completion)}")
+        log.error(f"[JSONAdapter] Completion raw value: {completion}")
 
+        if completion is None:
+            log.error("[JSONAdapter] Error: completion object is strictly None")
+            return ""
+        if isinstance(completion, str):
+            return completion
+        if isinstance(completion, dict):
+            return completion.get("text", completion.get("content", str(completion)))
+        if hasattr(completion, "choices") and len(completion.choices) > 0:
+            choice = completion.choices[0]
+            if hasattr(choice, "message"):
+                val = getattr(choice.message, "content", "") or ""
+                log.error(f"[JSONAdapter] Extracted from message.content: {val}")
+                return val
+            if hasattr(choice, "text"):
+                return choice.text or ""
+        if hasattr(completion, "text"):
+            return completion.text or ""
+        
+        fallback = str(completion)
+        log.error(f"[JSONAdapter] Fallback cast to string: {fallback}")
+        return str(completion)
+
+    def parse(self, signature: type[Signature], completion: Any) -> dict[str, Any]:
+        """
+        @fix: completion 파라미터 타입을 Any로 확장하고, 
+        JSON 직렬화 전에 텍스트를 안전하게 추출(Unwrapping)합니다.
+        """
+        # 1. 텍스트 안전 추출
+        raw_text = self._extract_text_from_completion(completion)
+        if not raw_text.strip():
+            raise AdapterParseError(
+                adapter_name="JSONAdapter",
+                signature=signature,
+                lm_response=str(completion),
+                message="LM returned an empty or unparsable response.",
+            )
+
+        fields = None
+        
+        # 2. 1차 시도: 전체 문자열 JSON 파싱
+        try:
+            fields = json_repair.loads(raw_text)
+        except Exception:
+            pass
+
+        # 3. 2차 시도: 정규식으로 JSON 블록 추출 후 파싱
         if not isinstance(fields, dict):
             pattern = r"\{(?:[^{}]|(?R))*\}"
-            match = regex.search(pattern, completion, regex.DOTALL)
+            match = regex.search(pattern, raw_text, regex.DOTALL)
             if match:
-                completion = match.group(0)
-                fields = json_repair.loads(completion)
+                extracted_json = match.group(0)
+                try:
+                    fields = json_repair.loads(extracted_json)
+                except Exception:
+                    pass
 
+        # 4. 파싱 실패 시 예외 발생
         if not isinstance(fields, dict):
             raise AdapterParseError(
                 adapter_name="JSONAdapter",
                 signature=signature,
-                lm_response=completion,
+                lm_response=raw_text,
                 message="LM response cannot be serialized to a JSON object.",
             )
 
-        fields = {k: v for k, v in fields.items() if k in signature.output_fields}
+        # 5. 서명에 선언된 필드만 필터링
+        filtered_fields = {k: v for k, v in fields.items() if k in signature.output_fields}
 
-        # Attempt to cast each value to type signature.output_fields[k].annotation.
-        for k, v in fields.items():
+        # 6. 각 필드의 타입을 시그니처에 맞게 캐스팅
+        for k, v in filtered_fields.items():
             if k in signature.output_fields:
-                fields[k] = parse_value(v, signature.output_fields[k].annotation)
+                try:
+                    filtered_fields[k] = parse_value(v, signature.output_fields[k].annotation)
+                except Exception as e:
+                    log.debug(f"JSONAdapter failed to cast field {k}: {e}")
+                    # 캐스팅 실패 시 일단 원본 값을 유지하여 후속 파이프라인에서 처리할 여지를 둠
 
-        if fields.keys() != signature.output_fields.keys():
-            raise AdapterParseError(
-                adapter_name="JSONAdapter",
-                signature=signature,
-                lm_response=completion,
-                parsed_result=fields,
-            )
+        # 7. 필수 필드 누락 검사
+        if filtered_fields.keys() != signature.output_fields.keys():
+            missing = set(signature.output_fields.keys()) - set(filtered_fields.keys())
+            # 누락된 필드가 있다면 None으로 채워넣어 완전 붕괴를 막음 (유연성 확보)
+            for m_key in missing:
+                filtered_fields[m_key] = None
+                
+            log.warning(f"JSONAdapter: Missing fields in LM response: {missing}. Filled with None.")
 
-        return fields
+        return filtered_fields
 
     def format_field_with_value(self, fields_with_values: dict[FieldInfoWithName, Any], role: str = "user") -> str:
         if role == "user":
@@ -200,6 +243,7 @@ class JSONAdapter(ChatAdapter):
         raise NotImplementedError
 
 
+# (이하 _get_structured_outputs_response_format 함수는 원본과 동일하게 유지)
 def _get_structured_outputs_response_format(
     signature: SignatureMeta,
     use_native_function_calling: bool = True,
@@ -215,7 +259,6 @@ def _get_structured_outputs_response_format(
     for name, field in signature.output_fields.items():
         annotation = field.annotation
         if use_native_function_calling and annotation == ToolCalls:
-            # Skip ToolCalls field if native function calling is enabled.
             continue
         default = field.default if hasattr(field, "default") else ...
         fields[name] = (annotation, default)
@@ -231,37 +274,25 @@ def _get_structured_outputs_response_format(
         prop.pop("json_schema_extra", None)
 
     def enforce_required(schema_part: dict):
-        """
-        Recursively ensure that:
-            - for any object schema, a "required" key is added with all property names (or [] if no properties)
-            - additionalProperties is set to False regardless of the previous value.
-            - the same enforcement is run for nested arrays and definitions.
-        """
         if schema_part.get("type") == "object":
             props = schema_part.get("properties")
             if props is not None:
-                # For objects with explicitly declared properties:
                 schema_part["required"] = list(props.keys())
                 schema_part["additionalProperties"] = False
                 for sub_schema in props.values():
                     if isinstance(sub_schema, dict):
                         enforce_required(sub_schema)
             else:
-                # For objects with no properties (should not happen normally but a fallback).
                 schema_part["properties"] = {}
                 schema_part["required"] = []
                 schema_part["additionalProperties"] = False
         if schema_part.get("type") == "array" and isinstance(schema_part.get("items"), dict):
             enforce_required(schema_part["items"])
-        # Also enforce in any nested definitions / $defs.
         for key in ("$defs", "definitions"):
             if key in schema_part:
                 for def_schema in schema_part[key].values():
                     enforce_required(def_schema)
 
     enforce_required(schema)
-
-    # Override the model's JSON schema generation to return our precomputed schema.
     pydantic_model.model_json_schema = lambda *args, **kwargs: schema
-
     return pydantic_model

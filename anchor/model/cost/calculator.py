@@ -1,8 +1,4 @@
 # anchor.model.cost.calculator
-## @lineage: anchor.provider.cost.calculator
-## @lineage: anchor.channel.compat.switch.model.cost.calculator
-## @lineage: anchor.channel.switch.model.cost.calculator
-## @lineage: anchor.switch.model.cost.calculator
 import time
 from typing import TYPE_CHECKING, Any, List, Literal, Optional, Tuple, Union, cast
 from httpx import Response
@@ -514,7 +510,7 @@ def response_cost_calculator(
 def _is_known_usage_objects(usage_obj):
     """Returns True if the usage obj is a known Usage type"""
     return (
-        isinstance(usage_obj, litellm.Usage)
+        isinstance(usage_obj, Usage)
         or isinstance(usage_obj, ResponseAPIUsage)
         or UsageTransform.is_transcription_usage_object(
             usage_obj

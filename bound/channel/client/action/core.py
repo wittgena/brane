@@ -2,11 +2,11 @@
 from typing import Any, Dict, List, Optional, Union
 
 from anchor.surface.provider.mapping.exception import exception_type
-
 from bound.channel.compat.switch.params import ModelResponse, ModelResponseStream
 from bound.channel.client.action.preprocessor import CompletionPreprocessor
 from bound.adapter.provider.registry import AdapterRegistry
 from bound.transport.stream.wrapper import CustomStreamWrapper
+from bound.router.adapter.llm import TopologyMissingError
 
 from watcher.plane.emitter import get_emitter
 
@@ -43,6 +43,11 @@ async def async_core_completion(
                 logging_obj=ctx.logging_obj,
             )
         return response
+        
+    except TopologyMissingError as te:
+        ## @fast_fail: 치명적 토폴로지 누락 오류는 절대 래핑(감싸기)하거나 재시도하지 않고 즉시 상위로 투과
+        log.error(f"[bound.completion] 치명적 구조 결함 감지. 실행 즉각 중단: {te}")
+        raise te
         
     except Exception as e:
         log.error(f"[bound.completion] 코어 엔진 예외 발생: {str(e)}")

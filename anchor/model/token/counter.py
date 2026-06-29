@@ -1,11 +1,5 @@
 # anchor.model.token.counter
-## @lineage: anchor.provider.model.token.counter
-## @lineage: anchor.channel.compat.switch.model.token.counter
-## @lineage: anchor.channel.switch.model.token.counter
-import base64
-import io
 import json
-import struct
 from typing import (
     Any,
     Callable,
@@ -17,20 +11,7 @@ from typing import (
     Union,
     cast,
 )
-import tiktoken
 
-from bound.channel.config.resolver import config
-from bound.channel.config.constants import (
-    DEFAULT_IMAGE_HEIGHT,
-    DEFAULT_IMAGE_TOKEN_COUNT,
-    DEFAULT_IMAGE_WIDTH,
-    MAX_IMAGE_URL_DOWNLOAD_SIZE_MB,
-    MAX_LONG_SIDE_FOR_IMAGE_HIGH_RES,
-    MAX_SHORT_SIDE_FOR_IMAGE_HIGH_RES,
-    MAX_TILE_HEIGHT,
-    MAX_TILE_WIDTH,
-)
-from anchor.model.token.convert import get_default_encoding
 from anchor.surface.model.client.anthropic import (
     AnthropicMessagesToolResultParam,
     AnthropicMessagesToolUseParam,
@@ -43,96 +24,39 @@ from anchor.surface.model.client.openai.types import (
 )
 from anchor.surface.model.client.types import SelectTokenizerResponse
 from bound.channel.compat.switch.params import Message
-from bound.channel.client.http import _get_httpx_client
+from bound.channel.config.resolver import config
+from bound.channel.config.constants import DEFAULT_IMAGE_TOKEN_COUNT
+
 from watcher.plane.emitter import get_emitter
 
-# [NEW] 이전 단계에서 제안된 클래스 기반 안전한 HTTP 클라이언트 사용
-from anchor.model.token.url_utils import SafeHttpClient
-
-log = get_emitter(__name__)
+log = get_emitter("token.counter")
 
 TokenCounterFunction = Callable[[str], int]
 
-
 class TokenEvaluator:
     """
-    모델, 토크나이저, 이미지 처리 설정 등의 상태를 보유하고
-    메시지나 텍스트의 토큰을 계산하는 응집도 높은 평가(Evaluator) 엔진
+    @manifold: Pure Token Counting Engine
+    @desc: 
+    - 외부 I/O 통신(HTTP) 및 바이너리 파싱이 완전히 제거된 순수 수학적 평가 엔진입니다.
+    - 고빈도 스트림 처리(Chunk Processor) 구간에서 병목을 일으키지 않습니다.
     """
-
     def __init__(
         self,
-        model: str = "",
-        custom_tokenizer: Optional[Union[dict, SelectTokenizerResponse]] = None,
+        encode_fn: TokenCounterFunction,
+        tokens_per_message: int = 3,
+        tokens_per_name: int = 1,
         use_default_image_token_count: bool = False,
         default_token_count: Optional[int] = None,
     ):
-        self.original_model = model
-        self.model = self._fix_model_name(model)
-        self.custom_tokenizer = custom_tokenizer
+        ## @contract: 명시적으로 주입받은 인코더 사용 (전역 참조 탈피)
+        self.count_function = encode_fn
+        self.tokens_per_message = tokens_per_message
+        self.tokens_per_name = tokens_per_name
         self.use_default_img_count = use_default_image_token_count
         self.default_token_count = default_token_count
-        
-        self.count_function = self._get_count_function()
-        self._init_message_params()
-
-    def _init_message_params(self):
-        """모델에 따른 토큰 패딩(Padding) 규칙을 상태로 저장"""
-        if self.model == "gpt-3.5-turbo-0301":
-            self.tokens_per_message = 4
-            self.tokens_per_name = -1
-        elif self.model in config.open_ai_chat_completion_models or self.model in config.azure_llms:
-            self.tokens_per_message = 3
-            self.tokens_per_name = 1
-        else:
-            self.tokens_per_message = 3
-            self.tokens_per_name = 1
-
-    @staticmethod
-    def _fix_model_name(model: str) -> str:
-        """모델 이름을 정규화합니다."""
-        if model in config.azure_llms:
-            return model.replace("-35", "-3.5")
-        elif model in config.open_ai_chat_completion_models:
-            return model
-        return "gpt-3.5-turbo"
-
-    def _get_count_function(self) -> TokenCounterFunction:
-        """현재 모델 상태에 맞는 토큰 계산 함수를 반환합니다."""
-        from anchor.model.token.tokenizer import _select_tokenizer
-        
-        if self.original_model or self.custom_tokenizer:
-            tokenizer_json = self.custom_tokenizer or _select_tokenizer(self.original_model)
-            
-            if tokenizer_json["type"] == "huggingface_tokenizer":
-                def count_tokens(text: str) -> int:
-                    enc = tokenizer_json["tokenizer"].encode(text)
-                    return len(enc.ids)
-                return count_tokens
-                
-            elif tokenizer_json["type"] == "openai_tokenizer":
-                try:
-                    if "gpt-4o" in self.model:
-                        encoding = get_default_encoding("o200k_base")
-                    else:
-                        encoding = tiktoken.encoding_for_model(self.model)
-                except KeyError:
-                    log.debug("Warning: model not found. Using cl100k_base encoding.")
-                    encoding = get_default_encoding("cl100k_base")
-
-                def count_tokens(text: str) -> int:
-                    return len(encoding.encode(text, disallowed_special=()))
-                return count_tokens
-            else:
-                raise ValueError("Unsupported tokenizer type")
-        else:
-            def count_tokens(text: str) -> int:
-                encoding = get_default_encoding()
-                return len(encoding.encode(text, disallowed_special=()))
-            return count_tokens
 
     # ==========================================
-    # Text & Message Counting Logic
+    # Text & Message Counting Logic (순수 수학 연산)
     # ==========================================
 
     def count_text(self, text: Union[str, List[str]]) -> int:
@@ -165,8 +89,6 @@ class TokenEvaluator:
                             if "function" in tool_call:
                                 func_args = tool_call["function"].get("arguments", [])
                                 num_tokens += self.count_function(str(func_args))
-                            else:
-                                raise ValueError(f"Unsupported tool call {tool_call} must contain a function key")
                     else:
                         raise ValueError(f"Unsupported type {type(value)} for key tool_calls in message {message}")
                 
@@ -215,21 +137,42 @@ class TokenEvaluator:
                 elif c["type"] == "text":
                     num_tokens += self.count_function(str(c.get("text", "")))
                 elif c["type"] == "image_url":
-                    num_tokens += self._count_image_tokens(c.get("image_url"))
+                    # @safety: I/O를 수행하지 않고 메타데이터만으로 계산
+                    num_tokens += self._calculate_img_tokens_from_metadata(c.get("image_url", {}))
                 elif c["type"] in ("tool_use", "tool_result"):
                     num_tokens += self._count_anthropic_content(c)
                 elif c["type"] == "thinking":
                     thinking_text = str(c.get("thinking", ""))
                     if thinking_text:
                         num_tokens += self.count_function(thinking_text)
-                else:
-                    content_type = c.get("type", type(c).__name__) if isinstance(c, dict) else type(c).__name__
-                    raise ValueError(f"Invalid content item type: {content_type}.")
             return num_tokens
         except Exception as e:
             if self.default_token_count is not None:
                 return self.default_token_count
             raise ValueError(f"Error getting number of tokens from content list: {e}")
+
+    def _calculate_img_tokens_from_metadata(self, image_data: Any) -> int:
+        """
+        @desc: 네트워크 다운로드 없이, 이미 주입된 메타데이터(가로/세로) 기반으로 수학적 연산만 수행합니다.
+        """
+        if self.use_default_img_count:
+            return DEFAULT_IMAGE_TOKEN_COUNT
+
+        detail = "auto"
+        if isinstance(image_data, dict):
+            detail = image_data.get("detail", "auto")
+            
+        if detail == "low":
+            return 85
+            
+        # 전처리 단계에서 ext/vision.py를 통해 가로/세로가 채워졌다고 가정
+        # 없을 경우 안전하게 1타일 크기의 기본값으로 처리하여 블로킹 방지
+        width = image_data.get("width", 512) if isinstance(image_data, dict) else 512
+        height = image_data.get("height", 512) if isinstance(image_data, dict) else 512
+        
+        from anchor.model.token.ext.vision import VisionMetadataExtractor
+        tiles_needed = VisionMetadataExtractor.calculate_tiles_needed(width, height)
+        return 85 + (170 * tiles_needed)
 
     def _count_anthropic_content(self, content: Mapping[str, Any]) -> int:
         typeddict_cls = self._validate_anthropic_content(content)
@@ -262,19 +205,13 @@ class TokenEvaluator:
         content_type = content.get("type")
         if not content_type:
             raise ValueError("Anthropic content missing required field: 'type'")
-
         mapping = {
             "tool_use": AnthropicMessagesToolUseParam,
             "tool_result": AnthropicMessagesToolResultParam,
         }
-
         expected_cls = mapping.get(content_type)
         if expected_cls is None:
             raise ValueError(f"Unknown Anthropic content type: '{content_type}'")
-
-        missing = [k for k in getattr(expected_cls, "__required_keys__", set()) if k not in content]
-        if missing:
-            raise ValueError(f"Missing required fields in {content_type} block: {', '.join(missing)}")
         return expected_cls
 
     @staticmethod
@@ -299,13 +236,8 @@ class TokenEvaluator:
             
             citations = result.get("citations")
             if citations is not None:
-                # [FIX] json 모듈이 임포트되어 이제 안전하게 실행됨
                 texts += json.dumps(citations, separators=(",", ":"))
         return texts
-
-    # ==========================================
-    # Tool Formatting Logic
-    # ==========================================
 
     @classmethod
     def _format_function_definitions(cls, tools) -> str:
@@ -379,167 +311,6 @@ class TokenEvaluator:
             return "null"
         return "any"
 
-    # ==========================================
-    # Image Counting Logic
-    # ==========================================
-
-    def _count_image_tokens(self, image_url: Any) -> int:
-        if isinstance(image_url, dict):
-            detail = image_url.get("detail", "auto")
-            if detail not in ["low", "high", "auto"]:
-                raise ValueError(f"Invalid detail value: {detail}.")
-            url = image_url.get("url")
-            if not url:
-                raise ValueError("Missing required key 'url' in image_url dict.")
-                
-            return self._calculate_img_tokens(data=url, mode=detail)
-            
-        elif isinstance(image_url, str):
-            if not image_url.strip():
-                raise ValueError("Empty image_url string is not valid.")
-            return self._calculate_img_tokens(data=image_url, mode="auto")
-        else:
-            raise ValueError("Invalid image_url type. Expected str or dict with 'url' field.")
-
-    def _calculate_img_tokens(
-        self,
-        data,
-        mode: Literal["low", "high", "auto"] = "auto",
-        base_tokens: int = 85,
-    ) -> int:
-        if self.use_default_img_count:
-            log.debug(f"Using default image token count: {DEFAULT_IMAGE_TOKEN_COUNT}")
-            return DEFAULT_IMAGE_TOKEN_COUNT
-            
-        if mode in ("low", "auto"):
-            return base_tokens
-            
-        width, height = self._get_image_dimensions(data)
-        resized_width, resized_height = self._resize_image_high_res(width, height)
-        tiles_needed = self._calculate_tiles_needed(resized_width, resized_height)
-        
-        return base_tokens + ((base_tokens * 2) * tiles_needed)
-
-    @staticmethod
-    def _get_image_dimensions(data: str) -> Tuple[int, int]:
-        img_data = None
-        if data.startswith(("http://", "https://")):
-            try:
-                client = _get_httpx_client()
-                safe_client = SafeHttpClient(client)  # [NEW] 의존성 주입된 객체 사용
-                response = safe_client.get(data)
-                max_bytes = int(MAX_IMAGE_URL_DOWNLOAD_SIZE_MB * 1024 * 1024)
-                
-                content_length = response.headers.get("Content-Length")
-                if content_length is None or int(content_length) <= max_bytes:
-                    body = response.read()
-                    if len(body) <= max_bytes:
-                        img_data = body
-            except Exception as e:
-                # [FIX] 예외가 무음 처리(Swallow)되지 않도록 로깅 추가
-                log.warning(f"Failed to fetch image dimensions from URL: {e}")
-
-        if img_data is None:
-            try:
-                _header, encoded = data.split(",", 1)
-                img_data = base64.b64decode(encoded)
-            except Exception as e:
-                log.warning(f"Failed to decode base64 image data: {e}")
-                return DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT
-
-        img_type = TokenEvaluator._get_image_type(img_data)
-
-        try:
-            if img_type == "png":
-                w, h = struct.unpack(">LL", img_data[16:24])
-                return w, h
-            elif img_type == "gif":
-                w, h = struct.unpack("<HH", img_data[6:10])
-                return w, h
-            elif img_type == "jpeg":
-                with io.BytesIO(img_data) as fhandle:
-                    fhandle.seek(0)
-                    size = 2
-                    ftype = 0
-                    while not 0xC0 <= ftype <= 0xCF or ftype in (0xC4, 0xC8, 0xCC):
-                        fhandle.seek(size, 1)
-                        byte = fhandle.read(1)
-                        while ord(byte) == 0xFF:
-                            byte = fhandle.read(1)
-                        ftype = ord(byte)
-                        size = struct.unpack(">H", fhandle.read(2))[0] - 2
-                    fhandle.seek(1, 1)
-                    h, w = struct.unpack(">HH", fhandle.read(4))
-                return w, h
-            elif img_type == "webp":
-                if img_data[12:16] == b"VP8X":
-                    w = struct.unpack("<I", img_data[24:27] + b"\x00")[0] + 1
-                    h = struct.unpack("<I", img_data[27:30] + b"\x00")[0] + 1
-                    return w, h
-                elif img_data[12:16] == b"VP8 ":
-                    w = struct.unpack("<H", img_data[26:28])[0] & 0x3FFF
-                    h = struct.unpack("<H", img_data[28:30])[0] & 0x3FFF
-                    return w, h
-                elif img_data[12:16] == b"VP8L":
-                    bits = struct.unpack("<I", img_data[21:25])[0]
-                    w = (bits & 0x3FFF) + 1
-                    h = ((bits >> 14) & 0x3FFF) + 1
-                    return w, h
-        except struct.error:
-            pass
-
-        return DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT
-
-    @staticmethod
-    def _get_image_type(image_data: bytes) -> Union[str, None]:
-        if image_data[0:8] == b"\x89\x50\x4e\x47\x0d\x0a\x1a\x0a":
-            return "png"
-        if image_data[0:4] == b"GIF8" and image_data[5:6] == b"a":
-            return "gif"
-        if image_data[0:3] == b"\xff\xd8\xff":
-            return "jpeg"
-        if image_data[4:8] == b"ftyp":
-            return "heic"
-        if image_data[0:4] == b"RIFF" and image_data[8:12] == b"WEBP":
-            return "webp"
-        return None
-
-    @staticmethod
-    def _resize_image_high_res(width: int, height: int) -> Tuple[int, int]:
-        max_short_side = MAX_SHORT_SIDE_FOR_IMAGE_HIGH_RES
-        max_long_side = MAX_LONG_SIDE_FOR_IMAGE_HIGH_RES
-
-        if width <= max_short_side and height <= max_short_side:
-            return width, height
-
-        aspect_ratio = max(width, height) / min(width, height)
-
-        if width <= height:
-            resized_width = max_short_side
-            resized_height = int(resized_width * aspect_ratio)
-            if resized_height > max_long_side:
-                resized_height = max_long_side
-                resized_width = int(resized_height / aspect_ratio)
-        else:
-            resized_height = max_short_side
-            resized_width = int(resized_height * aspect_ratio)
-            if resized_width > max_long_side:
-                resized_width = max_long_side
-                resized_height = int(resized_width / aspect_ratio)
-
-        return resized_width, resized_height
-
-    @staticmethod
-    def _calculate_tiles_needed(
-        resized_width,
-        resized_height,
-        tile_width=MAX_TILE_WIDTH,
-        tile_height=MAX_TILE_HEIGHT,
-    ) -> int:
-        tiles_across = (resized_width + tile_width - 1) // tile_width
-        tiles_down = (resized_height + tile_height - 1) // tile_height
-        return tiles_across * tiles_down
-
 
 # ==========================================
 # External Export Facades (시그니처 유지)
@@ -557,19 +328,27 @@ def token_counter(
     default_token_count: Optional[int] = None,
 ) -> int:
     """
-    내부적으로 TokenEvaluator를 생성하여 토큰 수를 계산합니다. 
-    (기존 서명 완벽 유지)
+    @desc: 외부 호출을 위한 파사드입니다. 기존 서명을 완벽하게 유지합니다.
     """
     from anchor.model.token.convert import convert_list_message_to_dict
+    from anchor.model.token.encoder import encode # 정규화된 인코더 사용
     
-    log.debug(f"messages in token_counter: {messages}, text in token_counter: {text}")
-
     if text is not None and messages is not None:
         raise ValueError("text and messages cannot both be set")
 
+    # 1. 의존성 격리: Facade에서 전역 설정을 읽어 Evaluator에 주입
+    tokens_per_message = 3
+    tokens_per_name = 1
+    safe_model = model or "gpt-3.5-turbo"
+    if "gpt-3.5-turbo-0301" in safe_model:
+        tokens_per_message = 4
+        tokens_per_name = -1
+
+    # 2. 순수 엔진 초기화 (명시적 인코더 주입)
     evaluator = TokenEvaluator(
-        model=model,
-        custom_tokenizer=custom_tokenizer,
+        encode_fn=lambda txt: len(encode(model=safe_model, text=txt, custom_tokenizer=custom_tokenizer)),
+        tokens_per_message=tokens_per_message,
+        tokens_per_name=tokens_per_name,
         use_default_image_token_count=bool(use_default_image_token_count),
         default_token_count=default_token_count,
     )
@@ -600,7 +379,7 @@ def get_modified_max_tokens(
     buffer_num: Optional[float],
 ) -> Optional[int]:
     """
-    기존 로직과 서명을 그대로 유지하며, 내부적으로 리팩토링된 token_counter를 활용합니다.
+    @desc: 기존 서명을 유지하면서 리팩토링된 순수 token_counter를 활용합니다.
     """
     try:
         if user_max_tokens is None:
@@ -619,27 +398,17 @@ def get_modified_max_tokens(
         token_buffer = max(buffer_perc * input_tokens, buffer_num)
 
         input_tokens += int(token_buffer)
-        log.debug(f"max_output_tokens: {max_output_tokens}, user_max_tokens: {user_max_tokens}")
 
-        if _model_info["max_input_tokens"] == max_output_tokens:
-            log.debug(f"input_tokens: {input_tokens}, max_output_tokens: {max_output_tokens}")
+        if _model_info.get("max_input_tokens") == max_output_tokens:
             if input_tokens > max_output_tokens:
                 pass
             elif user_max_tokens + input_tokens > max_output_tokens:
-                log.debug(
-                    f"MODIFYING MAX TOKENS - user_max_tokens={user_max_tokens}, "
-                    f"input_tokens={input_tokens}, max_output_tokens={max_output_tokens}"
-                )
                 user_max_tokens = int(max_output_tokens - input_tokens)
         elif user_max_tokens > max_output_tokens:
             user_max_tokens = max_output_tokens
 
-        log.debug(f"[token.counter] get_modified_max_tokens() - user_max_tokens: {user_max_tokens}")
         return user_max_tokens
 
     except Exception as e:
-        log.debug(
-            f"[token.counter.py] get_modified_max_tokens() - Error while checking max token limit: {e}\n"
-            f"model={model}, base_model={base_model}"
-        )
+        log.debug(f"[token.counter.py] get_modified_max_tokens() - Error: {e}")
         return user_max_tokens

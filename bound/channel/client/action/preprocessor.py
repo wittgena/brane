@@ -1,10 +1,4 @@
 # bound.channel.client.action.preprocessor
-## @lineage: anchor.channel.client.action.preprocessor
-## @lineage: anchor.channel.action.preprocessor
-## @lineage: bound.channel.action.preprocessor
-## @lineage: bound.channel.bridge.action.preprocessor
-## @lineage: bound.bridge.action.preprocessor
-## @lineage: anchor.action.preprocessor
 from __future__ import annotations
 import asyncio
 import contextvars

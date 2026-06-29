@@ -1,10 +1,4 @@
 # bound.channel.client.action.task.logging
-## @lineage: anchor.channel.client.action.task.logging
-## @lineage: anchor.channel.action.task.logging
-## @lineage: bound.channel.action.task.logging
-## @lineage: bound.channel.bridge.task.logging
-## @lineage: bound.bridge.task.logging
-## @lineage: bound.channel.action.handler.worklet.logging
 import asyncio
 import contextvars
 import logging

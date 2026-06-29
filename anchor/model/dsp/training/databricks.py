@@ -1,16 +1,5 @@
-# anchor.model.dsp.databricks
-## @lineage: anchor.provider.dsp.databricks
-## @lineage: xphi.opt.dsp.provider.databricks
-## @lineage: bound.xor.dsp.provider.databricks
-## @lineage: xor.dsp.provider.databricks
-## @lineage: bound.channel.bridge.dsp.provider.databricks
-## @lineage: channel.bridge.dsp.provider.databricks
-## @lineage: meta.xor.adapter.provider.databricks
-## @lineage: meta.ops.provider.databricks
-## @lineage: meta.ops.trainer.provider.databricks
-## @lineage: gov.trainer.provider.databricks
-## @lineage: bound.langcom.trainer.provider.databricks
-## @lineage: bound.langcom.manager.client.lm.provider.databricks
+# anchor.model.dsp.training.databricks
+## @lineage: anchor.model.dsp.databricks
 import logging
 import os
 import re
@@ -18,7 +7,7 @@ import time
 from typing import TYPE_CHECKING, Any
 import orjson
 import requests
-from anchor.model.dsp.base import Provider, TrainingJob
+from anchor.model.dsp.training.base import Provider, TrainingJob
 from xphi.reflect.dsp.handler.train import TrainDataFormat, get_finetune_directory
 
 if TYPE_CHECKING:

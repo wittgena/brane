@@ -1,14 +1,15 @@
-# anchor.model.dsp.instance
+# anchor.model.dsp.llm.instance
+## @lineage: anchor.model.dsp.instance
 ## @lineage: anchor.provider.dsp.instance
 import re
 import threading
 import warnings
 from typing import Any, Literal
 
-from anchor.model.llm.base import BaseLM
+from anchor.model.dsp.llm.base import BaseLM
 from anchor.surface.provider.support import supports_function_calling, supports_reasoning, supports_response_schema, get_supported_openai_params
-from anchor.model.dsp.openai import OpenAIProvider
-from anchor.model.dsp.base import Provider, ReinforceJob, TrainingJob
+from anchor.model.dsp.training.openai import OpenAIProvider
+from anchor.model.dsp.training.base import Provider, ReinforceJob, TrainingJob
 from anchor.surface.exception import ContextWindowExceededError
 from bound.channel.compat.switch.dsp.settings import settings
 
@@ -22,10 +23,7 @@ from watcher.plane.emitter import get_emitter
 log = get_emitter(__name__)
 
 class DSPInstance(BaseLM):
-    """
-    A language model supporting chat or responses completion requests for use with modules.
-    """
-
+    """A language model supporting chat or responses completion requests for use with modules"""
     def __init__(
         self,
         model: str,
@@ -34,7 +32,7 @@ class DSPInstance(BaseLM):
         max_tokens: int | None = None,
         cache: bool = True,
         callbacks: list[BaseCallback] | None = None,
-        num_retries: int = 3,
+        num_retries: int = 1,
         provider: Provider | None = None,
         finetuning_model: str | None = None,
         launch_kwargs: dict[str, Any] | None = None,
@@ -54,8 +52,6 @@ class DSPInstance(BaseLM):
         self.train_kwargs = train_kwargs or {}
         self.use_developer_role = use_developer_role
         self._warned_zero_temp_rollout = False
-        
-        # 🟢 Delegator 컴포넌트 합성
         self.delegator = DSPDelegator()
 
         model_family = model.split("/")[-1].lower() if "/" in model else model.lower()

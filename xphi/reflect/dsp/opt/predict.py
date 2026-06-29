@@ -7,10 +7,10 @@ from pydantic_core import PydanticUndefined
 from typeguard import TypeCheckError, check_type
 
 from bound.channel.compat.switch.dsp.settings import settings
-from anchor.model.llm.base import BaseLM
+from anchor.model.dsp.llm.base import BaseLM
 
 from xphi.xor.opt.chat import ChatAdapter
-from anchor.model.dsp.instance import DSPInstance
+from anchor.model.dsp.llm.instance import DSPInstance
 from xphi.xor.opt.manifold.parameter import Parameter
 from xphi.xor.opt.exam.prediction import Prediction
 from xphi.reflect.dsp.handler.stream.callback import BaseCallback

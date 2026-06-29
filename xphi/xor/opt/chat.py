@@ -1,10 +1,4 @@
 # xphi.xor.opt.chat
-## @lineage: xphi.opt.chat
-## @lineage: bound.xor.chat
-## @lineage: xor.chat
-## @lineage: anchor.xor.chat
-## @lineage: meta.xor.adapter.chat
-## @lineage: xor.adapter.chat
 import re
 import textwrap
 from typing import Any, NamedTuple
@@ -17,7 +11,7 @@ from xphi.xor.opt.utils import (
     parse_value,
     translate_field_type,
 )
-from anchor.model.llm.base import BaseLM
+from anchor.model.dsp.llm.base import BaseLM
 from anchor.surface.exception import ContextWindowExceededError
 from arch.xor.manifold.sign.signature import Signature
 from xphi.reflect.dsp.handler.stream.callback import BaseCallback
@@ -75,16 +69,12 @@ class ChatAdapter(Adapter):
         try:
             return super().__call__(lm, lm_kwargs, signature, demos, inputs)
         except Exception as e:
-            # fallback to JSONAdapter
             from xphi.xor.opt.json import JSONAdapter
-
             if (
                 isinstance(e, ContextWindowExceededError)
                 or isinstance(self, JSONAdapter)
                 or not self.use_json_adapter_fallback
             ):
-                # On context window exceeded error, already using JSONAdapter, or use_json_adapter_fallback is False
-                # we don't want to retry with a different adapter. Raise the original error instead of the fallback error.
                 raise e
             return JSONAdapter()(lm, lm_kwargs, signature, demos, inputs)
 

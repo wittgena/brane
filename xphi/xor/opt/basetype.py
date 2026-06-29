@@ -1,19 +1,10 @@
 # xphi.xor.opt.basetype
-## @lineage: xphi.opt.basetype
-## @lineage: bound.xor.basetype
-## @lineage: xor.basetype
-## @lineage: anchor.xor.basetype
-## @lineage: gov.gateway.call.manifold.base_type
-## @lineage: gov.gate.call.manifold.base_type
-## @lineage: gate.call.manifold.base_type
-## @lineage: agent.call.manifold.base_type
-## @lineage: channel.call.manifold.base_type
 import json
 import re
 from typing import TYPE_CHECKING, Any, Optional, get_args, get_origin
 import json_repair
 import pydantic
-from anchor.model.llm.base import BaseLM
+from anchor.model.dsp.llm.base import BaseLM
 
 if TYPE_CHECKING:
     from bound.channel.compat.switch.params import ModelResponseStream

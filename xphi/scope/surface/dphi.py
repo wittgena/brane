@@ -1,7 +1,7 @@
 # xphi.scope.surface.dphi
 from contextlib import ExitStack
 
-from anchor.model.llm.local import LocalLM
+from anchor.model.dsp.llm.local import LocalLM
 from bound.channel.compat.switch.dsp.settings import settings
 from xphi.scope.surface.config import BaseSurface, SurfaceConfig
 from xphi.scope.thch import thch_scope

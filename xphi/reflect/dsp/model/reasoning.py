@@ -1,17 +1,8 @@
 # xphi.reflect.dsp.model.reasoning
-## @lineage: xphi.opt.dsp.model.reasoning
-## @lineage: bound.xor.dsp.model.reasoning
-## @lineage: xor.dsp.model.reasoning
-## @lineage: bound.xor.dsp.reasoning
-## @lineage: bound.channel.bridge.dsp.reasoning
-## @lineage: channel.bridge.dsp.reasoning
-## @lineage: meta.xor.manifold.reasoning
-## @lineage: meta.xor.adapter.manifold.reasoning
-## @lineage: xor.adapter.manifold.reasoning
 from typing import TYPE_CHECKING, Any, Optional
 import pydantic
 from xphi.xor.opt.basetype import Type
-from anchor.model.llm.base import BaseLM
+from anchor.model.dsp.llm.base import BaseLM
 
 if TYPE_CHECKING:
     from arch.xor.manifold.sign.signature import Signature
@@ -59,29 +50,19 @@ class Reasoning(Type):
         lm_kwargs: dict[str, Any],
     ) -> type["Signature"]:
         if "reasoning_effort" in lm_kwargs:
-            # `lm_kwargs` overrides `lm.kwargs`.
             reasoning_effort = lm_kwargs["reasoning_effort"]
         elif "reasoning_effort" in lm.kwargs:
             reasoning_effort = lm.kwargs["reasoning_effort"]
         else:
-            # Turn on the native reasoning explicitly if Reasoning field is present in the signature and no explicit
-            # reasoning effort is set in `lm_kwargs` or `lm.kwargs`.
             reasoning_effort = "low"
 
         if reasoning_effort is None or not lm.supports_reasoning:
-            # If users explicitly set `reasoning_effort` to None or the LM doesn't support reasoning, we don't enable
-            # native reasoning.
             return signature
 
         if "gpt-5" in lm.model and lm.model_type == "chat":
-            # There is a caveat of Litellm as 1.79.0 that when using the chat completion API on GPT-5 family models,
-            # the reasoning content is not available in the response. As a workaround, we don't enable the native
-            # reasoning feature for GPT-5 family models when using the chat completion API.
-            # Litellm issue: https://github.com/BerriAI/litellm/issues/14748
             return signature
 
         lm_kwargs["reasoning_effort"] = reasoning_effort
-        # Delete the reasoning field from the signature to use the native reasoning feature.
         return signature.delete(field_name)
 
     @classmethod
