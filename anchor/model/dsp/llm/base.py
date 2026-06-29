@@ -43,7 +43,7 @@ class BaseLM:
         return set()
 
     def _process_lm_response(self, response, prompt, messages, **kwargs):
-        log.debug("========== [DEBUG: BaseLM._process_lm_response START] ==========")
+        log.debug("[DEBUG: BaseLM._process_lm_response START]")
         log.debug(f"Raw Response Type: {type(response)}")
         merged_kwargs = {**self.kwargs, **kwargs}
         try:
@@ -95,7 +95,7 @@ class BaseLM:
         }
         self.update_history(entry)
         return outputs
-
+    
     @with_callbacks
     def __call__(
         self,
@@ -103,9 +103,14 @@ class BaseLM:
         messages: list[dict[str, Any]] | None = None,
         **kwargs
     ) -> list[dict[str, Any] | str]:
+        req_id = str(uuid.uuid4())[:8] # 트래킹용 ID
+        log.debug(f"[DEBUG-{req_id}] BaseLM.__call__ START | model={self.model}")
+        
         response = self.forward(prompt=prompt, messages=messages, **kwargs)
+        log.debug(f"[DEBUG-{req_id}] forward Success. Response Type: {type(response)}")
+        
         outputs = self._process_lm_response(response, prompt, messages, **kwargs)
-
+        log.debug(f"[DEBUG-{req_id}] _process_lm_response END. Output length: {len(outputs)}")
         return outputs
 
     @with_callbacks
@@ -115,17 +120,18 @@ class BaseLM:
         messages: list[dict[str, Any]] | None = None,
         **kwargs
     ) -> list[dict[str, Any] | str]:
-        log.error("========== [DEBUG: BaseLM.acall START] ==========")
+        req_id = str(uuid.uuid4())[:8]
+        log.debug(f"[DEBUG-{req_id}: BaseLM.acall START]")
         try:
             response = await self.aforward(prompt=prompt, messages=messages, **kwargs)
-            log.error(f"[BaseLM.acall] aforward Success. Response Type: {type(response)}")
+            log.debug(f"[DEBUG-{req_id}: BaseLM.acall] aforward Success. Response Type: {type(response)}")
             
             outputs = self._process_lm_response(response, prompt, messages, **kwargs)
-            log.error(f"[BaseLM.acall] _process_lm_response Success. Final Outputs: {outputs}")
+            log.debug(f"[DEBUG-{req_id}: BaseLM.acall] _process_lm_response Success. Final Outputs: {outputs}")
             return outputs
             
         except Exception as e:
-            log.error(f"🚨 ERROR in BaseLM.acall: {e}", exc_info=True)
+            log.error(f"🚨 [DEBUG-{req_id}] ERROR in BaseLM.acall: {e}", exc_info=True)
             raise e
 
     def forward(

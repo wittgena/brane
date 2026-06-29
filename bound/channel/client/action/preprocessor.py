@@ -149,13 +149,14 @@ class CompletionPreprocessor:
             self.model = self.deployment_id
             self.custom_llm_provider = "azure"
 
+        effective_api_key = None if self.api_key == "not-needed" else self.api_key
         self.model, self.custom_llm_provider, dynamic_api_key, self.api_base = get_llm_provider(
             model=self.model,
             custom_llm_provider=self.custom_llm_provider,
             api_base=self.api_base,
-            api_key=self.api_key,
+            api_key=effective_api_key,
         )
-        self.api_key = dynamic_api_key or self.api_key
+        self.api_key = dynamic_api_key or effective_api_key
         
         if not _should_allow_input_examples(custom_llm_provider=self.custom_llm_provider, model=self.model):
             self.tools = _drop_input_examples_from_tools(tools=self.tools)

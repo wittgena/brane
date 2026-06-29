@@ -1,6 +1,4 @@
 # anchor.model.dsp.llm.instance
-## @lineage: anchor.model.dsp.instance
-## @lineage: anchor.provider.dsp.instance
 import re
 import threading
 import warnings
@@ -11,13 +9,15 @@ from anchor.surface.provider.support import supports_function_calling, supports_
 from anchor.model.dsp.training.openai import OpenAIProvider
 from anchor.model.dsp.training.base import Provider, ReinforceJob, TrainingJob
 from anchor.surface.exception import ContextWindowExceededError
+from anchor.model.dsp.delegator import DSPDelegator
+
 from bound.channel.compat.switch.dsp.settings import settings
 
 from xphi.reflect.dsp.handler.cache import request_cache
 from xphi.reflect.dsp.handler.stream.callback import BaseCallback
 from xphi.reflect.dsp.handler.train import TrainDataFormat
 
-from anchor.model.dsp.delegator import DSPDelegator
+from arch.proto.phase.gate import uuid4
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter(__name__)
@@ -125,8 +125,10 @@ class DSPInstance(BaseLM):
         messages: list[dict[str, Any]] | None = None,
         **kwargs
     ):
+        req_id = str(uuid4())[:8]
         kwargs = dict(kwargs)
         cache = kwargs.pop("cache", self.cache)
+        log.debug(f"[DSPInstance-{req_id}] 🚀 forward START | model={self.model}, type={self.model_type}, cache={cache}")
 
         messages = messages or [{"role": "user", "content": prompt}]
         if self.use_developer_role and self.model_type == "responses":
@@ -141,22 +143,31 @@ class DSPInstance(BaseLM):
         elif self.model_type == "responses":
             completion_target = self.delegator.delegate_responses
         else:
+            log.error(f"[DSPInstance-{req_id}] 🚨 Unsupported model_type: {self.model_type}")
             raise ValueError(f"Unsupported model_type: {self.model_type}")
             
         completion_fn, litellm_cache_args = self._get_cached_completion_fn(completion_target, cache)
 
         try:
+            log.debug(f"[DSPInstance-{req_id}] ⚙️ Executing completion_fn...")
             results = completion_fn(
                 request=dict(model=self.model, messages=messages, **kwargs),
                 num_retries=self.num_retries,
                 cache=litellm_cache_args,
             )
+            log.debug(f"[DSPInstance-{req_id}] ✅ completion_fn SUCCESS")
         except ContextWindowExceededError as e:
+            log.error(f"[DSPInstance-{req_id}] 🚨 ContextWindowExceededError: {e}")
             raise ContextWindowExceededError(model=self.model) from e
+        except Exception as e:
+            log.error(f"[DSPInstance-{req_id}] 🚨 Exception in completion_fn: {e}")
+            raise e
 
         self._check_truncation(results)
         if not getattr(results, "cache_hit", False) and settings.usage_tracker and hasattr(results, "usage"):
             settings.usage_tracker.add_usage(self.model, dict(results.usage))
+        
+        log.debug(f"[DSPInstance-{req_id}] 🏁 forward END")
         return results
 
     async def aforward(
@@ -165,8 +176,10 @@ class DSPInstance(BaseLM):
         messages: list[dict[str, Any]] | None = None,
         **kwargs,
     ):
+        req_id = str(uuid4())[:8]
         kwargs = dict(kwargs)
         cache = kwargs.pop("cache", self.cache)
+        log.debug(f"[DSPInstance-{req_id}] ⚡ aforward START | model={self.model}, type={self.model_type}, cache={cache}")
 
         messages = messages or [{"role": "user", "content": prompt}]
         if self.use_developer_role and self.model_type == "responses":
@@ -181,22 +194,31 @@ class DSPInstance(BaseLM):
         elif self.model_type == "responses":
             completion_target = self.delegator.delegate_aresponses
         else:
+            log.error(f"[DSPInstance-{req_id}] 🚨 Unsupported model_type: {self.model_type}")
             raise ValueError(f"Unsupported model_type: {self.model_type}")
             
         completion_fn, litellm_cache_args = self._get_cached_completion_fn(completion_target, cache)
 
         try:
+            log.debug(f"[DSPInstance-{req_id}] ⚙️ Awaiting completion_fn...")
             results = await completion_fn(
                 request=dict(model=self.model, messages=messages, **kwargs),
                 num_retries=self.num_retries,
                 cache=litellm_cache_args,
             )
+            log.debug(f"[DSPInstance-{req_id}] ✅ completion_fn SUCCESS")
         except ContextWindowExceededError as e:
+            log.error(f"[DSPInstance-{req_id}] 🚨 ContextWindowExceededError: {e}")
             raise ContextWindowExceededError(model=self.model) from e
+        except Exception as e:
+            log.error(f"[DSPInstance-{req_id}] 🚨 Exception in completion_fn: {e}")
+            raise e
 
         self._check_truncation(results)
         if not getattr(results, "cache_hit", False) and settings.usage_tracker and hasattr(results, "usage"):
             settings.usage_tracker.add_usage(self.model, dict(results.usage))
+        
+        log.debug(f"[DSPInstance-{req_id}] 🏁 aforward END")
         return results
 
     def launch(self, launch_kwargs: dict[str, Any] | None = None):

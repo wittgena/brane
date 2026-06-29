@@ -2,11 +2,15 @@
 from contextlib import ExitStack
 
 from anchor.model.dsp.llm.local import LocalLM
+from anchor.model.dsp.llm.instance import DSPInstance
 from bound.channel.compat.switch.dsp.settings import settings
 from xphi.scope.surface.config import BaseSurface, SurfaceConfig
 from xphi.scope.thch import thch_scope
 
 from watcher.plane.emitter import get_emitter
+
+# [추가] 통합 프록시 uuid4 임포트
+from arch.proto.phase.gate import uuid4
 
 log = get_emitter("surface.dphi")
 
@@ -15,23 +19,37 @@ class DphiSurface(BaseSurface):
         self.config = config
         self.lm = None
         self._stack = ExitStack()
+        # [추가] 서피스 생명주기 전체를 관통하는 고유 식별자 생성
+        self.req_id = str(uuid4())[:8]
 
     def up(self):
-        log.info(f"[*] Initializing Dphi Surface (Model: {self.config.dphi_model})...")
-        self.lm = LocalLM(model=self.config.dphi_model)
+        log.debug(f"[DphiSurface-{self.req_id}] 🚀 up START | model={self.config.dphi_model}")
+        
+        is_local_model = self.config.dphi_model.startswith("local/") or self.config.dphi_model in ["local-gemma-3"]
+        
+        if is_local_model:
+            log.debug(f"[DphiSurface-{self.req_id}] ⚙️ Binding Local Engine: {self.config.dphi_model}")
+            self.lm = LocalLM(model=self.config.dphi_model)
+        else:
+            log.debug(f"[DphiSurface-{self.req_id}] ⚙️ Binding Standard Engine (DSPInstance): {self.config.dphi_model}")
+            self.lm = DSPInstance(model=self.config.dphi_model)
+
         context_kwargs = {"lm": self.lm}
         if self.config.adapter is not None:
             context_kwargs["adapter"] = self.config.adapter
             
         self._stack.enter_context(settings.context(**context_kwargs))
 
-        if self.config.use_thch:
-            log.info("[*] Folding Dphi internals into ThCh Fractal...")
+        if getattr(self.config, 'use_thch', False):
+            log.debug(f"[DphiSurface-{self.req_id}] 🌌 Folding Dphi internals into ThCh Fractal...")
             self._stack.enter_context(thch_scope())
+            
+        log.debug(f"[DphiSurface-{self.req_id}] ✅ up END")
 
     def down(self):
+        log.debug(f"[DphiSurface-{self.req_id}] 🛑 down START")
         self._stack.close()
-        log.info("[*] Folding Dphi Surface (Teardown)...")
+        log.debug(f"[DphiSurface-{self.req_id}] 🏁 down END | Teardown complete")
 
     def get_engine(self):
         return lambda agent_usage: self.lm

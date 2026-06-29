@@ -1,24 +1,25 @@
 # xphi.reflect.dsp.opt.predict
-import logging
 import random
 from typing import Any, Literal, get_args, get_origin
 from pydantic import BaseModel
 from pydantic_core import PydanticUndefined
 from typeguard import TypeCheckError, check_type
 
-from bound.channel.compat.switch.dsp.settings import settings
 from anchor.model.dsp.llm.base import BaseLM
+from anchor.model.dsp.llm.instance import DSPInstance
+from bound.channel.compat.switch.dsp.settings import settings
 
 from xphi.xor.opt.chat import ChatAdapter
-from anchor.model.dsp.llm.instance import DSPInstance
 from xphi.xor.opt.manifold.parameter import Parameter
 from xphi.xor.opt.exam.prediction import Prediction
 from xphi.reflect.dsp.handler.stream.callback import BaseCallback
-
 from xphi.xor.opt.module.meta import Module
-from arch.xor.manifold.sign.signature import Signature, ensure_signature
 
-logger = logging.getLogger(__name__)
+from arch.proto.phase.gate import uuid4
+from arch.xor.manifold.sign.signature import Signature, ensure_signature
+from watcher.plane.emitter import get_emitter
+
+log = get_emitter(__name__)
 UNSAFE_LM_STATE_KEYS = {"api_base", "base_url", "model_list"}
 IS_TYPE_UNDEFINED = "IS_TYPE_UNDEFINED"
 
@@ -31,7 +32,7 @@ def _sanitize_lm_state(lm_state: dict, allow_unsafe_lm_state: bool) -> dict:
         return lm_state
 
     sanitized_lm_state = {k: v for k, v in lm_state.items() if k not in UNSAFE_LM_STATE_KEYS}
-    logger.warning(
+    log.warning(
         "Ignoring unsafe LM config key(s) during state load: %s. "
         "Pass allow_unsafe_lm_state=True to preserve these keys for trusted files.",
         unsafe_keys,
@@ -75,7 +76,6 @@ class Predict(Module, Parameter):
         """Load the saved state of a `Predict` object"""
         excluded_keys = ["signature", "extended_signature", "lm"]
         for name, value in state.items():
-            # `excluded_keys` are fields that go through special handling.
             if name not in excluded_keys:
                 setattr(self, name, value)
 
@@ -83,7 +83,7 @@ class Predict(Module, Parameter):
         sanitized_lm_state = _sanitize_lm_state(state["lm"], allow_unsafe_lm_state) if state["lm"] else None
         self.lm = DSPInstance(**sanitized_lm_state) if sanitized_lm_state else None
 
-        if "extended_signature" in state:  # legacy, up to and including 2.5, for CoT.
+        if "extended_signature" in state:
             raise NotImplementedError("Loading extended_signature is no longer supported")
 
         return self
@@ -109,15 +109,13 @@ class Predict(Module, Parameter):
         return await super().acall(**kwargs)
 
     def _forward_preprocess(self, **kwargs):
-        # Extract the three privileged keyword arguments.
+        ## Extract the three privileged keyword arguments.
         assert "new_signature" not in kwargs, "new_signature is no longer a valid keyword argument."
         signature = ensure_signature(kwargs.pop("signature", self.signature))
         demos = kwargs.pop("demos", self.demos)
         config = {**self.config, **kwargs.pop("config", {})}
 
-        # Get the right LM to use.
         lm = kwargs.pop("lm", self.lm) or settings.lm
-
         if lm is None:
             raise ValueError(
                 "No LM is loaded. Please configure the LM using `settings.configure(lm=settings.LM(...))`. e.g, "
@@ -132,7 +130,7 @@ class Predict(Module, Parameter):
         elif not isinstance(lm, BaseLM):
             raise ValueError(f"LM must be an instance of `BaseLM`, not {type(lm)}. Received `lm={lm}`.")
 
-        # If temperature is unset or <=0.15, and n > 1, set temperature to 0.7 to keep randomness.
+        ## If temperature is unset or <=0.15, and n > 1, set temperature to 0.7 to keep randomness.
         temperature = config.get("temperature") or lm.kwargs.get("temperature")
         num_generations = config.get("n") or lm.kwargs.get("n") or lm.kwargs.get("num_generations") or 1
 
@@ -150,7 +148,7 @@ class Predict(Module, Parameter):
                 # to the lm kwargs.
                 config["prediction"] = kwargs.pop("prediction")
 
-        # Populate default values for missing input fields.
+        ## Populate default values for missing input fields.
         for k, v in signature.input_fields.items():
             if k not in kwargs and v.default is not PydanticUndefined:
                 kwargs[k] = v.default
@@ -158,7 +156,7 @@ class Predict(Module, Parameter):
         # Check and warn for extra fields not in signature
         extra_fields = [k for k in kwargs if k not in signature.input_fields]
         if extra_fields:
-            logger.warning(
+            log.warning(
                 "Input contains fields not in signature. These fields will be ignored: %s. "
                 "Expected fields: %s.",
                 extra_fields,
@@ -176,7 +174,7 @@ class Predict(Module, Parameter):
                         continue
 
                     if not _is_value_compatible_with_type(value, expected_type):
-                        logger.warning(
+                        log.warning(
                             "Type mismatch for field '%s': expected %s based on given Signature, "
                             "but the provided value is incompatible: %s.",
                             field_name,
@@ -187,7 +185,7 @@ class Predict(Module, Parameter):
         if not all(k in kwargs for k in signature.input_fields):
             present = [k for k in signature.input_fields if k in kwargs]
             missing = [k for k in signature.input_fields if k not in kwargs]
-            logger.warning(
+            log.warning(
                 "Not all input fields were provided to module. Present: %s. Missing: %s.",
                 present,
                 missing,
@@ -212,31 +210,50 @@ class Predict(Module, Parameter):
         return should_stream
 
     def forward(self, **kwargs):
+        req_id = str(uuid4())[:8]
+        log.debug(f"[Predict-{req_id}] 🚀 forward START | signature={self.signature.__class__.__name__}")
+        
         lm, config, signature, demos, kwargs = self._forward_preprocess(**kwargs)
-
+        log.debug(f"[Predict-{req_id}] ⚙️ Preprocess complete. LM: {type(lm).__name__}, Stream: {self._should_stream()}")
         adapter = settings.adapter or ChatAdapter()
 
         if self._should_stream():
+            log.debug(f"[Predict-{req_id}] 🌊 Executing STREAMING adapter call...")
             with settings.context(caller_predict=self):
                 completions = adapter(lm, lm_kwargs=config, signature=signature, demos=demos, inputs=kwargs)
         else:
+            log.debug(f"[Predict-{req_id}] ⚡ Executing STANDARD adapter call...")
             with settings.context(send_stream=None):
                 completions = adapter(lm, lm_kwargs=config, signature=signature, demos=demos, inputs=kwargs)
 
-        return self._forward_postprocess(completions, signature, **kwargs)
+        log.debug(f"[Predict-{req_id}] ✅ Adapter call completed. Initiating postprocess...")
+        result = self._forward_postprocess(completions, signature, **kwargs)
+        
+        log.debug(f"[Predict-{req_id}] 🏁 forward END")
+        return result
 
     async def aforward(self, **kwargs):
+        req_id = str(uuid4())[:8]
+        log.debug(f"[Predict-{req_id}] 🚀 aforward START | signature={self.signature.__class__.__name__}")
+        
         lm, config, signature, demos, kwargs = self._forward_preprocess(**kwargs)
+        log.debug(f"[Predict-{req_id}] ⚙️ Preprocess complete. LM: {type(lm).__name__}, Stream: {self._should_stream()}")
 
         adapter = settings.adapter or ChatAdapter()
         if self._should_stream():
+            log.debug(f"[Predict-{req_id}] 🌊 Executing ASYNC STREAMING adapter call...")
             with settings.context(caller_predict=self):
                 completions = await adapter.acall(lm, lm_kwargs=config, signature=signature, demos=demos, inputs=kwargs)
         else:
+            log.debug(f"[Predict-{req_id}] ⚡ Executing ASYNC STANDARD adapter call...")
             with settings.context(send_stream=None):
                 completions = await adapter.acall(lm, lm_kwargs=config, signature=signature, demos=demos, inputs=kwargs)
 
-        return self._forward_postprocess(completions, signature, **kwargs)
+        log.debug(f"[Predict-{req_id}] ✅ Adapter acall completed. Initiating postprocess...")
+        result = self._forward_postprocess(completions, signature, **kwargs)
+        
+        log.debug(f"[Predict-{req_id}] 🏁 aforward END")
+        return result
 
     def update_config(self, **kwargs):
         self.config = {**self.config, **kwargs}
@@ -276,7 +293,6 @@ def _get_type_name(type_annotation) -> str:
 def _is_value_compatible_with_type(value: Any, expected: type) -> bool:
     """Return True if the value matches the expected type hint."""
     try:
-        # Special handle list[str] because we allow setting input type to str, however, invoking with a list thereof.
         if expected is str and isinstance(value, list):
             if all(isinstance(item, str) for item in value):
                 return True
@@ -287,13 +303,8 @@ def _is_value_compatible_with_type(value: Any, expected: type) -> bool:
         return False
 
 def serialize_object(obj):
-    """
-    Recursively serialize a given object into a JSON-compatible format.
-    Supports Pydantic models, lists, dicts, and primitive types.
-    """
+    """@desc: Recursively serialize a given object into a JSON-compatible format"""
     if isinstance(obj, BaseModel):
-        # Use model_dump with mode="json" to ensure all fields (including HttpUrl, datetime, etc.)
-        # are converted to JSON-serializable types (strings)
         return obj.model_dump(mode="json")
     elif isinstance(obj, list):
         return [serialize_object(item) for item in obj]

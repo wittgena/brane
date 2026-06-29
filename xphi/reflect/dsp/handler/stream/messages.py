@@ -1,10 +1,4 @@
 # xphi.reflect.dsp.handler.stream.messages
-## @lineage: xphi.opt.dsp.stream.messages
-## @lineage: bound.xor.dsp.stream.messages
-## @lineage: xor.dsp.stream.messages
-## @lineage: bound.channel.bridge.dsp.stream.messages
-## @lineage: channel.bridge.dsp.stream.messages
-## @lineage: gov.gateway.call.stream.messages
 import asyncio
 import concurrent.futures
 from dataclasses import dataclass

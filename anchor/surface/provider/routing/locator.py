@@ -11,7 +11,7 @@ from anchor.surface.model.param.legacy import LiteLLM_Params
 from xphi.xor.secret.manager import get_secret_str, get_secret 
 from watcher.plane.emitter import get_emitter
 
-log = get_emitter("provider.resolver")
+log = get_emitter("routing.locator")
 
 PROVIDER_REGISTRY = {
     "openai": ("https://api.openai.com/v1", ["OPENAI_API_KEY"]),
@@ -75,6 +75,8 @@ PROVIDER_REGISTRY = {
     "nscale": ("https://api.nscale.com/v1", ["NSCALE_API_KEY"]),
     "replicate": ("https://api.replicate.com/v1", ["REPLICATE_API_KEY", "REPLICATE_API_TOKEN"]),
     "vertex_ai": (None, ["VERTEX_AI_API_KEY", "GEMINI_API_KEY"]),
+    "gemini": (None, ["GEMINI_API_KEY", "GOOGLE_API_KEY"]),
+    "google": (None, ["GEMINI_API_KEY", "GOOGLE_API_KEY"]),
     "bedrock": (None, ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]),
     "watsonx": (None, ["WATSONX_API_KEY"]),
 }

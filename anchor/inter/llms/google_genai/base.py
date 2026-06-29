@@ -1,6 +1,4 @@
 # anchor.inter.llms.google_genai.base
-"""Google's hosted Gemini API."""
-
 import asyncio
 import inspect
 import functools
@@ -74,6 +72,10 @@ DEFAULT_MODEL = "gemini-3-flash-preview"
 if TYPE_CHECKING:
     from bound.adapter.llama.tools.types import BaseTool
 
+from arch.proto.phase.gate import uuid4 
+from watcher.plane.emitter import get_emitter
+
+log = get_emitter(__name__)
 
 class VertexAIConfig(typing.TypedDict, total=False):
     credentials: Optional[google.auth.credentials.Credentials]
@@ -346,6 +348,9 @@ class GoogleGenAI(FunctionCallingLLM):
 
     @llm_retry_decorator
     def _chat(self, messages: Sequence[ChatMessage], **kwargs: Any):
+        req_id = str(uuid4())[:8]
+        log.debug(f"[GenAI-{req_id}] 🚀 _chat START | model={self.model}, messages_count={len(messages)}")
+
         generation_config = {
             **(self._generation_config or {}),
             **kwargs.pop("generation_config", {}),
@@ -361,6 +366,7 @@ class GoogleGenAI(FunctionCallingLLM):
             response = chat.send_message(
                 next_msg.parts if isinstance(next_msg, types.Content) else next_msg
             )
+            log.debug(f"[GenAI-{req_id}] ✅ _chat SUCCESS")
         finally:
             if self.file_mode in ("fileapi", "hybrid"):
                 delete_uploaded_files(file_api_names, self._client)
@@ -369,6 +375,9 @@ class GoogleGenAI(FunctionCallingLLM):
 
     @llm_retry_decorator
     async def _achat(self, messages: Sequence[ChatMessage], **kwargs: Any):
+        req_id = str(uuid4())[:8]
+        log.debug(f"[GenAI-{req_id}] ⚡ _achat START | model={self.model}, messages_count={len(messages)}")
+
         generation_config = {
             **(self._generation_config or {}),
             **kwargs.pop("generation_config", {}),
@@ -382,6 +391,7 @@ class GoogleGenAI(FunctionCallingLLM):
             response = await chat.send_message(
                 next_msg.parts if isinstance(next_msg, types.Content) else next_msg
             )
+            log.debug(f"[GenAI-{req_id}] ✅ _achat SUCCESS")
         finally:
             if self.file_mode in ("fileapi", "hybrid"):
                 await adelete_uploaded_files(file_api_names, self._client)
@@ -401,6 +411,9 @@ class GoogleGenAI(FunctionCallingLLM):
     def _stream_chat(
         self, messages: Sequence[ChatMessage], **kwargs: Any
     ) -> ChatResponseGen:
+        req_id = str(uuid4())[:8]
+        log.debug(f"[GenAI-{req_id}] 🌊 _stream_chat START | model={self.model}, messages_count={len(messages)}")
+
         generation_config = {
             **(self._generation_config or {}),
             **kwargs.pop("generation_config", {}),
@@ -460,6 +473,9 @@ class GoogleGenAI(FunctionCallingLLM):
     async def _astream_chat(
         self, messages: Sequence[ChatMessage], **kwargs: Any
     ) -> ChatResponseAsyncGen:
+        req_id = str(uuid4())[:8]
+        log.debug(f"[GenAI-{req_id}] 🌊⚡ _astream_chat START | model={self.model}, messages_count={len(messages)}")
+
         generation_config = {
             **(self._generation_config or {}),
             **kwargs.pop("generation_config", {}),

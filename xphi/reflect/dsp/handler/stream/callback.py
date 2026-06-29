@@ -2,9 +2,10 @@
 import functools
 import inspect
 import logging
-import uuid
 from contextvars import ContextVar
 from typing import Any, Callable
+
+from arch.proto.phase.gate import uuid4
 from watcher.plane.emitter import get_emitter
 
 ACTIVE_CALL_ID = ContextVar("active_call_id", default=None)
@@ -113,6 +114,9 @@ def with_callbacks(fn):
 
     def _execute_start_callbacks(instance, fn, call_id, callbacks, args, kwargs):
         """Execute all start callbacks for a function call."""
+        short_id = call_id[:8]
+        log.debug(f"[Callback-{short_id}] 🚀 Executing {len(callbacks)} start callbacks for {fn.__name__}")
+        
         inputs = inspect.getcallargs(fn, instance, *args, **kwargs)
         if "self" in inputs:
             inputs.pop("self")
@@ -120,21 +124,28 @@ def with_callbacks(fn):
             inputs.pop("instance")
         for callback in callbacks:
             try:
-                _get_on_start_handler(callback, instance, fn)(call_id=call_id, instance=instance, inputs=inputs)
+                handler = _get_on_start_handler(callback, instance, fn)
+                log.debug(f"[Callback-{short_id}] Triggering {handler.__name__} on {callback.__class__.__name__}")
+                handler(call_id=call_id, instance=instance, inputs=inputs)
             except Exception as e:
-                log.warning(f"Error when calling callback {callback}: {e}")
+                log.warning(f"[Callback-{short_id}] 🚨 Error when calling start callback {callback}: {e}")
 
     def _execute_end_callbacks(instance, fn, call_id, results, exception, callbacks):
         """Execute all end callbacks for a function call."""
+        short_id = call_id[:8]
+        log.debug(f"[Callback-{short_id}] 🏁 Executing {len(callbacks)} end callbacks for {fn.__name__}")
+        
         for callback in callbacks:
             try:
-                _get_on_end_handler(callback, instance, fn)(
+                handler = _get_on_end_handler(callback, instance, fn)
+                log.debug(f"[Callback-{short_id}] Triggering {handler.__name__} on {callback.__class__.__name__}")
+                handler(
                     call_id=call_id,
                     outputs=results,
                     exception=exception,
                 )
             except Exception as e:
-                log.warning(f"Error when applying callback {callback}'s end handler on function {fn.__name__}: {e}.")
+                log.warning(f"[Callback-{short_id}] 🚨 Error when applying callback {callback}'s end handler on function {fn.__name__}: {e}")
 
     def _get_active_callbacks(instance):
         """Get combined global and instance-level callbacks."""
@@ -148,7 +159,11 @@ def with_callbacks(fn):
             if not callbacks:
                 return await fn(instance, *args, **kwargs)
 
-            call_id = uuid.uuid4().hex
+            # [수정] phase.gate의 uuid4 활용
+            call_id = uuid4().hex
+            short_id = call_id[:8]
+            log.debug(f"[Callback-{short_id}] ⚡ async_wrapper START | fn={fn.__name__}, instance={instance.__class__.__name__}")
+
             _execute_start_callbacks(instance, fn, call_id, callbacks, args, kwargs)
 
             ## Active ID must be set right before the function is called, not before calling the callbacks.
@@ -159,13 +174,16 @@ def with_callbacks(fn):
             exception = None
             try:
                 results = await fn(instance, *args, **kwargs)
+                log.debug(f"[Callback-{short_id}] ✅ async_wrapper fn execution SUCCESS")
                 return results
             except Exception as e:
                 exception = e
+                log.debug(f"[Callback-{short_id}] 🚨 async_wrapper fn execution EXCEPTION: {e}")
                 raise exception
             finally:
                 ACTIVE_CALL_ID.set(parent_call_id)
                 _execute_end_callbacks(instance, fn, call_id, results, exception, callbacks)
+                log.debug(f"[Callback-{short_id}] 🛑 async_wrapper END")
 
         return async_wrapper
     else:
@@ -175,7 +193,9 @@ def with_callbacks(fn):
             if not callbacks:
                 return fn(instance, *args, **kwargs)
 
-            call_id = uuid.uuid4().hex
+            call_id = uuid4().hex
+            short_id = call_id[:8]
+            log.debug(f"[Callback-{short_id}] ⚡ sync_wrapper START | fn={fn.__name__}, instance={instance.__class__.__name__}")
 
             _execute_start_callbacks(instance, fn, call_id, callbacks, args, kwargs)
 
@@ -187,13 +207,16 @@ def with_callbacks(fn):
             exception = None
             try:
                 results = fn(instance, *args, **kwargs)
+                log.debug(f"[Callback-{short_id}] ✅ sync_wrapper fn execution SUCCESS")
                 return results
             except Exception as e:
                 exception = e
+                log.debug(f"[Callback-{short_id}] 🚨 sync_wrapper fn execution EXCEPTION: {e}")
                 raise exception
             finally:
                 ACTIVE_CALL_ID.set(parent_call_id)
                 _execute_end_callbacks(instance, fn, call_id, results, exception, callbacks)
+                log.debug(f"[Callback-{short_id}] 🛑 sync_wrapper END")
 
         return sync_wrapper
 

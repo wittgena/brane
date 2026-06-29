@@ -1,15 +1,4 @@
 # bound.channel.client.action.param.optional
-## @lineage: anchor.channel.client.action.param.optional
-## @lineage: anchor.channel.action.param.optional
-## @lineage: bound.channel.action.param.optional
-## @lineage: bound.channel.support.param.optional
-## @lineage: bound.channel.action.handler.param.optional
-## @lineage: bound.bridge.action.handler.param.optional
-## @lineage: bound.client.handler.param.optional
-## @lineage: bound.param.optional
-## @lineage: bound.router.action.param.optional
-## @lineage: bound.channel.router.action.param.optional
-## @lineage: channel.model.provider.optional_params
 import copy
 import inspect
 import io
@@ -262,8 +251,8 @@ def get_optional_params(
 
     def _check_valid_arg(supported_params: List[str]):
         log.info(f"\nLiteLLM completion() model= {model}; provider = {custom_llm_provider}")
-        log.debug(f"\nLiteLLM: Params passed to completion() {passed_params}")
-        log.debug(f"\nLiteLLM: Non-Default params passed to completion() {non_default_params}")
+        # log.debug(f"\nLiteLLM: Params passed to completion() {passed_params}")
+        # log.debug(f"\nLiteLLM: Non-Default params passed to completion() {non_default_params}")
         unsupported_params = {}
         for k in non_default_params.keys():
             if k not in supported_params:

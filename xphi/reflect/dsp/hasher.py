@@ -1,14 +1,4 @@
 # xphi.reflect.dsp.hasher
-## @lineage: xphi.opt.dsp.hasher
-## @lineage: bound.xor.dsp.hasher
-## @lineage: xor.dsp.hasher
-## @lineage: bound.channel.bridge.dsp.hasher
-## @lineage: channel.bridge.dsp.hasher
-## @lineage: meta.xor.adapter.dsp.hasher
-## @lineage: meta.ops.dataset.ir.hasher
-## @lineage: meta.ops.trainer.dataset.ir.hasher
-## @lineage: gov.trainer.dataset.ir.hasher
-## @lineage: xor.dataset.ir.hasher
 from pickle import dumps
 from typing import Any
 

@@ -1,7 +1,4 @@
 # xphi.scope.thch
-## @lineage: bound.xor.scope.thch
-## @lineage: bound.scope.thch
-## @lineage: gov.bridge.scope.thch
 import sys
 import inspect
 from contextlib import contextmanager

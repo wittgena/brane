@@ -1,7 +1,4 @@
 # bound.adapter.provider.base
-## @lineage: bound.bridge.provider.base
-## @lineage: xphi.adapter.provider.base
-## @lineage: anchor.model.provider.adapter.base
 from typing import Any, Dict, List, Optional, Union
 from bound.channel.compat.switch.params import ModelResponse
 from bound.channel.client.action.preprocessor import CompletionContext

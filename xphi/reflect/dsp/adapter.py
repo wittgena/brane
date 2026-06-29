@@ -15,6 +15,7 @@ from xphi.reflect.dsp.handler.stream.callback import BaseCallback, with_callback
 from xphi.reflect.dsp.exceptions import AdapterParseError
 
 from arch.xor.manifold.sign.signature import Signature
+from arch.proto.phase.gate import uuid4
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter(__name__)
@@ -84,19 +85,18 @@ class Adapter:
         outputs: list[dict[str, Any] | str | Any],
         lm: BaseLM,
         lm_kwargs: dict[str, Any],
+        req_id: str = "UNKNOWN"
     ) -> list[dict[str, Any]]:
-        log.error(f"========== [DEBUG: RAW OUTPUT TYPE] ==========")
-        log.error(f"Type of outputs: {type(outputs)}")
-        log.error(f"Length of outputs: {len(outputs) if hasattr(outputs, '__len__') else 'N/A'}")
+        log.debug(f"[Adapter-{req_id} DEBUG: RAW OUTPUT TYPE]")
+        log.debug(f"[Adapter-{req_id}] Type of outputs: {type(outputs)}")
+        log.debug(f"[Adapter-{req_id}] Length of outputs: {len(outputs) if hasattr(outputs, '__len__') else 'N/A'}")
         if isinstance(outputs, list) and len(outputs) > 0:
-            log.error(f"Type of outputs[0]: {type(outputs[0])}")
-            log.error(f"Dir of outputs[0]: {dir(outputs[0])}")
-            log.error(f"Content of outputs[0]: {outputs[0]}")
-        log.error(f"==============================================")
+            log.debug(f"[Adapter-{req_id}] Type of outputs[0]: {type(outputs[0])}")
+            log.debug(f"[Adapter-{req_id}] Dir of outputs[0]: {dir(outputs[0])}")
+            log.debug(f"[Adapter-{req_id}] Content of outputs[0]: {outputs[0]}")
 
         values = []
         tool_call_output_field_name = self._get_tool_call_output_field_name(original_signature)
-
         for output in outputs:
             output_logprobs = None
             tool_calls = None
@@ -138,6 +138,7 @@ class Adapter:
                 for field_name in original_signature.output_fields.keys():
                     value[field_name] = None
             else:
+                log.error(f"[Adapter-{req_id}] 🚨 AdapterParseError: The LM returned an empty or null response.")
                 raise AdapterParseError(
                     adapter_name=type(self).__name__,
                     signature=original_signature,
@@ -188,10 +189,20 @@ class Adapter:
         demos: list[dict[str, Any]],
         inputs: dict[str, Any],
     ) -> list[dict[str, Any]]:
+        req_id = str(uuid4())[:8]
+        log.debug(f"[Adapter-{req_id}] 🚀 __call__ START | lm={type(lm).__name__}, signature={signature.__name__}")
+        
         processed_signature = self._call_preprocess(lm, lm_kwargs, signature, inputs)
-        inputs = self.format(processed_signature, demos, inputs)
-        outputs = lm(messages=inputs, **lm_kwargs)
-        return self._call_postprocess(processed_signature, signature, outputs, lm, lm_kwargs)
+        formatted_inputs = self.format(processed_signature, demos, inputs)
+        
+        log.debug(f"[Adapter-{req_id}] 📝 Inputs formatted. Invoking synchronous LM call...")
+        outputs = lm(messages=formatted_inputs, **lm_kwargs)
+        
+        log.debug(f"[Adapter-{req_id}] ✅ LM call completed. Initiating postprocessing...")
+        results = self._call_postprocess(processed_signature, signature, outputs, lm, lm_kwargs, req_id=req_id)
+        
+        log.debug(f"[Adapter-{req_id}] 🏁 __call__ END")
+        return results
 
     async def acall(
         self,
@@ -201,17 +212,24 @@ class Adapter:
         demos: list[dict[str, Any]],
         inputs: dict[str, Any],
     ) -> list[dict[str, Any]]:
-        processed_signature = self._call_preprocess(lm, lm_kwargs, signature, inputs)
-        inputs = self.format(processed_signature, demos, inputs)
-        outputs = await lm.acall(messages=inputs, **lm_kwargs)
+        req_id = str(uuid4())[:8]
+        log.debug(f"[Adapter-{req_id}] ⚡ acall START | lm={type(lm).__name__}, signature={signature.__name__}")
         
-        # acall에서 반환된 출력이 단일 객체인 경우를 대비한 방어 로직 (LiteLLM 호환)
+        processed_signature = self._call_preprocess(lm, lm_kwargs, signature, inputs)
+        formatted_inputs = self.format(processed_signature, demos, inputs)
+        
+        log.debug(f"[Adapter-{req_id}] 📝 Inputs formatted. Awaiting asynchronous LM call...")
+        outputs = await lm.acall(messages=formatted_inputs, **lm_kwargs)
         if not isinstance(outputs, list):
+            log.debug(f"[Adapter-{req_id}] Wrapping single output in list to unify type.")
             outputs = [outputs]
             
-        return self._call_postprocess(processed_signature, signature, outputs, lm, lm_kwargs)
+        log.debug(f"[Adapter-{req_id}] ✅ Await completed. Initiating postprocessing...")
+        results = self._call_postprocess(processed_signature, signature, outputs, lm, lm_kwargs, req_id=req_id)
+        
+        log.debug(f"[Adapter-{req_id}] 🏁 acall END")
+        return results
 
-    # (이하 format, format_system_message 등 생략. 기존 코드와 동일합니다)
     def format(self, signature: type[Signature], demos: list[dict[str, Any]], inputs: dict[str, Any]) -> list[dict[str, Any]]:
         inputs_copy = dict(inputs)
         history_field_name = self._get_history_field_name(signature)
