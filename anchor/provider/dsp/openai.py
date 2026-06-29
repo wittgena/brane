@@ -1,11 +1,4 @@
 # anchor.provider.dsp.openai
-## @lineage: xphi.opt.dsp.provider.openai
-## @lineage: bound.xor.dsp.provider.openai
-## @lineage: xor.dsp.provider.openai
-## @lineage: bound.channel.bridge.dsp.provider.openai
-## @lineage: channel.bridge.dsp.provider.openai
-## @lineage: meta.xor.adapter.provider.openai
-## @lineage: meta.ops.provider.openai
 import time
 from datetime import datetime
 from typing import Any

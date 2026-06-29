@@ -1,15 +1,4 @@
 # xphi.reflect.dsp.opt.predict
-## @lineage: xphi.opt.dsp.opt.predict
-## @lineage: bound.xor.dsp.opt.predict
-## @lineage: xor.dsp.opt.predict
-## @lineage: bound.xor.dsp.predict
-## @lineage: bound.channel.bridge.dsp.predict
-## @lineage: channel.bridge.dsp.predict
-## @lineage: meta.xor.adapter.dsp.predict
-## @lineage: gov.dsp.predict
-## @lineage: xor.opt.dsp.predict
-## @lineage: xor.dsp.predict
-## @lineage: xor.context.predictor.predict
 import logging
 import random
 from typing import Any, Literal, get_args, get_origin
@@ -21,7 +10,7 @@ from bound.channel.compat.switch.dsp.settings import settings
 from anchor.provider.llm.base import BaseLM
 
 from xphi.xor.opt.chat import ChatAdapter
-from anchor.provider.dsp.instance import LM
+from anchor.provider.dsp.instance import DSPInstance
 from xphi.xor.opt.manifold.parameter import Parameter
 from xphi.xor.opt.exam.prediction import Prediction
 from xphi.reflect.dsp.handler.stream.callback import BaseCallback
@@ -92,7 +81,7 @@ class Predict(Module, Parameter):
 
         self.signature = self.signature.load_state(state["signature"])
         sanitized_lm_state = _sanitize_lm_state(state["lm"], allow_unsafe_lm_state) if state["lm"] else None
-        self.lm = LM(**sanitized_lm_state) if sanitized_lm_state else None
+        self.lm = DSPInstance(**sanitized_lm_state) if sanitized_lm_state else None
 
         if "extended_signature" in state:  # legacy, up to and including 2.5, for CoT.
             raise NotImplementedError("Loading extended_signature is no longer supported")

@@ -1,11 +1,9 @@
 # anchor.provider.resolver
-## @lineage: anchor.channel.compat.switch.model.llm.provider
-## @lineage: anchor.channel.switch.model.llm.provider
-## @lineage: anchor.switch.model.llm.provider
-## @lineage: anchor.model.provider.resolver
 import re
 from typing import Optional, Tuple, Dict, Callable
 from urllib.parse import urlparse
+
+from anchor.provider.cost.map import get_provider_for_model
 from bound.channel.config.resolver import config
 from bound.channel.config.constants import REPLICATE_MODEL_NAME_WITH_ID_LENGTH
 from anchor.surface.model.param.legacy import LiteLLM_Params
@@ -127,7 +125,7 @@ class LLMProviderResolver:
         if not model:
             raise ValueError("model parameter is required.")
 
-        # 1. Params 초기 검증 및 병합
+        ## Params 초기 검증 및 병합
         if litellm_params:
             custom_llm_provider = litellm_params.custom_llm_provider
             api_base = litellm_params.api_base
@@ -135,26 +133,25 @@ class LLMProviderResolver:
 
         dynamic_api_key = None
 
-        # 2. 특수 케이스 및 예외 모델 정규화
+        ## 특수 케이스 및 예외 모델 정규화
         model, custom_llm_provider, is_resolved = self._resolve_special_cases(model, custom_llm_provider)
         if is_resolved:
             return model, custom_llm_provider, dynamic_api_key, api_base
 
-        # 3. 접두사(Prefix) 기반 라우팅 분석
+        ## 접두사(Prefix) 기반 라우팅 분석
         if "/" in model:
             resolved = self._resolve_by_prefix(model, api_base, api_key)
             if resolved:
                 return resolved
 
-        # 4. API Base URL 기반 역추적 스니핑
+        ## API Base URL 기반 역추적 스니핑
         if api_base:
             resolved = self._resolve_by_api_base(model, api_base, api_key)
             if resolved:
                 return resolved
 
-        # 5. 최후의 수단: 모델명 브루트포스 매칭
+        ## 최후의 수단: 모델명 브루트포스 매칭
         model, custom_llm_provider = self._resolve_by_model_name(model, custom_llm_provider)
-        
         if not custom_llm_provider:
             raise GateBadRequestError(
                 message=f"LLM Provider NOT provided. Pass model as E.g. `completion(model='huggingface/starcoder',..)`. You passed model={model}",
@@ -163,7 +160,6 @@ class LLMProviderResolver:
         return model, custom_llm_provider, api_key, api_base
 
     def _resolve_special_cases(self, model: str, custom_llm_provider: Optional[str]) -> Tuple[str, Optional[str], bool]:
-        from anchor.provider.cost.map import get_provider_for_model
         ## Azure의 Cohere/Mistral 호스팅 모델 교정
         if model.startswith("azure/"):
             model_name = model.split("/", 1)[1]
@@ -173,7 +169,6 @@ class LLMProviderResolver:
                 
         model, custom_llm_provider = handle_cohere_chat_model_custom_llm_provider(model, custom_llm_provider)
         model, custom_llm_provider = handle_anthropic_text_model_custom_llm_provider(model, custom_llm_provider)
-
         if custom_llm_provider == "openrouter" and model.startswith("openrouter/"):
             remainder = model[len("openrouter/"):]
             if "/" in remainder:
@@ -208,7 +203,6 @@ class LLMProviderResolver:
         return None
     
     def _resolve_by_model_name(self, model: str, custom_llm_provider: Optional[str]) -> Tuple[str, Optional[str]]:
-        from anchor.provider.cost.model import get_provider_for_model
         registry_provider = get_provider_for_model(model)
         if registry_provider:
             ## JSON 스펙에 정의된 프로바이더를 즉시 반환 (수백 개의 모델 커버)

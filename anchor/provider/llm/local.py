@@ -1,13 +1,13 @@
 # anchor.provider.llm.local
 ## @lineage: anchor.surface.model.lm.local
 ## @lineage: anchor.model.lm.local
-from anchor.provider.dsp.instance import LM
+from anchor.provider.dsp.instance import DSPInstance
 from phase.bind.client.engine.local import LLMEngine
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("local.lm")
 
-class LocalLM(LM):
+class LocalLM(DSPInstance):
     def __init__(self, model="local-gemma-3"):
         super().__init__(model) 
         self.client = LLMEngine()

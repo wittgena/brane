@@ -1,16 +1,18 @@
 # bound.router.adapter.embedding
-## @lineage: bound.bridge.adapter.embedding
-## @lineage: xphi.trans.embedding.router
 import importlib
 from typing import Any
+
+import anchor.inter.embeddings as embedding_pkg
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("embedding.router")
 
+_EMBED_PKG_NAME = embedding_pkg.__name__  ## @ex: "anchor.inter.embeddings"
+
 ## @state: Core topological boundaries (Batteries-included)
 DEFAULT_EMBED_REGISTRY = {
     "openai": {
-        "module": "bound.inter.embeddings.openai.base", 
+        "module": f"{_EMBED_PKG_NAME}.openai.base", 
         "class": "OpenAIEmbedding",
         "is_local": False,
         "capabilities": {
@@ -20,7 +22,7 @@ DEFAULT_EMBED_REGISTRY = {
         "accepted_kwargs": ["model_name", "api_key", "api_base", "timeout"]
     },
     "fastembed": {
-        "module": "bound.inter.embeddings.fastembed.base", 
+        "module": f"{_EMBED_PKG_NAME}.fastembed.base", 
         "class": "FastEmbedEmbedding",
         "is_local": True,
         "capabilities": {
@@ -30,7 +32,7 @@ DEFAULT_EMBED_REGISTRY = {
         "accepted_kwargs": ["model_name", "max_length", "threads"]
     },
     "huggingface": {
-        "module": "bound.inter.embeddings.huggingface.base", 
+        "module": f"{_EMBED_PKG_NAME}.huggingface.base", 
         "class": "HuggingFaceEmbedding",
         "is_local": True,
         "capabilities": {
@@ -70,11 +72,9 @@ class EmbeddingRouter:
         ## @promise: Inject auto-detected hardware profiles (device, threads) for local models.
         # if meta.get("is_local"):
         #     kwargs.setdefault("device", infer_torch_device())
-
         return EmbedClass(model_name=model_name, **kwargs)
 
     def _infer_provider(self, model_name: str) -> str:
-        ## @promise: Expand fallback logic using centralized model-to-provider map (e.g., get_provider_for_model).
         for provider in self.registry.keys():
             if provider in model_name:
                 return provider

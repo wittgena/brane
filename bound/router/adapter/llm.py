@@ -1,7 +1,4 @@
 # bound.router.adapter.llm
-## @lineage: bound.bridge.adapter.llm
-## @lineage: xphi.trans.llm.router
-## @lineage: xphi.flow.llm.router
 """
 @manifold: Hybrid Microkernel Router
 @flow: Native Registry ⊕ Dynamic Scanner -> Unified Routing Table -> Lazy Instantiation
@@ -13,15 +10,19 @@ from typing import Dict, Any, Optional
 
 from anchor.provider.cost.map import get_provider_for_model
 from anchor.cli.adapter.scan.llm import LLMScanner
+import anchor.inter.llms as llm_pkg 
 
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("llm.router")
 
+_LLM_PKG_NAME = llm_pkg.__name__  ## @ex: "anchor.inter.llms"
+_LLM_PKG_PATH = _LLM_PKG_NAME.replace(".", "/")  ## @ex: "anchor/inter/llms"
+
 ## @state: Core topological boundaries (Batteries-included)
 DEFAULT_LLM_REGISTRY = {
     "openai": {
-        "module": "bound.inter.llms.openai.base",
+        "module": f"{_LLM_PKG_NAME}.openai.base",
         "class": "OpenAI",
         "tags": ["gpt-4", "gpt-3.5", "o1"],
         "is_native": True,
@@ -37,14 +38,14 @@ DEFAULT_LLM_REGISTRY = {
         ]
     },
     "anthropic": {
-        "module": "bound.inter.llms.anthropic.base",
+        "module": f"{_LLM_PKG_NAME}.anthropic.base",
         "class": "Anthropic",
         "tags": ["claude"],
         "is_native": True,
         "capabilities": {
             "is_function_calling": True,
             "is_openai_like": False,
-            "is_multimodal": True, # Claude 3부터 지원
+            "is_multimodal": True,
             "supports_structured_outputs": True
         },
         "accepted_kwargs": [
@@ -53,8 +54,8 @@ DEFAULT_LLM_REGISTRY = {
         ]
     },
     "gemini": {
-        "module": "bound.inter.llms.google_genai.base",
-        "class": "Gemini",
+        "module": f"{_LLM_PKG_NAME}.google_genai.base",
+        "class": "GoogleGenAI",
         "tags": ["gemini"],
         "is_native": True,
         "capabilities": {
@@ -71,7 +72,7 @@ DEFAULT_LLM_REGISTRY = {
 }
 
 class LLMRouter:
-    def __init__(self, base_path: str = "anchor/inter/llms"):
+    def __init__(self, base_path: str = _LLM_PKG_PATH):
         self.scanner = LLMScanner(base_path=base_path)
         
         ## @bind: Initialize native registry (Deep copy to prevent structural contamination)
@@ -89,7 +90,7 @@ class LLMRouter:
             ## @shield: Prevent redundant mapping of intrinsic native modules
             if provider in self.registry and self.registry[provider].get("is_native"):
                 ## @bypass: Skip unless intentionally hot-patched by user via trans.llama
-                if "anchor.inter.llms" in info["module"] and provider in DEFAULT_LLM_REGISTRY:
+                if _LLM_PKG_NAME in info["module"] and provider in DEFAULT_LLM_REGISTRY:
                     continue
             
             ## @inject: Map the discovered external topology & Absorb Rich Metadata
@@ -139,18 +140,30 @@ class LLMRouter:
         except ImportError as e:
             raise ImportError(f"[Router] Failed to materialize module '{module_path}': {e}")
 
-        ## @extract: Isolate the core LLM execution class
+        
+        ## @extract: Isolate the core LLM execution class (우아한 동적 매핑 적용)
         LLMClass = None
-        if "class" in meta and meta["class"]:
-            LLMClass = getattr(module, meta["class"])
+        expected_class_name = meta.get("class")
+
+        ## @find.step.1: 메타데이터에 명시된 클래스명이 실제로 존재하는지 확인
+        if expected_class_name and hasattr(module, expected_class_name):
+            LLMClass = getattr(module, expected_class_name)
         else:
+            if expected_class_name:
+                log.warning(f"[Router] 지정된 클래스 '{expected_class_name}'를 찾을 수 없습니다. 동적 클래스 추론을 시도합니다.")
+            
+            ## @find.step.2: 모듈 내부를 검사하여 LLM 역할을 하는 클래스를 스스로 찾아냄 (Duck Typing)
             for name, obj in inspect.getmembers(module, inspect.isclass):
-                if name.endswith("LLM") or hasattr(obj, 'chat'):
-                    LLMClass = obj
-                    break
+                ## 다른 파일에서 import 된 Base 클래스들을 배제하고, 이 모듈에서 '직접 정의된' 클래스만 타겟팅
+                if obj.__module__ == module.__name__:
+                    ## LLM의 특징(이름이 LLM으로 끝나거나, chat/complete 메서드를 가짐)을 보유했는지 검사
+                    if name.endswith("LLM") or hasattr(obj, 'chat') or hasattr(obj, 'complete'):
+                        LLMClass = obj
+                        log.info(f"[Router] 동적 추론 성공: '{name}' 클래스를 LLM 구현체로 바인딩합니다.")
+                        break
 
         if not LLMClass:
-            raise RuntimeError(f"[Router] No valid executable LLM class found within '{module_path}'.")
+            raise RuntimeError(f"[Router] '{module_path}' 내부에서 실행 가능한 LLM 클래스를 찾을 수 없습니다.")
 
         ## @bind: Instantiate and project the kwargs into the LlamaIndex boundary
         accepted_kwargs = meta.get("accepted_kwargs", [])

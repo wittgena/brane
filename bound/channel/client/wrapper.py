@@ -100,23 +100,7 @@ from arch.proto.phase.gate import uuid
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("client.wrapper")
-_CALL_TYPE_ENUM_MAP: dict = {ct.value: ct for ct in CallTypes}
 
-try:
-    with (
-        resources.files("litellm.litellm_core_utils.tokenizers")
-        .joinpath("anthropic_tokenizer.json")
-        .open("r", encoding="utf-8") as f
-    ):
-        json_data = json.load(f)
-except (ImportError, AttributeError, TypeError):
-    with resources.open_text(
-        "litellm.litellm_core_utils.tokenizers", "anthropic_tokenizer.json"
-    ) as f:
-        json_data = json.load(f)
-
-# Convert to str (if necessary)
-claude_json_str = json.dumps(json_data)
 CustomLogger = Any
 
 sentry_sdk_instance = None
@@ -296,9 +280,8 @@ async def async_pre_call_deployment_hook(kwargs: Dict[str, Any], call_type: str)
         typed_call_type = None  # unknown call type
 
     modified_kwargs = kwargs.copy()
-    CustomLogger = _get_cached_custom_logger()
     for callback in config.callbacks:
-        if isinstance(callback, CustomLogger):
+        if hasattr(callback, "async_pre_call_deployment_hook"):
             result = await callback.async_pre_call_deployment_hook(
                 modified_kwargs, typed_call_type
             )

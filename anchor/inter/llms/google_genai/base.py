@@ -1,9 +1,4 @@
 # anchor.inter.llms.google_genai.base
-## @lineage: bound.inter.llms.google_genai.base
-## @lineage: bound.adapter.llama.llms.google_genai.base
-## @lineage: bound.channel.bridge.llms.google_genai.base
-## @lineage: channel.bridge.llms.google_genai.base
-## @lineage: bridge.llama.llms.google_genai.base
 """Google's hosted Gemini API."""
 
 import asyncio

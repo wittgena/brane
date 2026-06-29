@@ -18,9 +18,10 @@ from xphi.xor.opt.utils import (
     translate_field_type,
 )
 from anchor.provider.llm.base import BaseLM
+from anchor.surface.exception import ContextWindowExceededError
 from arch.xor.manifold.sign.signature import Signature
 from xphi.reflect.dsp.handler.stream.callback import BaseCallback
-from xphi.reflect.dsp.exceptions import AdapterParseError, ContextWindowExceededError
+from xphi.reflect.dsp.exceptions import AdapterParseError
 
 field_header_pattern = re.compile(r"\[\[ ## (\w+) ## \]\]")
 

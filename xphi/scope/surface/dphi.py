@@ -1,12 +1,8 @@
 # xphi.scope.surface.dphi
-## @lineage: bound.xor.scope.surface.dphi
-## @lineage: bound.scope.surface.dphi
-## @lineage: gov.bridge.scope.surface.dphi
-## @lineage: meta.watcher.scope.surface.dphi
 from contextlib import ExitStack
 
-from bound.channel.compat.switch.dsp.settings import settings
 from anchor.provider.llm.local import LocalLM
+from bound.channel.compat.switch.dsp.settings import settings
 from xphi.scope.surface.config import BaseSurface, SurfaceConfig
 from xphi.scope.thch import thch_scope
 

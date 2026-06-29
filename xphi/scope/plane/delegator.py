@@ -107,6 +107,8 @@ class Logging(LoggingBase):
     def update_messages(self, messages: List[Any]): pass
     def set_cost_breakdown(self, *args, **kwargs): pass
     def _response_cost_calculator(self, *args, **kwargs) -> float: return 0.0
+    def should_run_prompt_management_hooks(self, *args, **kwargs) -> bool:
+        return False
 
     ## 언패킹 반환 방어 (내부 로직 방어)
     def get_chat_completion_prompt(self, model: str, messages: List[Any], non_default_params: Dict, *args, **kwargs) -> Tuple[str, List[Any], Dict]:

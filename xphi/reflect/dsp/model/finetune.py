@@ -1,16 +1,11 @@
 # xphi.reflect.dsp.model.finetune
-## @lineage: xphi.opt.dsp.model.finetune
-## @lineage: bound.xor.dsp.model.finetune
-## @lineage: xor.dsp.model.finetune
-## @lineage: meta.xor.opt.model.finetune
 from collections import defaultdict
 from typing import Any, Callable
 
 from bound.channel.compat.switch.dsp.settings import settings
-
 from xphi.reflect.dsp.adapter import Adapter
 from xphi.xor.opt.chat import ChatAdapter
-from anchor.provider.dsp.instance import LM
+from anchor.provider.dsp.instance import DSPInstance
 from xphi.reflect.dsp.handler.train import infer_data_format
 from xphi.reflect.dsp.opt.predict import Predict
 from xphi.reflect.dsp.model.prompter import Prompter
@@ -25,14 +20,14 @@ log = get_emitter(__name__)
 class FinetunePrompter(Prompter):
     def __init__(
         self,
-        train_kwargs: dict[str, Any] | dict[LM, dict[str, Any]] | None = None,
+        train_kwargs: dict[str, Any] | dict[DSPInstance, dict[str, Any]] | None = None,
     ):
-        self.train_kwargs: dict[LM, Any] = self.convert_to_lm_dict(train_kwargs or {})
+        self.train_kwargs: dict[DSPInstance, Any] = self.convert_to_lm_dict(train_kwargs or {})
 
     @staticmethod
-    def convert_to_lm_dict(arg) -> dict[LM, Any]:
+    def convert_to_lm_dict(arg) -> dict[DSPInstance, Any]:
         non_empty_dict = arg and isinstance(arg, dict)
-        if non_empty_dict and all(isinstance(k, LM) for k in arg.keys()):
+        if non_empty_dict and all(isinstance(k, DSPInstance) for k in arg.keys()):
             return arg
         # Default to using the same value for all LMs
         return defaultdict(lambda: arg)
@@ -43,8 +38,8 @@ class BootstrapFinetune(FinetunePrompter):
         self,
         metric: Callable | None = None,
         multitask: bool = True,
-        train_kwargs: dict[str, Any] | dict[LM, dict[str, Any]] | None = None,
-        adapter: Adapter | dict[LM, Adapter] | None = None,
+        train_kwargs: dict[str, Any] | dict[DSPInstance, dict[str, Any]] | None = None,
+        adapter: Adapter | dict[DSPInstance, Adapter] | None = None,
         exclude_demos: bool = False,
         num_threads: int | None = None,
     ):
@@ -58,7 +53,7 @@ class BootstrapFinetune(FinetunePrompter):
         super().__init__(train_kwargs=train_kwargs)
         self.metric = metric
         self.multitask = multitask
-        self.adapter: dict[LM, Adapter] = self.convert_to_lm_dict(adapter)
+        self.adapter: dict[DSPInstance, Adapter] = self.convert_to_lm_dict(adapter)
         self.exclude_demos = exclude_demos
         self.num_threads = num_threads
 
@@ -136,7 +131,7 @@ class BootstrapFinetune(FinetunePrompter):
         return student
 
     @staticmethod
-    def finetune_lms(finetune_dict) -> dict[Any, LM]:
+    def finetune_lms(finetune_dict) -> dict[Any, DSPInstance]:
         num_jobs = len(finetune_dict)
         log.info(f"Starting {num_jobs} fine-tuning job(s)...")
         # TODO(nit) Pass an identifier to the job so that we can tell the logs
@@ -144,7 +139,7 @@ class BootstrapFinetune(FinetunePrompter):
 
         key_to_job = {}
         for key, finetune_kwargs in finetune_dict.items():
-            lm: LM = finetune_kwargs.pop("lm")
+            lm: DSPInstance = finetune_kwargs.pop("lm")
             # TODO: The following line is a hack. We should re-think how to free
             # up resources for fine-tuning. This might mean introducing a new
             # provider method (e.g. prepare_for_finetune) that can be called
@@ -167,7 +162,7 @@ class BootstrapFinetune(FinetunePrompter):
 
         return key_to_lm
 
-    def _prepare_finetune_data(self, trace_data: list[dict[str, Any]], lm: LM, pred_ind: int | None = None):
+    def _prepare_finetune_data(self, trace_data: list[dict[str, Any]], lm: DSPInstance, pred_ind: int | None = None):
         # TODO(nit) Log dataset details/size; make logs nicer
         if self.metric:
             log.info(f"Collected data for {len(trace_data)} examples")
@@ -274,7 +269,7 @@ def assert_no_shared_predictor(program1: Module, program2: Module):
     assert not shared_ids, err
 
 
-def get_unique_lms(program: Module) -> list[LM]:
+def get_unique_lms(program: Module) -> list[DSPInstance]:
     lms = [pred.lm for pred in program.predictors()]
     return list(set(lms))
 

@@ -1,21 +1,5 @@
 # xphi.reflect.dsp.exceptions
-## @lineage: xphi.opt.dsp.exceptions
-## @lineage: bound.xor.dsp.exceptions
-## @lineage: xor.dsp.exceptions
-## @lineage: bound.channel.bridge.dsp.exceptions
-## @lineage: channel.bridge.dsp.exceptions
-## @lineage: meta.xor.adapter.dsp.exceptions
-## @lineage: gov.dsp.exceptions
-## @lineage: xor.opt.dsp.exceptions
 from arch.xor.manifold.sign.signature import Signature
-
-class ContextWindowExceededError(Exception):
-    """Raised when the prompt exceeds the model's context window"""
-    def __init__(self, *, model: str | None = None, message: str = "Context window exceeded"):
-        self.model = model
-        msg = message
-        prefix = f"[{model}] " if model else ""
-        super().__init__(f"{prefix}{msg}")
 
 class AdapterParseError(Exception):
     """Exception raised when adapter cannot parse the LM response."""

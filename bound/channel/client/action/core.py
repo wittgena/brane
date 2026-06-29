@@ -1,17 +1,13 @@
 # bound.channel.client.action.core
-## @lineage: anchor.channel.client.action.core
-## @lineage: anchor.channel.action.core
-## @lineage: bound.channel.action.core
-## @lineage: bound.channel.bridge.action.core
-## @lineage: bound.bridge.action.core
-## @lineage: anchor.action.core
-## @lineage: anchor.surface.legacy.action.core
 from typing import Any, Dict, List, Optional, Union
+
+from anchor.surface.mapping.exception import exception_type
+
 from bound.channel.compat.switch.params import ModelResponse, ModelResponseStream
 from bound.channel.client.action.preprocessor import CompletionPreprocessor
-from anchor.surface.mapping.exception import exception_type
 from bound.adapter.provider.registry import AdapterRegistry
 from bound.transport.stream.wrapper import CustomStreamWrapper
+
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("action.core")
