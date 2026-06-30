@@ -3,19 +3,23 @@
 @manifold: Universal Bridge Adapter
 @flow: CompletionContext (Brane) -> LLMRouter (Projection) -> LlamaIndex (Execution) -> ModelResponse (Resolution)
 @desc: Dynamically binds Brane contexts to LlamaIndex topologies, ensuring bi-directional state translation.
+       Mapping rules are delegated to an isolated class for future file extraction.
 """
 import os
+import json
 import asyncio
 import functools
 from pathlib import Path
-from typing import AsyncGenerator, Generator
+from typing import AsyncGenerator, Generator, Any, List
 
 from anchor.surface.provider.routing.locator import get_llm_provider
 from bound.adapter.llama.base.llms.types import ChatMessage, MessageRole
+from bound.adapter.provider.base import BaseProviderAdapter
+from bound.adapter.provider.state.mapper import StateMapper
+
+from bound.channel.client.action.preprocessor import CompletionContext
 from bound.router.adapter.llm import LLMRouter, TopologyMissingError
 from bound.transport.stream.wrapper import CustomStreamWrapper
-from bound.adapter.provider.base import BaseProviderAdapter
-from bound.channel.client.action.preprocessor import CompletionContext
 
 from arch.proto.phase.gate import uuid4 
 from phase.bind.resolver import find_current_self, get_invoker
@@ -27,6 +31,7 @@ log = get_emitter(MODULE_NAMESPACE, phase="SYSTEM")
 class InterLLMAdapter(BaseProviderAdapter):
     def __init__(self):
         self.router = LLMRouter()
+        self.mapper = StateMapper()
 
     async def execute(self, ctx: CompletionContext):
         req_id = str(uuid4())[:8]
@@ -62,12 +67,10 @@ class InterLLMAdapter(BaseProviderAdapter):
             "timeout": ctx.timeout if isinstance(ctx.timeout, (int, float)) else 60.0,
         }
         
-        ## @bind: Merge residual vectors
         for k, v in ctx.optional_params.items():
             if k not in llama_kwargs:
                 llama_kwargs[k] = v
 
-        ## @purge: Drop null vectors and dummy keys to preserve native boundaries
         llama_kwargs = {k: v for k, v in llama_kwargs.items() if v is not None and v != "not-needed"}
         safe_kwargs = {k: v for k, v in llama_kwargs.items() if not k.startswith("api_")}
         log.debug(f"[InterLLM-{req_id}] ⚙️ Routing Init kwargs: {safe_kwargs}")
@@ -87,30 +90,8 @@ class InterLLMAdapter(BaseProviderAdapter):
             log.error(f"[InterLLM-{req_id}] 🚨 [LlamaBridge] 모델 인스턴스 생성 실패: {e}", exc_info=True)
             raise RuntimeError(f"[LlamaBridge] 모델 인스턴스 생성 실패: {e}")
 
-        ## @phase: State Mapping (Context Dict -> ChatMessage)
-        llama_messages = []
-        for msg in ctx.messages:
-            role = msg.get("role", "user")
-            raw_content = msg.get("content", "")
-            parsed_content = ""
-            if isinstance(raw_content, str):
-                parsed_content = raw_content
-            elif isinstance(raw_content, list):
-                text_chunks = []
-                for block in raw_content:
-                    if hasattr(block, "get"):  # dict 형태
-                        if block.get("type") == "text":
-                            text_chunks.append(block.get("text", ""))
-                    elif hasattr(block, "text"):  # TextContent 같은 객체 형태
-                        text_chunks.append(block.text)
-                    elif isinstance(block, str):
-                        text_chunks.append(block)
-                parsed_content = "".join(text_chunks)
-            else:
-                parsed_content = str(raw_content)
-                
-            llama_messages.append(ChatMessage(role=MessageRole(role), content=parsed_content))
-            
+        ## @phase: State Mapping (Context Dict -> ChatMessage) 
+        llama_messages = self.mapper.to_llama_messages(ctx.messages)
         log.debug(f"[InterLLM-{req_id}] 📝 State Mapping Complete: {len(llama_messages)} messages translated.")
 
         ## @phase: Execution & Boundary Resolution
@@ -148,28 +129,14 @@ class InterLLMAdapter(BaseProviderAdapter):
             
             log.debug(f"[InterLLM-{req_id}] ✅ Execution Complete. Resolving response boundary.")
             
-            message_content = response.message.content or ""
-            tool_calls = response.message.additional_kwargs.get("tool_calls", None)
-            
-            ## OpenAI 호환 'choices' 배열 조립
-            choice_data = {
-                "index": 0,
-                "message": {
-                    "role": "assistant",
-                    "content": message_content,
-                },
-                "finish_reason": "stop"
-            }
-            
-            ## 도구 호출(Tool Calls)이 존재할 경우 규격에 맞게 바인딩
-            if tool_calls:
-                choice_data["message"]["tool_calls"] = tool_calls
-                choice_data["finish_reason"] = "tool_calls"
+            ## @phase: State Resolution (ChatResponse -> OpenAI Choice)
+            choice_data = self.mapper.to_openai_choice(response, req_id, log)
                 
             ## Brane 컨텍스트에 주입
             ctx.model_response.choices = [choice_data]
             
-            ## Usage 메트릭이 있다면 함께 번역 (없으면 0으로 처리)
-            ## ctx.model_response.usage = ... 
-            log.debug(f"[InterLLM-{req_id}] 🏁 execute END. Returning ctx.model_response (Content Length: {len(message_content)}, Tools: {len(tool_calls) if tool_calls else 0})")
+            ## 메트릭 로깅용 변수 추출
+            msg_len = len(choice_data["message"].get("content") or "")
+            tool_len = len(choice_data["message"].get("tool_calls") or [])
+            log.debug(f"[InterLLM-{req_id}] 🏁 execute END. Returning ctx.model_response (Content Length: {msg_len}, Tools: {tool_len})")
             return ctx.model_response

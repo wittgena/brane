@@ -1,18 +1,13 @@
 # xphi.xor.opt.manifold.tool
-## @lineage: xphi.opt.manifold.tool
-## @lineage: bound.xor.manifold.tool
-## @lineage: xor.manifold.tool
-## @lineage: anchor.xor.manifold.tool
-## @lineage: meta.xor.manifold.acid.tool
-## @lineage: meta.xor.adapter.manifold.acid.tool
 import asyncio
 import inspect
 from typing import TYPE_CHECKING, Any, Callable, get_origin, get_type_hints
 import pydantic
 from jsonschema import ValidationError, validate
 from pydantic import BaseModel, TypeAdapter, create_model
-from xphi.xor.opt.basetype import Type
+
 from bound.channel.compat.switch.dsp.settings import settings
+from xphi.xor.opt.basetype import Type
 from xphi.reflect.dsp.handler.stream.callback import with_callbacks
 
 _TYPE_MAPPING = {"string": str, "integer": int, "number": float, "boolean": bool, "array": list, "object": dict}
