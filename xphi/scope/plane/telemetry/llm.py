@@ -7,8 +7,8 @@ from typing import Any, ClassVar
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
 
 from anchor.model.cost.calculator import completion_cost
-from bound.channel.compat.switch.params import ResponseAPIUsage, ResponsesAPIResponse, ModelResponse
 from anchor.surface.model.client.types import CostPerToken, Usage
+from bound.channel.compat.switch.params import ResponseAPIUsage, ResponsesAPIResponse, ModelResponse
 
 from xphi.scope.plane.metrics import Metrics
 
@@ -37,7 +37,6 @@ class Telemetry(BaseModel):
     output_cost_per_token: float | None = Field(default=None, ge=0, description="Custom Output cost per token (USD)")
     metrics: Metrics = Field(..., description="Metrics collector instance")
 
-    # exclude=True를 설정하여 Emitter로 전송되는 Payload(model_dump 등)에는 포함되지 않도록 차단합니다.
     log_enabled: bool = Field(default=False, exclude=True, description="Legacy compatibility field")
 
     ## Runtime fields (not serialized)
@@ -83,7 +82,7 @@ class Telemetry(BaseModel):
                 reasoning_tokens=parsed_usage.reasoning,
                 context_window=self._req_ctx.get("context_window", 0),
                 response_id=response_id,
-            )
+                )
 
         ## 중앙 관측망(Observability)으로 정규화된 Payload 발송
         payload = {
@@ -103,7 +102,7 @@ class Telemetry(BaseModel):
         return self.metrics.deep_copy()
 
     def on_error(self, _err: BaseException) -> None:
-        """에러 발생 시 파일 저장 대신 중앙 Emitter로 실패 이벤트를 전송합니다."""
+        """에러 발생 시 파일 저장 대신 중앙 Emitter로 실패 이벤트를 전송"""
         ctx = _flow_context.get()
         if ctx.get("is_internal_call"):
             emitter.debug("Internal sub-call failed. Skipping telemetry error log.")
@@ -120,19 +119,28 @@ class Telemetry(BaseModel):
             "context": self._req_ctx
         }
         
-        # 파일 로깅 대신 Emitter의 시그널 파이프라인 이용
-        emitter.signal("LLM_COMPLETION_FAILED", payload=error_payload)
-        
-        # 이전 대화에서 구성한 LogEvent 인터셉터에도 태울 수 있도록 로깅
-        emitter.emit(LogEvent(
-            level="ERROR",
-            message=f"LLM Generation Failed: {str(_err)}",
-            source_id=f"telemetry::{self.model_name}",
-            context=error_payload
-        ))
+        try:
+            ## 시그널 파이프라인 전송
+            emitter.signal("LLM_COMPLETION_FAILED", payload=error_payload)
+            
+            ## SurfaceEmitter 사양 조율
+            if hasattr(emitter, "emit"):
+                emitter.emit(LogEvent(
+                    level="ERROR",
+                    message=f"LLM Generation Failed: {str(_err)}",
+                    source_id=f"telemetry::{self.model_name}",
+                    context=error_payload
+                ))
+            elif hasattr(emitter, "error"):
+                ## SurfaceEmitter가 일반적인 logger 래퍼 계층이라면 표준 error 메서드로 가로채기
+                emitter.error(f"LLM Generation Failed: {str(_err)} | Context: {error_payload}")
+            else:
+                ## 최후의 보루 파싱 서브 레벨 처리
+                print(f"[Telemetry Error Catch] {error_payload['traceback']}")
+        except Exception as tel_err:
+            warnings.warn(f"Critical: Telemetry observability tracking crashed itself: {tel_err}", RuntimeWarning)
 
     def _parse_usage(self, usage: Usage | ResponseAPIUsage | Any) -> ParsedUsage:
-        """LiteLLM의 파편화된 Usage 구조를 안전하게 추출하는 단일 진실 공급원(SSOT)"""
         if usage is None:
             return ParsedUsage()
 
@@ -149,7 +157,6 @@ class Telemetry(BaseModel):
             cache_write = int(getattr(usage, "_cache_creation_input_tokens", 0) or 0)
 
             is_meaningful = prompt > 0 or completion > 0
-
             return ParsedUsage(
                 prompt=prompt,
                 completion=completion,
@@ -163,7 +170,6 @@ class Telemetry(BaseModel):
             return ParsedUsage()
 
     def _compute_cost(self, resp: ModelResponse | ResponsesAPIResponse) -> float | None:
-        """Provider 헤더 혹은 litellm 비용 계산기를 통한 비용 도출"""
         extra_kwargs = {}
         if self.input_cost_per_token is not None and self.output_cost_per_token is not None:
             extra_kwargs["custom_cost_per_token"] = CostPerToken(

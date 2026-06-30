@@ -8,8 +8,6 @@ from xphi.scope.surface.config import BaseSurface, SurfaceConfig
 from xphi.scope.thch import thch_scope
 
 from watcher.plane.emitter import get_emitter
-
-# [추가] 통합 프록시 uuid4 임포트
 from arch.proto.phase.gate import uuid4
 
 log = get_emitter("surface.dphi")
@@ -19,7 +17,6 @@ class DphiSurface(BaseSurface):
         self.config = config
         self.lm = None
         self._stack = ExitStack()
-        # [추가] 서피스 생명주기 전체를 관통하는 고유 식별자 생성
         self.req_id = str(uuid4())[:8]
 
     def up(self):
