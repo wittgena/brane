@@ -13,7 +13,7 @@ from anchor.surface.model.client.openai.types import (
     MCPCallInProgressEvent,
 )
 from bound.channel.compat.switch.params import ResponsesAPIStreamingResponse
-from arch.proto.phase.gate import uuid
+from phase.gov.proto.gate import uuid
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("event.call")

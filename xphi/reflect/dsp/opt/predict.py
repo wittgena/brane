@@ -15,7 +15,7 @@ from xphi.xor.opt.exam.prediction import Prediction
 from xphi.reflect.dsp.handler.stream.callback import BaseCallback
 from xphi.xor.opt.module.meta import Module
 
-from arch.proto.phase.gate import uuid4
+from phase.gov.proto.gate import uuid4
 from arch.xor.manifold.sign.signature import Signature, ensure_signature
 from watcher.plane.emitter import get_emitter
 

@@ -12,7 +12,7 @@ from bound.channel.compat.switch.params import ResponseAPIUsage, ResponsesAPIRes
 
 from xphi.scope.plane.metrics import Metrics
 
-from arch.proto.phase.gate import uuid4
+from phase.gov.proto.gate import uuid4
 from arch.proto.event.next import LogEvent
 from watcher.plane.emitter import get_emitter, _flow_context
 

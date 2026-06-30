@@ -17,7 +17,7 @@ from xphi.reflect.dsp.handler.cache import request_cache
 from xphi.reflect.dsp.handler.stream.callback import BaseCallback
 from xphi.reflect.dsp.handler.train import TrainDataFormat
 
-from arch.proto.phase.gate import uuid4
+from phase.gov.proto.gate import uuid4
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter(__name__)

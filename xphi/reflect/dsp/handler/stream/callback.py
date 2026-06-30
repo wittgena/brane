@@ -5,7 +5,7 @@ import logging
 from contextvars import ContextVar
 from typing import Any, Callable
 
-from arch.proto.phase.gate import uuid4
+from phase.gov.proto.gate import uuid4
 from watcher.plane.emitter import get_emitter
 
 ACTIVE_CALL_ID = ContextVar("active_call_id", default=None)

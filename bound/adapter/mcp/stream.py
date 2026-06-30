@@ -14,7 +14,7 @@ from bound.adapter.mcp.parser.payload import MCPPayloadParser
 from bound.adapter.mcp.event.call import create_mcp_call_events
 from bound.transport.stream.iterator import ResponseStreamIterator
 
-from arch.proto.phase.gate import uuid
+from phase.gov.proto.gate import uuid
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("mcp.stream")

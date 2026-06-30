@@ -1,4 +1,5 @@
-# anchor.tester.simulation
+# anchor.tester.flow.simulation
+## @lineage: anchor.tester.simulation
 ## @lineage: anchor.surface.testing.simulation
 ## @lineage: anchor.testing.simulation
 """
@@ -19,7 +20,7 @@ from xphi.scope.thch import ThCh, thch_scope
 from xphi.scope.plane.tracker.history import get_trace_history
 from watcher.plane.emitter import get_emitter
 
-log = get_emitter("testing.simulation")
+log = get_emitter("flow.simulation")
 
 class SimulationStepProto(BaseModel):
     """

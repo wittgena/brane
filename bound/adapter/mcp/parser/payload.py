@@ -24,7 +24,7 @@ from anchor.surface.model.client.types import Choices
 from anchor.model.token.convert import convert_list_message_to_dict
 from anchor.surface.model.param.response import GenericResponseOutputItem, OutputText
 
-from arch.proto.phase.gate import uuid
+from phase.gov.proto.gate import uuid
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("mcp.payload")

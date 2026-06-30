@@ -52,7 +52,7 @@ from bound.channel.client.response.template import update_responses_input_with_m
 from bound.channel.client.action.support.request import ResponsesAPIRequestUtils
 from bound.channel.client.response.identity import ResponseIdentityManager
 
-from arch.proto.phase.gate import uuid
+from phase.gov.proto.gate import uuid
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("api.response")

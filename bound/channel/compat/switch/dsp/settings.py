@@ -11,7 +11,7 @@ import threading
 from contextlib import contextmanager
 from typing import Any
 import cloudpickle
-from arch.topos.bind.block.residue import dotdict
+from arch.topos.bind.residue import dotdict
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("dspy.settings")

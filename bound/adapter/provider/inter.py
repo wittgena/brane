@@ -21,7 +21,7 @@ from bound.channel.client.action.preprocessor import CompletionContext
 from bound.router.adapter.llm import LLMRouter, TopologyMissingError
 from bound.transport.stream.wrapper import CustomStreamWrapper
 
-from arch.proto.phase.gate import uuid4 
+from phase.gov.proto.gate import uuid4 
 from phase.bind.resolver import find_current_self, get_invoker
 from watcher.plane.emitter import get_emitter
 

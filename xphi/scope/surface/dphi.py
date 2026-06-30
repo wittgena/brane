@@ -8,7 +8,7 @@ from xphi.scope.surface.config import BaseSurface, SurfaceConfig
 from xphi.scope.thch import thch_scope
 
 from watcher.plane.emitter import get_emitter
-from arch.proto.phase.gate import uuid4
+from phase.gov.proto.gate import uuid4
 
 log = get_emitter("surface.dphi")
 

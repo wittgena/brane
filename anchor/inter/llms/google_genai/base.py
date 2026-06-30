@@ -72,7 +72,7 @@ DEFAULT_MODEL = "gemini-3-flash-preview"
 if TYPE_CHECKING:
     from bound.adapter.llama.tools.types import BaseTool
 
-from arch.proto.phase.gate import uuid4 
+from phase.gov.proto.gate import uuid4 
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter(__name__)

@@ -17,7 +17,7 @@ from bound.adapter.mcp.parser.payload import MCPPayloadParser
 from bound.adapter.mcp.tool.manager import ToolCatalogManager
 from bound.adapter.mcp.interface import MCPExecutionProtocol, MCPLoggerProtocol
 
-from arch.proto.phase.gate import uuid
+from phase.gov.proto.gate import uuid
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("mcp.handler")

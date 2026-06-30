@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import AsyncGenerator, Generator, Any, List
 
 from bound.adapter.llama.base.llms.types import ChatMessage, MessageRole
-from arch.proto.phase.gate import uuid4 
+from phase.gov.proto.gate import uuid4 
 from phase.bind.resolver import get_invoker
 from watcher.plane.emitter import get_emitter
 

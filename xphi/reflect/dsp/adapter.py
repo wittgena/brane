@@ -15,7 +15,7 @@ from xphi.reflect.dsp.handler.stream.callback import BaseCallback, with_callback
 from xphi.reflect.dsp.exceptions import AdapterParseError
 
 from arch.xor.manifold.sign.signature import Signature
-from arch.proto.phase.gate import uuid4
+from phase.gov.proto.gate import uuid4
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter(__name__)

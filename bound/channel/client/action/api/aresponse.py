@@ -40,7 +40,7 @@ from bound.channel.client.action.api.response_crud import delete_responses, get_
 from bound.transport.stream.iterator import ResponseStreamIterator
 from xphi.xor.secret.manager import get_secret_str
 
-from arch.proto.phase.gate import uuid
+from phase.gov.proto.gate import uuid
 from watcher.plane.emitter import get_emitter
 
 log = get_emitter("api.aresponse")

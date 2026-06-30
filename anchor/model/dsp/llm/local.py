@@ -5,7 +5,7 @@ from typing import Any
 
 from anchor.model.dsp.llm.base import BaseLM
 
-from arch.proto.phase.gate import uuid4
+from phase.gov.proto.gate import uuid4
 from phase.bind.client.engine.local import LLMEngine
 from watcher.plane.emitter import get_emitter
 

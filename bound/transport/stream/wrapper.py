@@ -40,7 +40,7 @@ from bound.channel.client.action.support.base import get_api_base
 from bound.channel.client.action.support.helpers import map_finish_reason, process_response_headers
 from bound.channel.mcp.bridge.rule import Rules
 
-from arch.proto.phase.gate import uuid
+from phase.gov.proto.gate import uuid
 from watcher.plane.emitter import get_emitter
 
 # from gate.litellm.voider import Logging as LiteLLMLoggingObject 

@@ -9,7 +9,7 @@ from typing import Dict, Any, AsyncGenerator, Callable
 from pathlib import Path
 
 from arch.contract.registry.unified import contract
-from arch.topos.gov.node.anchor import EpochManager
+from phase.gov.node.anchor import EpochManager
 from arch.xor.judger import PureJudger, Signal, Residue
 from arch.contract.protocol import proto, BASE_LOOP
 from arch.proto.event.network import MultiEventFlow

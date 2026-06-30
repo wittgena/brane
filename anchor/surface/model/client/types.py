@@ -36,7 +36,7 @@ from typing_extensions import Required, TypedDict
 
 EventHookType = Any
 
-from arch.proto.phase.gate import uuid
+from phase.gov.proto.gate import uuid
 from anchor.surface.model.client.base import BaseOpenAIResponse, PydanticObjectBase
 from bound.channel.client.action.support.helpers import map_finish_reason
 from anchor.surface.model.client.base import HiddenParams
